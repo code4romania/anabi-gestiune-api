@@ -1,5 +1,4 @@
 *.pdb
 bin/
 obj/
-*.exe
-*.pdf
+ScaffoldingReadme.txt
