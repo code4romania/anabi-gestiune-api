@@ -4,11 +4,16 @@ using System.Collections.Generic;
 using System.Text;
 using Anabi.Domain.Core.Models;
 using System.Threading.Tasks;
+using Anabi.DataAccess.Ef;
 
 namespace Anabi.DataAccess.Repositories
 {
-    public class DosareRepository : IDosareRepository
+    public class DosareRepository : BaseRepository, IDosareRepository
     {
+        public DosareRepository(AnabiContext ctx)
+        {
+            context = ctx;
+        }
         public async Task<IEnumerable<Dosar>> GetDosareAsync()
         {
             return await getDosareAsync();

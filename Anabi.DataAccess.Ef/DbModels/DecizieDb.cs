@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Anabi.DataAccess.DbModels
+namespace Anabi.DataAccess.Ef.DbModels
 {
     public class DecizieDb
     {

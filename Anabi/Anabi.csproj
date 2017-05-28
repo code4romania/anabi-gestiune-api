@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Anabi.DataAccess.Abstractions\Anabi.DataAccess.Abstractions.csproj" />
+    <ProjectReference Include="..\Anabi.DataAccess.Ef\Anabi.DataAccess.Ef.csproj" />
     <ProjectReference Include="..\Anabi.DataAccess.Repositories\Anabi.DataAccess.Repositories.csproj" />
     <ProjectReference Include="..\Anabi.Domain.Core\Anabi.Domain.Core.csproj" />
   </ItemGroup>

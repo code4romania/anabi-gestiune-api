@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anabi", "Anabi\Anabi.csproj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{541F5C19-735D-4D0D-87CB-19A9E563CB27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anabi.DataAccess.DbModels", "Anabi.DataAccess.DbModels\Anabi.DataAccess.DbModels.csproj", "{65FF6A8F-8C8D-456B-8D4D-79D075044260}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anabi.DataAccess.Abstractions", "Anabi.DataAccess.Abstractions\Anabi.DataAccess.Abstractions.csproj", "{E6B8A82E-2B6D-4983-BAA7-8CE51BA86A40}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anabi.DataAccess.Repositories", "Anabi.DataAccess.Repositories\Anabi.DataAccess.Repositories.csproj", "{51CD06A7-3113-4D3C-B9F1-58065E0C777A}"
@@ -29,10 +27,6 @@ Global
 		{53B03776-32A0-47F3-9B1B-E18D3DD433A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53B03776-32A0-47F3-9B1B-E18D3DD433A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53B03776-32A0-47F3-9B1B-E18D3DD433A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65FF6A8F-8C8D-456B-8D4D-79D075044260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65FF6A8F-8C8D-456B-8D4D-79D075044260}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65FF6A8F-8C8D-456B-8D4D-79D075044260}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65FF6A8F-8C8D-456B-8D4D-79D075044260}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E6B8A82E-2B6D-4983-BAA7-8CE51BA86A40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E6B8A82E-2B6D-4983-BAA7-8CE51BA86A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6B8A82E-2B6D-4983-BAA7-8CE51BA86A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -54,7 +48,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{65FF6A8F-8C8D-456B-8D4D-79D075044260} = {541F5C19-735D-4D0D-87CB-19A9E563CB27}
 		{E6B8A82E-2B6D-4983-BAA7-8CE51BA86A40} = {541F5C19-735D-4D0D-87CB-19A9E563CB27}
 		{51CD06A7-3113-4D3C-B9F1-58065E0C777A} = {541F5C19-735D-4D0D-87CB-19A9E563CB27}
 		{5CC2D3CB-38C8-4003-BD63-6CBFFCA76FF0} = {541F5C19-735D-4D0D-87CB-19A9E563CB27}
