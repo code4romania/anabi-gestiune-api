@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Anabi.DataAccess.DbModels
+namespace Anabi.DataAccess.Ef.DbModels
 {
     public class DosarDb
     {

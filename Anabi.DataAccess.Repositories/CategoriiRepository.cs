@@ -1,4 +1,5 @@
 ﻿using Anabi.DataAccess.Abstractions.Repositories;
+using Anabi.DataAccess.Ef;
 using Anabi.Domain.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Anabi.DataAccess.Repositories
 {
-    public class CategoriiRepository : ICategoriiRepository
+    public class CategoriiRepository : BaseRepository, ICategoriiRepository
     {
         
 
-        public CategoriiRepository()
+        public CategoriiRepository(AnabiContext ctx)
         {
-
+            context = ctx;
         }
 
         public async Task<IEnumerable<Categorie>> GetCategoriiAsync()

@@ -11,6 +11,8 @@ using Anabi.DataAccess.Abstractions.Repositories;
 using Anabi.DataAccess.Repositories;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
+using Anabi.DataAccess.Ef;
+using Microsoft.EntityFrameworkCore;
 
 namespace Anabi
 {
@@ -34,19 +36,41 @@ namespace Anabi
             // Add framework services.
             services.AddMvc();
 
-            MapInterfacesAndClasses(services);
+            AddDbContext(services);
+
+            MapInterfacesAndClasses(services);            
         }
 
-        private static void MapInterfacesAndClasses(IServiceCollection services)
+        private void MapInterfacesAndClasses(IServiceCollection services)
         {
             services.AddScoped<ICategoriiRepository, CategoriiRepository>();
             services.AddScoped<IInculpatiRepository, InculpatiRepository>();
             services.AddScoped<IBunuriRepository, BunuriRepository>();
             services.AddScoped<IDosareRepository, DosareRepository>();
+            services.AddScoped<IJudetRepository, JudetRepository>();
+            
+        }
+
+        private void AddDbContext(IServiceCollection services)
+        {
+
+            var connection = Configuration.GetConnectionString("AnabiDatabase");
+            services.AddDbContext<AnabiContext>(options =>
+            options.UseSqlServer(connection,
+                         sqlServerOptionsAction: sqlOptions =>
+                         {
+                             sqlOptions.EnableRetryOnFailure(maxRetryCount: 5,
+
+                             maxRetryDelay: TimeSpan.FromSeconds(15),
+
+                             errorNumbersToAdd: null);
+
+                         }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -58,7 +82,9 @@ namespace Anabi
 
 
             app.UseMvc();
-            
+
+            var context = app.ApplicationServices.GetService<AnabiContext>();
+            DbInitializer.Initialize(context);
         }
     }
 }

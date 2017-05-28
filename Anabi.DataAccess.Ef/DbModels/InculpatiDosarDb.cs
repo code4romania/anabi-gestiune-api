@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Anabi.DataAccess.DbModels
+namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class BunuriDosarDb
+    public class InculpatiDosarDb
     {
         public int Id { get; set; }
 
-        public int BunId { get; set; }
+        public int PersoanaId { get; set; }
 
-        public virtual BunDb Bun { get; set; }
+        public virtual PersoanaDb Inculpat { get; set; }
 
         public int DosarId { get; set; }
 

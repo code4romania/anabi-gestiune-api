@@ -5,11 +5,16 @@ using System.Text;
 using Anabi.Domain.Core.Models;
 using System.Threading.Tasks;
 using System.Linq;
+using Anabi.DataAccess.Ef;
 
 namespace Anabi.DataAccess.Repositories
 {
-    public class InculpatiRepository : IInculpatiRepository
+    public class InculpatiRepository : BaseRepository, IInculpatiRepository
     {
+        public InculpatiRepository(AnabiContext ctx)
+        {
+            context = ctx;
+        }
         public async Task<IEnumerable<Persoana>> GetInculpatiAsync()
         {
             return await getInculpati();

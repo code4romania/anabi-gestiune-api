@@ -4,11 +4,19 @@ using System.Collections.Generic;
 using System.Text;
 using Anabi.Domain.Core.Models;
 using System.Threading.Tasks;
+using Anabi.DataAccess.Ef;
+using Anabi.DataAccess.Ef.DbModels;
+using System.Linq;
 
 namespace Anabi.DataAccess.Repositories
 {
-    public class BunuriRepository : IBunuriRepository
+    public class BunuriRepository : BaseRepository, IBunuriRepository
     {
+        public BunuriRepository(AnabiContext ctx)
+        {
+            context = ctx;
+        }
+
         public async Task<IEnumerable<Bun>> GetBunuriAsync()
         {
             return await getBunuriAsync();
@@ -18,6 +26,15 @@ namespace Anabi.DataAccess.Repositories
 
         private async Task<IEnumerable<Bun>> getBunuriAsync()
         {
+            //using (var ctx = new AnabiContext())
+            //{
+            //    var e = ctx.Dosare
+            //        .Where(x => x.NumarDosarCurent == "")
+            //        .FirstOrDefault();
+
+
+            //}
+
             var lst = new List<Bun>()
             {
                 new Bun()
