@@ -1,4 +1,6 @@
-﻿namespace Anabi.DataAccess.Ef.DbModels
+﻿using System.Collections.Generic;
+
+namespace Anabi.DataAccess.Ef.DbModels
 {
     public class CategorieDb
     {
@@ -16,5 +18,7 @@
         /// Ex: Decizie, Bun, Institutie
         /// </summary>
         public string PentruEntitate { get; set; }
+
+        public ICollection<CategorieDb> Copii { get; set; }
     }
 }

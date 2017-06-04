@@ -11,5 +11,7 @@ namespace Anabi.DataAccess.Ef.DbModels
         public bool EsteFinala { get; set; }
 
         public virtual ICollection<EtapePentruDecizieDb> DeciziiPosibile { get; set; }
+
+
     }
 }
