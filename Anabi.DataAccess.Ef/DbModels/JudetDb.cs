@@ -11,5 +11,7 @@ namespace Anabi.DataAccess.Ef.DbModels
         public string Denumire { get; set; }
 
         public string Abreviere { get; set; }
+
+        public ICollection<AdresaDb> Adrese { get; set; }
     }
 }

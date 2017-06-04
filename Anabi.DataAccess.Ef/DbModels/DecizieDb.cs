@@ -9,5 +9,8 @@ namespace Anabi.DataAccess.Ef.DbModels
         public string Denumire { get; set; }
 
         public virtual ICollection<EtapePentruDecizieDb> EtapePosibile { get; set; }
+
+        
+
     }
 }
