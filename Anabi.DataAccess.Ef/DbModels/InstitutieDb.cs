@@ -14,7 +14,7 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public string Denumire { get; set; }
 
-        public int AdresaId { get; set; }
+        public int? AdresaId { get; set; }
 
         public virtual AdresaDb Adresa { get; set; }
 
@@ -24,7 +24,7 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public DateTime DataAdaugare { get; set; }
 
-        public DateTime DataUltimeiModificari { get; set; }
+        public DateTime? DataUltimeiModificari { get; set; }
 
     }
 }
