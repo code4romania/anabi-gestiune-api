@@ -24,6 +24,11 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public string NrApartament { get; set; }
 
+        //pt foreign key
+
+        public virtual ICollection<InstitutieDb> Institutii { get; set; }
+
+        public virtual ICollection<PersoanaDb> Persoane { get; set; }
 
     }
 }

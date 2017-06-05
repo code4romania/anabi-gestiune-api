@@ -24,7 +24,31 @@ namespace Anabi.DataAccess.Ef
             AdaugaEtape(context);
             AdaugareDecizii(context);
             AdaugaEtapePentruDecizii(context);
+            AdaugaInstitutii(context);
+            AdaugaPersoane(context);
 
+        }
+
+        private static void AdaugaPersoane(AnabiContext context)
+        {
+            var persoane = new PersoanaDb[]
+                        {
+                new PersoanaDb(){Denumire = "Popescu Gigi", EstePf = true, Identificator = "11122336658", AdresaId = 1, CodUtilizatorAdaugare="pop", DataAdaugare = new DateTime(2017, 1,1), NumarCi ="122345", SerieCi= "RR"},
+                new PersoanaDb(){Denumire = "SC Alfa si Omega SRL", EstePf = false, Identificator ="1231123", AdresaId = 2, CodUtilizatorAdaugare="pop", DataAdaugare = new DateTime(2017, 1,1)}
+                        };
+            context.Persoane.AddRange(persoane);
+            context.SaveChanges();
+        }
+
+        private static void AdaugaInstitutii(AnabiContext context)
+        {
+            var institutii = new InstitutieDb[]
+                        {
+                new InstitutieDb(){AdresaId = 1, CategorieId = 4, CodUtilizatorAdaugare="pop", DataAdaugare = new DateTime(2017,1, 2), Denumire ="Parchetul din Iasi"},
+                new InstitutieDb(){AdresaId = 2, CategorieId = 5, CodUtilizatorAdaugare = "pop", DataAdaugare = new DateTime(2017,2,3), Denumire = "Instanta din Craiova"}
+                        };
+            context.Institutii.AddRange(institutii);
+            context.SaveChanges();
         }
 
         private static void AdaugaEtapePentruDecizii(AnabiContext context)
