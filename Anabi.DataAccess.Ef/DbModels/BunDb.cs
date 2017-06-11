@@ -29,7 +29,7 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public bool EsteSters { get; set; }
 
-        public virtual ICollection<DosarDb> Dosare { get; set; }
+        
 
         public string CodUtilizatorAdaugare { get; set; }
 
@@ -38,5 +38,7 @@ namespace Anabi.DataAccess.Ef.DbModels
         public DateTime DataAdaugare { get; set; }
 
         public DateTime DataUltimeiModificari { get; set; }
+
+        public virtual ICollection<BunuriDosarDb> DosareBun { get; set; }
     }
 }

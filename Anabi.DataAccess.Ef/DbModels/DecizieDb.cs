@@ -10,7 +10,9 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual ICollection<EtapePentruDecizieDb> EtapePosibile { get; set; }
 
-        
+        public virtual ICollection<EtapaIstoricaDb> EtapeIstorice { get; set; }
+
+        public virtual ICollection<BunDb> Bunuri { get; set; }
 
     }
 }

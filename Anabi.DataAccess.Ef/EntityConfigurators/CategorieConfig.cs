@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
@@ -22,6 +23,7 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
             entity.HasOne(p => p.Parinte)
                 .WithMany(p => p.Copii)
                 .HasForeignKey(p => p.ParinteId)
+                .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_Categorii_Parinte");
         }
     }

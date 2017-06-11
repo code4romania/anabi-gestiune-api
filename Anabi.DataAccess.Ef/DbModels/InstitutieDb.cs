@@ -26,5 +26,8 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public DateTime? DataUltimeiModificari { get; set; }
 
+        public virtual ICollection<NumarDosarDb> NumereDosare { get; set; }
+
+        public virtual ICollection<EtapaIstoricaDb> EtapeIstorice { get; set; }
     }
 }

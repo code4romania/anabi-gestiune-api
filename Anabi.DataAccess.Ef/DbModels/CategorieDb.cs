@@ -22,5 +22,7 @@ namespace Anabi.DataAccess.Ef.DbModels
         public ICollection<CategorieDb> Copii { get; set; }
 
         public virtual ICollection<InstitutieDb> Institutii { get; set; }
+
+        public virtual ICollection<BunDb> Bunuri { get; set; }
     }
 }
