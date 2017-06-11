@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
@@ -19,12 +17,14 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
             entity.HasOne(u => u.Etapa)
                 .WithMany(e => e.DeciziiPosibile)
                 .HasForeignKey(f => f.EtapaId)
+                .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_EtapePentruDecizie_Etapa")
                 .IsRequired();
 
             entity.HasOne(d => d.Decizie)
                 .WithMany(e => e.EtapePosibile)
                 .HasForeignKey(f => f.DecizieId)
+                .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_EtapePentruDecizie_Decizie")
                 .IsRequired();
 

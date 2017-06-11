@@ -4,29 +4,31 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class InstitutieConfig : IEntityConfig
+    public class InculpatiDosarConfig : IEntityConfig
     {
         public void SetupEntity(ModelBuilder modelBuilder)
         {
-            var entity = modelBuilder.Entity<InstitutieDb>();
-            entity.ToTable("Institutii");
-
+            var entity = modelBuilder.Entity<InculpatiDosarDb>();
+            entity.ToTable("InculpatiDosare");
             entity.HasKey(k => k.Id);
 
-            entity.HasOne(c => c.Categorie)
-                .WithMany(x => x.Institutii)
-                .HasForeignKey(k => k.CategorieId)
+            entity.HasIndex(i => new { i.PersoanaId, i.DosarId })
+                .IsUnique()
+                .HasName("indx_uq_InculpatiDosar");
+
+            entity.HasOne(p => p.Inculpat)
+                .WithMany(ids => ids.Dosare)
+                .HasForeignKey(k => k.PersoanaId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Institutii_Categorii")
+                .HasConstraintName("FK_InculpatiDosar_Persoane")
                 .IsRequired();
 
-            entity.Property(p => p.Denumire)
-                .HasMaxLength(50)
+            entity.HasOne(d => d.Dosar)
+                .WithMany(i => i.Inculpati)
+                .HasForeignKey(k => k.DosarId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_InculpatiDosar_Dosare")
                 .IsRequired();
-
-            entity.HasOne(a => a.Adresa)
-                .WithMany(i => i.Institutii)
-                .HasForeignKey(k => k.AdresaId);
 
             entity.Property(p => p.CodUtilizatorAdaugare)
                .HasMaxLength(20)
@@ -41,8 +43,6 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
 
             entity.Property(p => p.DataUltimeiModificari)
                 .HasColumnType("Datetime");
-
-
         }
     }
 }

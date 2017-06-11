@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
@@ -18,6 +16,7 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
             entity.HasOne(a => a.Adresa)
                 .WithMany(p => p.Persoane)
                 .HasForeignKey(k => k.AdresaId)
+                .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_Persoane_Adrese")
                 .IsRequired();
 

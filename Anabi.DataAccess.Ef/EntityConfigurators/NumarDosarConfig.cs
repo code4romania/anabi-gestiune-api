@@ -4,29 +4,30 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class InstitutieConfig : IEntityConfig
+    public class NumarDosarConfig : IEntityConfig
     {
         public void SetupEntity(ModelBuilder modelBuilder)
         {
-            var entity = modelBuilder.Entity<InstitutieDb>();
-            entity.ToTable("Institutii");
+            var entity = modelBuilder.Entity<NumarDosarDb>();
+            entity.ToTable("NumereDosare");
 
             entity.HasKey(k => k.Id);
 
-            entity.HasOne(c => c.Categorie)
-                .WithMany(x => x.Institutii)
-                .HasForeignKey(k => k.CategorieId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Institutii_Categorii")
-                .IsRequired();
-
-            entity.Property(p => p.Denumire)
+            entity.Property(p => p.NrDosar)
                 .HasMaxLength(50)
                 .IsRequired();
 
-            entity.HasOne(a => a.Adresa)
-                .WithMany(i => i.Institutii)
-                .HasForeignKey(k => k.AdresaId);
+           
+            entity.HasOne(i => i.Institutie)
+                .WithMany(d => d.NumereDosare)
+                .HasForeignKey(k => k.InstitutieId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_NumereDosare_Institutii")
+                .IsRequired();
+
+            entity.Property(p => p.DataNumarului)
+                .HasColumnType("Datetime")
+                .IsRequired();
 
             entity.Property(p => p.CodUtilizatorAdaugare)
                .HasMaxLength(20)
@@ -41,6 +42,7 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
 
             entity.Property(p => p.DataUltimeiModificari)
                 .HasColumnType("Datetime");
+
 
 
         }

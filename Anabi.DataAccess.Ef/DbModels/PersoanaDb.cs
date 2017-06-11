@@ -30,7 +30,7 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public DateTime? DataUltimeiModificari { get; set; }
                 
-        public virtual ICollection<DosarDb> Dosare { get; set; }
+        public virtual ICollection<InculpatiDosarDb> Dosare { get; set; }
 
     }
 }

@@ -13,7 +13,7 @@ namespace Anabi.DataAccess.Ef.DbModels
         public virtual NumarDosarDb NumarInitial { get; set; }
 
         public string NumarDosarInitial { get; set; }
-
+        
 
         public int NumarDosarCurentId { get; set; }
 
@@ -41,11 +41,12 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public DateTime DataAdaugare { get; set; }
 
-        public DateTime DataUltimeiModificari { get; set; }
+        public DateTime? DataUltimeiModificari { get; set; }
 
 
-        public virtual ICollection<PersoanaDb> Inculpati { get; set; }
+        public virtual ICollection<InculpatiDosarDb> Inculpati { get; set; }
 
         public virtual ICollection<BunDb> Bunuri { get; set; }
+        public virtual ICollection<BunuriDosarDb> BunuriDosar { get; set; }
     }
 }

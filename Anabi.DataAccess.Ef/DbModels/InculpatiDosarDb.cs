@@ -16,6 +16,7 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual DosarDb Dosar { get; set; }
 
+
         public string CodUtilizatorAdaugare { get; set; }
 
         public string CodUtilizatorUltimaModificare { get; set; }

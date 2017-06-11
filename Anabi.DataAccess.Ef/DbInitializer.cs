@@ -27,6 +27,189 @@ namespace Anabi.DataAccess.Ef
             AdaugaInstitutii(context);
             AdaugaPersoane(context);
 
+            AdaugaDosareSiNumere(context);
+
+             
+
+            AdaugaInculpatiDosare(context);
+
+            AdaugaBun(context);
+
+            AdaugaEtapeIstorice(context);
+
+            AdaugaBunuriDosare(context);
+
+        }
+
+        private static void AdaugaBunuriDosare(AnabiContext context)
+        {
+            var bunuriDosare = new BunuriDosarDb[]
+            {
+                new BunuriDosarDb()
+                {
+                    BunId = 1,
+                    DosarId = 1,
+                    CodUtilizatorAdaugare = "pop",
+                    DataAdaugare = new DateTime(2017,2,3),
+                    CodUtilizatorUltimaModificare = "maria",
+                    DataUltimeiModificari = new DateTime(2017, 4, 5)
+                },
+                new BunuriDosarDb()
+                {
+                    BunId = 2,
+                    DosarId = 2,
+                    CodUtilizatorAdaugare = "pop",
+                    DataAdaugare = new DateTime(2017,4,3),
+                    CodUtilizatorUltimaModificare = "maria",
+                    DataUltimeiModificari = new DateTime(2017, 4, 25)
+                }
+            };
+            context.BunuriDosare.AddRange(bunuriDosare);
+            context.SaveChanges();
+        }
+
+        private static void AdaugaBun(AnabiContext context)
+        {
+            var bunuri = new BunDb[]
+            {
+                new BunDb()
+                {
+                    AdresaId = 1,
+                    CategorieId = 1,
+                    EtapaCurentaId = 1,
+                    DecizieId = 1,
+                    EsteSters = false,
+                    CodUtilizatorAdaugare = "pop",
+                    DataAdaugare = new DateTime(2017,2,3),
+                    CodUtilizatorUltimaModificare = "maria",
+                    DataUltimeiModificari = new DateTime(2017, 4, 5)
+                },
+                new BunDb()
+                {
+                    AdresaId = 2,
+                    CategorieId = 2,
+                    EtapaCurentaId = 1,
+                    DecizieId = 1,
+                    EsteSters = false,
+                    CodUtilizatorAdaugare = "pop",
+                    DataAdaugare = new DateTime(2017,3,5),
+                    CodUtilizatorUltimaModificare = "maria",
+                    DataUltimeiModificari = new DateTime(2017, 4, 15)
+                }
+            };
+            context.Bunuri.AddRange(bunuri);
+            context.SaveChanges();
+        }
+
+        private static void AdaugaEtapeIstorice(AnabiContext context)
+        {
+            var etapeIstorice = new EtapaIstoricaDb[]
+                        {
+                new EtapaIstoricaDb()
+                {
+                    BunId = 1, EtapaId = 1, DecizieId = 1, InstitutieId = 1,
+                    ValoareEstimata = 132000,
+                    ValutaEstimare = "EUR",
+                    CodUtilizatorAdaugare = "pop",
+                    DataAdaugare = new DateTime(2017,2,3),
+                    CodUtilizatorUltimaModificare = "maria",
+                    DataUltimeiModificari = new DateTime(2017, 4, 5),
+                    TemeiJuridic = "Temei serios",
+                    NumarDecizie = "12312AA",
+                    DataDeciziei = new DateTime(2017,2,5)
+                },
+                new EtapaIstoricaDb()
+                {
+                     BunId = 2, EtapaId = 2, DecizieId = 2, InstitutieId = 1,
+                    ValoareEstimata = 176000,
+                    ValutaEstimare = "USD",
+                    CodUtilizatorAdaugare = "pop",
+                    DataAdaugare = new DateTime(2017,2,3),
+                    CodUtilizatorUltimaModificare = "maria",
+                    DataUltimeiModificari = new DateTime(2017, 4, 5),
+                    TemeiJuridic = "Temei serios 2",
+                    NumarDecizie = "12877HH",
+                    DataDeciziei = new DateTime(2017,4,6)
+                }
+                        };
+            context.EtapeIstorice.AddRange(etapeIstorice);
+            context.SaveChanges();
+        }
+
+        private static void AdaugaInculpatiDosare(AnabiContext context)
+        {
+            var inculpatiDosar = new InculpatiDosarDb[]
+            {
+                new InculpatiDosarDb(){PersoanaId = 1, DosarId = 1, CodUtilizatorAdaugare = "pop",
+                    DataAdaugare = new DateTime(2017,2,3),
+                    CodUtilizatorUltimaModificare = "maria",
+                    DataUltimeiModificari = new DateTime(2017, 4, 5)},
+
+                new InculpatiDosarDb()
+                {
+                    PersoanaId = 2, DosarId = 2, CodUtilizatorAdaugare = "pop",
+                    DataAdaugare = new DateTime(2017,2,3),
+                    CodUtilizatorUltimaModificare = "maria",
+                    DataUltimeiModificari = new DateTime(2017, 4, 5)
+                }
+            };
+            context.InculpatiDosar.AddRange(inculpatiDosar);
+            context.SaveChanges();
+        }
+
+        private static void AdaugaDosareSiNumere(AnabiContext context)
+        {
+
+            var dosare = new DosarDb[]
+        {
+                new DosarDb()
+                {
+                    //NumarDosarInitialId = 1,
+                    NumarInitial = new NumarDosarDb(){ NrDosar = "Z100000", InstitutieId = 1, DataNumarului = new DateTime(2017, 2,3), CodUtilizatorAdaugare = "pop", DataAdaugare = new DateTime(2017, 2,5)},
+                    NumarDosarInitial = "Z100000",
+
+                    //NumarDosarCurentId = 2,
+                    NumarCurent = new NumarDosarDb(){ NrDosar = "XC3450000", InstitutieId = 2, DataNumarului = new DateTime(2017, 4,5), CodUtilizatorAdaugare = "pop", DataAdaugare = new DateTime(2017, 4,8)},
+                    NumarDosarCurent = "XC3450000",
+
+                    Prejudiciu = 145000,
+                    ValutaPrejudiciu = "EUR",
+                    IncadrareJuridica = "Spalare de bani",
+                    DomeniuInfractional = "Frauda",
+
+                    CodUtilizatorAdaugare = "pop",
+                    DataAdaugare = new DateTime(2017,2,3),
+                    CodUtilizatorUltimaModificare = "maria",
+                    DataUltimeiModificari = new DateTime(2017, 4, 5)
+                },
+                new DosarDb()
+                {
+                    NumarDosarInitialId = 3,
+                    NumarInitial = new NumarDosarDb(){ NrDosar = "T450000", InstitutieId = 1, DataNumarului = new DateTime(2017, 2,3), CodUtilizatorAdaugare = "pop", DataAdaugare = new DateTime(2017, 2,5)},
+                    NumarDosarInitial = "T450000",
+
+                    NumarDosarCurentId = 4,
+                    NumarCurent = new NumarDosarDb(){ NrDosar = "Y644009", InstitutieId = 2, DataNumarului = new DateTime(2017, 4,5), CodUtilizatorAdaugare = "pop", DataAdaugare = new DateTime(2017, 4,8)},
+                    NumarDosarCurent = "Y644009",
+
+                    Prejudiciu = 356000,
+                    ValutaPrejudiciu = "USD",
+                    IncadrareJuridica = "Evaziune fiscala",
+                    DomeniuInfractional = "Frauda",
+
+                    CodUtilizatorAdaugare = "pop",
+                    DataAdaugare = new DateTime(2017,2,3),
+                    CodUtilizatorUltimaModificare = "maria",
+                    DataUltimeiModificari = new DateTime(2017, 4, 5)
+                }
+        };
+            context.Dosare.AddRange(dosare);
+            context.SaveChanges();
+
+
+            
+
+
         }
 
         private static void AdaugaPersoane(AnabiContext context)

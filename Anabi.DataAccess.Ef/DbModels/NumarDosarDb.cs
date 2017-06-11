@@ -8,10 +8,7 @@ namespace Anabi.DataAccess.Ef.DbModels
     {
         public int Id { get; set; }
 
-        public int DosarId { get; set; }
-
-        public virtual DosarDb Dosar { get; set; }
-
+                
         public string NrDosar { get; set; }
 
         /// <summary>
@@ -32,6 +29,14 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public DateTime DataAdaugare { get; set; }
 
-        public DateTime DataUltimeiModificari { get; set; }
+        public DateTime? DataUltimeiModificari { get; set; }
+
+        //pt chei externe
+        //public virtual DosarDb DosarInitial { get; set; }
+        //public virtual DosarDb DosarCurent { get; set; }
+
+        //public virtual ICollection<DosarDb> DosareInitial { get; set; }
+        //public virtual ICollection<DosarDb> DosareCurent { get; set; }
+
     }
 }
