@@ -4,17 +4,23 @@ using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class BunuriDosarDb
+    public class BunSpatiuStocareDb
     {
         public int Id { get; set; }
 
+        public BunDb Bun { get; set; }
         public int BunId { get; set; }
 
-        public virtual BunDb Bun { get; set; }
+        public SpatiuStocareDb SpatiuStocare { get; set; }
+        public int SpatiuStocareId { get; set; }
 
-        public int DosarId { get; set; }
+        public DateTime DataIntrare { get; set; }
 
-        public virtual DosarDb Dosar { get; set; }
+        public DateTime? DataIesire { get; set; }
+
+        public UtilizatorDb UtilizatorAdaugare { get; set; }
+        public UtilizatorDb UtilizatorUltimaModificare { get; set; }
+
 
         public string CodUtilizatorAdaugare { get; set; }
 
@@ -23,8 +29,5 @@ namespace Anabi.DataAccess.Ef.DbModels
         public DateTime DataAdaugare { get; set; }
 
         public DateTime? DataUltimeiModificari { get; set; }
-
-        public UtilizatorDb UtilizatorAdaugare { get; set; }
-        public UtilizatorDb UtilizatorUltimaModificare { get; set; }
     }
 }

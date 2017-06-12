@@ -13,5 +13,7 @@ namespace Anabi.DataAccess.Ef.DbModels
         public virtual AdresaDb Adresa { get; set; }
 
         public string Denumire { get; set; }
+
+        public virtual ICollection<BunSpatiuStocareDb> BunuriSpatiiStocare { get; set; }
     }
 }
