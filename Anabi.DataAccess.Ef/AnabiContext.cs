@@ -15,6 +15,8 @@ namespace Anabi.DataAccess.Ef
         {
             modelBuilder.HasDefaultSchema("dbo");
 
+            (new UtilizatorConfig()).SetupEntity(modelBuilder);
+
             (new JudetConfig()).SetupEntity(modelBuilder);
             (new AdresaConfig()).SetupEntity(modelBuilder);
             (new CategorieConfig()).SetupEntity(modelBuilder);
@@ -34,6 +36,8 @@ namespace Anabi.DataAccess.Ef
 
             (new BunuriDosarConfig()).SetupEntity(modelBuilder);
 
+            (new SpatiuStocareConfig()).SetupEntity(modelBuilder);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -51,8 +55,8 @@ namespace Anabi.DataAccess.Ef
         public DbSet<JudetDb> Judete { get; set; }
         public DbSet<NumarDosarDb> NumereDosare { get; set; }
         public DbSet<PersoanaDb> Persoane { get; set; }
-        //public DbSet<SpatiuStocareDb> SpatiiStocare { get; set; }
-        //public DbSet<UtilizatorDb> Utilizatori { get; set; }
+        public DbSet<SpatiuStocareDb> SpatiiStocare { get; set; }
+        public DbSet<UtilizatorDb> Utilizatori { get; set; }
 
     }
 }

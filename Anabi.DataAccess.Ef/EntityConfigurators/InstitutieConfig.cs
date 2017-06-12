@@ -35,6 +35,20 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
             entity.Property(p => p.CodUtilizatorUltimaModificare)
                 .HasMaxLength(20);
 
+            entity.HasOne(u => u.UtilizatorAdaugare)
+                .WithMany(nd => nd.InstitutiiAdaugare)
+                .HasForeignKey(k => k.CodUtilizatorAdaugare)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_Institutii_Utilizator_Adaugare")
+                .HasPrincipalKey(k2 => k2.CodUtilizator);
+
+            entity.HasOne(u => u.UtilizatorUltimaModificare)
+                .WithMany(nd => nd.InstitutiiModificare)
+                .HasForeignKey(k => k.CodUtilizatorUltimaModificare)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_Institutii_Utilizator_Modificare")
+                .HasPrincipalKey(k2 => k2.CodUtilizator);
+
             entity.Property(p => p.DataAdaugare)
                 .HasColumnType("DateTime")
                 .IsRequired();

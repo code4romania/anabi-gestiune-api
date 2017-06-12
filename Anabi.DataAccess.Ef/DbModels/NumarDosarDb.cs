@@ -23,7 +23,11 @@ namespace Anabi.DataAccess.Ef.DbModels
         /// </summary>
         public DateTime DataNumarului { get; set; }
 
+        public UtilizatorDb UtilizatorAdaugare { get; set; }
+
         public string CodUtilizatorAdaugare { get; set; }
+
+        public UtilizatorDb UtilizatorUltimaModificare { get; set; }
 
         public string CodUtilizatorUltimaModificare { get; set; }
 

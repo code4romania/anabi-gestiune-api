@@ -17,6 +17,8 @@ namespace Anabi.DataAccess.Ef
                 return; // DB has been seeded
             }
 
+            AdaugaUtilizatori(context);
+
             AdaugaJudete(context);
 
             AdaugaAdrese(context);
@@ -29,7 +31,7 @@ namespace Anabi.DataAccess.Ef
 
             AdaugaDosareSiNumere(context);
 
-             
+
 
             AdaugaInculpatiDosare(context);
 
@@ -38,7 +40,55 @@ namespace Anabi.DataAccess.Ef
             AdaugaEtapeIstorice(context);
 
             AdaugaBunuriDosare(context);
+            AdaugaSpatiiStocare(context);
 
+        }
+
+        private static void AdaugaSpatiiStocare(AnabiContext context)
+        {
+            var spatiiStocare = new SpatiuStocareDb[]
+                        {
+                new SpatiuStocareDb()
+                {
+                    AdresaId = 1,
+                    Denumire = "Spatiul de stocare 1"
+
+                },
+                new SpatiuStocareDb()
+                {
+                    AdresaId =2,
+                    Denumire = "Spatiul de stocare 2"
+                }
+                        };
+            context.SpatiiStocare.AddRange(spatiiStocare);
+            context.SaveChanges();
+        }
+
+        private static void AdaugaUtilizatori(AnabiContext context)
+        {
+            var utilizatori = new UtilizatorDb[]{
+
+                new UtilizatorDb()
+                {
+                    CodUtilizator = "pop",
+                    Email="pop@gmailx.com",
+                    Nume = "Pop Mihai",
+                    Rol = "Admin",
+                    EsteActiv = true
+
+                },
+                new UtilizatorDb()
+                {
+                    CodUtilizator = "maria",
+                    Email="maria@gmailx.com",
+                    Nume = "Maria Ionesc",
+                    Rol = "SuperUser",
+                    EsteActiv = true
+
+                }
+            };
+            context.Utilizatori.AddRange(utilizatori);
+            context.SaveChanges();
         }
 
         private static void AdaugaBunuriDosare(AnabiContext context)

@@ -29,5 +29,9 @@ namespace Anabi.DataAccess.Ef.DbModels
         public virtual ICollection<NumarDosarDb> NumereDosare { get; set; }
 
         public virtual ICollection<EtapaIstoricaDb> EtapeIstorice { get; set; }
+
+
+        public UtilizatorDb UtilizatorAdaugare { get; set; }
+        public UtilizatorDb UtilizatorUltimaModificare { get; set; }
     }
 }

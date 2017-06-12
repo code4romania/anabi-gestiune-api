@@ -41,5 +41,9 @@ namespace Anabi.DataAccess.Ef.DbModels
         public DateTime DataDeciziei { get; set; }
 
         public virtual InstitutieDb InstitutiaEmitenta { get; set; }
+
+        public UtilizatorDb UtilizatorAdaugare { get; set; }
+        public UtilizatorDb UtilizatorUltimaModificare { get; set; }
+
     }
 }

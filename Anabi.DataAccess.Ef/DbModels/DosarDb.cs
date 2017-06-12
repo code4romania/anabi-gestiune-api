@@ -48,5 +48,8 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual ICollection<BunDb> Bunuri { get; set; }
         public virtual ICollection<BunuriDosarDb> BunuriDosar { get; set; }
+
+        public UtilizatorDb UtilizatorAdaugare { get; set; }
+        public UtilizatorDb UtilizatorUltimaModificare { get; set; }
     }
 }
