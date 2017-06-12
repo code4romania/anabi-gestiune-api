@@ -38,6 +38,7 @@ namespace Anabi.DataAccess.Ef
 
             (new SpatiuStocareConfig()).SetupEntity(modelBuilder);
 
+            (new BunuriSpatiiStocareConfig()).SetupEntity(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
 
@@ -57,6 +58,8 @@ namespace Anabi.DataAccess.Ef
         public DbSet<PersoanaDb> Persoane { get; set; }
         public DbSet<SpatiuStocareDb> SpatiiStocare { get; set; }
         public DbSet<UtilizatorDb> Utilizatori { get; set; }
+
+        public DbSet<BunSpatiuStocareDb> BunuriSpatiiStocare { get; set; }
 
     }
 }

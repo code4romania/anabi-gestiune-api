@@ -23,7 +23,7 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public DateTime DataAdaugare { get; set; }
 
-        public DateTime DataUltimeiModificari { get; set; }
+        public DateTime? DataUltimeiModificari { get; set; }
 
         public UtilizatorDb UtilizatorAdaugare { get; set; }
         public UtilizatorDb UtilizatorUltimaModificare { get; set; }

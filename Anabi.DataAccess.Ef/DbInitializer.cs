@@ -41,7 +41,32 @@ namespace Anabi.DataAccess.Ef
 
             AdaugaBunuriDosare(context);
             AdaugaSpatiiStocare(context);
+            AdaugaBunuriSpatiiStocare(context);
+        }
 
+        private static void AdaugaBunuriSpatiiStocare(AnabiContext context)
+        {
+            var bunurispatiiStocare = new BunSpatiuStocareDb[]
+                        {
+                new BunSpatiuStocareDb()
+                {
+                    BunId = 1,
+                    SpatiuStocareId = 1,
+                    DataIntrare = new DateTime(2017,1,3),
+                    CodUtilizatorAdaugare = "pop",
+                    DataAdaugare = new DateTime(2017,1,6)
+                },
+                new BunSpatiuStocareDb()
+                {
+                    BunId = 2,
+                    SpatiuStocareId = 2,
+                    DataIntrare = new DateTime(2017,2,4),
+                    CodUtilizatorAdaugare = "maria",
+                    DataAdaugare = new DateTime(2017,2,8)
+                }
+                        };
+            context.BunuriSpatiiStocare.AddRange(bunurispatiiStocare);
+            context.SaveChanges();
         }
 
         private static void AdaugaSpatiiStocare(AnabiContext context)

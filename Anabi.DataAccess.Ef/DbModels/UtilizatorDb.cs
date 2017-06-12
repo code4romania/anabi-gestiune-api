@@ -44,5 +44,8 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual ICollection<PersoanaDb> PersoaneAdaugare { get; set; }
         public virtual ICollection<PersoanaDb> PersoaneModificare { get; set; }
+
+        public virtual ICollection<BunSpatiuStocareDb> BunuriSpatiiStocareAdaugare { get; set; }
+        public virtual ICollection<BunSpatiuStocareDb> BunuriSpatiiStocareModificare { get; set; }
     }
 }

@@ -39,8 +39,10 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public DateTime DataAdaugare { get; set; }
 
-        public DateTime DataUltimeiModificari { get; set; }
+        public DateTime? DataUltimeiModificari { get; set; }
 
         public virtual ICollection<BunuriDosarDb> DosareBun { get; set; }
+
+        public virtual ICollection<BunSpatiuStocareDb> BunuriSpatiiStocare { get; set; }
     }
 }
