@@ -31,5 +31,7 @@ namespace Anabi.DataAccess.Ef.DbModels
         public virtual ICollection<PersoanaDb> Persoane { get; set; }
 
         public virtual ICollection<BunDb> Bunuri { get; set; }
+
+        public virtual SpatiuStocareDb SpatiuStocare { get; set; }
     }
 }

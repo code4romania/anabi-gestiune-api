@@ -29,7 +29,9 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public bool EsteSters { get; set; }
 
-        
+        public UtilizatorDb UtilizatorAdaugare { get; set; }
+        public UtilizatorDb UtilizatorUltimaModificare { get; set; }
+
 
         public string CodUtilizatorAdaugare { get; set; }
 

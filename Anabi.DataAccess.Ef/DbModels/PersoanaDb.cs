@@ -32,5 +32,8 @@ namespace Anabi.DataAccess.Ef.DbModels
                 
         public virtual ICollection<InculpatiDosarDb> Dosare { get; set; }
 
+        public UtilizatorDb UtilizatorAdaugare { get; set; }
+        public UtilizatorDb UtilizatorUltimaModificare { get; set; }
+
     }
 }
