@@ -99,6 +99,8 @@ namespace Anabi.DataAccess.Ef
                     Email="pop@gmailx.com",
                     Nume = "Pop Mihai",
                     Rol = "Admin",
+                    Parola ="12345",
+                    Salt = "sarea",
                     EsteActiv = true
 
                 },
@@ -106,7 +108,9 @@ namespace Anabi.DataAccess.Ef
                 {
                     CodUtilizator = "maria",
                     Email="maria@gmailx.com",
-                    Nume = "Maria Ionesc",
+                    Nume = "Maria Ionescu",
+                    Parola ="54321",
+                    Salt = "sarea",
                     Rol = "SuperUser",
                     EsteActiv = true
 
