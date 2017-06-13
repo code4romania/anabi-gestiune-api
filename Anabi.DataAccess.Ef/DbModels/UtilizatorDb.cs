@@ -10,6 +10,10 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public string CodUtilizator { get; set; }
 
+        public string Parola { get; set; }
+
+        public string Salt { get; set; }
+
         public string Email { get; set; }
 
         public string Nume { get; set; }

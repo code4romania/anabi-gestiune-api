@@ -13,6 +13,10 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
             var entity = modelBuilder.Entity<UtilizatorDb>();
             entity.ToTable("Utilizatori");
 
+            entity.Property(p => p.Parola).HasColumnType("varchar(max)").IsRequired();
+
+            entity.Property(p => p.Salt).HasColumnType("varchar(max)").IsRequired();
+
             entity.HasKey(k => k.Id);
             entity.Property(p => p.CodUtilizator)
                 .HasMaxLength(20)
