@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="Validations\" />
   </ItemGroup>
 

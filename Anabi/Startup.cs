@@ -13,6 +13,7 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Anabi.DataAccess.Ef;
 using Microsoft.EntityFrameworkCore;
+using Anabi.DataAccess.Ef.DbModels;
 
 namespace Anabi
 {
@@ -43,12 +44,13 @@ namespace Anabi
 
         private void MapInterfacesAndClasses(IServiceCollection services)
         {
-            services.AddScoped<ICategoriiRepository, CategoriiRepository>();
-            services.AddScoped<IInculpatiRepository, InculpatiRepository>();
-            services.AddScoped<IBunuriRepository, BunuriRepository>();
-            services.AddScoped<IDosareRepository, DosareRepository>();
-            services.AddScoped<IJudetRepository, JudetRepository>();
-            
+            services.AddScoped<IGenericRepository<CategoryDb>, CategoriesRepository>();
+            //services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            //services.AddScoped<IInculpatiRepository, InculpatiRepository>();
+            //services.AddScoped<IBunuriRepository, BunuriRepository>();
+            //services.AddScoped<IDosareRepository, DosareRepository>();
+            //services.AddScoped<IJudetRepository, JudetRepository>();
+
         }
 
         private void AddDbContext(IServiceCollection services)

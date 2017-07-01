@@ -14,28 +14,28 @@ namespace Anabi.Controllers
     [Route("api/Categorii")]
     public class CategoriiController : Controller
     {
-        private readonly ICategoriiRepository repository;
+        //private readonly ICategoriiRepository repository;
 
-        public CategoriiController(ICategoriiRepository repo )
-        {
-            repository = repo;
-        }
+        //public CategoriiController(ICategoriiRepository repo )
+        //{
+        //    repository = repo;
+        //}
 
-        [HttpGet]
-        public async Task<IEnumerable<Categorie>> Get()
-        {
-            var resp = await repository.GetCategoriiAsync();
-            return resp;
+        //[HttpGet]
+        //public async Task<IEnumerable<Category>> Get()
+        //{
+        //    var resp = await repository.GetCategoriiAsync();
+        //    return resp;
 
-        }
+        //}
 
-        [HttpGet("{filtru}", Name = "CategoriiFiltrate")]
-        public async Task<IEnumerable<Categorie>> CategoriiFiltrate(string filtru)
-        {
-            var resp = await repository.GetCategoriiFiltrateAsync(filtru);
-            return resp;
+        //[HttpGet("{filtru}", Name = "CategoriiFiltrate")]
+        //public async Task<IEnumerable<Category>> CategoriiFiltrate(string filtru)
+        //{
+        //    var resp = await repository.GetCategoriiFiltrateAsync(filtru);
+        //    return resp;
 
-        }
+        //}
 
     }
 }

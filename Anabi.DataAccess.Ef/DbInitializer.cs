@@ -12,27 +12,27 @@ namespace Anabi.DataAccess.Ef
         {
             context.Database.EnsureCreated();
 
-            if (context.Adrese.Any())
+            if (context.Judete.Any())
             {
                 return; // DB has been seeded
             }
 
-            AdaugaUtilizatori(context);
 
             AdaugaJudete(context);
-
-            AdaugaAdrese(context);
             AdaugaCategorii(context);
             AdaugaEtape(context);
             AdaugareDecizii(context);
             AdaugaEtapePentruDecizii(context);
+
+
+            AdaugaUtilizatori(context);
+
+            AdaugaAdrese(context);
+
             AdaugaInstitutii(context);
             AdaugaPersoane(context);
 
             AdaugaDosareSiNumere(context);
-
-
-
             AdaugaInculpatiDosare(context);
 
             AdaugaBun(context);
@@ -46,23 +46,23 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaBunuriSpatiiStocare(AnabiContext context)
         {
-            var bunurispatiiStocare = new BunSpatiuStocareDb[]
+            var bunurispatiiStocare = new AssetStorageSpaceDb[]
                         {
-                new BunSpatiuStocareDb()
+                new AssetStorageSpaceDb()
                 {
-                    BunId = 1,
-                    SpatiuStocareId = 1,
-                    DataIntrare = new DateTime(2017,1,3),
-                    CodUtilizatorAdaugare = "pop",
-                    DataAdaugare = new DateTime(2017,1,6)
+                    AssetId = 1,
+                    StorageSpaceId = 1,
+                    EntryDate = new DateTime(2017,1,3),
+                    UserCodeAdd = "pop",
+                    AddedDate = new DateTime(2017,1,6)
                 },
-                new BunSpatiuStocareDb()
+                new AssetStorageSpaceDb()
                 {
-                    BunId = 2,
-                    SpatiuStocareId = 2,
-                    DataIntrare = new DateTime(2017,2,4),
-                    CodUtilizatorAdaugare = "maria",
-                    DataAdaugare = new DateTime(2017,2,8)
+                    AssetId = 2,
+                    StorageSpaceId = 2,
+                    EntryDate = new DateTime(2017,2,4),
+                    UserCodeAdd = "maria",
+                    AddedDate = new DateTime(2017,2,8)
                 }
                         };
             context.BunuriSpatiiStocare.AddRange(bunurispatiiStocare);
@@ -71,18 +71,18 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaSpatiiStocare(AnabiContext context)
         {
-            var spatiiStocare = new SpatiuStocareDb[]
+            var spatiiStocare = new StorageSpaceDb[]
                         {
-                new SpatiuStocareDb()
+                new StorageSpaceDb()
                 {
-                    AdresaId = 1,
-                    Denumire = "Spatiul de stocare 1"
+                    AddressId = 1,
+                    Name = "Spatiul de stocare 1"
 
                 },
-                new SpatiuStocareDb()
+                new StorageSpaceDb()
                 {
-                    AdresaId =2,
-                    Denumire = "Spatiul de stocare 2"
+                    AddressId =2,
+                    Name = "Spatiul de stocare 2"
                 }
                         };
             context.SpatiiStocare.AddRange(spatiiStocare);
@@ -91,28 +91,28 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaUtilizatori(AnabiContext context)
         {
-            var utilizatori = new UtilizatorDb[]{
+            var utilizatori = new UserDb[]{
 
-                new UtilizatorDb()
+                new UserDb()
                 {
-                    CodUtilizator = "pop",
+                    UserCode = "pop",
                     Email="pop@gmailx.com",
-                    Nume = "Pop Mihai",
-                    Rol = "Admin",
-                    Parola ="12345",
+                    Name = "Pop Mihai",
+                    Role = "Admin",
+                    Password ="12345",
                     Salt = "sarea",
-                    EsteActiv = true
+                    IsActive = true
 
                 },
-                new UtilizatorDb()
+                new UserDb()
                 {
-                    CodUtilizator = "maria",
+                    UserCode = "maria",
                     Email="maria@gmailx.com",
-                    Nume = "Maria Ionescu",
-                    Parola ="54321",
+                    Name = "Maria Ionescu",
+                    Password ="54321",
                     Salt = "sarea",
-                    Rol = "SuperUser",
-                    EsteActiv = true
+                    Role = "SuperUser",
+                    IsActive = true
 
                 }
             };
@@ -122,25 +122,25 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaBunuriDosare(AnabiContext context)
         {
-            var bunuriDosare = new BunuriDosarDb[]
+            var bunuriDosare = new AssetsFileDb[]
             {
-                new BunuriDosarDb()
+                new AssetsFileDb()
                 {
-                    BunId = 1,
-                    DosarId = 1,
-                    CodUtilizatorAdaugare = "pop",
-                    DataAdaugare = new DateTime(2017,2,3),
-                    CodUtilizatorUltimaModificare = "maria",
-                    DataUltimeiModificari = new DateTime(2017, 4, 5)
+                    AssetId = 1,
+                    FileId = 1,
+                    UserCodeAdd = "pop",
+                    AddedDate = new DateTime(2017,2,3),
+                    UserCodeLastChange = "maria",
+                    LastChangeDate = new DateTime(2017, 4, 5)
                 },
-                new BunuriDosarDb()
+                new AssetsFileDb()
                 {
-                    BunId = 2,
-                    DosarId = 2,
-                    CodUtilizatorAdaugare = "pop",
-                    DataAdaugare = new DateTime(2017,4,3),
-                    CodUtilizatorUltimaModificare = "maria",
-                    DataUltimeiModificari = new DateTime(2017, 4, 25)
+                    AssetId = 2,
+                    FileId = 2,
+                    UserCodeAdd = "pop",
+                    AddedDate = new DateTime(2017,4,3),
+                    UserCodeLastChange = "maria",
+                    LastChangeDate = new DateTime(2017, 4, 25)
                 }
             };
             context.BunuriDosare.AddRange(bunuriDosare);
@@ -149,31 +149,31 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaBun(AnabiContext context)
         {
-            var bunuri = new BunDb[]
+            var bunuri = new AssetDb[]
             {
-                new BunDb()
+                new AssetDb()
                 {
-                    AdresaId = 1,
-                    CategorieId = 1,
-                    EtapaCurentaId = 1,
-                    DecizieId = 1,
-                    EsteSters = false,
-                    CodUtilizatorAdaugare = "pop",
-                    DataAdaugare = new DateTime(2017,2,3),
-                    CodUtilizatorUltimaModificare = "maria",
-                    DataUltimeiModificari = new DateTime(2017, 4, 5)
+                    AddressId = 1,
+                    CategoryId = 1,
+                    CurrentStageId = 1,
+                    DecisionId = 1,
+                    IsDeleted = false,
+                    UserCodeAdd = "pop",
+                    AddedDate = new DateTime(2017,2,3),
+                    UserCodeLastChange = "maria",
+                    LastChangeDate = new DateTime(2017, 4, 5)
                 },
-                new BunDb()
+                new AssetDb()
                 {
-                    AdresaId = 2,
-                    CategorieId = 2,
-                    EtapaCurentaId = 1,
-                    DecizieId = 1,
-                    EsteSters = false,
-                    CodUtilizatorAdaugare = "pop",
-                    DataAdaugare = new DateTime(2017,3,5),
-                    CodUtilizatorUltimaModificare = "maria",
-                    DataUltimeiModificari = new DateTime(2017, 4, 15)
+                    AddressId = 2,
+                    CategoryId = 2,
+                    CurrentStageId = 1,
+                    DecisionId = 1,
+                    IsDeleted = false,
+                    UserCodeAdd = "pop",
+                    AddedDate = new DateTime(2017,3,5),
+                    UserCodeLastChange = "maria",
+                    LastChangeDate = new DateTime(2017, 4, 15)
                 }
             };
             context.Bunuri.AddRange(bunuri);
@@ -182,33 +182,33 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaEtapeIstorice(AnabiContext context)
         {
-            var etapeIstorice = new EtapaIstoricaDb[]
+            var etapeIstorice = new HistoricalStageDb[]
                         {
-                new EtapaIstoricaDb()
+                new HistoricalStageDb()
                 {
-                    BunId = 1, EtapaId = 1, DecizieId = 1, InstitutieId = 1,
-                    ValoareEstimata = 132000,
-                    ValutaEstimare = "EUR",
-                    CodUtilizatorAdaugare = "pop",
-                    DataAdaugare = new DateTime(2017,2,3),
-                    CodUtilizatorUltimaModificare = "maria",
-                    DataUltimeiModificari = new DateTime(2017, 4, 5),
-                    TemeiJuridic = "Temei serios",
-                    NumarDecizie = "12312AA",
-                    DataDeciziei = new DateTime(2017,2,5)
+                    AssetId = 1, StageId = 1, DecizieId = 1, InstitutionId = 1,
+                    EstimatedAmount = 132000,
+                    EstimatedAmountCurrency = "EUR",
+                    UserCodeAdd = "pop",
+                    AddedDate = new DateTime(2017,2,3),
+                    UserCodeLastChange = "maria",
+                    LastChangeDate = new DateTime(2017, 4, 5),
+                    LegalBasis = "Temei serios",
+                    DecisionNumber = "12312AA",
+                    DecisionDate = new DateTime(2017,2,5)
                 },
-                new EtapaIstoricaDb()
+                new HistoricalStageDb()
                 {
-                     BunId = 2, EtapaId = 2, DecizieId = 2, InstitutieId = 1,
-                    ValoareEstimata = 176000,
-                    ValutaEstimare = "USD",
-                    CodUtilizatorAdaugare = "pop",
-                    DataAdaugare = new DateTime(2017,2,3),
-                    CodUtilizatorUltimaModificare = "maria",
-                    DataUltimeiModificari = new DateTime(2017, 4, 5),
-                    TemeiJuridic = "Temei serios 2",
-                    NumarDecizie = "12877HH",
-                    DataDeciziei = new DateTime(2017,4,6)
+                     AssetId = 2, StageId = 2, DecizieId = 2, InstitutionId = 1,
+                    EstimatedAmount = 176000,
+                    EstimatedAmountCurrency = "USD",
+                    UserCodeAdd = "pop",
+                    AddedDate = new DateTime(2017,2,3),
+                    UserCodeLastChange = "maria",
+                    LastChangeDate = new DateTime(2017, 4, 5),
+                    LegalBasis = "Temei serios 2",
+                    DecisionNumber = "12877HH",
+                    DecisionDate = new DateTime(2017,4,6)
                 }
                         };
             context.EtapeIstorice.AddRange(etapeIstorice);
@@ -217,19 +217,19 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaInculpatiDosare(AnabiContext context)
         {
-            var inculpatiDosar = new InculpatiDosarDb[]
+            var inculpatiDosar = new DefendantsFileDb[]
             {
-                new InculpatiDosarDb(){PersoanaId = 1, DosarId = 1, CodUtilizatorAdaugare = "pop",
-                    DataAdaugare = new DateTime(2017,2,3),
-                    CodUtilizatorUltimaModificare = "maria",
-                    DataUltimeiModificari = new DateTime(2017, 4, 5)},
+                new DefendantsFileDb(){PersonId = 1, FileId = 1, UserCodeAdd = "pop",
+                    AddedDate = new DateTime(2017,2,3),
+                    UserCodeLastChange = "maria",
+                    LastChangeDate = new DateTime(2017, 4, 5)},
 
-                new InculpatiDosarDb()
+                new DefendantsFileDb()
                 {
-                    PersoanaId = 2, DosarId = 2, CodUtilizatorAdaugare = "pop",
-                    DataAdaugare = new DateTime(2017,2,3),
-                    CodUtilizatorUltimaModificare = "maria",
-                    DataUltimeiModificari = new DateTime(2017, 4, 5)
+                    PersonId = 2, FileId = 2, UserCodeAdd = "pop",
+                    AddedDate = new DateTime(2017,2,3),
+                    UserCodeLastChange = "maria",
+                    LastChangeDate = new DateTime(2017, 4, 5)
                 }
             };
             context.InculpatiDosar.AddRange(inculpatiDosar);
@@ -239,47 +239,47 @@ namespace Anabi.DataAccess.Ef
         private static void AdaugaDosareSiNumere(AnabiContext context)
         {
 
-            var dosare = new DosarDb[]
+            var dosare = new FileDb[]
         {
-                new DosarDb()
+                new FileDb()
                 {
                     //NumarDosarInitialId = 1,
-                    NumarInitial = new NumarDosarDb(){ NrDosar = "Z100000", InstitutieId = 1, DataNumarului = new DateTime(2017, 2,3), CodUtilizatorAdaugare = "pop", DataAdaugare = new DateTime(2017, 2,5)},
-                    NumarDosarInitial = "Z100000",
+                    InitialNumber = new FileNumberDb(){ FileNumber = "Z100000", InstitutionId = 1, NumberDate = new DateTime(2017, 2,3), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 2,5)},
+                    InitialFileNumber = "Z100000",
 
                     //NumarDosarCurentId = 2,
-                    NumarCurent = new NumarDosarDb(){ NrDosar = "XC3450000", InstitutieId = 2, DataNumarului = new DateTime(2017, 4,5), CodUtilizatorAdaugare = "pop", DataAdaugare = new DateTime(2017, 4,8)},
-                    NumarDosarCurent = "XC3450000",
+                    CurrentNumber = new FileNumberDb(){ FileNumber = "XC3450000", InstitutionId = 2, NumberDate = new DateTime(2017, 4,5), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 4,8)},
+                    CurrentFileNumber = "XC3450000",
 
-                    Prejudiciu = 145000,
-                    ValutaPrejudiciu = "EUR",
-                    IncadrareJuridica = "Spalare de bani",
-                    DomeniuInfractional = "Frauda",
+                    DamageAmount = 145000,
+                    DamageCurrency = "EUR",
+                    LegalClassification = "Spalare de bani",
+                    CriminalField = "Frauda",
 
-                    CodUtilizatorAdaugare = "pop",
-                    DataAdaugare = new DateTime(2017,2,3),
-                    CodUtilizatorUltimaModificare = "maria",
-                    DataUltimeiModificari = new DateTime(2017, 4, 5)
+                    UserCodeAdd = "pop",
+                    AddedDate = new DateTime(2017,2,3),
+                    UserCodeLastChange = "maria",
+                    LastChangeDate = new DateTime(2017, 4, 5)
                 },
-                new DosarDb()
+                new FileDb()
                 {
-                    NumarDosarInitialId = 3,
-                    NumarInitial = new NumarDosarDb(){ NrDosar = "T450000", InstitutieId = 1, DataNumarului = new DateTime(2017, 2,3), CodUtilizatorAdaugare = "pop", DataAdaugare = new DateTime(2017, 2,5)},
-                    NumarDosarInitial = "T450000",
+                    InitialFileId = 3,
+                    InitialNumber = new FileNumberDb(){ FileNumber = "T450000", InstitutionId = 1, NumberDate = new DateTime(2017, 2,3), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 2,5)},
+                    InitialFileNumber = "T450000",
 
-                    NumarDosarCurentId = 4,
-                    NumarCurent = new NumarDosarDb(){ NrDosar = "Y644009", InstitutieId = 2, DataNumarului = new DateTime(2017, 4,5), CodUtilizatorAdaugare = "pop", DataAdaugare = new DateTime(2017, 4,8)},
-                    NumarDosarCurent = "Y644009",
+                    CurrentFileNumberId = 4,
+                    CurrentNumber = new FileNumberDb(){ FileNumber = "Y644009", InstitutionId = 2, NumberDate = new DateTime(2017, 4,5), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 4,8)},
+                    CurrentFileNumber = "Y644009",
 
-                    Prejudiciu = 356000,
-                    ValutaPrejudiciu = "USD",
-                    IncadrareJuridica = "Evaziune fiscala",
-                    DomeniuInfractional = "Frauda",
+                    DamageAmount = 356000,
+                    DamageCurrency = "USD",
+                    LegalClassification = "Evaziune fiscala",
+                    CriminalField = "Frauda",
 
-                    CodUtilizatorAdaugare = "pop",
-                    DataAdaugare = new DateTime(2017,2,3),
-                    CodUtilizatorUltimaModificare = "maria",
-                    DataUltimeiModificari = new DateTime(2017, 4, 5)
+                    UserCodeAdd = "pop",
+                    AddedDate = new DateTime(2017,2,3),
+                    UserCodeLastChange = "maria",
+                    LastChangeDate = new DateTime(2017, 4, 5)
                 }
         };
             context.Dosare.AddRange(dosare);
@@ -293,10 +293,10 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaPersoane(AnabiContext context)
         {
-            var persoane = new PersoanaDb[]
+            var persoane = new PersonDb[]
                         {
-                new PersoanaDb(){Denumire = "Popescu Gigi", EstePf = true, Identificator = "11122336658", AdresaId = 1, CodUtilizatorAdaugare="pop", DataAdaugare = new DateTime(2017, 1,1), NumarCi ="122345", SerieCi= "RR"},
-                new PersoanaDb(){Denumire = "SC Alfa si Omega SRL", EstePf = false, Identificator ="1231123", AdresaId = 2, CodUtilizatorAdaugare="pop", DataAdaugare = new DateTime(2017, 1,1)}
+                new PersonDb(){Name = "Popescu Gigi", IsPerson = true, Identification = "11122336658", AddressId = 1, UserCodeAdd="pop", AddedDate = new DateTime(2017, 1,1), IdNumber ="122345", IdSerie= "RR"},
+                new PersonDb(){Name = "SC Alfa si Omega SRL", IsPerson = false, Identification ="1231123", AddressId = 2, UserCodeAdd="pop", AddedDate = new DateTime(2017, 1,1)}
                         };
             context.Persoane.AddRange(persoane);
             context.SaveChanges();
@@ -304,10 +304,10 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaInstitutii(AnabiContext context)
         {
-            var institutii = new InstitutieDb[]
+            var institutii = new InstitutionDb[]
                         {
-                new InstitutieDb(){AdresaId = 1, CategorieId = 4, CodUtilizatorAdaugare="pop", DataAdaugare = new DateTime(2017,1, 2), Denumire ="Parchetul din Iasi"},
-                new InstitutieDb(){AdresaId = 2, CategorieId = 5, CodUtilizatorAdaugare = "pop", DataAdaugare = new DateTime(2017,2,3), Denumire = "Instanta din Craiova"}
+                new InstitutionDb(){AddressId = 1, CategoryId = 4, UserCodeAdd="pop", AddedDate = new DateTime(2017,1, 2), Name ="Parchetul din Iasi"},
+                new InstitutionDb(){AddressId = 2, CategoryId = 5, UserCodeAdd = "pop", AddedDate = new DateTime(2017,2,3), Name = "Instanta din Craiova"}
                         };
             context.Institutii.AddRange(institutii);
             context.SaveChanges();
@@ -315,14 +315,14 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaEtapePentruDecizii(AnabiContext context)
         {
-            var etapePtDecizie = new EtapePentruDecizieDb[]
+            var etapePtDecizie = new StagesForDecisionDb[]
                         {
-                new EtapePentruDecizieDb(){DecizieId = 1, EtapaId = 1},
-                new EtapePentruDecizieDb(){DecizieId = 1, EtapaId = 2},
-                new EtapePentruDecizieDb(){DecizieId = 1, EtapaId = 3},
-                new EtapePentruDecizieDb(){DecizieId = 2, EtapaId = 1},
-                new EtapePentruDecizieDb(){DecizieId = 2, EtapaId = 2},
-                new EtapePentruDecizieDb(){DecizieId = 2, EtapaId = 3}
+                new StagesForDecisionDb(){DecisionId = 1, StageId = 1},
+                new StagesForDecisionDb(){DecisionId = 1, StageId = 2},
+                new StagesForDecisionDb(){DecisionId = 1, StageId = 3},
+                new StagesForDecisionDb(){DecisionId = 2, StageId = 1},
+                new StagesForDecisionDb(){DecisionId = 2, StageId = 2},
+                new StagesForDecisionDb(){DecisionId = 2, StageId = 3}
                         };
             context.EtapePentruDecizii.AddRange(etapePtDecizie);
             context.SaveChanges();
@@ -330,10 +330,10 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugareDecizii(AnabiContext context)
         {
-            var decizii = new DecizieDb[]
+            var decizii = new DecisionDb[]
                         {
-                new DecizieDb(){Denumire = "Hotarare"},
-                new DecizieDb(){Denumire = "Ordonanta"}
+                new DecisionDb(){Name = "Hotarare"},
+                new DecisionDb(){Name = "Ordonanta"}
                         };
             context.Decizii.AddRange(decizii);
             context.SaveChanges();
@@ -341,11 +341,11 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaEtape(AnabiContext context)
         {
-            var etape = new EtapaDb[]
+            var etape = new StageDb[]
                         {
-                new EtapaDb(){Denumire = "Confiscare", EsteFinala = false},
-                new EtapaDb(){Denumire = "Valorificare", EsteFinala = true},
-                new EtapaDb(){Denumire = "Sechestru", EsteFinala = false}
+                new StageDb(){Name = "Confiscare", IsFinal = false},
+                new StageDb(){Name = "Valorificare", IsFinal = true},
+                new StageDb(){Name = "Sechestru", IsFinal = false}
                         };
             context.Etape.AddRange(etape);
             context.SaveChanges();
@@ -353,13 +353,13 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaCategorii(AnabiContext context)
         {
-            var categorii = new CategorieDb[]
+            var categorii = new CategoryDb[]
                         {
-                new CategorieDb(){PentruEntitate = "bun", Cod = "Bunuri Mobile", Descriere = "Bunuri care pot fi ridicate"},
-                new CategorieDb(){PentruEntitate ="bun", Cod = "Bunuri Imobile", Descriere = "Bunuri care nu pot fi ridicate"},
-                new CategorieDb(){PentruEntitate ="bun", Cod ="Bani", Descriere ="Bani"},
-                new CategorieDb(){PentruEntitate ="institutie", Cod ="Instanta", Descriere =""},
-                new CategorieDb(){PentruEntitate = "institutie", Cod ="Parchet"}
+                new CategoryDb(){ForEntity = "bun", Code = "Bunuri Mobile", Description = "Bunuri care pot fi ridicate"},
+                new CategoryDb(){ForEntity ="bun", Code = "Bunuri Imobile", Description = "Bunuri care nu pot fi ridicate"},
+                new CategoryDb(){ForEntity ="bun", Code ="Bani", Description ="Bani"},
+                new CategoryDb(){ForEntity ="institutie", Code ="Instanta", Description =""},
+                new CategoryDb(){ForEntity = "institutie", Code ="Parchet"}
 
                         };
             context.Categorii.AddRange(categorii);
@@ -369,11 +369,11 @@ namespace Anabi.DataAccess.Ef
         private static void AdaugaAdrese(AnabiContext context)
         {
 
-            var adrese = new AdresaDb[]
+            var adrese = new AddressDb[]
                                     {
-                new AdresaDb(){Strada = "Pantelimon nr 23", Cladire="Bloc 1", JudetId = 1, Oras="Bucuresti"},
-                new AdresaDb(){Strada = "Iancului 22", Cladire="Blco 102S", JudetId = 1, Oras="Bucuresti"},
-                new AdresaDb(){Strada = "O strada 22", Cladire="Bloc 13", JudetId = 3, Oras ="Constanta"}
+                new AddressDb(){Street = "Pantelimon nr 23", Building="Bloc 1", CountyId = 1, City="Bucuresti"},
+                new AddressDb(){Street = "Iancului 22", Building="Blco 102S", CountyId = 1, City="Bucuresti"},
+                new AddressDb(){Street = "O strada 22", Building="Bloc 13", CountyId = 3, City ="Constanta"}
                                     };
             context.Adrese.AddRange(adrese);
             context.SaveChanges();
@@ -383,13 +383,13 @@ namespace Anabi.DataAccess.Ef
         private static void AdaugaJudete(AnabiContext context)
         {
 
-            var judete = new JudetDb[]
+            var judete = new CountyDb[]
                     {
-                new JudetDb(){Abreviere = "B", Denumire = "Bucuresti"},
-                new JudetDb(){Abreviere = "AB", Denumire= "Alba Iulia"},
-                new JudetDb(){Abreviere = "CT", Denumire = "Constanta"},
-                new JudetDb(){Abreviere = "BV", Denumire = "Brasov"},
-                new JudetDb(){Abreviere = "SB", Denumire = "Sibiu"}
+                new CountyDb(){Abreviation = "B", Name = "Bucuresti"},
+                new CountyDb(){Abreviation = "AB", Name= "Alba Iulia"},
+                new CountyDb(){Abreviation = "CT", Name = "Constanta"},
+                new CountyDb(){Abreviation = "BV", Name = "Brasov"},
+                new CountyDb(){Abreviation = "SB", Name = "Sibiu"}
                     };
             context.Judete.AddRange(judete);
             context.SaveChanges();
