@@ -15,51 +15,51 @@ namespace Anabi.DataAccess.Ef
         {
             modelBuilder.HasDefaultSchema("dbo");
 
-            (new UtilizatorConfig()).SetupEntity(modelBuilder);
+            (new UserConfig()).SetupEntity(modelBuilder);
 
-            (new JudetConfig()).SetupEntity(modelBuilder);
-            (new AdresaConfig()).SetupEntity(modelBuilder);
-            (new CategorieConfig()).SetupEntity(modelBuilder);
+            (new CountyConfig()).SetupEntity(modelBuilder);
+            (new AddressConfig()).SetupEntity(modelBuilder);
+            (new CategoryConfig()).SetupEntity(modelBuilder);
 
-            (new EtapaConfig()).SetupEntity(modelBuilder);
-            (new DecizieConfig()).SetupEntity(modelBuilder);
-            (new EtapePentruDecizieConfig()).SetupEntity(modelBuilder);
-            (new InstitutieConfig()).SetupEntity(modelBuilder);
-            (new PersoanaConfig()).SetupEntity(modelBuilder);
+            (new StageConfig()).SetupEntity(modelBuilder);
+            (new DecisionConfig()).SetupEntity(modelBuilder);
+            (new StagesForDecisionConfig()).SetupEntity(modelBuilder);
+            (new InstitutionConfig()).SetupEntity(modelBuilder);
+            (new PersonConfig()).SetupEntity(modelBuilder);
 
-            (new NumarDosarConfig()).SetupEntity(modelBuilder);
-            (new DosarConfig()).SetupEntity(modelBuilder);
-            (new InculpatiDosarConfig()).SetupEntity(modelBuilder);
+            (new FileNumberConfig()).SetupEntity(modelBuilder);
+            (new FileConfig()).SetupEntity(modelBuilder);
+            (new DefendantsFileConfig()).SetupEntity(modelBuilder);
 
-            (new BunConfig()).SetupEntity(modelBuilder);
-            (new EtapaIstoricaConfig()).SetupEntity(modelBuilder);
+            (new AssetConfig()).SetupEntity(modelBuilder);
+            (new HistoricalStageConfig()).SetupEntity(modelBuilder);
 
-            (new BunuriDosarConfig()).SetupEntity(modelBuilder);
+            (new AssetsFileConfig()).SetupEntity(modelBuilder);
 
-            (new SpatiuStocareConfig()).SetupEntity(modelBuilder);
+            (new StorageSpaceConfig()).SetupEntity(modelBuilder);
 
-            (new BunuriSpatiiStocareConfig()).SetupEntity(modelBuilder);
+            (new AssetsStorageSpacesConfig()).SetupEntity(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<AdresaDb> Adrese { get; set; }
-        public DbSet<BunDb> Bunuri { get; set; }
-        public DbSet<BunuriDosarDb> BunuriDosare { get; set; }
-        public DbSet<CategorieDb> Categorii { get; set; }
-        public DbSet<DecizieDb> Decizii { get; set; }
-        public DbSet<DosarDb> Dosare { get; set; }
-        public DbSet<EtapaDb> Etape { get; set; }
-        public DbSet<EtapaIstoricaDb> EtapeIstorice { get; set; }
-        public DbSet<EtapePentruDecizieDb> EtapePentruDecizii { get; set; }
-        public DbSet<InculpatiDosarDb> InculpatiDosar { get; set; }
-        public DbSet<InstitutieDb> Institutii { get; set; }
-        public DbSet<JudetDb> Judete { get; set; }
-        public DbSet<NumarDosarDb> NumereDosare { get; set; }
-        public DbSet<PersoanaDb> Persoane { get; set; }
-        public DbSet<SpatiuStocareDb> SpatiiStocare { get; set; }
-        public DbSet<UtilizatorDb> Utilizatori { get; set; }
+        public DbSet<AddressDb> Adrese { get; set; }
+        public DbSet<AssetDb> Bunuri { get; set; }
+        public DbSet<AssetsFileDb> BunuriDosare { get; set; }
+        public DbSet<CategoryDb> Categorii { get; set; }
+        public DbSet<DecisionDb> Decizii { get; set; }
+        public DbSet<FileDb> Dosare { get; set; }
+        public DbSet<StageDb> Etape { get; set; }
+        public DbSet<HistoricalStageDb> EtapeIstorice { get; set; }
+        public DbSet<StagesForDecisionDb> EtapePentruDecizii { get; set; }
+        public DbSet<DefendantsFileDb> InculpatiDosar { get; set; }
+        public DbSet<InstitutionDb> Institutii { get; set; }
+        public DbSet<CountyDb> Judete { get; set; }
+        public DbSet<FileNumberDb> NumereDosare { get; set; }
+        public DbSet<PersonDb> Persoane { get; set; }
+        public DbSet<StorageSpaceDb> SpatiiStocare { get; set; }
+        public DbSet<UserDb> Utilizatori { get; set; }
 
-        public DbSet<BunSpatiuStocareDb> BunuriSpatiiStocare { get; set; }
+        public DbSet<AssetStorageSpaceDb> BunuriSpatiiStocare { get; set; }
 
     }
 }
