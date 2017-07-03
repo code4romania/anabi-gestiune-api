@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstractions\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>

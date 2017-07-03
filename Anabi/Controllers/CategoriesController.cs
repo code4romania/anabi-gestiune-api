@@ -13,7 +13,7 @@ namespace Anabi.Controllers
 {
     [Produces("application/json")]
     [Route("api/Categories")]
-    public class CategoriesController : Controller
+    public class CategoriesController : BaseController
     {
         private readonly IGenericRepository<CategoryDb> repository;
         public CategoriesController(IGenericRepository<CategoryDb> repo)
