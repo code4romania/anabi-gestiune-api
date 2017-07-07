@@ -2,3 +2,5 @@
 bin/
 obj/
 ScaffoldingReadme.txt
+.vs/
+Anabi/appsettings.json
