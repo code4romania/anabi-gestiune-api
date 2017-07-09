@@ -2,5 +2,11 @@
 bin/
 obj/
 ScaffoldingReadme.txt
-.vs/
-Anabi/appsettings.json
+/.vs
+**/appsettings.Development.json
+Anabi/.DS_Store
+AnabiControllers.Tests/.DS_Store
+Tests.GeneratedStubs/.DS_Store
+.DS_Store
+*.userprefs
+Anabi/appsettings.Development.json
