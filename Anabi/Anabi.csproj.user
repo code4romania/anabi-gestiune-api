@@ -10,4 +10,12 @@
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <NameOfLastUsedPublishProfile>FolderProfile</NameOfLastUsedPublishProfile>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <StartAction>Project</StartAction>
+    <EnvironmentVariables>
+      <Variable name="ASPNETCORE_ENVIRONMENT" value="Development" xmlns="" />
+    </EnvironmentVariables>
+    <ApplicationURL>http://localhost:53138/</ApplicationURL>
+    <LaunchUrl>swagger</LaunchUrl>
+  </PropertyGroup>
 </Project>
