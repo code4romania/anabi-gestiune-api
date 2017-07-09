@@ -4,7 +4,7 @@ using Anabi.DataAccess.Abstractions.Repositories;
 
 namespace Anabi.DataAccess.Repositories
 {
-    class StagesRepository : GenericRepository<StageDb>
+    public class StagesRepository : GenericRepository<StageDb>
     {
         public StagesRepository(AnabiContext ctx) : base(ctx)
         {

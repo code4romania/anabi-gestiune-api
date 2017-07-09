@@ -4,7 +4,7 @@ using Anabi.DataAccess.Abstractions.Repositories;
 
 namespace Anabi.DataAccess.Repositories
 {
-    class InstitutionsRepository : GenericRepository<InstitutionDb>
+    public class InstitutionsRepository : GenericRepository<InstitutionDb>
     {
         public InstitutionsRepository(AnabiContext ctx) : base(ctx)
         {

@@ -4,7 +4,7 @@ using Anabi.DataAccess.Abstractions.Repositories;
 
 namespace Anabi.DataAccess.Repositories
 {
-    class StorageSpacesRepository : GenericRepository<StorageSpaceDb>
+    public class StorageSpacesRepository : GenericRepository<StorageSpaceDb>
     {
         public StorageSpacesRepository(AnabiContext ctx) : base(ctx)
         {

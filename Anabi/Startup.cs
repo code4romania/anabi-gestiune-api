@@ -45,6 +45,11 @@ namespace Anabi
         private void MapInterfacesAndClasses(IServiceCollection services)
         {
             services.AddScoped<IGenericRepository<CategoryDb>, CategoriesRepository>();
+            services.AddScoped<IGenericRepository<CountyDb>, CountiesRepository>();
+            //services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
+            services.AddScoped<IGenericRepository<InstitutionDb>, InstitutionsRepository>();
+            services.AddScoped<IGenericRepository<StageDb>, StagesRepository>();
+            services.AddScoped<IGenericRepository<StorageSpaceDb>, StorageSpacesRepository>();
             //services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             //services.AddScoped<IInculpatiRepository, InculpatiRepository>();
             //services.AddScoped<IBunuriRepository, BunuriRepository>();

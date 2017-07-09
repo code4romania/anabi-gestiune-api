@@ -4,7 +4,7 @@ using Anabi.DataAccess.Abstractions.Repositories;
 
 namespace Anabi.DataAccess.Repositories
 {
-    class CountiesRepository : GenericRepository<CountyDb>
+   public class CountiesRepository : GenericRepository<CountyDb>
     {
         public CountiesRepository(AnabiContext ctx) : base(ctx)
         {
