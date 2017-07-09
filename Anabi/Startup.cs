@@ -14,6 +14,10 @@ using Microsoft.AspNetCore.Diagnostics;
 using Anabi.DataAccess.Ef;
 using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
+using Swashbuckle;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Anabi
 {
@@ -73,6 +77,10 @@ namespace Anabi
                              errorNumbersToAdd: null);
 
                          }));
+
+            services.AddSwaggerGen((c) => {
+                c.SwaggerDoc("v1", new Info() { Title = "ANABI", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,6 +100,17 @@ namespace Anabi
 
             var context = app.ApplicationServices.GetService<AnabiContext>();
             DbInitializer.Initialize(context);
+
+            app.UseMvcWithDefaultRoute();
+
+			// Enable middleware to serve generated Swagger as a JSON endpoint.
+			app.UseSwagger();
+
+			// Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "ANABI API V1");
+			});
         }
     }
 }
