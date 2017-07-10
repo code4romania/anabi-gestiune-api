@@ -65,7 +65,8 @@ namespace Anabi
         private void AddDbContext(IServiceCollection services)
         {
 
-            var connection = Configuration.GetConnectionString("AnabiDatabase");
+            //var connection = Configuration.GetConnectionString("AnabiDatabase");
+            var connection = "Data Source = anabiserver.database.windows.net; Initial Catalog = anabidb - test; User Id = anabi; Password =#Parola123#;";
             services.AddDbContext<AnabiContext>(options =>
             options.UseSqlServer(connection,
                          sqlServerOptionsAction: sqlOptions =>

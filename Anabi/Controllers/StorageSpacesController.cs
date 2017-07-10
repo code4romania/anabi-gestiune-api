@@ -61,7 +61,7 @@ namespace Anabi.Controllers
         }
 
         // GET: api/Categories/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetStorageSpaces")]
         public async Task<StorageSpace> Get(int id)
         {
             try
