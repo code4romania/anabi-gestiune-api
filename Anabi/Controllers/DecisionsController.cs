@@ -23,10 +23,13 @@ namespace Anabi.Controllers
 
         System.Linq.Expressions.Expression<Func<DecisionDb, Decision>> selector = c => new Decision()
         {
-            Name = c.Name,            
+
             Id = c.Id,
-            PossibleStages = (List<Stage>)c.PossibleStages
-        };
+            Name = c.Name,
+            PossibleStages = c.PossibleStages.Select(x => new Stage() { Id = x.Stage.Id, Name = x.Stage.Name, IsFinala=x.Stage.IsFinal })
+  .ToList()
+
+    };
 
         // GET: api/Decisions
         [HttpGet]
