@@ -46,7 +46,7 @@ namespace Anabi.Controllers
         }
 
         // GET: api/Counties/5
-        [HttpGet("{id}", Name = "GetCounties")]
+        [HttpGet("{id}", Name = "GetCountyById")]
         public async Task<County> Get(int id)
         {
             try

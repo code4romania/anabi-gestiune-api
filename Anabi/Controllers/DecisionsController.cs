@@ -49,7 +49,7 @@ namespace Anabi.Controllers
         }
 
         // GET: api/Decisions/5
-        [HttpGet("{id}", Name = "GetDecisions")]
+        [HttpGet("{id}", Name = "GetDecisionById")]
         public async Task<Decision> Get(int id)
         {
             try

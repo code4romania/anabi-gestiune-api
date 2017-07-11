@@ -49,7 +49,7 @@ namespace Anabi.Controllers
         }
 
         // GET: api/Categories/5
-        [HttpGet("{id}", Name = "GetCategories")]
+        [HttpGet("{id}", Name = "GetCategoryById")]
         public async Task<Category> Get(int id)
         {
             try
