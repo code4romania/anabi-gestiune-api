@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Anabi.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Base")]
+    //[Produces("application/json")]
+    //[Route("api/Base")]
     public class BaseController : Controller
     {
     }
