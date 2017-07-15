@@ -46,7 +46,7 @@ namespace Anabi.Controllers
         }
 
         // GET: api/Stages/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetStageById")]
         public async Task<Stage> Get(int id)
         {
             try

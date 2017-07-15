@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,32 +12,32 @@ using Microsoft.EntityFrameworkCore;
 namespace Anabi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Categories")]
-    public class CategoriesController : BaseController
+    [Route("api/Decisions")]
+    public class DecisionsController : BaseController
     {
-        private readonly IGenericRepository<CategoryDb> repository;
-        public CategoriesController(IGenericRepository<CategoryDb> repo)
+        private readonly IGenericRepository<DecisionDb> repository;
+        public DecisionsController(IGenericRepository<DecisionDb> repo)
         {
             repository = repo;
         }
 
-        System.Linq.Expressions.Expression<Func<CategoryDb, Category>> selector = c => new Category()
+        System.Linq.Expressions.Expression<Func<DecisionDb, Decision>> selector = c => new Decision()
         {
-            Code = c.Code,
-            Description = c.Description,
-            ForEntity = c.ForEntity,
-            Id = c.Id,
-            Parent = (c.Parent != null) ? new Category() { Id = c.Parent.Id, Code = c.Parent.Code, Description = c.Parent.Description, ForEntity = c.Parent.ForEntity, ParentId = c.Parent.Id } : null,
-            ParentId = c.ParentId
-        };
 
-        // GET: api/Categories
+            Id = c.Id,
+            Name = c.Name,
+            PossibleStages = c.PossibleStages.Select(x => new Stage() { Id = x.Stage.Id, Name = x.Stage.Name, IsFinala=x.Stage.IsFinal })
+  .ToList()
+
+    };
+
+        // GET: api/Decisions
         [HttpGet]
-        public async Task<IEnumerable<Category>> Get()
+        public async Task<IEnumerable<Decision>> Get()
         {
             try
             {
-               
+
                 return await repository.GetAll().Select(selector).ToListAsync();
             }
             catch (Exception ex)
@@ -45,12 +45,12 @@ namespace Anabi.Controllers
 
                 throw;
             }
-            
+
         }
 
-        // GET: api/Categories/5
-        [HttpGet("{id}", Name = "GetCategoryById")]
-        public async Task<Category> Get(int id)
+        // GET: api/Decisions/5
+        [HttpGet("{id}", Name = "GetDecisionById")]
+        public async Task<Decision> Get(int id)
         {
             try
             {
@@ -63,19 +63,19 @@ namespace Anabi.Controllers
                 throw;
             }
         }
-        
-        // POST: api/Categories
+
+        // POST: api/Decisions
         [HttpPost]
         public void Post([FromBody]string value)
         {
         }
-        
-        // PUT: api/Categories/5
+
+        // PUT: api/Decisions/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
-        
+
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
