@@ -20,18 +20,24 @@ Swagger
 
 1. instaleaza .NetCore (Open Source/Free/Multiplatform) de [aici](https://www.microsoft.com/net/core#windows)
 
-2. ruleaza din consola, in folderul app:
+2. ruleaza din consola, din folderul Anabi al aplicatiei:
     ```sh
-    private-api\app> dotnet restore
+    anabi-gestiune-api.git\Anabi> dotnet restore
     ```
   
-3. ruleaza din folderul VotingIrregularities.Api:
+3. ruleaza din folderul Anabi al aplicatiei:
     ```sh
-    anabi-gestiune-api> dotnet run
+    anabi-gestiune-api.git\Anabi> dotnet run
     ```
   
-4. browse to indicated address: <http://localhost:5000/swagger>
+4. browse to indicated address: e.g. <http://localhost:5000/swagger>
 
 # Contributing
 
 Branch -> Commit -> Pull request cu Code Review
+
+### JIRA
+
+Pentru a asocia o modificare unui task in Jira este suficient ca mesajul de commit sa contina ID-ul. EX:
+
+> ANABI-23 Added dependency injection
