@@ -161,7 +161,9 @@ namespace Anabi.DataAccess.Ef
                     UserCodeAdd = "pop",
                     AddedDate = new DateTime(2017,2,3),
                     UserCodeLastChange = "maria",
-                    LastChangeDate = new DateTime(2017, 4, 5)
+                    LastChangeDate = new DateTime(2017, 4, 5),
+                    Identificator = "Demo",
+                    VolumNecesar = 12.2m
                 },
                 new AssetDb()
                 {
@@ -173,7 +175,9 @@ namespace Anabi.DataAccess.Ef
                     UserCodeAdd = "pop",
                     AddedDate = new DateTime(2017,3,5),
                     UserCodeLastChange = "maria",
-                    LastChangeDate = new DateTime(2017, 4, 15)
+                    LastChangeDate = new DateTime(2017, 4, 15),
+                    Identificator = String.Empty,
+                    VolumNecesar = null
                 }
             };
             context.Bunuri.AddRange(bunuri);
@@ -195,7 +199,11 @@ namespace Anabi.DataAccess.Ef
                     LastChangeDate = new DateTime(2017, 4, 5),
                     LegalBasis = "Temei serios",
                     DecisionNumber = "12312AA",
-                    DecisionDate = new DateTime(2017,2,5)
+                    DecisionDate = new DateTime(2017,2,5),
+                    StareBun = "Super",
+                    DetinatorBun = 2,
+                    ValoareEfectiva = 5.3m,
+                    ValutaValoareEfectiva = "ron"
                 },
                 new HistoricalStageDb()
                 {
@@ -208,7 +216,11 @@ namespace Anabi.DataAccess.Ef
                     LastChangeDate = new DateTime(2017, 4, 5),
                     LegalBasis = "Temei serios 2",
                     DecisionNumber = "12877HH",
-                    DecisionDate = new DateTime(2017,4,6)
+                    DecisionDate = new DateTime(2017,4,6),
+                    StareBun = "Groaznica",
+                    DetinatorBun = null,
+                    ValoareEfectiva = null,
+                    ValutaValoareEfectiva = "usd"
                 }
                         };
             context.EtapeIstorice.AddRange(etapeIstorice);

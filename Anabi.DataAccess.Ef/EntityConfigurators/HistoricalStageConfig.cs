@@ -90,6 +90,22 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
                 .HasColumnType("Date")
                 .IsRequired();
 
+            entity.Property(p => p.StareBun)
+                .HasColumnType("string")
+                .HasMaxLength(100).
+                IsRequired();
+
+            entity.Property(p => p.DetinatorBun)
+                .HasColumnType("int");
+
+            entity.Property(p => p.ValoareEfectiva)
+                .HasColumnType("decimal(20, 2)");
+
+            entity.Property(p => p.StareBun)
+                .HasColumnType("string")
+                .HasMaxLength(3).
+                IsRequired();
+
         }
     }
 }

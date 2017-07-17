@@ -34,6 +34,14 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public DateTime? LastChangeDate { get; set; }
 
+        public string StareBun { get; set; }
+
+        public int? DetinatorBun { get; set; }
+
+        public decimal? ValoareEfectiva { get; set; }
+
+        public string ValutaValoareEfectiva { get; set; }
+
         /// <summary>
         /// Temei juridic
         /// </summary>
