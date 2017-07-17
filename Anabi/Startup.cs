@@ -90,23 +90,20 @@ namespace Anabi
                 builder.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod());
-
-
+            
             app.UseMvc();
 
             var context = app.ApplicationServices.GetService<AnabiContext>();
             DbInitializer.Initialize(context);
 
-            app.UseMvcWithDefaultRoute();
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
 
-			// Enable middleware to serve generated Swagger as a JSON endpoint.
-			app.UseSwagger();
-
-			// Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
-			app.UseSwaggerUI(c =>
-			{
-				c.SwaggerEndpoint("/swagger/v1/swagger.json", "ANABI API V1");
-			});
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ANABI API V1");
+            });
         }
     }
 }

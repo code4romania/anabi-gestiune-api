@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Anabi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/StorageSpaces")]
+    [Route("api/[controller]")]
     public class StorageSpacesController : BaseController
     {
         private readonly IGenericRepository<StorageSpaceDb> repository;
@@ -61,7 +61,7 @@ namespace Anabi.Controllers
         }
 
         // GET: api/Categories/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public async Task<StorageSpace> Get(int id)
         {
             try
