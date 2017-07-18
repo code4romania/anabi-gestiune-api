@@ -40,6 +40,8 @@ namespace Anabi.DataAccess.Ef
 
             (new AssetsStorageSpacesConfig()).SetupEntity(modelBuilder);
             base.OnModelCreating(modelBuilder);
+            (new RecoveryBeneficiaryConfig()).SetupEntity(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<AddressDb> Adrese { get; set; }
@@ -60,6 +62,7 @@ namespace Anabi.DataAccess.Ef
         public DbSet<UserDb> Utilizatori { get; set; }
 
         public DbSet<AssetStorageSpaceDb> BunuriSpatiiStocare { get; set; }
+        public DbSet<RecoveryBeneficiaryDb> BeneficiariValorificari { get; set; }
 
     }
 }
