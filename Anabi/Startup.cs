@@ -54,7 +54,7 @@ namespace Anabi
             services.AddScoped<IGenericRepository<InstitutionDb>, InstitutionsRepository>();
             services.AddScoped<IGenericRepository<StageDb>, StagesRepository>();
             services.AddScoped<IGenericRepository<StorageSpaceDb>, StorageSpacesRepository>();
-            
+            services.AddScoped<IGenericRepository<RecoveryBeneficiaryDb>, RecoveryBeneficiariesRepository>();
 
         }
 
