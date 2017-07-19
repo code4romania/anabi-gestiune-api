@@ -32,17 +32,7 @@ namespace Anabi.Controllers
         [HttpGet()]
         public async Task<IEnumerable<Decision>> Get()
         {
-            try
-            {
-
                 return await repository.GetAll().Select(selector).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
         }
 
         // GET: api/Decisions/5
@@ -59,24 +49,6 @@ namespace Anabi.Controllers
 
                 throw;
             }
-        }
-
-        // POST: api/Decisions
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Decisions/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
