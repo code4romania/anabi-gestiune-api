@@ -50,10 +50,11 @@ namespace Anabi
         {
             services.AddScoped<IGenericRepository<CategoryDb>, CategoriesRepository>();
             services.AddScoped<IGenericRepository<CountyDb>, CountiesRepository>();
-            //services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
+            services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
             services.AddScoped<IGenericRepository<InstitutionDb>, InstitutionsRepository>();
             services.AddScoped<IGenericRepository<StageDb>, StagesRepository>();
             services.AddScoped<IGenericRepository<StorageSpaceDb>, StorageSpacesRepository>();
+
             services.AddScoped<IGenericRepository<RecoveryBeneficiaryDb>, RecoveryBeneficiariesRepository>();
 
         }
@@ -90,23 +91,20 @@ namespace Anabi
                 builder.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod());
-
-
+            
             app.UseMvc();
 
             var context = app.ApplicationServices.GetService<AnabiContext>();
             DbInitializer.Initialize(context);
 
-            app.UseMvcWithDefaultRoute();
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
 
-			// Enable middleware to serve generated Swagger as a JSON endpoint.
-			app.UseSwagger();
-
-			// Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
-			app.UseSwaggerUI(c =>
-			{
-				c.SwaggerEndpoint("/swagger/v1/swagger.json", "ANABI API V1");
-			});
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ANABI API V1");
+            });
         }
     }
 }
