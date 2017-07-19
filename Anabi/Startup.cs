@@ -50,11 +50,10 @@ namespace Anabi
         {
             services.AddScoped<IGenericRepository<CategoryDb>, CategoriesRepository>();
             services.AddScoped<IGenericRepository<CountyDb>, CountiesRepository>();
-            //services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
+            services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
             services.AddScoped<IGenericRepository<InstitutionDb>, InstitutionsRepository>();
             services.AddScoped<IGenericRepository<StageDb>, StagesRepository>();
             services.AddScoped<IGenericRepository<StorageSpaceDb>, StorageSpacesRepository>();
-            
 
         }
 
