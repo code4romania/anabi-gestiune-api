@@ -39,7 +39,6 @@ namespace Anabi.DataAccess.Ef
             (new StorageSpaceConfig()).SetupEntity(modelBuilder);
 
             (new AssetsStorageSpacesConfig()).SetupEntity(modelBuilder);
-            base.OnModelCreating(modelBuilder);
             (new RecoveryBeneficiaryConfig()).SetupEntity(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }

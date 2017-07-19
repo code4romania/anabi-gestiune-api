@@ -31,17 +31,7 @@ namespace Anabi.Controllers
         [HttpGet]
         public async Task<IEnumerable<RecoveryBeneficiary>> Get()
         {
-            try
-            {
-
                 return await repository.GetAll().Select(selector).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
         }
 
         // GET: api/RecoveryBeneficiaries/5
@@ -58,24 +48,6 @@ namespace Anabi.Controllers
 
                 throw;
             }
-        }
-
-        // POST: api/RecoveryBeneficiaries
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/RecoveryBeneficiaries/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
