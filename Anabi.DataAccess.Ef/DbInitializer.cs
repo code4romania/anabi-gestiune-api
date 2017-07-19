@@ -78,13 +78,15 @@ namespace Anabi.DataAccess.Ef
                 new StorageSpaceDb()
                 {
                     AddressId = 1,
-                    Name = "Spatiul de stocare 1"
+                    Name = "Spatiul de stocare 1",
+                    CategorieId = 1
 
                 },
                 new StorageSpaceDb()
                 {
                     AddressId =2,
-                    Name = "Spatiul de stocare 2"
+                    Name = "Spatiul de stocare 2",
+                    CategorieId =2
                 }
                         };
             context.SpatiiStocare.AddRange(spatiiStocare);
@@ -163,7 +165,9 @@ namespace Anabi.DataAccess.Ef
                     UserCodeAdd = "pop",
                     AddedDate = new DateTime(2017,2,3),
                     UserCodeLastChange = "maria",
-                    LastChangeDate = new DateTime(2017, 4, 5)
+                    LastChangeDate = new DateTime(2017, 4, 5),
+                    Identifier = "Demo",
+                    NecessaryVolume = 12.2m
                 },
                 new AssetDb()
                 {
@@ -175,7 +179,9 @@ namespace Anabi.DataAccess.Ef
                     UserCodeAdd = "pop",
                     AddedDate = new DateTime(2017,3,5),
                     UserCodeLastChange = "maria",
-                    LastChangeDate = new DateTime(2017, 4, 15)
+                    LastChangeDate = new DateTime(2017, 4, 15),
+                    Identifier = String.Empty,
+                    NecessaryVolume = null
                 }
             };
             context.Bunuri.AddRange(bunuri);
@@ -197,11 +203,15 @@ namespace Anabi.DataAccess.Ef
                     LastChangeDate = new DateTime(2017, 4, 5),
                     LegalBasis = "Temei serios",
                     DecisionNumber = "12312AA",
-                    DecisionDate = new DateTime(2017,2,5)
+                    DecisionDate = new DateTime(2017,2,5),
+                    AssetState = "Super",
+                    OwnerId = 2,
+                    ActualValue = 5.3m,
+                    ActualValueCurrency = "ron"
                 },
                 new HistoricalStageDb()
                 {
-                     AssetId = 2, StageId = 2, DecizieId = 2, InstitutionId = 1,
+                    AssetId = 2, StageId = 2, DecizieId = 2, InstitutionId = 1,
                     EstimatedAmount = 176000,
                     EstimatedAmountCurrency = "USD",
                     UserCodeAdd = "pop",
@@ -210,7 +220,11 @@ namespace Anabi.DataAccess.Ef
                     LastChangeDate = new DateTime(2017, 4, 5),
                     LegalBasis = "Temei serios 2",
                     DecisionNumber = "12877HH",
-                    DecisionDate = new DateTime(2017,4,6)
+                    DecisionDate = new DateTime(2017,4,6),
+                    AssetState = "Groaznica",
+                    OwnerId = null,
+                    ActualValue = null,
+                    ActualValueCurrency = "usd"
                 }
                         };
             context.EtapeIstorice.AddRange(etapeIstorice);

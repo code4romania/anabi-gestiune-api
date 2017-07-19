@@ -34,6 +34,16 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public DateTime? LastChangeDate { get; set; }
 
+        public string AssetState { get; set; }
+
+        public virtual PersonDb Person { get; set; }
+
+        public int? OwnerId { get; set; }
+
+        public decimal? ActualValue { get; set; }
+
+        public string ActualValueCurrency { get; set; }
+
         /// <summary>
         /// Temei juridic
         /// </summary>

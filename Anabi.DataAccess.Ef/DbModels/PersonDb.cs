@@ -32,6 +32,8 @@ namespace Anabi.DataAccess.Ef.DbModels
                 
         public virtual ICollection<DefendantsFileDb> Files { get; set; }
 
+        public virtual ICollection<HistoricalStageDb> HistoricalStages { get; set; }
+
         public UserDb UserAdd { get; set; }
         public UserDb UserLastChange { get; set; }
 

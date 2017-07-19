@@ -24,6 +24,9 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual DecisionDb CurrentDecision { get; set; }
 
+        public string Identifier { get; set; }
+
+        public decimal? NecessaryVolume { get; set; }
 
         public virtual ICollection<HistoricalStageDb> HistoricalStages { get; set; }
 
