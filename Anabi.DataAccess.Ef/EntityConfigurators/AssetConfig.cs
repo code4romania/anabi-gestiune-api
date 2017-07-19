@@ -73,12 +73,11 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
             entity.Property(p => p.LastChangeDate)
                 .HasColumnType("Datetime");
 
-            entity.Property(p => p.Identificator)
-                .HasColumnType("string")
+            entity.Property(p => p.Identifier)
                 .HasMaxLength(100);
 
-            entity.Property(p => p.VolumNecesar)
-                .HasColumnType("decimal(20, 2)");
+            entity.Property(p => p.NecessaryVolume)
+                .HasColumnType("Decimal(20, 2)");
 
         }
     }

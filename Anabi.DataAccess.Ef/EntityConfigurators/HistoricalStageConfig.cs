@@ -71,6 +71,12 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
                 .HasConstraintName("FK_HistoricalStages_Utilizator_Change")
                 .HasPrincipalKey(k2 => k2.UserCode);
 
+            entity.HasOne(u => u.Person)
+                .WithMany(h => h.HistoricalStages)
+                .HasForeignKey(f => f.OwnerId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_OwnerId");
+
             entity.Property(p => p.AddedDate)
                 .HasColumnType("DateTime")
                 .IsRequired();
@@ -90,21 +96,19 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
                 .HasColumnType("Date")
                 .IsRequired();
 
-            entity.Property(p => p.StareBun)
-                .HasColumnType("string")
-                .HasMaxLength(100).
-                IsRequired();
+            entity.Property(p => p.AssetState)
+                .HasMaxLength(100)
+                .IsRequired();
 
-            entity.Property(p => p.DetinatorBun)
-                .HasColumnType("int");
+            entity.Property(p => p.OwnerId)
+                .HasColumnType("Int");
 
-            entity.Property(p => p.ValoareEfectiva)
-                .HasColumnType("decimal(20, 2)");
+            entity.Property(p => p.ActualValue)
+                .HasColumnType("Decimal(20, 2)");
 
-            entity.Property(p => p.StareBun)
-                .HasColumnType("string")
-                .HasMaxLength(3).
-                IsRequired();
+            entity.Property(p => p.ActualValueCurrency)
+                .HasMaxLength(3)
+                .IsRequired();
 
         }
     }
