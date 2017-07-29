@@ -77,14 +77,12 @@ namespace Anabi.DataAccess.Ef
                 {
                     AddressId = 1,
                     Name = "Spatiul de stocare 1",
-                    CategorieId = 1
 
                 },
                 new StorageSpaceDb()
                 {
                     AddressId =2,
                     Name = "Spatiul de stocare 2",
-                    CategorieId =2
                 }
                         };
             context.SpatiiStocare.AddRange(spatiiStocare);
