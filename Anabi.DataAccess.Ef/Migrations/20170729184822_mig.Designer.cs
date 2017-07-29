@@ -8,9 +8,10 @@ using Anabi.DataAccess.Ef;
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20170729184822_mig")]
+    partial class mig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasDefaultSchema("dbo")
@@ -551,23 +552,6 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasIndex("UserCodeLastChange");
 
                     b.ToTable("Persons");
-                });
-
-            modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.RecoveryBeneficiaryDb", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("RecoveryBeneficiaries");
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.StageDb", b =>
