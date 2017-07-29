@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Anabi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Categories")]
+    [Route("api/[controller]")]
     public class CategoriesController : BaseController
     {
         private readonly IGenericRepository<CategoryDb> repository;
@@ -32,7 +32,7 @@ namespace Anabi.Controllers
         };
 
         // GET: api/Categories
-        [HttpGet]
+        [HttpGet()]
         public async Task<IEnumerable<Category>> Get()
         {
             try
@@ -49,7 +49,7 @@ namespace Anabi.Controllers
         }
 
         // GET: api/Categories/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public async Task<Category> Get(int id)
         {
             try

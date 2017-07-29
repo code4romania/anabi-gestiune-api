@@ -8,9 +8,10 @@ using Anabi.DataAccess.Ef;
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20170718104301_AddedBeneficiaries")]
+    partial class AddedBeneficiaries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasDefaultSchema("dbo")
@@ -68,16 +69,10 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.Property<int?>("FileDbId");
 
-                    b.Property<string>("Identifier")
-                        .HasMaxLength(100);
-
                     b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("LastChangeDate")
                         .HasColumnType("Datetime");
-
-                    b.Property<decimal?>("NecessaryVolume")
-                        .HasColumnType("Decimal(20, 2)");
 
                     b.Property<string>("UserCodeAdd")
                         .IsRequired()
@@ -391,21 +386,10 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal?>("ActualValue")
-                        .HasColumnType("Decimal(20, 2)");
-
-                    b.Property<string>("ActualValueCurrency")
-                        .IsRequired()
-                        .HasMaxLength(3);
-
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("DateTime");
 
                     b.Property<int>("AssetId");
-
-                    b.Property<string>("AssetState")
-                        .IsRequired()
-                        .HasMaxLength(100);
 
                     b.Property<DateTime>("DecisionDate")
                         .HasColumnType("Date");
@@ -432,9 +416,6 @@ namespace Anabi.DataAccess.Ef.Migrations
                         .IsRequired()
                         .HasMaxLength(200);
 
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("Int");
-
                     b.Property<int>("StageId");
 
                     b.Property<string>("UserCodeAdd")
@@ -451,8 +432,6 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasIndex("DecizieId");
 
                     b.HasIndex("InstitutionId");
-
-                    b.HasIndex("OwnerId");
 
                     b.HasIndex("StageId");
 
@@ -857,11 +836,6 @@ namespace Anabi.DataAccess.Ef.Migrations
                         .WithMany("HistoricalStages")
                         .HasForeignKey("InstitutionId")
                         .HasConstraintName("FK_HistoricalStages_Institutions");
-
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.PersonDb", "Person")
-                        .WithMany("HistoricalStages")
-                        .HasForeignKey("OwnerId")
-                        .HasConstraintName("FK_OwnerId");
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.StageDb", "Stage")
                         .WithMany("HistoricalStages")

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Anabi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Stages")]
+    [Route("api/[controller]")]
     public class StagesController : BaseController
     {
         private readonly IGenericRepository<StageDb> repository;
@@ -46,7 +46,7 @@ namespace Anabi.Controllers
         }
 
         // GET: api/Stages/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public async Task<Stage> Get(int id)
         {
             try

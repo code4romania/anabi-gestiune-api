@@ -42,6 +42,8 @@ namespace Anabi.DataAccess.Ef
             AdaugaBunuriDosare(context);
             AdaugaSpatiiStocare(context);
             AdaugaBunuriSpatiiStocare(context);
+
+            AdaugaBeneficiariValorificari(context);
         }
 
         private static void AdaugaBunuriSpatiiStocare(AnabiContext context)
@@ -76,13 +78,14 @@ namespace Anabi.DataAccess.Ef
                 new StorageSpaceDb()
                 {
                     AddressId = 1,
-                    Name = "Spatiul de stocare 1",
-
+                    Name = "Spatiul de stocare 1"
                 },
                 new StorageSpaceDb()
                 {
                     AddressId =2,
-                    Name = "Spatiul de stocare 2",
+
+                    Name = "Spatiul de stocare 2"
+                    
                 }
                         };
             context.SpatiiStocare.AddRange(spatiiStocare);
@@ -404,6 +407,19 @@ namespace Anabi.DataAccess.Ef
                 new CountyDb(){Abreviation = "SB", Name = "Sibiu"}
                     };
             context.Judete.AddRange(judete);
+            context.SaveChanges();
+
+        }
+
+        private static void AdaugaBeneficiariValorificari(AnabiContext context)
+        {
+
+            var beneficiari = new RecoveryBeneficiaryDb[]
+                    {
+                new RecoveryBeneficiaryDb(){Name = "Fane Croitoru"},
+                new RecoveryBeneficiaryDb(){Name = "Gogu Icsulescu"}
+                    };
+            context.BeneficiariValorificari.AddRange(beneficiari);
             context.SaveChanges();
 
         }
