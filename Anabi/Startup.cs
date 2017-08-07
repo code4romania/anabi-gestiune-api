@@ -18,7 +18,6 @@ using Swashbuckle;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using Swashbuckle.AspNetCore.Swagger;
-using AutoMapper;
 
 namespace Anabi
 {
@@ -44,9 +43,7 @@ namespace Anabi
 
             AddDbContext(services);
 
-            MapInterfacesAndClasses(services);
-
-            services.AddAutoMapper(typeof(Startup));
+            MapInterfacesAndClasses(services);            
         }
 
         private void MapInterfacesAndClasses(IServiceCollection services)
