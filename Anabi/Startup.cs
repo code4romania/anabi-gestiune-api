@@ -18,6 +18,8 @@ using Swashbuckle;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using Swashbuckle.AspNetCore.Swagger;
+using Serilog;
+using System.IO;
 
 namespace Anabi
 {
@@ -31,6 +33,10 @@ namespace Anabi
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "anabi-apilog-{Date}.txt"))
+                .CreateLogger();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -86,6 +92,7 @@ namespace Anabi
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            loggerFactory.AddSerilog();
 
             app.UseCors(builder =>
                 builder.AllowAnyOrigin()
