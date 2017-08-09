@@ -20,6 +20,7 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using Swashbuckle.AspNetCore.Swagger;
 using Serilog;
 using System.IO;
+using AutoMapper;
 
 namespace Anabi
 {
@@ -49,7 +50,9 @@ namespace Anabi
 
             AddDbContext(services);
 
-            MapInterfacesAndClasses(services);            
+            MapInterfacesAndClasses(services);
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         private void MapInterfacesAndClasses(IServiceCollection services)
