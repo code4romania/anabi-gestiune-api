@@ -8,9 +8,10 @@ using Anabi.DataAccess.Ef;
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20170809191649_migration")]
+    partial class migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasDefaultSchema("dbo")
@@ -977,7 +978,7 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.CategoryDb", "Category")
                         .WithOne("StorageSpace")
                         .HasForeignKey("Anabi.DataAccess.Ef.DbModels.StorageSpaceDb", "CategoryId")
-                        .HasConstraintName("FK_StorageSpaces_Categories");
+                        .HasConstraintName("FK_StorageSpaces_Category");
                 });
         }
     }

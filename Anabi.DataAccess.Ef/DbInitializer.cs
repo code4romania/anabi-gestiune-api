@@ -78,14 +78,35 @@ namespace Anabi.DataAccess.Ef
                 new StorageSpaceDb()
                 {
                     AddressId = 1,
-                    Name = "Spatiul de stocare 1"
+                    Name = "Spatiul de stocare 1",
+                    CategoryId = 1,
+                    TotalVolume = 30,
+                    AvailableVolume = 2,
+                    Length = 2,
+                    Width = 2,
+                    Description = "Some fairly well preserved good.",
+                    AsphaltedArea = 3,
+                    UndevelopedArea = 0,
+                    ContactData = "95685485",
+                    MonthlyMaintenanceCost = 0,
+                    MaintenanceMentions = "hope it will not break"
                 },
                 new StorageSpaceDb()
                 {
                     AddressId =2,
+                    Name = "Spatiul de stocare 2",
+                    CategoryId = 1,
+                    TotalVolume = 20,
+                    AvailableVolume = 2,
+                    Length = 2,
+                    Width = 2,
+                    Description = "Some badly preserved good.",
+                    AsphaltedArea = 3,
+                    UndevelopedArea = 0,
+                    ContactData = "12345679",
+                    MonthlyMaintenanceCost = 0,
+                    MaintenanceMentions = " it will break"
 
-                    Name = "Spatiul de stocare 2"
-                    
                 }
                         };
             context.SpatiiStocare.AddRange(spatiiStocare);
