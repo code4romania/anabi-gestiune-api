@@ -1,5 +1,6 @@
 ﻿using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Core.Models;
+using Anabi.Features.Dictionaries.Category;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,10 @@ namespace Anabi
         {
             CreateMap<Address, AddressDb>().ReverseMap();
             CreateMap<Asset, AssetDb>().ReverseMap();
+
             CreateMap<Category, CategoryDb>().ReverseMap();
+            CreateMap<AddCategoryQuery, CategoryDb>();
+
             CreateMap<County, CountyDb>().ReverseMap();
             CreateMap<Decision, DecisionDb>().ReverseMap();
             CreateMap<File, FileDb>().ReverseMap();

@@ -21,6 +21,10 @@ using Swashbuckle.AspNetCore.Swagger;
 using Serilog;
 using System.IO;
 using AutoMapper;
+using MediatR;
+using FluentValidation.AspNetCore;
+using Anabi.Features.Dictionaries.Category;
+using FluentValidation;
 
 namespace Anabi
 {
@@ -46,18 +50,24 @@ namespace Anabi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining(typeof(Startup)));
+            
+            
 
             AddDbContext(services);
 
             MapInterfacesAndClasses(services);
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddMediatR(typeof(Startup));
         }
 
         private void MapInterfacesAndClasses(IServiceCollection services)
         {
-            services.AddScoped<IGenericRepository<CategoryDb>, CategoriesRepository>();
+            services.AddScoped<AbstractValidator<AddCategoryQuery>, AddCategoryQueryValidator>();
+
             services.AddScoped<IGenericRepository<CountyDb>, CountiesRepository>();
             services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
             services.AddScoped<IGenericRepository<InstitutionDb>, InstitutionsRepository>();

@@ -8,6 +8,12 @@ using Anabi.DataAccess.Abstractions.Repositories;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
+using Anabi.Features.Dictionaries.Category;
+using FluentValidation;
+using Microsoft.Extensions.Logging;
+using System.Net.Http;
+using System.Net;
 
 namespace Anabi.Controllers
 {
@@ -15,61 +21,73 @@ namespace Anabi.Controllers
     [Route("api/[controller]")]
     public class CategoriesController : BaseController
     {
-        private readonly IGenericRepository<CategoryDb> repository;
-        public CategoriesController(IGenericRepository<CategoryDb> repo)
+        private readonly IMediator mediator;
+        private readonly AbstractValidator<AddCategoryQuery> addCategoryValidator;
+        private readonly ILogger<CategoriesController> logger;
+
+        public CategoriesController(IMediator _mediator, AbstractValidator<AddCategoryQuery> _addCategoryValidator, ILogger<CategoriesController> _logger)
         {
-            repository = repo;
+            mediator = _mediator;
+            addCategoryValidator = _addCategoryValidator;
+            logger = _logger;
         }
 
-        System.Linq.Expressions.Expression<Func<CategoryDb, Category>> selector = c => new Category()
-        {
-            Code = c.Code,
-            Description = c.Description,
-            ForEntity = c.ForEntity,
-            Id = c.Id,
-            Parent = (c.Parent != null) ? new Category() { Id = c.Parent.Id, Code = c.Parent.Code, Description = c.Parent.Description, ForEntity = c.Parent.ForEntity, ParentId = c.Parent.Id } : null,
-            ParentId = c.ParentId
-        };
+       
 
         // GET: api/Categories
         [HttpGet()]
         public async Task<IEnumerable<Category>> Get()
         {
-            try
-            {
-               
-                return await repository.GetAll().Select(selector).ToListAsync();
-            }
-            catch (Exception ex)
-            {
 
-                throw;
-            }
-            
+            var models = await mediator.Send(new CategoryQuery() { Id = null });
+
+            return models;
+
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
         public async Task<Category> Get(int id)
         {
-            try
-            {
 
-                return await repository.FindBy(p => p.Id == id).Select(selector).FirstOrDefaultAsync();
-            }
-            catch (Exception ex)
-            {
+            var models = await mediator.Send(new CategoryQuery() { Id = id });
+            var result = models.FirstOrDefault();
+            return result;
 
-                throw;
-            }
         }
-        
+
         // POST: api/Categories
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<HttpResponseMessage> Post(AddCategoryQuery newCategory)
         {
+            var validationResult = addCategoryValidator.Validate(newCategory);
+            if (validationResult.IsValid)
+            {
+                await mediator.Send(newCategory);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                var errors = GetErrorMessages(validationResult);
+
+                logger.LogError("Errors adding new category:{0}", errors);
+
+                var response = new HttpResponseMessage(HttpStatusCode.BadRequest) {ReasonPhrase = errors };
+                
+                return response;
+            }
+
         }
-        
+
+        private string GetErrorMessages(FluentValidation.Results.ValidationResult validationResult)
+        {
+            var errors = validationResult.Errors.ToList();
+            string errorMessages = string.Empty;
+            errors.ForEach(e => { errorMessages += e.ErrorMessage; });
+
+            return errorMessages;
+        }
+
         // PUT: api/Categories/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
