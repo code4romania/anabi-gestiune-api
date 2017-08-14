@@ -23,37 +23,35 @@ namespace Anabi.Controllers
     {
         private readonly IMediator mediator;
         private readonly AbstractValidator<AddCategoryQuery> addCategoryValidator;
-        private readonly ILogger<CategoriesController> logger;
+        private readonly AbstractValidator<EditCategoryQuery> editCategoryValidator;
+        
 
-        public CategoriesController(IMediator _mediator, AbstractValidator<AddCategoryQuery> _addCategoryValidator, ILogger<CategoriesController> _logger)
+        public CategoriesController(IMediator _mediator, 
+            AbstractValidator<AddCategoryQuery> _addCategoryValidator, 
+            AbstractValidator<EditCategoryQuery> _editCategoryValidator)
         {
             mediator = _mediator;
-            addCategoryValidator = _addCategoryValidator;
-            logger = _logger;
-        }
 
-       
+            addCategoryValidator = _addCategoryValidator;
+            editCategoryValidator = _editCategoryValidator;
+        }
 
         // GET: api/Categories
         [HttpGet()]
         public async Task<IEnumerable<Category>> Get()
         {
-
             var models = await mediator.Send(new CategoryQuery() { Id = null });
 
             return models;
-
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
         public async Task<Category> Get(int id)
         {
-
             var models = await mediator.Send(new CategoryQuery() { Id = id });
             var result = models.FirstOrDefault();
             return result;
-
         }
 
         // POST: api/Categories
@@ -68,30 +66,27 @@ namespace Anabi.Controllers
             }
             else
             {
-                var errors = GetErrorMessages(validationResult);
-
-                logger.LogError("Errors adding new category:{0}", errors);
-
-                var response = new HttpResponseMessage(HttpStatusCode.BadRequest) {ReasonPhrase = errors };
-                
-                return response;
+                return GenerateErrorResponse(validationResult, "Errors adding new category");
             }
 
         }
 
-        private string GetErrorMessages(FluentValidation.Results.ValidationResult validationResult)
-        {
-            var errors = validationResult.Errors.ToList();
-            string errorMessages = string.Empty;
-            errors.ForEach(e => { errorMessages += e.ErrorMessage; });
+        
 
-            return errorMessages;
-        }
-
-        // PUT: api/Categories/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        // PUT: api/Categories/5  ("{id}")
+        [HttpPut]
+        public async Task<HttpResponseMessage> Put(EditCategoryQuery category)
         {
+            var validationResult = editCategoryValidator.Validate(category);
+            if (validationResult.IsValid)
+            {
+                await mediator.Send(category);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                return GenerateErrorResponse(validationResult, "Errors editing category");
+            }
         }
         
         // DELETE: api/ApiWithActions/5

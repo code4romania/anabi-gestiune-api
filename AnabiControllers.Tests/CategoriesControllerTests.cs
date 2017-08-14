@@ -1,39 +1,117 @@
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Anabi.DataAccess.Ef.DbModels;
-using Anabi.DataAccess.Abstractions.Repositories;
 using System.Collections.Generic;
-using System.Linq;
-using Anabi.Controllers;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Anabi.Features.Dictionaries.Category;
+using Anabi.DataAccess.Ef;
+using AutoMapper;
+using Anabi;
 
 namespace AnabiControllers.Tests
 {
     [TestClass]
     public class CategoriesControllerTests
     {
+        private AnabiContext context;
+        private List<CategoryDb> categoriesForDb;
+        private IMapper mapper;
+
         [TestMethod]
         public async Task Get_ReturnsListAsync()
         {
-            var data = new List<CategoryDb>()
-                        {
-                            new CategoryDb(){Id = 1, Code = "Code 1", Description = "Code 1 description", ForEntity = "Bunuri"},
-                            new CategoryDb(){Id = 2, Code = "Code 2", Description = "Code 2 description", ForEntity = "Bunuri"},
-                        }.AsQueryable<CategoryDb>();
-            
+            Setup();
 
-            var stub = new StubIGenericRepository<CategoryDb>(Etg.SimpleStubs.MockBehavior.Strict)
-                .GetAll(() =>
-                {
-                    return data;
-                });
+            var queryHandler = new CategoryQueryHandler(context, mapper);
 
-            //new TestAsyncQueryProvider<CategoryDb>(data.Provider).CreateQuery(
-            var ctrl = new CategoriesController(stub);
-            var results = await ctrl.Get();
+            var query = new CategoryQuery() { Id = null };
 
-            Assert.AreEqual(2, results.Count());
+            var actual = await queryHandler.Handle(query);
+
+            Assert.AreEqual(2, actual.Count);
         }
+
+        [TestMethod]
+        public async Task Post()
+        {
+
+            Setup();
+
+            var queryHandler = new AddCategoryQueryHandler(context, mapper);
+            var query = new AddCategoryQuery()
+            {
+                Code = "Code 3",
+                Description = "Desc Code 3",
+                ForEntity = "Test ent 3",
+                Id = 0,
+                ParentId = null
+            };
+
+            await queryHandler.Handle(query);
+
+            var cat = context.Categorii.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
+
+            Assert.IsNotNull(cat);
+
+        }
+
+        [TestMethod]
+        public async Task Put()
+        {
+            Setup();
+
+            var queryHandler = new EditCategoryQueryHandler(context, mapper);
+
+            var query = new EditCategoryQuery()
+            {
+                Code = "Code 3",
+                Description = "Desc Code 3",
+                ForEntity = "Test ent 3",
+                Id = 1,
+                ParentId = null
+            };
+
+            await queryHandler.Handle(query);
+
+            var cat = context.Categorii.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
+
+            Assert.IsNotNull(cat);
+
+        }
+
+        #region Setup
+        private void Setup()
+        {
+            DbContextOptions<AnabiContext> options = GetContextOptions();
+
+            context = new AnabiContext(options);
+            categoriesForDb = GetCategoriesForDb();
+
+            context.Categorii.AddRange(categoriesForDb);
+            context.SaveChanges();
+
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<AutoMapperMappings>();
+            });
+            mapper = Mapper.Instance;
+        }
+
+        private List<CategoryDb> GetCategoriesForDb()
+        {
+            return new List<CategoryDb>()
+            {
+                new CategoryDb(){Id = 0, Code = "Cat1", Description = "Desc1", ForEntity = "Ent1"},
+                new CategoryDb(){Id = 0, Code = "Cat2", Description = "Desc2", ForEntity = "Ent2"}
+            };
+        }
+
+        private DbContextOptions<AnabiContext> GetContextOptions()
+        {
+            return new DbContextOptionsBuilder<AnabiContext>()
+                            .UseInMemoryDatabase(databaseName: "AnabiInMemory")
+                            .Options;
+        } 
+        #endregion
     }
 }

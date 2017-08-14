@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -9,14 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Anabi.DataAccess.Abstractions.Repositories;
 using Anabi.DataAccess.Repositories;
-using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
 using Anabi.DataAccess.Ef;
 using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
-using Swashbuckle;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Swashbuckle.AspNetCore.SwaggerUI;
 using Swashbuckle.AspNetCore.Swagger;
 using Serilog;
 using System.IO;
@@ -67,6 +59,7 @@ namespace Anabi
         private void MapInterfacesAndClasses(IServiceCollection services)
         {
             services.AddScoped<AbstractValidator<AddCategoryQuery>, AddCategoryQueryValidator>();
+            services.AddScoped<AbstractValidator<EditCategoryQuery>, EditCategoryQueryValidator>();
 
             services.AddScoped<IGenericRepository<CountyDb>, CountiesRepository>();
             services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();

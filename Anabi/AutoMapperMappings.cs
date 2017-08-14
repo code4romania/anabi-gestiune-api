@@ -18,6 +18,7 @@ namespace Anabi
 
             CreateMap<Category, CategoryDb>().ReverseMap();
             CreateMap<AddCategoryQuery, CategoryDb>();
+            CreateMap<EditCategoryQuery, CategoryDb>();
 
             CreateMap<County, CountyDb>().ReverseMap();
             CreateMap<Decision, DecisionDb>().ReverseMap();
