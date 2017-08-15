@@ -73,10 +73,28 @@ namespace AnabiControllers.Tests
 
             await queryHandler.Handle(query);
 
-            var cat = context.Categorii.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
+            var cat = await context.Categorii.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
 
             Assert.IsNotNull(cat);
 
+        }
+
+        [TestMethod]
+        public async Task Delete()
+        {
+            Setup();
+            var handler = new DeleteCategoryQueryHandler(context, mapper);
+
+            var query = new DeleteCategoryQuery
+            {
+                Id = 1
+            };
+
+            await handler.Handle(query);
+
+            var cat = await context.Categorii.AnyAsync<CategoryDb>(p => p.Id == 1);
+
+            Assert.IsFalse(cat);
         }
 
         #region Setup

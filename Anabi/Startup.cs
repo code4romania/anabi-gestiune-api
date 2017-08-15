@@ -60,6 +60,7 @@ namespace Anabi
         {
             services.AddScoped<AbstractValidator<AddCategoryQuery>, AddCategoryQueryValidator>();
             services.AddScoped<AbstractValidator<EditCategoryQuery>, EditCategoryQueryValidator>();
+            services.AddScoped<AbstractValidator<DeleteCategoryQuery>, DeleteCategoryQueryValidator>();
 
             services.AddScoped<IGenericRepository<CountyDb>, CountiesRepository>();
             services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
