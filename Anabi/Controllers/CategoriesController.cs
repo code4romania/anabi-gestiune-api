@@ -1,13 +1,14 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Anabi.DataAccess.Abstractions.Repositories;
-using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Core.Models;
-using Microsoft.EntityFrameworkCore;
+using MediatR;
+using Anabi.Features.Dictionaries.Category;
+using FluentValidation;
+using System.Net.Http;
+using System.Net;
+using Anabi.Features;
 
 namespace Anabi.Controllers
 {
@@ -15,71 +16,96 @@ namespace Anabi.Controllers
     [Route("api/[controller]")]
     public class CategoriesController : BaseController
     {
-        private readonly IGenericRepository<CategoryDb> repository;
-        public CategoriesController(IGenericRepository<CategoryDb> repo)
-        {
-            repository = repo;
-        }
+        private readonly IMediator mediator;
+        private readonly AbstractValidator<AddCategoryQuery> addCategoryValidator;
+        private readonly AbstractValidator<EditCategoryQuery> editCategoryValidator;
+        private readonly AbstractValidator<DeleteCategoryQuery> deleteCategoryValidator;
 
-        System.Linq.Expressions.Expression<Func<CategoryDb, Category>> selector = c => new Category()
+        public CategoriesController(IMediator _mediator, 
+            AbstractValidator<AddCategoryQuery> _addCategoryValidator, 
+            AbstractValidator<EditCategoryQuery> _editCategoryValidator,
+            AbstractValidator<DeleteCategoryQuery> _deleteCategoryValidator)
         {
-            Code = c.Code,
-            Description = c.Description,
-            ForEntity = c.ForEntity,
-            Id = c.Id,
-            Parent = (c.Parent != null) ? new Category() { Id = c.Parent.Id, Code = c.Parent.Code, Description = c.Parent.Description, ForEntity = c.Parent.ForEntity, ParentId = c.Parent.Id } : null,
-            ParentId = c.ParentId
-        };
+            mediator = _mediator;
+
+            addCategoryValidator = _addCategoryValidator;
+            editCategoryValidator = _editCategoryValidator;
+            deleteCategoryValidator = _deleteCategoryValidator;
+        }
 
         // GET: api/Categories
         [HttpGet()]
         public async Task<IEnumerable<Category>> Get()
         {
-            try
-            {
-               
-                return await repository.GetAll().Select(selector).ToListAsync();
-            }
-            catch (Exception ex)
-            {
+            var models = await mediator.Send(new CategoryQuery() { Id = null });
 
-                throw;
-            }
-            
+            return models;
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
         public async Task<Category> Get(int id)
         {
-            try
-            {
-
-                return await repository.FindBy(p => p.Id == id).Select(selector).FirstOrDefaultAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            var models = await mediator.Send(new CategoryQuery() { Id = id });
+            var result = models.FirstOrDefault();
+            return result;
         }
-        
+
         // POST: api/Categories
         [HttpPost]
-        public void Post([FromBody]string value)
+        //[ValidateAntiForgeryToken]
+        public async Task<HttpResponseMessage> Post(AddCategoryQuery newCategory)
         {
+            var validationResult = addCategoryValidator.Validate(newCategory);
+            if (validationResult.IsValid)
+            {
+                await mediator.Send(newCategory);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                return ErrorHelper.GenerateErrorResponse(validationResult, "Errors adding new category");
+            }
+
         }
+
         
-        // PUT: api/Categories/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+
+        // PUT: api/Categories/5  ("{id}")
+        [HttpPut]
+        //[ValidateAntiForgeryToken]
+        public async Task<HttpResponseMessage> Put(EditCategoryQuery category)
         {
+            var validationResult = editCategoryValidator.Validate(category);
+            if (validationResult.IsValid)
+            {
+                await mediator.Send(category);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                return ErrorHelper.GenerateErrorResponse(validationResult, "Errors editing category");
+            }
         }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+
+                
+        [HttpDelete]
+        //[ValidateAntiForgeryToken]
+        public async Task<HttpResponseMessage> Delete(DeleteCategoryQuery category)
         {
+            var validationResult = deleteCategoryValidator.Validate(category);
+            if (validationResult.IsValid)
+            {
+                await mediator.Send(category);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                return ErrorHelper.GenerateErrorResponse(validationResult, "Errors deleting category");
+            }
         }
+
+
+       
     }
 }

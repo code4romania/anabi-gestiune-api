@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="1.1.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
     <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
@@ -15,7 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Anabi.DataAccess.Ef\Anabi.DataAccess.Ef.csproj" />
     <ProjectReference Include="..\Anabi\Anabi.csproj" />
-    <ProjectReference Include="..\Tests.GeneratedStubs\Tests.GeneratedStubs.csproj" />
   </ItemGroup>
 
   <ItemGroup>

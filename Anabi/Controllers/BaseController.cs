@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Net;
 
 namespace Anabi.Controllers
 {
@@ -11,5 +13,6 @@ namespace Anabi.Controllers
     //[Route("api/Base")]
     public class BaseController : Controller
     {
+        
     }
 }
