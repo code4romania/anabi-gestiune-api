@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anabi", "Anabi\Anabi.csproj", "{53B03776-32A0-47F3-9B1B-E18D3DD433A0}"
 EndProject
@@ -56,6 +56,9 @@ Global
 		{51CD06A7-3113-4D3C-B9F1-58065E0C777A} = {541F5C19-735D-4D0D-87CB-19A9E563CB27}
 		{5CC2D3CB-38C8-4003-BD63-6CBFFCA76FF0} = {541F5C19-735D-4D0D-87CB-19A9E563CB27}
 		{8C62A47E-E356-439D-9EBE-DBFEAFFF510A} = {05C188CA-CA1B-4A4A-986E-72611FFAE255}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DCF896A4-DBE2-48C4-B043-00DC8E06CD2A}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
