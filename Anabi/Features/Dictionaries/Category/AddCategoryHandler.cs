@@ -11,14 +11,14 @@ using Anabi.DataAccess.Ef.DbModels;
 
 namespace Anabi.Features.Dictionaries.Category
 {
-    public class AddCategoryQueryHandler : BaseQueryHandler, IAsyncRequestHandler<AddCategoryQuery>
+    public class AddCategoryHandler : BaseHandler, IAsyncRequestHandler<AddCategory>
     {
-        public AddCategoryQueryHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public AddCategoryHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
         {
 
         }
 
-        public async Task Handle(AddCategoryQuery message)
+        public async Task Handle(AddCategory message)
         {
             var newCategory = new CategoryDb();
             

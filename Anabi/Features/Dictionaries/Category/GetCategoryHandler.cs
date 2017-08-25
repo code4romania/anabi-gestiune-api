@@ -9,15 +9,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Anabi.Features.Dictionaries.Category
 {
-    public class CategoryQueryHandler : BaseQueryHandler, IAsyncRequestHandler<CategoryQuery, List<xModel.Category>>
+    public class GetCategoryHandler : BaseHandler, IAsyncRequestHandler<GetCategory, List<xModel.Category>>
     {
         
-        public CategoryQueryHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public GetCategoryHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
         {
             
         }
 
-        public Task<List<xModel.Category>> Handle(CategoryQuery message)
+        public Task<List<xModel.Category>> Handle(GetCategory message)
         {
 
             var command = context.Categorii.AsQueryable();

@@ -7,7 +7,7 @@ using Anabi.Domain.Core.Models;
 
 namespace Anabi.Features.Dictionaries.Category
 {
-    public class CategoryQuery : IRequest<List<Anabi.Domain.Core.Models.Category>>
+    public class GetCategory : IRequest<List<Anabi.Domain.Core.Models.Category>>
     {
         public int? Id { get; set; }
     }

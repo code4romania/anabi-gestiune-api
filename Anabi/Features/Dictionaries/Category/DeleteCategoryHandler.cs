@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Anabi.Features.Dictionaries.Category
 {
-    public class DeleteCategoryQueryHandler : BaseQueryHandler, IAsyncRequestHandler<DeleteCategoryQuery>
+    public class DeleteCategoryHandler : BaseHandler, IAsyncRequestHandler<DeleteCategory>
     {
-        public DeleteCategoryQueryHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public DeleteCategoryHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
         {
         }
 
-        public async Task Handle(DeleteCategoryQuery message)
+        public async Task Handle(DeleteCategory message)
         {
             var categoryToDelete = await context.Categorii.FirstAsync(c => c.Id == message.Id);
             context.Categorii.Remove(categoryToDelete);

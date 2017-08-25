@@ -58,9 +58,9 @@ namespace Anabi
 
         private void MapInterfacesAndClasses(IServiceCollection services)
         {
-            services.AddScoped<AbstractValidator<AddCategoryQuery>, AddCategoryQueryValidator>();
-            services.AddScoped<AbstractValidator<EditCategoryQuery>, EditCategoryQueryValidator>();
-            services.AddScoped<AbstractValidator<DeleteCategoryQuery>, DeleteCategoryQueryValidator>();
+            services.AddScoped<AbstractValidator<AddCategory>, AddCategoryValidator>();
+            services.AddScoped<AbstractValidator<EditCategory>, EditCategoryValidator>();
+            services.AddScoped<AbstractValidator<DeleteCategory>, DeleteCategoryValidator>();
 
             services.AddScoped<IGenericRepository<CountyDb>, CountiesRepository>();
             services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();

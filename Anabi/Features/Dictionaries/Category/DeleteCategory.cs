@@ -9,22 +9,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Anabi.Features.Dictionaries.Category
 {
-    public class DeleteCategoryQuery : IRequest
+    public class DeleteCategory : IRequest
     {
         public int Id { get; set; }
     }
 
-    public class DeleteCategoryQueryValidator : AbstractValidator<DeleteCategoryQuery>
+    public class DeleteCategoryValidator : AbstractValidator<DeleteCategory>
     {
         private readonly AnabiContext context;
-        public DeleteCategoryQueryValidator(AnabiContext ctx)
+        public DeleteCategoryValidator(AnabiContext ctx)
         {
             context = ctx;
             RuleFor(m => m.Id).GreaterThan(0).WithMessage("Id-ul nu a fost specificat!");
             RuleFor(m => m).MustAsync(HaveNoChildren).WithMessage("Categoria nu poate fi stearsa deoarce exista inregistrari care o referentiaza!");
         }
 
-        private async Task<bool> HaveNoChildren(DeleteCategoryQuery query, CancellationToken arg2)
+        private async Task<bool> HaveNoChildren(DeleteCategory query, CancellationToken arg2)
         {
             var hasNoChildren = false;
 

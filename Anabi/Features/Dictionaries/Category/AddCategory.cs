@@ -1,8 +1,5 @@
 ﻿using FluentValidation;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using Anabi.DataAccess.Ef;
@@ -10,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Anabi.Features.Dictionaries.Category
 {
-    public class AddCategoryQuery : IRequest
+    public class AddCategory : IRequest
     {
         public int Id { get; set; }
 
@@ -24,11 +21,11 @@ namespace Anabi.Features.Dictionaries.Category
     }
 
 
-    public class AddCategoryQueryValidator : AbstractValidator<AddCategoryQuery>
+    public class AddCategoryValidator : AbstractValidator<AddCategory>
     {
         private readonly AnabiContext context;
 
-        public AddCategoryQueryValidator(AnabiContext ctx)
+        public AddCategoryValidator(AnabiContext ctx)
         {
             context = ctx;
             RuleFor(c => c.Id).Equal(0);
