@@ -17,14 +17,14 @@ namespace Anabi.Controllers
     public class CategoriesController : BaseController
     {
         private readonly IMediator mediator;
-        private readonly AbstractValidator<AddCategoryQuery> addCategoryValidator;
-        private readonly AbstractValidator<EditCategoryQuery> editCategoryValidator;
-        private readonly AbstractValidator<DeleteCategoryQuery> deleteCategoryValidator;
+        private readonly AbstractValidator<AddCategory> addCategoryValidator;
+        private readonly AbstractValidator<EditCategory> editCategoryValidator;
+        private readonly AbstractValidator<DeleteCategory> deleteCategoryValidator;
 
         public CategoriesController(IMediator _mediator, 
-            AbstractValidator<AddCategoryQuery> _addCategoryValidator, 
-            AbstractValidator<EditCategoryQuery> _editCategoryValidator,
-            AbstractValidator<DeleteCategoryQuery> _deleteCategoryValidator)
+            AbstractValidator<AddCategory> _addCategoryValidator, 
+            AbstractValidator<EditCategory> _editCategoryValidator,
+            AbstractValidator<DeleteCategory> _deleteCategoryValidator)
         {
             mediator = _mediator;
 
@@ -37,7 +37,7 @@ namespace Anabi.Controllers
         [HttpGet()]
         public async Task<IEnumerable<Category>> Get()
         {
-            var models = await mediator.Send(new CategoryQuery() { Id = null });
+            var models = await mediator.Send(new GetCategory() { Id = null });
 
             return models;
         }
@@ -46,7 +46,7 @@ namespace Anabi.Controllers
         [HttpGet("{id}")]
         public async Task<Category> Get(int id)
         {
-            var models = await mediator.Send(new CategoryQuery() { Id = id });
+            var models = await mediator.Send(new GetCategory() { Id = id });
             var result = models.FirstOrDefault();
             return result;
         }
@@ -54,7 +54,7 @@ namespace Anabi.Controllers
         // POST: api/Categories
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<HttpResponseMessage> Post(AddCategoryQuery newCategory)
+        public async Task<HttpResponseMessage> Post(AddCategory newCategory)
         {
             var validationResult = addCategoryValidator.Validate(newCategory);
             if (validationResult.IsValid)
@@ -74,7 +74,7 @@ namespace Anabi.Controllers
         // PUT: api/Categories/5  ("{id}")
         [HttpPut]
         //[ValidateAntiForgeryToken]
-        public async Task<HttpResponseMessage> Put(EditCategoryQuery category)
+        public async Task<HttpResponseMessage> Put(EditCategory category)
         {
             var validationResult = editCategoryValidator.Validate(category);
             if (validationResult.IsValid)
@@ -91,7 +91,7 @@ namespace Anabi.Controllers
                 
         [HttpDelete]
         //[ValidateAntiForgeryToken]
-        public async Task<HttpResponseMessage> Delete(DeleteCategoryQuery category)
+        public async Task<HttpResponseMessage> Delete(DeleteCategory category)
         {
             var validationResult = deleteCategoryValidator.Validate(category);
             if (validationResult.IsValid)

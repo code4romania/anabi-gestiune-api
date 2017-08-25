@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Anabi.Features.Dictionaries.Category
 {
-    public class EditCategoryQuery : IRequest
+    public class EditCategory : IRequest
     {
         public int Id { get; set; }
 
@@ -24,10 +24,10 @@ namespace Anabi.Features.Dictionaries.Category
 
     }
 
-    public class EditCategoryQueryValidator : AbstractValidator<EditCategoryQuery>
+    public class EditCategoryValidator : AbstractValidator<EditCategory>
     {
         private readonly AnabiContext context;
-        public EditCategoryQueryValidator(AnabiContext ctx)
+        public EditCategoryValidator(AnabiContext ctx)
         {
             context = ctx;
             RuleFor(c => c.Id).GreaterThan(0).WithMessage("Id-ul nu a fost specificat!");

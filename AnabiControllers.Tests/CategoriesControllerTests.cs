@@ -22,9 +22,9 @@ namespace AnabiControllers.Tests
         {
             Setup();
 
-            var queryHandler = new CategoryQueryHandler(context, mapper);
+            var queryHandler = new GetCategoryHandler(context, mapper);
 
-            var query = new CategoryQuery() { Id = null };
+            var query = new GetCategory() { Id = null };
 
             var actual = await queryHandler.Handle(query);
 
@@ -37,8 +37,8 @@ namespace AnabiControllers.Tests
 
             Setup();
 
-            var queryHandler = new AddCategoryQueryHandler(context, mapper);
-            var query = new AddCategoryQuery()
+            var queryHandler = new AddCategoryHandler(context, mapper);
+            var query = new AddCategory()
             {
                 Code = "Code 3",
                 Description = "Desc Code 3",
@@ -60,9 +60,9 @@ namespace AnabiControllers.Tests
         {
             Setup();
 
-            var queryHandler = new EditCategoryQueryHandler(context, mapper);
+            var queryHandler = new EditCategoryHandler(context, mapper);
 
-            var query = new EditCategoryQuery()
+            var query = new EditCategory()
             {
                 Code = "Code 3",
                 Description = "Desc Code 3",
@@ -83,9 +83,9 @@ namespace AnabiControllers.Tests
         public async Task Delete()
         {
             Setup();
-            var handler = new DeleteCategoryQueryHandler(context, mapper);
+            var handler = new DeleteCategoryHandler(context, mapper);
 
-            var query = new DeleteCategoryQuery
+            var query = new DeleteCategory
             {
                 Id = 1
             };

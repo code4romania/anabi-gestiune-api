@@ -3,12 +3,12 @@ using AutoMapper;
 
 namespace Anabi.Features
 {
-    public class BaseQueryHandler
+    public class BaseHandler
     {
         public AnabiContext context { get; private set; } 
         public IMapper mapper { get; private set; }
 
-        public BaseQueryHandler(AnabiContext _ctx, IMapper _mapper)
+        public BaseHandler(AnabiContext _ctx, IMapper _mapper)
         {
             context = _ctx;
             mapper = _mapper;
