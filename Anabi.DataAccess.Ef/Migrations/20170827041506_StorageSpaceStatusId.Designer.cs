@@ -8,9 +8,10 @@ using Anabi.DataAccess.Ef;
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20170827041506_StorageSpaceStatusId")]
+    partial class StorageSpaceStatusId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasDefaultSchema("dbo")

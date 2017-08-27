@@ -30,6 +30,12 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
                 .HasConstraintName("FK_StorageSpaces_Categories")
                 .IsRequired();
 
+            entity.HasOne(c => c.Category)
+                .WithOne(s => s.StorageSpace)
+                .HasForeignKey<StorageSpaceDb>(f => f.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_StorageSpacesStatusId");
+
             entity.Property(p => p.TotalVolume)
                 .HasColumnType("Decimal(20, 2)");
 
