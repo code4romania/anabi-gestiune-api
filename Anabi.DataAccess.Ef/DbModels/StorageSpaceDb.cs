@@ -39,5 +39,7 @@ namespace Anabi.DataAccess.Ef.DbModels
         public decimal? MonthlyMaintenanceCost { get; set; }
 
         public string MaintenanceMentions { get; set; }
+
+        public int? StorageSpaceStatusId { get; set; }
     }
 }

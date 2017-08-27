@@ -395,7 +395,12 @@ namespace Anabi.DataAccess.Ef
                 new CategoryDb(){ForEntity ="bun", Code = "Bunuri Imobile", Description = "Bunuri care nu pot fi ridicate"},
                 new CategoryDb(){ForEntity ="bun", Code ="Bani", Description ="Bani"},
                 new CategoryDb(){ForEntity ="institutie", Code ="Instanta", Description =""},
-                new CategoryDb(){ForEntity = "institutie", Code ="Parchet"}
+                new CategoryDb(){ForEntity = "institutie", Code ="Parchet"},
+                new CategoryDb(){ForEntity ="StorageSpaceStatus", Code ="Ocupat"},
+                new CategoryDb(){ForEntity ="StorageSpaceStatus", Code ="Ocupat temporar"},
+                new CategoryDb(){ForEntity ="StorageSpaceStatus", Code ="Dezafectat"},
+                new CategoryDb(){ForEntity ="StorageSpaceStatus", Code ="Liber cu paza"},
+                new CategoryDb(){ForEntity ="StorageSpaceStatus", Code ="Liber fara paza"}
 
                         };
             context.Categorii.AddRange(categorii);
