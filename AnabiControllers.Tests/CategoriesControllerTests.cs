@@ -3,10 +3,13 @@ using Anabi.DataAccess.Ef.DbModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Anabi.Features.Dictionaries.Category;
 using Anabi.DataAccess.Ef;
 using AutoMapper;
 using Anabi;
+using Anabi.Domain.Category;
+using Anabi.Domain.Category.Commands;
+using Anabi.Features.Category;
+using Anabi.Features.Category.Models;
 
 namespace AnabiControllers.Tests
 {
@@ -22,7 +25,7 @@ namespace AnabiControllers.Tests
         {
             Setup();
 
-            var queryHandler = new GetCategoryHandler(context, mapper);
+            var queryHandler = new CategoryQueryHandler(context, mapper);
 
             var query = new GetCategory() { Id = null };
 
@@ -37,7 +40,7 @@ namespace AnabiControllers.Tests
 
             Setup();
 
-            var queryHandler = new AddCategoryHandler(context, mapper);
+            var queryHandler = new CategoryHandler(context, mapper);
             var query = new AddCategory()
             {
                 Code = "Code 3",
@@ -60,7 +63,7 @@ namespace AnabiControllers.Tests
         {
             Setup();
 
-            var queryHandler = new EditCategoryHandler(context, mapper);
+            var queryHandler = new CategoryHandler(context, mapper);
 
             var query = new EditCategory()
             {
@@ -83,7 +86,7 @@ namespace AnabiControllers.Tests
         public async Task Delete()
         {
             Setup();
-            var handler = new DeleteCategoryHandler(context, mapper);
+            var handler = new CategoryHandler(context, mapper);
 
             var query = new DeleteCategory
             {

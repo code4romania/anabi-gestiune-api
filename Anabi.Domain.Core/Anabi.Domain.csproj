@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Abstractions\**" />
+    <Compile Remove="Validations\**" />
+    <Compile Remove="ViewModels\**" />
+    <EmbeddedResource Remove="Abstractions\**" />
+    <EmbeddedResource Remove="Validations\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="Abstractions\**" />
+    <None Remove="Validations\**" />
+    <None Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+    <PackageReference Include="FluentValidation" Version="7.1.1" />
+    <PackageReference Include="MediatR" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Anabi.DataAccess.Ef\Anabi.DataAccess.Ef.csproj" />
+  </ItemGroup>
+
+</Project>

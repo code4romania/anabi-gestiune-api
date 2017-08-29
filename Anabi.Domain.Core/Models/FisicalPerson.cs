@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Anabi.Domain.Core.Models
+﻿namespace Anabi.Domain.Models
 {
     public class FisicalPerson : Person
     {

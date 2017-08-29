@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Anabi.Domain.Core.Models
+namespace Anabi.Domain.Models
 {
     public class Journal
     {

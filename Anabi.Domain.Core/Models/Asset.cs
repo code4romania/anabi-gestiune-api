@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Anabi.Domain.Core.Models
+namespace Anabi.Domain.Models
 {
     public class Asset
     {
@@ -10,8 +10,6 @@ namespace Anabi.Domain.Core.Models
 
 
         public int CategoryId { get; set; }
-
-        public Category Category { get; set; }
 
         public Stage CurrentStage { get; set; }
 

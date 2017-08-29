@@ -1,0 +1,184 @@
+2017-08-29 19:39:16.434 +03:00 [Information] Executed DbCommand (115ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2017-08-29 19:39:17.028 +03:00 [Information] Executed DbCommand (24ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [dbo].[Counties] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+2017-08-29 19:39:17.986 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/api/values  
+2017-08-29 19:39:18.751 +03:00 [Information] Request finished in 796.9191ms 404 
+2017-08-29 19:40:47.570 +03:00 [Information] Executed DbCommand (81ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2017-08-29 19:40:48.102 +03:00 [Information] Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [dbo].[Counties] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+2017-08-29 19:40:48.977 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/api/values  
+2017-08-29 19:40:49.461 +03:00 [Information] Request finished in 507.1072ms 404 
+2017-08-29 19:41:21.921 +03:00 [Information] Executed DbCommand (64ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2017-08-29 19:41:22.359 +03:00 [Information] Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [dbo].[Counties] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+2017-08-29 19:41:23.187 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/api/values  
+2017-08-29 19:41:23.687 +03:00 [Information] Request finished in 514.843ms 404 
+2017-08-29 19:42:22.291 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/ui  
+2017-08-29 19:42:22.322 +03:00 [Information] Request finished in 24.4016ms 404 
+2017-08-29 19:42:31.597 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/  
+2017-08-29 19:42:31.612 +03:00 [Information] Sending file. Request path: '"/index.html"'. Physical path: '"N/A"'
+2017-08-29 19:42:31.706 +03:00 [Information] Request finished in 82.1094ms 200 text/html
+2017-08-29 19:42:31.739 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/css/reset.css  
+2017-08-29 19:42:31.847 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/css/screen.css  
+2017-08-29 19:42:31.926 +03:00 [Information] Sending file. Request path: '"/css/screen.css"'. Physical path: '"N/A"'
+2017-08-29 19:42:31.926 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/css/typography.css  
+2017-08-29 19:42:31.940 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/css/print.css  
+2017-08-29 19:42:32.050 +03:00 [Information] Sending file. Request path: '"/css/reset.css"'. Physical path: '"N/A"'
+2017-08-29 19:42:32.050 +03:00 [Information] Request finished in 201.5993ms 200 text/css
+2017-08-29 19:42:32.065 +03:00 [Information] Sending file. Request path: '"/css/typography.css"'. Physical path: '"N/A"'
+2017-08-29 19:42:32.081 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/jquery.slideto.min.js  
+2017-08-29 19:42:32.239 +03:00 [Information] Sending file. Request path: '"/css/print.css"'. Physical path: '"N/A"'
+2017-08-29 19:42:32.269 +03:00 [Information] Sending file. Request path: '"/lib/jquery.slideto.min.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:32.300 +03:00 [Information] Request finished in 192.3574ms 200 application/javascript
+2017-08-29 19:42:32.347 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/handlebars-4.0.5.js  
+2017-08-29 19:42:32.410 +03:00 [Information] Request finished in 464.6142ms 200 text/css
+2017-08-29 19:42:32.519 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/jquery.ba-bbq.min.js  
+2017-08-29 19:42:32.534 +03:00 [Information] Request finished in 533.5077ms 200 text/css
+2017-08-29 19:42:32.567 +03:00 [Information] Sending file. Request path: '"/lib/handlebars-4.0.5.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:32.567 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/object-assign-pollyfill.js  
+2017-08-29 19:42:32.567 +03:00 [Information] Request finished in 497.4513ms 200 text/css
+2017-08-29 19:42:32.659 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/jquery-1.8.0.min.js  
+2017-08-29 19:42:32.690 +03:00 [Information] Sending file. Request path: '"/lib/object-assign-pollyfill.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:32.722 +03:00 [Information] Sending file. Request path: '"/lib/jquery.ba-bbq.min.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:32.753 +03:00 [Information] Sending file. Request path: '"/lib/jquery-1.8.0.min.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:32.784 +03:00 [Information] Request finished in 309.2492ms 200 application/javascript
+2017-08-29 19:42:32.784 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/lodash.min.js  
+2017-08-29 19:42:32.831 +03:00 [Information] Request finished in 401.2928ms 200 application/javascript
+2017-08-29 19:42:32.878 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/jquery.wiggle.min.js  
+2017-08-29 19:42:32.878 +03:00 [Information] Request finished in 469.3213ms 200 application/javascript
+2017-08-29 19:42:32.956 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/backbone-min.js  
+2017-08-29 19:42:32.972 +03:00 [Information] Sending file. Request path: '"/lib/jquery.wiggle.min.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:32.987 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/swagger-ui.min.js  
+2017-08-29 19:42:33.081 +03:00 [Information] Sending file. Request path: '"/lib/lodash.min.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:33.128 +03:00 [Information] Sending file. Request path: '"/lib/backbone-min.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:33.144 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/highlight.9.1.0.pack.js  
+2017-08-29 19:42:33.253 +03:00 [Information] Sending file. Request path: '"/swagger-ui.min.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:33.284 +03:00 [Information] Request finished in 356.6748ms 200 application/javascript
+2017-08-29 19:42:33.284 +03:00 [Information] Request finished in 304.6781ms 200 application/javascript
+2017-08-29 19:42:33.378 +03:00 [Information] Request finished in 510.2385ms 200 application/javascript
+2017-08-29 19:42:33.425 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/highlight.9.1.0.pack_extended.js  
+2017-08-29 19:42:33.488 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/jsoneditor.min.js  
+2017-08-29 19:42:33.503 +03:00 [Information] Sending file. Request path: '"/lib/highlight.9.1.0.pack.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:33.551 +03:00 [Information] Request finished in 704.1092ms 200 application/javascript
+2017-08-29 19:42:33.613 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/marked.js  
+2017-08-29 19:42:33.675 +03:00 [Information] Sending file. Request path: '"/lib/marked.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:33.675 +03:00 [Information] Request finished in 599.8528ms 200 application/javascript
+2017-08-29 19:42:33.753 +03:00 [Information] Sending file. Request path: '"/lib/highlight.9.1.0.pack_extended.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:33.769 +03:00 [Information] Sending file. Request path: '"/lib/jsoneditor.min.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:33.815 +03:00 [Information] Request finished in 467.7575ms 200 application/javascript
+2017-08-29 19:42:33.862 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/images/logo_small.png  
+2017-08-29 19:42:33.895 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/swagger-oauth.js  
+2017-08-29 19:42:33.956 +03:00 [Information] Sending file. Request path: '"/images/logo_small.png"'. Physical path: '"N/A"'
+2017-08-29 19:42:34.050 +03:00 [Information] Request finished in 331.1072ms 200 application/javascript
+2017-08-29 19:42:34.082 +03:00 [Information] Sending file. Request path: '"/lib/swagger-oauth.js"'. Physical path: '"N/A"'
+2017-08-29 19:42:34.082 +03:00 [Information] Request finished in 213.0877ms 200 image/png
+2017-08-29 19:42:34.159 +03:00 [Information] Request finished in 533.6814ms 200 application/javascript
+2017-08-29 19:42:34.175 +03:00 [Information] Request finished in 522.4209ms 200 application/javascript
+2017-08-29 19:42:34.190 +03:00 [Information] Request finished in 1247.2806ms 200 application/javascript
+2017-08-29 19:42:34.300 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/v1/swagger.json  
+2017-08-29 19:42:34.675 +03:00 [Information] Request finished in 382.0676ms 200 application/json
+2017-08-29 21:58:16.964 +03:00 [Information] Executed DbCommand (112ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2017-08-29 21:58:17.829 +03:00 [Information] Executed DbCommand (20ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [dbo].[Counties] AS [c])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+2017-08-29 21:58:18.727 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/api/values  
+2017-08-29 21:58:19.274 +03:00 [Information] Request finished in 532.0538ms 404 
+2017-08-29 21:58:20.578 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/  
+2017-08-29 21:58:20.633 +03:00 [Information] Sending file. Request path: '"/index.html"'. Physical path: '"N/A"'
+2017-08-29 21:58:20.672 +03:00 [Information] Request finished in 119.0616ms 200 text/html
+2017-08-29 21:58:20.687 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/css/typography.css  
+2017-08-29 21:58:20.701 +03:00 [Information] The file "/css/typography.css" was not modified
+2017-08-29 21:58:20.720 +03:00 [Information] Request finished in 36.0935ms 304 text/css
+2017-08-29 21:58:20.731 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/css/reset.css  
+2017-08-29 21:58:20.739 +03:00 [Information] The file "/css/reset.css" was not modified
+2017-08-29 21:58:20.750 +03:00 [Information] Request finished in 21.8574ms 304 text/css
+2017-08-29 21:58:20.759 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/css/screen.css  
+2017-08-29 21:58:20.766 +03:00 [Information] The file "/css/screen.css" was not modified
+2017-08-29 21:58:20.780 +03:00 [Information] Request finished in 17.9358ms 304 text/css
+2017-08-29 21:58:20.790 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/css/reset.css  
+2017-08-29 21:58:20.803 +03:00 [Information] The file "/css/reset.css" was not modified
+2017-08-29 21:58:20.827 +03:00 [Information] Request finished in 34.6705ms 304 text/css
+2017-08-29 21:58:20.835 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/css/print.css  
+2017-08-29 21:58:20.843 +03:00 [Information] The file "/css/print.css" was not modified
+2017-08-29 21:58:20.855 +03:00 [Information] Request finished in 19.4043ms 304 text/css
+2017-08-29 21:58:20.863 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/object-assign-pollyfill.js  
+2017-08-29 21:58:20.870 +03:00 [Information] The file "/lib/object-assign-pollyfill.js" was not modified
+2017-08-29 21:58:20.882 +03:00 [Information] Request finished in 17.5497ms 304 application/javascript
+2017-08-29 21:58:20.890 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/jquery-1.8.0.min.js  
+2017-08-29 21:58:20.897 +03:00 [Information] The file "/lib/jquery-1.8.0.min.js" was not modified
+2017-08-29 21:58:20.908 +03:00 [Information] Request finished in 18.5729ms 304 application/javascript
+2017-08-29 21:58:20.942 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/jquery.slideto.min.js  
+2017-08-29 21:58:20.950 +03:00 [Information] The file "/lib/jquery.slideto.min.js" was not modified
+2017-08-29 21:58:20.960 +03:00 [Information] Request finished in 17.6842ms 304 application/javascript
+2017-08-29 21:58:20.969 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/jquery.wiggle.min.js  
+2017-08-29 21:58:20.976 +03:00 [Information] The file "/lib/jquery.wiggle.min.js" was not modified
+2017-08-29 21:58:20.989 +03:00 [Information] Request finished in 19.6206ms 304 application/javascript
+2017-08-29 21:58:20.997 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/jquery.ba-bbq.min.js  
+2017-08-29 21:58:21.006 +03:00 [Information] The file "/lib/jquery.ba-bbq.min.js" was not modified
+2017-08-29 21:58:21.021 +03:00 [Information] Request finished in 22.7564ms 304 application/javascript
+2017-08-29 21:58:21.032 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/handlebars-4.0.5.js  
+2017-08-29 21:58:21.041 +03:00 [Information] The file "/lib/handlebars-4.0.5.js" was not modified
+2017-08-29 21:58:21.060 +03:00 [Information] Request finished in 27.0681ms 304 application/javascript
+2017-08-29 21:58:21.072 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/lodash.min.js  
+2017-08-29 21:58:21.080 +03:00 [Information] The file "/lib/lodash.min.js" was not modified
+2017-08-29 21:58:21.093 +03:00 [Information] Request finished in 21.628ms 304 application/javascript
+2017-08-29 21:58:21.107 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/backbone-min.js  
+2017-08-29 21:58:21.117 +03:00 [Information] The file "/lib/backbone-min.js" was not modified
+2017-08-29 21:58:21.130 +03:00 [Information] Request finished in 23.2882ms 304 application/javascript
+2017-08-29 21:58:21.140 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/swagger-ui.min.js  
+2017-08-29 21:58:21.147 +03:00 [Information] The file "/swagger-ui.min.js" was not modified
+2017-08-29 21:58:21.160 +03:00 [Information] Request finished in 19.9511ms 304 application/javascript
+2017-08-29 21:58:21.219 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/highlight.9.1.0.pack.js  
+2017-08-29 21:58:21.228 +03:00 [Information] The file "/lib/highlight.9.1.0.pack.js" was not modified
+2017-08-29 21:58:21.246 +03:00 [Information] Request finished in 26.5664ms 304 application/javascript
+2017-08-29 21:58:21.261 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/highlight.9.1.0.pack_extended.js  
+2017-08-29 21:58:21.275 +03:00 [Information] The file "/lib/highlight.9.1.0.pack_extended.js" was not modified
+2017-08-29 21:58:21.287 +03:00 [Information] Request finished in 31.2411ms 304 application/javascript
+2017-08-29 21:58:21.296 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/jsoneditor.min.js  
+2017-08-29 21:58:21.306 +03:00 [Information] The file "/lib/jsoneditor.min.js" was not modified
+2017-08-29 21:58:21.324 +03:00 [Information] Request finished in 25.3474ms 304 application/javascript
+2017-08-29 21:58:21.334 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/marked.js  
+2017-08-29 21:58:21.344 +03:00 [Information] The file "/lib/marked.js" was not modified
+2017-08-29 21:58:21.359 +03:00 [Information] Request finished in 21.5499ms 304 application/javascript
+2017-08-29 21:58:21.366 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/lib/swagger-oauth.js  
+2017-08-29 21:58:21.376 +03:00 [Information] The file "/lib/swagger-oauth.js" was not modified
+2017-08-29 21:58:21.392 +03:00 [Information] Request finished in 18.3636ms 304 application/javascript
+2017-08-29 21:58:21.425 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/images/logo_small.png  
+2017-08-29 21:58:21.484 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/v1/swagger.json  
+2017-08-29 21:58:21.510 +03:00 [Information] The file "/images/logo_small.png" was not modified
+2017-08-29 21:58:21.551 +03:00 [Information] Request finished in 142.1053ms 304 image/png
+2017-08-29 21:58:21.996 +03:00 [Information] Request finished in 502.3082ms 200 application/json
+2017-08-29 21:58:26.941 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/swagger/images/throbber.gif  
+2017-08-29 21:58:26.955 +03:00 [Information] Sending file. Request path: '"/images/throbber.gif"'. Physical path: '"N/A"'
+2017-08-29 21:58:26.967 +03:00 [Information] Request finished in 27.4879ms 200 image/gif
+2017-08-29 21:58:36.081 +03:00 [Information] Request starting HTTP/1.1 GET http://localhost:63754/api/Categories  
+2017-08-29 21:58:36.390 +03:00 [Information] Executing action method "Anabi.Features.Dictionaries.Category.CategoriesController.Get (Anabi)" with arguments (null) - ModelState is Valid
+2017-08-29 21:58:36.694 +03:00 [Information] Executed DbCommand (92ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [x].[Id], [x].[Code], [x].[Description], [x].[ForEntity], [x].[ParentId]
+FROM [dbo].[Categories] AS [x]
+2017-08-29 21:58:36.870 +03:00 [Information] Executing ObjectResult, writing value "Microsoft.AspNetCore.Mvc.ControllerContext".
+2017-08-29 21:58:36.941 +03:00 [Information] Executed action "Anabi.Features.Dictionaries.Category.CategoriesController.Get (Anabi)" in 720.3705ms
+2017-08-29 21:58:36.962 +03:00 [Information] Request finished in 878.587ms 200 application/json; charset=utf-8

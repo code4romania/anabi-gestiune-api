@@ -36,10 +36,11 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Anabi.DataAccess.Abstractions\Anabi.DataAccess.Abstractions.csproj" />
+    <None Include="appsettings.Development.json" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Anabi.DataAccess.Ef\Anabi.DataAccess.Ef.csproj" />
-    <ProjectReference Include="..\Anabi.DataAccess.Repositories\Anabi.DataAccess.Repositories.csproj" />
-    <ProjectReference Include="..\Anabi.Domain.Core\Anabi.Domain.Core.csproj" />
+    <ProjectReference Include="..\Anabi.Domain.Core\Anabi.Domain.csproj" />
   </ItemGroup>
 
 </Project>

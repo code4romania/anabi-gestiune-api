@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Anabi.Domain.Core.Models
+namespace Anabi.Domain.Models
 {
     public abstract class Person
     {
