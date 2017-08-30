@@ -11,11 +11,12 @@ using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Anabi.Features.Dictionaries.Decision;
 using Anabi.Domain.Core.Models.Decisions;
+using Anabi.Domain.Core.Models.Filters;
 
 namespace Anabi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class DecisionsController : BaseController
     {
         private readonly IMediator mediator;
@@ -57,10 +58,10 @@ namespace Anabi.Controllers
             }
         }
 
-        [HttpGet()]
-        public async Task<IEnumerable<DecisionSummary>> Search()
+        [HttpGet]
+        public async Task<IEnumerable<DecisionSummary>> Search(SearchDecision filter)
         {
-            var results = await mediator.Send(new SearchDecision());
+            var results = await mediator.Send(filter);
 
             return results;
         }
