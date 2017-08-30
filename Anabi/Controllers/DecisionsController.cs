@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Anabi.Features.Dictionaries.Decision;
 using Anabi.Domain.Core.Models.Decisions;
-using Anabi.Domain.Core.Models.Filters;
 
 namespace Anabi.Controllers
 {
