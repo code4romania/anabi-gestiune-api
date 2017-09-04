@@ -48,7 +48,7 @@ namespace Anabi
         {
             // Add framework services.
             services.AddMvc()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining(typeof(Startup)));
+                .AddFluentValidation();
             
             
 
@@ -56,9 +56,9 @@ namespace Anabi
 
             MapInterfacesAndClasses(services);
 
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup), typeof(BaseHandler));
 
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(typeof(Startup), typeof(BaseHandler));
         }
 
         private void MapInterfacesAndClasses(IServiceCollection services)

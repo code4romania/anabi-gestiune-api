@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 using Anabi.Controllers;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain;
+using Anabi.Features.Decision.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
-using Anabi.Features.Dictionaries.Decision;
-using Anabi.Domain.Core.Models.Decisions;
 
 namespace Anabi.Features.Decision
 {

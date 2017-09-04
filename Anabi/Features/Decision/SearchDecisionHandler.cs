@@ -1,15 +1,14 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Anabi.DataAccess.Ef;
 using AutoMapper;
-using Anabi.Domain.Core.Models.Decisions;
+using MediatR;
+using Anabi.Domain;
+using Anabi.Features.Decision.Models;
+using Anabi.DataAccess.Ef;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using FluentValidation;
 
-namespace Anabi.Features.Dictionaries.Decision
+namespace Anabi.Features.Decision
 {
     public class SearchDecisionHandler : BaseHandler, IAsyncRequestHandler<SearchDecision, List<DecisionSummary>>
     {
