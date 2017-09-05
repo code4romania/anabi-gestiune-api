@@ -1,4 +1,4 @@
-﻿namespace Anabi.Domain.Core.Models
+﻿namespace Anabi.Domain.Models
 {
     public class Stage
     {

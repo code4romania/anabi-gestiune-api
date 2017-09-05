@@ -1,8 +1,6 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Anabi.Domain.Core.Models
+namespace Anabi.Domain.Models
 {
     public class File
     {

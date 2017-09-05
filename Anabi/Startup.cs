@@ -4,18 +4,23 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Anabi.DataAccess.Abstractions.Repositories;
-using Anabi.DataAccess.Repositories;
 using Anabi.DataAccess.Ef;
 using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
 using Swashbuckle.AspNetCore.Swagger;
 using Serilog;
 using System.IO;
+using Anabi.Domain;
+using Anabi.Domain.Category;
+using Anabi.Domain.Category.Commands;
+using Anabi.Domain.Decision;
+using Anabi.Domain.Institution;
+using Anabi.Domain.RecoveryBeneficiary;
+using Anabi.Domain.Stage;
+using Anabi.Domain.StorageSpaces;
 using AutoMapper;
 using MediatR;
 using FluentValidation.AspNetCore;
-using Anabi.Features.Dictionaries.Category;
 using FluentValidation;
 
 namespace Anabi
@@ -43,7 +48,7 @@ namespace Anabi
         {
             // Add framework services.
             services.AddMvc()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining(typeof(Startup)));
+                .AddFluentValidation();
             
             
 
@@ -51,9 +56,9 @@ namespace Anabi
 
             MapInterfacesAndClasses(services);
 
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup), typeof(BaseHandler));
 
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(typeof(Startup), typeof(BaseHandler));
         }
 
         private void MapInterfacesAndClasses(IServiceCollection services)
@@ -62,7 +67,6 @@ namespace Anabi
             services.AddScoped<AbstractValidator<EditCategory>, EditCategoryValidator>();
             services.AddScoped<AbstractValidator<DeleteCategory>, DeleteCategoryValidator>();
 
-            services.AddScoped<IGenericRepository<CountyDb>, CountiesRepository>();
             services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
             services.AddScoped<IGenericRepository<InstitutionDb>, InstitutionsRepository>();
             services.AddScoped<IGenericRepository<StageDb>, StagesRepository>();
