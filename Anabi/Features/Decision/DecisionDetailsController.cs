@@ -36,22 +36,7 @@ namespace Anabi.Features.Decision
             return result;
         }
         
-        // POST: api/DecisionDetails
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
         
-        // PUT: api/DecisionDetails/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
         
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

@@ -25,9 +25,13 @@ namespace Anabi.Features.Decision
                          join i in context.Institutii on h.InstitutionId equals i.Id
                          join p in context.Persoane on h.OwnerId equals p.Id
                          join s in context.Etape on h.StageId equals s.Id
-                         select new { historicalStage = h, asset = a,
-                             decisionDictionary = d, institutionDictionary = i,
-                         person = p, stageDictionary = s}
+                         select new {
+                             historicalStage = h,
+                             asset = a,
+                             decisionDictionary = d,
+                             institutionDictionary = i,
+                             person = p,
+                             stageDictionary = s}
                          );
                 
                 //context.EtapeIstorice.AsQueryable();
