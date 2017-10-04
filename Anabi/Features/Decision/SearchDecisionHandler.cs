@@ -26,7 +26,7 @@ namespace Anabi.Features.Decision
                         join institution in context.Institutii on historicalStage.InstitutionId equals institution.Id
                         join defendant in context.InculpatiDosar on file.Id equals defendant.FileId
                         join person in context.Persoane on defendant.PersonId equals person.Id
-                        where asset.CurrentStageId == historicalStage.StageId
+                        
                         where (string.IsNullOrEmpty(message.PersonID) || person.Identification == message.PersonID)
                         where (string.IsNullOrEmpty(message.PersonName) || person.Name == message.PersonName)
                         select new DecisionSummary
