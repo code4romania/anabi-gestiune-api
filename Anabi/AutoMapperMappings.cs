@@ -9,6 +9,9 @@ using AutoMapper;
 
 namespace Anabi
 {
+    using Anabi.Domain.Institution.Commands;
+    using Anabi.Features.Institution.Models;
+
     public class AutoMapperMappings : Profile
     {
         public AutoMapperMappings()
@@ -25,7 +28,13 @@ namespace Anabi
             CreateMap<File, FileDb>().ReverseMap();
             CreateMap<FileNumber, FileNumberDb>().ReverseMap();
             CreateMap<HistoricalStage, HistoricalStageDb>().ReverseMap();
+
             CreateMap<Institution, InstitutionDb>().ReverseMap();
+            CreateMap<AddInstitution, InstitutionDb>();
+            CreateMap<EditInstitution, InstitutionDb>().ForMember(
+                d => d.UserCodeLastChange,
+                m => m.MapFrom(s => s.ChangeByUserCode));
+
             CreateMap<Person, PersonDb>().ReverseMap();
             CreateMap<RecoveryBeneficiary, RecoveryBeneficiaryDb>().ReverseMap();
             CreateMap<Stage, StageDb>().ReverseMap();
