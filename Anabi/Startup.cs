@@ -80,6 +80,7 @@ namespace Anabi
         {
 
             var connection = Configuration.GetConnectionString("AnabiDatabase");
+
             services.AddDbContext<AnabiContext>(options =>
             options.UseSqlServer(connection,
                          sqlServerOptionsAction: sqlOptions =>
