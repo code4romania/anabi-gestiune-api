@@ -26,8 +26,8 @@ namespace Anabi.DataAccess.Ef.Migrations
                 name: "CategoryId",
                 schema: "dbo",
                 table: "StorageSpaces",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true,
+                defaultValue: 1);
 
             migrationBuilder.AddColumn<string>(
                 name: "ContactData",
@@ -90,7 +90,7 @@ namespace Anabi.DataAccess.Ef.Migrations
                 schema: "dbo",
                 table: "StorageSpaces",
                 column: "CategoryId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_StorageSpaces_Category",
