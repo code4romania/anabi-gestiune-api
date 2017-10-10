@@ -14,6 +14,6 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual ICollection<HistoricalStageDb> HistoricalStages { get; set; }
 
-        public virtual ICollection<AssetDb> Assets { get; set; }
+        
     }
 }

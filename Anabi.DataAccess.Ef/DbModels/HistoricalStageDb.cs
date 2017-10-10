@@ -18,6 +18,8 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual AssetDb Asset { get; set; }
 
+        
+
         public decimal EstimatedAmount { get; set; }
 
         public string EstimatedAmountCurrency { get; set; }

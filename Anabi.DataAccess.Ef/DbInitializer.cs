@@ -179,7 +179,7 @@ namespace Anabi.DataAccess.Ef
                 {
                     AddressId = 1,
                     CategoryId = 1,
-                    CurrentStageId = 1,
+                    
                     DecisionId = 1,
                     IsDeleted = false,
                     UserCodeAdd = "pop",
@@ -193,7 +193,7 @@ namespace Anabi.DataAccess.Ef
                 {
                     AddressId = 2,
                     CategoryId = 2,
-                    CurrentStageId = 1,
+                    
                     DecisionId = 1,
                     IsDeleted = false,
                     UserCodeAdd = "pop",
