@@ -22,6 +22,7 @@ using AutoMapper;
 using MediatR;
 using FluentValidation.AspNetCore;
 using FluentValidation;
+using Anabi.Domain.Institution.Commands;
 
 namespace Anabi
 {
@@ -67,8 +68,11 @@ namespace Anabi
             services.AddScoped<AbstractValidator<EditCategory>, EditCategoryValidator>();
             services.AddScoped<AbstractValidator<DeleteCategory>, DeleteCategoryValidator>();
 
+            services.AddScoped<AbstractValidator<AddInstitution>, AddInstitutionValidator>();
+            services.AddScoped<AbstractValidator<EditInstitution>, EditInstitutionValidator>();
+            services.AddScoped<AbstractValidator<DeleteInstitution>, DeleteInstitutionValidator>();
+
             services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
-            services.AddScoped<IGenericRepository<InstitutionDb>, InstitutionsRepository>();
             services.AddScoped<IGenericRepository<StageDb>, StagesRepository>();
             services.AddScoped<IGenericRepository<StorageSpaceDb>, StorageSpacesRepository>();
 

@@ -32,9 +32,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="appsettings.Development.json" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Anabi.DataAccess.Ef\Anabi.DataAccess.Ef.csproj" />
     <ProjectReference Include="..\Anabi.Domain.Core\Anabi.Domain.csproj" />
   </ItemGroup>
