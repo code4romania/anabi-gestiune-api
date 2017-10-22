@@ -14,6 +14,7 @@
     using AutoMapper;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
+    using Anabi.DataAccess.Ef.DbModels;
 
     public class InstitutionQueryHandler : Domain.BaseHandler, IAsyncRequestHandler<GetInstitution, List<Institution>>
     {
@@ -23,12 +24,14 @@
         }
        public async Task<List<Institution>> Handle(GetInstitution message)
         {
-            var result = context.Institutii.AsQueryable();
+            var result = context.Institutii
+                .Include(nameof(InstitutionDb.Address))
+                .AsQueryable();
             if (message.Id.HasValue)
             {
                 result = result.Where(i => i.Id == message.Id);
             }
-
+                        
             return await result.Select(x=> mapper.Map<Institution>(x)).ToListAsync();
         }
     }
