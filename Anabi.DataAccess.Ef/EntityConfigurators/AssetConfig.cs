@@ -27,12 +27,7 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
                 .HasConstraintName("FK_Assets_Categories")
                 .IsRequired();
 
-            entity.HasOne(k => k.CurrentStage)
-                .WithMany(b => b.Assets)
-                .HasForeignKey(k => k.CurrentStageId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Assets_Stages")
-                .IsRequired();
+            
 
             entity.HasOne(d => d.CurrentDecision)
                 .WithMany(b => b.Assets)

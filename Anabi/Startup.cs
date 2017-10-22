@@ -89,6 +89,7 @@ namespace Anabi
         {
 
             var connection = Configuration.GetConnectionString("AnabiDatabase");
+
             services.AddDbContext<AnabiContext>(options =>
             options.UseSqlServer(connection,
                          sqlServerOptionsAction: sqlOptions =>
@@ -103,6 +104,11 @@ namespace Anabi
 
             services.AddSwaggerGen((c) => {
                 c.SwaggerDoc("v1", new Info() { Title = "ANABI", Version = "v1" });
+            });
+
+            services.ConfigureSwaggerGen(options =>
+            {
+                options.CustomSchemaIds(x => x.FullName);
             });
         }
 
@@ -131,6 +137,7 @@ namespace Anabi
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ANABI API V1");
+                
             });
         }
     }

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Anabi.Features.Decision.Models
+namespace Anabi.Features.Assets.Models
 {
     public class DecisionDetails
     {
