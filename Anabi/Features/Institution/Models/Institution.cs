@@ -12,7 +12,5 @@ namespace Anabi.Features.Institution.Models
         public string Name { get; set; }
 
         public Address Address { get; set; }
-
-        public Journal Journal { get; set; }
     }
 }

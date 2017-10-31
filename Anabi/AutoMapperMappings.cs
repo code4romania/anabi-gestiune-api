@@ -9,6 +9,7 @@ using AutoMapper;
 
 namespace Anabi
 {
+    using Anabi.Domain.Common.Address;
     using Anabi.Domain.Institution.Commands;
     using Anabi.Features.Institution.Models;
 
@@ -34,6 +35,7 @@ namespace Anabi
             CreateMap<EditInstitution, InstitutionDb>().ForMember(
                 d => d.UserCodeLastChange,
                 m => m.MapFrom(s => s.ChangeByUserCode));
+            CreateMap<IAddAddress, AddressDb>();
 
             CreateMap<Person, PersonDb>().ReverseMap();
             CreateMap<RecoveryBeneficiary, RecoveryBeneficiaryDb>().ReverseMap();

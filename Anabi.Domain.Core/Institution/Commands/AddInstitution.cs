@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Anabi.Domain.Common;
+using Anabi.Domain.Common.Address;
 
 namespace Anabi.Domain.Institution.Commands
 {
@@ -13,41 +15,43 @@ namespace Anabi.Domain.Institution.Commands
 
     using FluentValidation;
 
-    using Microsoft.EntityFrameworkCore;
 
-    public class AddInstitution : IRequest
+    public class AddInstitution : IAddAddress, IRequest
     {
         public string Name { get; set; }
 
         public int CategoryId { get; set; }
 
-        public int? AddressId { get; set; }
-
         public string UserCodeAdd { get; set; }
+
+        public string CountyCode { get; set; }
+
+        public string City { get; set; }
+
+        public string Street { get; set; }
+
+        public string Building { get; set; }
+
+        public string Stair { get; set; }
+
+        public string Floor { get; set; }
+
+        public string FlatNo { get; set; }
     }
 
     public class AddInstitutionValidator : AbstractValidator<AddInstitution>
     {
-        private readonly AnabiContext context;
-
-        public AddInstitutionValidator(AnabiContext context)
+        public AddInstitutionValidator(AnabiContext context,
+            IDatabaseChecks checks, AbstractValidator<IAddAddress> addAddressValidator)
         {
-            this.context = context;
             RuleFor(m => m.CategoryId).NotEmpty();
 
             RuleFor(p => p.Name).Length(1, 50).WithMessage("Numele poate avea o lungime de 1-50 caractere");
-            
-            RuleFor(m => m.UserCodeAdd).MustAsync(UserExists).WithMessage("Utilizatorul nu exista");
-        }
 
-        private async Task<bool> UserExists(string userCode, CancellationToken cancellationToken)
-        {
-            if (string.IsNullOrWhiteSpace(userCode) || userCode.Length > 20)
-            {
-                return false;
-            }
+            RuleFor(m => m.UserCodeAdd).MustAsync(
+                checks.UserExists).WithMessage("Utilizatorul nu exista");
 
-            return await this.context.Utilizatori.AnyAsync(x=> x.UserCode == userCode, cancellationToken);
+            RuleFor(m => m).SetValidator(addAddressValidator).Unless(m=> checks.EmptyAddress(m));
         }
     }
 }
