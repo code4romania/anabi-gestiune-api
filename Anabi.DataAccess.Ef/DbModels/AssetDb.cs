@@ -16,8 +16,8 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual CategoryDb Category { get; set; }
 
+        public string Description { get; set; }
 
-        
         public int DecisionId { get; set; }
 
         public virtual DecisionDb CurrentDecision { get; set; }
