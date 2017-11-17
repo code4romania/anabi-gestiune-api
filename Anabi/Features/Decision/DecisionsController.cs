@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Anabi.Controllers;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain;
-using Anabi.Features.Decision.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
@@ -55,12 +54,6 @@ namespace Anabi.Features.Decision
             }
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<DecisionSummary>> Search(SearchDecision filter)
-        {
-            var results = await mediator.Send(filter);
-
-            return results;
-        }
+       
     }
 }

@@ -1,5 +1,4 @@
-﻿using Anabi.Features.Decision.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Anabi.Features.Assets.Models
 {
