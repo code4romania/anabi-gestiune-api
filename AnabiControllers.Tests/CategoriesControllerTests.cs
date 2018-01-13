@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Anabi.DataAccess.Ef.DbModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef;
@@ -98,6 +99,14 @@ namespace AnabiControllers.Tests
             var cat = await context.Categorii.AnyAsync<CategoryDb>(p => p.Id == 1);
 
             Assert.IsFalse(cat);
+        }
+
+        [TestMethod]
+        public void InitializeDB()
+        {
+            Setup();
+            DbInitializer.Initialize(context);
+            Assert.AreEqual(2, context.SpatiiStocare.Count());
         }
 
         #region Setup
