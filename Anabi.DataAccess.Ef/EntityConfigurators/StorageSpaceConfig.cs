@@ -24,8 +24,8 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
                 .IsRequired();
 
             entity.HasOne(c => c.Category)
-                .WithOne(s => s.StorageSpace)
-                .HasForeignKey<StorageSpaceDb>(f => f.CategoryId)
+                .WithMany(s => s.StorageSpaces)
+                .HasForeignKey(f => f.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_StorageSpaces_Categories")
                 .IsRequired();
@@ -57,8 +57,7 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
             entity.Property(p => p.MonthlyMaintenanceCost)
                 .HasColumnType("Decimal(20, 2)");
 
-            entity.Property(p => p.MaintenanceMentions)
-                .HasColumnType("Decimal(20, 2)");
-        }
+            entity.Property(p => p.MaintenanceMentions);
+        }   
     }
 }

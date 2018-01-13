@@ -1,8 +1,6 @@
 ﻿using Anabi.DataAccess.Ef.DbModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Anabi.DataAccess.Ef
 {
@@ -48,9 +46,9 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaBunuriSpatiiStocare(AnabiContext context)
         {
-            var bunurispatiiStocare = new AssetStorageSpaceDb[]
+            var bunurispatiiStocare = new[]
                         {
-                new AssetStorageSpaceDb()
+                new AssetStorageSpaceDb
                 {
                     AssetId = 1,
                     StorageSpaceId = 1,
@@ -58,7 +56,7 @@ namespace Anabi.DataAccess.Ef
                     UserCodeAdd = "pop",
                     AddedDate = new DateTime(2017,1,6)
                 },
-                new AssetStorageSpaceDb()
+                new AssetStorageSpaceDb
                 {
                     AssetId = 2,
                     StorageSpaceId = 2,
@@ -73,9 +71,9 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaSpatiiStocare(AnabiContext context)
         {
-            var spatiiStocare = new StorageSpaceDb[]
+            var spatiiStocare = new[]
                         {
-                new StorageSpaceDb()
+                new StorageSpaceDb
                 {
                     AddressId = 1,
                     Name = "Spatiul de stocare 1",
@@ -91,7 +89,7 @@ namespace Anabi.DataAccess.Ef
                     MonthlyMaintenanceCost = 0,
                     MaintenanceMentions = "hope it will not break"
                 },
-                new StorageSpaceDb()
+                new StorageSpaceDb
                 {
                     AddressId =2,
                     Name = "Spatiul de stocare 2",
@@ -115,9 +113,9 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaUtilizatori(AnabiContext context)
         {
-            var utilizatori = new UserDb[]{
+            var utilizatori = new[]{
 
-                new UserDb()
+                new UserDb
                 {
                     UserCode = "pop",
                     Email="pop@gmailx.com",
@@ -128,7 +126,7 @@ namespace Anabi.DataAccess.Ef
                     IsActive = true
 
                 },
-                new UserDb()
+                new UserDb
                 {
                     UserCode = "maria",
                     Email="maria@gmailx.com",
@@ -146,9 +144,9 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaBunuriDosare(AnabiContext context)
         {
-            var bunuriDosare = new AssetsFileDb[]
+            var bunuriDosare = new[]
             {
-                new AssetsFileDb()
+                new AssetsFileDb
                 {
                     AssetId = 1,
                     FileId = 1,
@@ -157,7 +155,7 @@ namespace Anabi.DataAccess.Ef
                     UserCodeLastChange = "maria",
                     LastChangeDate = new DateTime(2017, 4, 5)
                 },
-                new AssetsFileDb()
+                new AssetsFileDb
                 {
                     AssetId = 2,
                     FileId = 2,
@@ -173,13 +171,13 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaBun(AnabiContext context)
         {
-            var bunuri = new AssetDb[]
+            var bunuri = new[]
             {
-                new AssetDb()
+                new AssetDb
                 {
                     AddressId = 1,
                     CategoryId = 1,
-                    
+
                     DecisionId = 1,
                     IsDeleted = false,
                     UserCodeAdd = "pop",
@@ -189,11 +187,11 @@ namespace Anabi.DataAccess.Ef
                     Identifier = "Demo",
                     NecessaryVolume = 12.2m
                 },
-                new AssetDb()
+                new AssetDb
                 {
                     AddressId = 2,
                     CategoryId = 2,
-                    
+
                     DecisionId = 1,
                     IsDeleted = false,
                     UserCodeAdd = "pop",
@@ -210,9 +208,9 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaEtapeIstorice(AnabiContext context)
         {
-            var etapeIstorice = new HistoricalStageDb[]
+            var etapeIstorice = new[]
                         {
-                new HistoricalStageDb()
+                new HistoricalStageDb
                 {
                     AssetId = 1, StageId = 1, DecizieId = 1, InstitutionId = 1,
                     EstimatedAmount = 132000,
@@ -229,7 +227,7 @@ namespace Anabi.DataAccess.Ef
                     ActualValue = 5.3m,
                     ActualValueCurrency = "ron"
                 },
-                new HistoricalStageDb()
+                new HistoricalStageDb
                 {
                     AssetId = 2, StageId = 2, DecizieId = 2, InstitutionId = 1,
                     EstimatedAmount = 176000,
@@ -253,14 +251,15 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaInculpatiDosare(AnabiContext context)
         {
-            var inculpatiDosar = new DefendantsFileDb[]
+            var inculpatiDosar = new[]
             {
-                new DefendantsFileDb(){PersonId = 1, FileId = 1, UserCodeAdd = "pop",
+                new DefendantsFileDb
+                {PersonId = 1, FileId = 1, UserCodeAdd = "pop",
                     AddedDate = new DateTime(2017,2,3),
                     UserCodeLastChange = "maria",
                     LastChangeDate = new DateTime(2017, 4, 5)},
 
-                new DefendantsFileDb()
+                new DefendantsFileDb
                 {
                     PersonId = 2, FileId = 2, UserCodeAdd = "pop",
                     AddedDate = new DateTime(2017,2,3),
@@ -275,16 +274,16 @@ namespace Anabi.DataAccess.Ef
         private static void AdaugaDosareSiNumere(AnabiContext context)
         {
 
-            var dosare = new FileDb[]
+            var dosare = new[]
         {
-                new FileDb()
+                new FileDb
                 {
                     //NumarDosarInitialId = 1,
-                    InitialNumber = new FileNumberDb(){ FileNumber = "Z100000", InstitutionId = 1, NumberDate = new DateTime(2017, 2,3), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 2,5)},
+                    InitialNumber = new FileNumberDb { FileNumber = "Z100000", InstitutionId = 1, NumberDate = new DateTime(2017, 2,3), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 2,5)},
                     InitialFileNumber = "Z100000",
 
                     //NumarDosarCurentId = 2,
-                    CurrentNumber = new FileNumberDb(){ FileNumber = "XC3450000", InstitutionId = 2, NumberDate = new DateTime(2017, 4,5), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 4,8)},
+                    CurrentNumber = new FileNumberDb { FileNumber = "XC3450000", InstitutionId = 2, NumberDate = new DateTime(2017, 4,5), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 4,8)},
                     CurrentFileNumber = "XC3450000",
 
                     DamageAmount = 145000,
@@ -297,14 +296,14 @@ namespace Anabi.DataAccess.Ef
                     UserCodeLastChange = "maria",
                     LastChangeDate = new DateTime(2017, 4, 5)
                 },
-                new FileDb()
+                new FileDb
                 {
                     InitialFileId = 3,
-                    InitialNumber = new FileNumberDb(){ FileNumber = "T450000", InstitutionId = 1, NumberDate = new DateTime(2017, 2,3), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 2,5)},
+                    InitialNumber = new FileNumberDb { FileNumber = "T450000", InstitutionId = 1, NumberDate = new DateTime(2017, 2,3), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 2,5)},
                     InitialFileNumber = "T450000",
 
                     CurrentFileNumberId = 4,
-                    CurrentNumber = new FileNumberDb(){ FileNumber = "Y644009", InstitutionId = 2, NumberDate = new DateTime(2017, 4,5), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 4,8)},
+                    CurrentNumber = new FileNumberDb { FileNumber = "Y644009", InstitutionId = 2, NumberDate = new DateTime(2017, 4,5), UserCodeAdd = "pop", AddedDate = new DateTime(2017, 4,8)},
                     CurrentFileNumber = "Y644009",
 
                     DamageAmount = 356000,
@@ -322,17 +321,17 @@ namespace Anabi.DataAccess.Ef
             context.SaveChanges();
 
 
-            
+
 
 
         }
 
         private static void AdaugaPersoane(AnabiContext context)
         {
-            var persoane = new PersonDb[]
+            var persoane = new[]
                         {
-                new PersonDb(){Name = "Popescu Gigi", IsPerson = true, Identification = "11122336658", AddressId = 1, UserCodeAdd="pop", AddedDate = new DateTime(2017, 1,1), IdNumber ="122345", IdSerie= "RR"},
-                new PersonDb(){Name = "SC Alfa si Omega SRL", IsPerson = false, Identification ="1231123", AddressId = 2, UserCodeAdd="pop", AddedDate = new DateTime(2017, 1,1)}
+                new PersonDb {Name = "Popescu Gigi", IsPerson = true, Identification = "11122336658", AddressId = 1, UserCodeAdd="pop", AddedDate = new DateTime(2017, 1,1), IdNumber ="122345", IdSerie= "RR"},
+                new PersonDb {Name = "SC Alfa si Omega SRL", IsPerson = false, Identification ="1231123", AddressId = 2, UserCodeAdd="pop", AddedDate = new DateTime(2017, 1,1)}
                         };
             context.Persoane.AddRange(persoane);
             context.SaveChanges();
@@ -340,10 +339,10 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaInstitutii(AnabiContext context)
         {
-            var institutii = new InstitutionDb[]
+            var institutii = new[]
                         {
-                new InstitutionDb(){AddressId = 1, CategoryId = 4, UserCodeAdd="pop", AddedDate = new DateTime(2017,1, 2), Name ="Parchetul din Iasi"},
-                new InstitutionDb(){AddressId = 2, CategoryId = 5, UserCodeAdd = "pop", AddedDate = new DateTime(2017,2,3), Name = "Instanta din Craiova"}
+                new InstitutionDb {AddressId = 1, CategoryId = 4, UserCodeAdd="pop", AddedDate = new DateTime(2017,1, 2), Name ="Parchetul din Iasi"},
+                new InstitutionDb {AddressId = 2, CategoryId = 5, UserCodeAdd = "pop", AddedDate = new DateTime(2017,2,3), Name = "Instanta din Craiova"}
                         };
             context.Institutii.AddRange(institutii);
             context.SaveChanges();
@@ -351,14 +350,14 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaEtapePentruDecizii(AnabiContext context)
         {
-            var etapePtDecizie = new StagesForDecisionDb[]
+            var etapePtDecizie = new[]
                         {
-                new StagesForDecisionDb(){DecisionId = 1, StageId = 1},
-                new StagesForDecisionDb(){DecisionId = 1, StageId = 2},
-                new StagesForDecisionDb(){DecisionId = 1, StageId = 3},
-                new StagesForDecisionDb(){DecisionId = 2, StageId = 1},
-                new StagesForDecisionDb(){DecisionId = 2, StageId = 2},
-                new StagesForDecisionDb(){DecisionId = 2, StageId = 3}
+                new StagesForDecisionDb {DecisionId = 1, StageId = 1},
+                new StagesForDecisionDb {DecisionId = 1, StageId = 2},
+                new StagesForDecisionDb {DecisionId = 1, StageId = 3},
+                new StagesForDecisionDb {DecisionId = 2, StageId = 1},
+                new StagesForDecisionDb {DecisionId = 2, StageId = 2},
+                new StagesForDecisionDb {DecisionId = 2, StageId = 3}
                         };
             context.EtapePentruDecizii.AddRange(etapePtDecizie);
             context.SaveChanges();
@@ -366,10 +365,10 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugareDecizii(AnabiContext context)
         {
-            var decizii = new DecisionDb[]
+            var decizii = new[]
                         {
-                new DecisionDb(){Name = "Hotarare"},
-                new DecisionDb(){Name = "Ordonanta"}
+                new DecisionDb {Name = "Hotarare"},
+                new DecisionDb {Name = "Ordonanta"}
                         };
             context.Decizii.AddRange(decizii);
             context.SaveChanges();
@@ -377,11 +376,11 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaEtape(AnabiContext context)
         {
-            var etape = new StageDb[]
+            var etape = new[]
                         {
-                new StageDb(){Name = "Confiscare", IsFinal = false},
-                new StageDb(){Name = "Valorificare", IsFinal = true},
-                new StageDb(){Name = "Sechestru", IsFinal = false}
+                new StageDb {Name = "Confiscare", IsFinal = false},
+                new StageDb {Name = "Valorificare", IsFinal = true},
+                new StageDb {Name = "Sechestru", IsFinal = false}
                         };
             context.Etape.AddRange(etape);
             context.SaveChanges();
@@ -389,13 +388,13 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaCategorii(AnabiContext context)
         {
-            var categorii = new CategoryDb[]
+            var categorii = new[]
                         {
-                new CategoryDb(){ForEntity = "bun", Code = "Bunuri Mobile", Description = "Bunuri care pot fi ridicate"},
-                new CategoryDb(){ForEntity ="bun", Code = "Bunuri Imobile", Description = "Bunuri care nu pot fi ridicate"},
-                new CategoryDb(){ForEntity ="bun", Code ="Bani", Description ="Bani"},
-                new CategoryDb(){ForEntity ="institutie", Code ="Instanta", Description =""},
-                new CategoryDb(){ForEntity = "institutie", Code ="Parchet"}
+                new CategoryDb {ForEntity = "bun", Code = "Bunuri Mobile", Description = "Bunuri care pot fi ridicate"},
+                new CategoryDb {ForEntity ="bun", Code = "Bunuri Imobile", Description = "Bunuri care nu pot fi ridicate"},
+                new CategoryDb {ForEntity ="bun", Code ="Bani", Description ="Bani"},
+                new CategoryDb {ForEntity ="institutie", Code ="Instanta", Description =""},
+                new CategoryDb {ForEntity = "institutie", Code ="Parchet"}
 
                         };
             context.Categorii.AddRange(categorii);
@@ -405,11 +404,11 @@ namespace Anabi.DataAccess.Ef
         private static void AdaugaAdrese(AnabiContext context)
         {
 
-            var adrese = new AddressDb[]
+            var adrese = new[]
                                     {
-                new AddressDb(){Street = "Pantelimon nr 23", Building="Bloc 1", CountyId = 1, City="Bucuresti"},
-                new AddressDb(){Street = "Iancului 22", Building="Blco 102S", CountyId = 1, City="Bucuresti"},
-                new AddressDb(){Street = "O strada 22", Building="Bloc 13", CountyId = 3, City ="Constanta"}
+                new AddressDb {Street = "Pantelimon nr 23", Building="Bloc 1", CountyId = 1, City="Bucuresti"},
+                new AddressDb {Street = "Iancului 22", Building="Blco 102S", CountyId = 1, City="Bucuresti"},
+                new AddressDb {Street = "O strada 22", Building="Bloc 13", CountyId = 3, City ="Constanta"}
                                     };
             context.Adrese.AddRange(adrese);
             context.SaveChanges();
@@ -419,13 +418,13 @@ namespace Anabi.DataAccess.Ef
         private static void AdaugaJudete(AnabiContext context)
         {
 
-            var judete = new CountyDb[]
+            var judete = new[]
                     {
-                new CountyDb(){Abreviation = "B", Name = "Bucuresti"},
-                new CountyDb(){Abreviation = "AB", Name= "Alba Iulia"},
-                new CountyDb(){Abreviation = "CT", Name = "Constanta"},
-                new CountyDb(){Abreviation = "BV", Name = "Brasov"},
-                new CountyDb(){Abreviation = "SB", Name = "Sibiu"}
+                new CountyDb {Abreviation = "B", Name = "Bucuresti"},
+                new CountyDb {Abreviation = "AB", Name= "Alba Iulia"},
+                new CountyDb {Abreviation = "CT", Name = "Constanta"},
+                new CountyDb {Abreviation = "BV", Name = "Brasov"},
+                new CountyDb {Abreviation = "SB", Name = "Sibiu"}
                     };
             context.Judete.AddRange(judete);
             context.SaveChanges();
@@ -435,10 +434,10 @@ namespace Anabi.DataAccess.Ef
         private static void AdaugaBeneficiariValorificari(AnabiContext context)
         {
 
-            var beneficiari = new RecoveryBeneficiaryDb[]
+            var beneficiari = new[]
                     {
-                new RecoveryBeneficiaryDb(){Name = "Fane Croitoru"},
-                new RecoveryBeneficiaryDb(){Name = "Gogu Icsulescu"}
+                new RecoveryBeneficiaryDb {Name = "Fane Croitoru"},
+                new RecoveryBeneficiaryDb {Name = "Gogu Icsulescu"}
                     };
             context.BeneficiariValorificari.AddRange(beneficiari);
             context.SaveChanges();

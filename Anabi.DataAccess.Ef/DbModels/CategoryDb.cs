@@ -25,6 +25,6 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual ICollection<AssetDb> Assets { get; set; }
 
-        public virtual StorageSpaceDb StorageSpace { get; set; }
+        public virtual ICollection<StorageSpaceDb> StorageSpaces { get; set; }
     }
 }
