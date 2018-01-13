@@ -38,6 +38,12 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public string UserCodeLastChange { get; set; }
 
+        public int? NrOfObjects     { get; set; }
+
+        public string MeasureUnit   { get; set; }
+
+        public string Remarks       { get; set; }
+
         public DateTime AddedDate { get; set; }
 
         public DateTime? LastChangeDate { get; set; }

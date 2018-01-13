@@ -119,8 +119,11 @@ namespace Anabi.Features.Assets
                                    LastChangeDate = a.LastChangeDate,
                                    NecessaryVolume = a.NecessaryVolume,
                                    UserCodeAdd = a.UserCodeAdd,
-                                   UserCodeLastChange = a.UserCodeLastChange
-                                   
+                                   UserCodeLastChange = a.UserCodeLastChange,
+                                   NrOfObjects  = a.NrOfObjects,
+                                   MeasureUnit  = a.MeasureUnit,
+                                   Remarks      = a.Remarks
+
                                }).FirstAsync();
 
             var storageSpacesTask = (from a in context.Bunuri
