@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.DataAccess.Ef.EntityConfigurators;
+using System.Linq;
 
 namespace Anabi.DataAccess.Ef
 {
@@ -40,6 +41,8 @@ namespace Anabi.DataAccess.Ef
 
             (new AssetsStorageSpacesConfig()).SetupEntity(modelBuilder);
             (new RecoveryBeneficiaryConfig()).SetupEntity(modelBuilder);
+
+            
             base.OnModelCreating(modelBuilder);
         }
 

@@ -11,20 +11,17 @@ using Swashbuckle.AspNetCore.Swagger;
 using Serilog;
 using System.IO;
 using Anabi.Domain;
-using Anabi.Domain.Category;
 using Anabi.Domain.Category.Commands;
 using Anabi.Domain.Decision;
-using Anabi.Domain.Institution;
 using Anabi.Domain.RecoveryBeneficiary;
 using Anabi.Domain.Stage;
 using Anabi.Domain.StorageSpaces;
 using AutoMapper;
 using MediatR;
 using FluentValidation.AspNetCore;
-using FluentValidation;
-using Anabi.Domain.Institution.Commands;
-using Anabi.Domain.Common.Address;
 using Anabi.Domain.Common;
+using Anabi.Middleware;
+using Anabi.Filters;
 
 namespace Anabi
 {
@@ -32,6 +29,10 @@ namespace Anabi
     {
         public Startup(IHostingEnvironment env)
         {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "anabi-apilog-{Date}.txt"))
+                .CreateLogger();
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -39,9 +40,7 @@ namespace Anabi
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "anabi-apilog-{Date}.txt"))
-                .CreateLogger();
+            
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -49,13 +48,25 @@ namespace Anabi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(loggingBuilder =>
+                                    loggingBuilder
+                                    .AddSerilog(dispose: true)
+                                    .AddConsole());
+
             // Add framework services.
-            services.AddMvc()
-                .AddFluentValidation();
-            
-            
+            services.AddMvc(
+                config =>
+                {                    
+                    config.Filters.Add(new ValidateModelAttribute());
+                }   
+                )
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddCategory>());
+
+
 
             AddDbContext(services);
+
+            ConfigureSwagger(services);
 
             MapInterfacesAndClasses(services);
 
@@ -64,17 +75,25 @@ namespace Anabi
             services.AddMediatR(typeof(Startup), typeof(BaseHandler));
         }
 
+        private static void ConfigureSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen((c) =>
+            {
+                c.SwaggerDoc("v1", new Info() { Title = "ANABI", Version = "v1" });
+
+                var basePath = AppContext.BaseDirectory;
+                var xmlPath = Path.Combine(basePath, "Anabi.xml");
+                c.IncludeXmlComments(xmlPath);
+            });
+
+            services.ConfigureSwaggerGen(options =>
+            {
+                options.CustomSchemaIds(x => x.FullName);
+            });
+        }
+
         private void MapInterfacesAndClasses(IServiceCollection services)
         {
-            services.AddScoped<AbstractValidator<AddCategory>, AddCategoryValidator>();
-            services.AddScoped<AbstractValidator<EditCategory>, EditCategoryValidator>();
-            services.AddScoped<AbstractValidator<DeleteCategory>, DeleteCategoryValidator>();
-
-            services.AddScoped<AbstractValidator<AddInstitution>, AddInstitutionValidator>();
-            services.AddScoped<AbstractValidator<EditInstitution>, EditInstitutionValidator>();
-            services.AddScoped<AbstractValidator<DeleteInstitution>, DeleteInstitutionValidator>();
-            services.AddScoped<EmptyAddAddressValidator, EmptyAddAddressValidator>();
-            services.AddScoped<AbstractValidator<IAddAddress>, AddAddressValidator>();
             services.AddScoped<IDatabaseChecks, DatabaseChecks>();
 
             services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
@@ -102,23 +121,15 @@ namespace Anabi
 
                          }));
 
-            services.AddSwaggerGen((c) => {
-                c.SwaggerDoc("v1", new Info() { Title = "ANABI", Version = "v1" });
-            });
-
-            services.ConfigureSwaggerGen(options =>
-            {
-                options.CustomSchemaIds(x => x.FullName);
-            });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
             ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-            loggerFactory.AddSerilog();
+
+            app.UseAnabiExceptionResponse();
 
             app.UseCors(builder =>
                 builder.AllowAnyOrigin()
@@ -127,6 +138,7 @@ namespace Anabi
             
             app.UseMvc();
 
+            
             var context = app.ApplicationServices.GetService<AnabiContext>();
             DbInitializer.Initialize(context);
 

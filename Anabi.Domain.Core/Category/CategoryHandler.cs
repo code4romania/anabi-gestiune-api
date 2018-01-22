@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Anabi.Domain.Category
 {
     public class CategoryHandler : BaseHandler
-        , IAsyncRequestHandler<AddCategory>
+        , IAsyncRequestHandler<AddCategory, int>
         , IAsyncRequestHandler<DeleteCategory>
         , IAsyncRequestHandler<EditCategory>
     {
@@ -19,7 +19,7 @@ namespace Anabi.Domain.Category
 
         }
 
-        public async Task Handle(AddCategory message)
+        public async Task<int> Handle(AddCategory message)
         {
             var newCategory = new CategoryDb();
             
@@ -29,6 +29,7 @@ namespace Anabi.Domain.Category
 
             await context.SaveChangesAsync();
 
+            return newCategory.Id;
         }
 
         public async Task Handle(DeleteCategory message)

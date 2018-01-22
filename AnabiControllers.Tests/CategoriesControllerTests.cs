@@ -47,7 +47,7 @@ namespace AnabiControllers.Tests
                 Code = "Code 3",
                 Description = "Desc Code 3",
                 ForEntity = "Test ent 3",
-                Id = 0,
+                
                 ParentId = null
             };
 

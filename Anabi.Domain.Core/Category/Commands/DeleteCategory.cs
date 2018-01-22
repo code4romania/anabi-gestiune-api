@@ -20,8 +20,8 @@ namespace Anabi.Domain.Category.Commands
         {
             //TODO Aici ar fi trebuit sa se foloseasca resources la nivel de domeniu
             context = ctx;
-            RuleFor(m => m.Id).GreaterThan(0).WithMessage("Id-ul nu a fost specificat!");
-            RuleFor(m => m).MustAsync(HaveNoChildren).WithMessage("Categoria nu poate fi stearsa deoarce exista inregistrari care o referentiaza!");
+            RuleFor(m => m.Id).GreaterThan(0).WithMessage("ID_MUST_BE_SPECIFIED");//Id-ul nu a fost specificat!
+            RuleFor(m => m).MustAsync(HaveNoChildren).WithMessage("CATEGORY_HAS_CHILDREN");//Categoria nu poate fi stearsa deoarce exista inregistrari care o referentiaza!
         }
 
         private async Task<bool> HaveNoChildren(DeleteCategory query, CancellationToken arg2)
