@@ -20,7 +20,8 @@ namespace Anabi
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseDefaultServiceProvider(options => options.ValidateScopes = false)
-                .UseStartup<Startup>()                
+                .UseStartup<Startup>()             
+                .UseApplicationInsights("68fec371-3f13-45b8-ae53-92d0b6a9e18d")
                 .Build();
     }
 }
