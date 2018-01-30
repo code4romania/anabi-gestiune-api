@@ -37,7 +37,7 @@ namespace Anabi.Middleware
 
         private static async Task WriteErrorMessage(HttpContext context, Exception ex)
         {
-            var errors = new List<string>() { ex.ToString() };
+            var errors = new List<string>() { ex.Message };
             await WriteErrorToContext(context, errors, ex.Message);
 
         }
