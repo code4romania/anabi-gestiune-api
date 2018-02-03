@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Anabi.Common.Exceptions;
 using Anabi.Common.Utils;
@@ -12,6 +9,7 @@ using Anabi.Domain.Models;
 using Anabi.Domain.StorageSpaces.Commands;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Anabi.Domain.StorageSpaces
 {
@@ -46,10 +44,7 @@ namespace Anabi.Domain.StorageSpaces
             var storageSpace = await context.SpatiiStocare.FindAsync(message.Id);
 
 
-            if (storageSpace == null)
-            {
-                throw new AnabiEntityNotFoundException(Constants.NO_STORAGE_SPACES_FOUND);
-            }
+            ValidateStorageSpace(storageSpace);
 
             this.mapper.Map(message, storageSpace);
 
@@ -64,9 +59,25 @@ namespace Anabi.Domain.StorageSpaces
 
         }
 
-        public Task Handle(DeleteStorageSpace message)
+        public async Task Handle(DeleteStorageSpace message)
         {
-            throw new NotImplementedException();
+            var command = context.SpatiiStocare.Where(m => m.Id == message.Id).AsQueryable()
+                .Include(a => a.Address);
+
+            var storageSpace = await command.FirstOrDefaultAsync();
+            ValidateStorageSpace(storageSpace);
+
+            context.SpatiiStocare.Remove(storageSpace);
+
+            await context.SaveChangesAsync();
+        }
+
+        private static void ValidateStorageSpace(StorageSpaceDb storageSpace)
+        {
+            if (storageSpace == null)
+            {
+                throw new AnabiEntityNotFoundException(Constants.NO_STORAGE_SPACES_FOUND);
+            }
         }
 
         private async Task SetNewAddressToStorageSpace(IAddAddress message, StorageSpaceDb storageSpace)

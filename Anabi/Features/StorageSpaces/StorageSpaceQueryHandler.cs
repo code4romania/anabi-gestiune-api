@@ -26,12 +26,7 @@ namespace Anabi.Features.StorageSpaces
                 throw new Exception(Constants.INVALID_ID);
             }
 
-            var command = context.SpatiiStocare.AsQueryable();
-
-            if (message.Id != null)
-            {
-                command = command.Where(m => m.Id == message.Id);
-            }
+            var command = GetCommand(message);
 
             var result = await command.Select(x => Mapper.Map<Models.StorageSpaceViewModel>(x)).ToListAsync();
 
@@ -42,6 +37,17 @@ namespace Anabi.Features.StorageSpaces
 
             return result;
 
+        }
+
+        private IQueryable<DataAccess.Ef.DbModels.StorageSpaceDb> GetCommand(GetStorageSpace message)
+        {
+            var command = context.SpatiiStocare.AsQueryable();
+            if (message.Id != null)
+            {
+                command = command.Where(m => m.Id == message.Id);
+            }
+            command = command.Include(a => a.Address);
+            return command;
         }
     }
 }

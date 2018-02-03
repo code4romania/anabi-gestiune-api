@@ -118,7 +118,7 @@ namespace Anabi.Features.StorageSpaces
         /// <response code="400">No storage spaces found!</response>
         [ProducesResponseType(typeof(Models.StorageSpaceViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
-        [HttpPut("{id}")]
+        [HttpPut()]
         public async Task<IActionResult> Put([FromBody]EditStorageSpace storageSpace)
         {
             var editedStorageSpace = await mediator.Send(storageSpace);
@@ -126,11 +126,26 @@ namespace Anabi.Features.StorageSpaces
             return Ok(editedStorageSpace.ToViewModel());
         }
 
-        //// DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Delete(DeleteStorageSpace storageSpace)
-        //{
+        /// <summary>
+        /// Deletes the storage space for the supplied id after it checks that no entity is referencing the storage space you want to delete
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Validation Errors: 
+        /// INVALID_ID = id lower than or equal to 0 
+        /// ENTITY_IS_REFERENCED_BY_OTHER_ENTITIES = The entity is referenced in other tables and cannot be deleted
+        /// </para>
+        /// </remarks>
+        /// <response code="204">The storage space has been deleted</response>
+        /// <response code="400"></response>
+        [ProducesResponseType(typeof(int), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpDelete()]
+        public async Task<IActionResult> Delete([FromBody]DeleteStorageSpace storageSpace)
+        {
+            await mediator.Send(storageSpace);
 
-        //}
+            return NoContent();
+        }
     }
 }

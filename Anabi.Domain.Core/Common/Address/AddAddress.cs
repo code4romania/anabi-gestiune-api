@@ -41,10 +41,10 @@ namespace Anabi.Domain.Common.Address
             RuleFor(m => m.City).NotEmpty().Length(1, 30).WithMessage("INVALID_CITY");
             RuleFor(m => m.CountyCode).NotEmpty().Length(1, 2).WithMessage("INVALID_COUNTY_CODE_MIN_1_MAX_2");
             RuleFor(m => m.Street).NotEmpty().Length(1, 100).WithMessage("INVALID_STREET_NAME");
-            RuleFor(m => m.Building).MaximumLength(30).WithMessage("TOO_LONG_MAX_30");
-            RuleFor(m => m.Stair).MaximumLength(5).WithMessage("TOO_LONG_MAX_5");
-            RuleFor(m => m.Floor).MaximumLength(5).WithMessage("TOO_LONG_MAX_5");
-            RuleFor(m => m.FlatNo).MaximumLength(5).WithMessage("TOO_LONG_MAX_5");
+            RuleFor(m => m.Building).MaximumLength(30).WithMessage("BUILDING_TOO_LONG_MAX_30");
+            RuleFor(m => m.Stair).MaximumLength(5).WithMessage("STAIR_TOO_LONG_MAX_5");
+            RuleFor(m => m.Floor).MaximumLength(5).WithMessage("FLOOR_TOO_LONG_MAX_5");
+            RuleFor(m => m.FlatNo).MaximumLength(5).WithMessage("FLATNO_TOO_LONG_MAX_5");
 
             RuleFor(m => m.CountyCode).MustAsync(checks.CountyExists).WithMessage("INVALID_COUNTY_CODE");
         }
