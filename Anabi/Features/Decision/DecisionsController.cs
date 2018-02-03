@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Anabi.Features.Decision
 {
-    [Authorize]
+    //[Authorize]
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
     public class DecisionsController : BaseController

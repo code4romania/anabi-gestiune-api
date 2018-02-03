@@ -16,7 +16,7 @@
     using FluentValidation;
     using Microsoft.AspNetCore.Authorization;
 
-    [Authorize]
+    //[Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class InstitutionsController : BaseController

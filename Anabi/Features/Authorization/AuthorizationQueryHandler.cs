@@ -21,7 +21,7 @@ namespace Anabi.Features.Authorization
         {
             return context.Utilizatori
                 .AsQueryable()
-                .Where(u => u.Email == request.Username && u.Password == request.Password)
+                .Where(u => u.UserCode == request.Username && u.Password == request.Password && u.IsActive == true)
                 .Select(u => Mapper.Map<Anabi.Domain.Models.User>(u))
                 .FirstOrDefaultAsync();
 

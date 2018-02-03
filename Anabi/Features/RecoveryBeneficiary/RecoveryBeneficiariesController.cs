@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Anabi.Features.RecoveryBeneficiary
 {
-    [Authorize]
+    //[Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class RecoveryBeneficiariesController : BaseController

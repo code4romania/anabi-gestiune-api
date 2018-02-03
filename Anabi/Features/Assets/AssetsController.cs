@@ -9,7 +9,7 @@ using Anabi.Controllers;
 
 namespace Anabi.Features.Assets
 {
-    [Authorize]
+    //[Authorize]
     [Produces("application/json")]
     [Route("api/Assets")]
     public class AssetsController : BaseController

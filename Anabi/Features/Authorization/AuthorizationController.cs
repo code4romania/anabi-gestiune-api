@@ -42,6 +42,7 @@ namespace Anabi.Features.Authorization
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.NameId, user.UserCode),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim("role", user.Role)
             };
