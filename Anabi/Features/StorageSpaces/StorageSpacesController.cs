@@ -1,14 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Anabi.Controllers;
-using Anabi.DataAccess.Ef.DbModels;
-using Anabi.Domain;
-using Anabi.Domain.Models;
+using Anabi.Domain.StorageSpaces.Commands;
+using Anabi.Features.StorageSpaces.Models;
+using Anabi.Middleware;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
+using Anabi.Extensions;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+
 
 namespace Anabi.Features.StorageSpaces
 {
@@ -17,83 +22,136 @@ namespace Anabi.Features.StorageSpaces
     [Route("api/[controller]")]
     public class StorageSpacesController : BaseController
     {
-        private readonly IGenericRepository<StorageSpaceDb> repository;
-        public StorageSpacesController(IGenericRepository<StorageSpaceDb> repo)
+        private readonly IMediator mediator;
+
+        
+        public StorageSpacesController(IMediator _mediator)
         {
-            repository = repo;
+            mediator = _mediator;
         }
 
-        System.Linq.Expressions.Expression<Func<StorageSpaceDb, StorageSpace>> selector = c => new StorageSpace()
-        {
-            Name = c.Name,
-            Id = c.Id,
-            Address = (c.Address != null) ? new Address()
-            {
-                Id = c.Address.Id,
-                CountyId = c.Address.CountyId,
-                County = (c.Address.County!=null) ? new County() {
-                    Id=c.Address.County.Id,
-                    Name=c.Address.County.Name,
-                    Abreviation=c.Address.County.Abreviation
-                }:null,
-                Street = c.Address.Street,
-                City = c.Address.City,
-                Building = c.Address.Building,
-                Stair = c.Address.Stair,
-                Floor = c.Address.Floor,
-                FlatNo = c.Address.FlatNo
-            } : null
-        };
 
-        // GET: api/Categories
+
+        // GET: api/StorageSpaces
+
+        /// <summary>
+        /// Returns all storage spaces in the database
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Returns all storage spaces in the database
+        /// Validation Errors: NO_STORAGE_SPACES_FOUND 
+        /// </para>
+        /// </remarks>
+        /// <response code="200">Array of storage spaces</response>
+        /// <response code="400">No storage spaces found!</response>
+        [ProducesResponseType(typeof(List<Models.StorageSpaceViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpGet]
-        public async Task<IEnumerable<StorageSpace>> Get()
+        public async Task<IActionResult> Get()
         {
-            try
-            {
-
-                return await repository.GetAll().Select(selector).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
+            var models = await mediator.Send(new GetStorageSpace { Id = null });
+            return Ok(models);
         }
 
-        // GET: api/Categories/5
+        // GET: api/StorageSpaces/5
+        /// <summary>
+        /// Returns the storage space for the supplied id
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Validation Errors: 
+        /// INVALID_ID = id lower than or equal to 0 
+        /// NO_STORAGE_SPACES_FOUND
+        /// </para>
+        /// </remarks>
+        /// <response code="200">Array of storage spaces</response>
+        /// <response code="400">No storage spaces found!</response>
+        [ProducesResponseType(typeof(Models.StorageSpaceViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpGet("{id}")]
-        public async Task<StorageSpace> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            try
-            {
-
-                return await repository.FindBy(p => p.Id == id).Select(selector).FirstOrDefaultAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            var models = await mediator.Send(new GetStorageSpace { Id = id });  
+            return Ok(models.First());
         }
 
-        // POST: api/Categories
+        // POST: api/StorageSpaces
+        /// <summary>
+        /// Creates a new storage space
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Returns the id of the newly created storage space.
+        /// Validation Errors:
+        /// NAME_NOT_EMPTY
+        /// NAME_MAX_LENGTH_200 
+        /// CONTACTDATA_MAX_LENGTH_1000
+        /// DESCRIPTION_MAX_LENGTH_2000
+        /// </para>
+        /// </remarks>
+        /// <response code="201">The id of the new storage space</response>
+        /// <response code="400">In case of validation errors</response>
+        /// <param name="newStorageSpace">The details of the new storage space to be added</param>
+        /// <returns>The id of the new storage space</returns>
+        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<IActionResult> Post([FromBody]AddStorageSpace newStorageSpace)
         {
+
+            var id = await mediator.Send(newStorageSpace);
+            return Created("api/storagespaces", id);
+
         }
 
-        // PUT: api/Categories/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        
+        /// <summary>
+        /// Returns the storage space for the supplied id
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Validation Errors: 
+        /// INVALID_ID = id lower than or equal to 0 
+        /// NO_STORAGE_SPACES_FOUND
+        /// NAME_NOT_EMPTY
+        /// NAME_MAX_LENGTH_200 
+        /// CONTACTDATA_MAX_LENGTH_1000
+        /// DESCRIPTION_MAX_LENGTH_2000
+        /// </para>
+        /// </remarks>
+        /// <response code="200">The edited version of the storage space</response>
+        /// <response code="400">No storage spaces found!</response>
+        [ProducesResponseType(typeof(Models.StorageSpaceViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpPut()]
+        public async Task<IActionResult> Put([FromBody]EditStorageSpace storageSpace)
         {
+            var editedStorageSpace = await mediator.Send(storageSpace);
+
+            return Ok(editedStorageSpace.ToViewModel());
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        /// <summary>
+        /// Deletes the storage space for the supplied id after it checks that no entity is referencing the storage space you want to delete
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Validation Errors: 
+        /// INVALID_ID = id lower than or equal to 0 
+        /// ENTITY_IS_REFERENCED_BY_OTHER_ENTITIES = The entity is referenced in other tables and cannot be deleted
+        /// </para>
+        /// </remarks>
+        /// <response code="204">The storage space has been deleted</response>
+        /// <response code="400"></response>
+        [ProducesResponseType(typeof(int), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpDelete()]
+        public async Task<IActionResult> Delete([FromBody]DeleteStorageSpace storageSpace)
         {
+            await mediator.Send(storageSpace);
+
+            return NoContent();
         }
     }
 }

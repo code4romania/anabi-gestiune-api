@@ -49,7 +49,7 @@ namespace Anabi.Domain.Institution.Commands
             RuleFor(m => m.ChangeByUserCode).MustAsync(
                 checks.UserExists).WithMessage("Utilizatorul nu exista");
 
-            RuleFor(m => m).SetValidator(addAddressValidator).Unless(m => checks.EmptyAddress(m));
+            RuleFor(m => m).SetValidator(addAddressValidator);
         }
     }
 }

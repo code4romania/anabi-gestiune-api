@@ -53,7 +53,7 @@ namespace AnabiControllers.Tests
 
             await queryHandler.Handle(query);
 
-            var cat = context.Categorii.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
+            var cat = await context.Categorii.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
 
             Assert.IsNotNull(cat);
 
