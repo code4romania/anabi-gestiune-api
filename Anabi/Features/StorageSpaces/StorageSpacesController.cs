@@ -8,9 +8,11 @@ using Anabi.Domain;
 using Anabi.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Anabi.Features.StorageSpaces
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class StorageSpacesController : BaseController

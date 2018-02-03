@@ -22,6 +22,10 @@ using FluentValidation.AspNetCore;
 using Anabi.Domain.Common;
 using Anabi.Middleware;
 using Anabi.Filters;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Anabi.Domain.Enums;
 
 namespace Anabi
 {
@@ -53,6 +57,30 @@ namespace Anabi
                                     .AddSerilog(dispose: true)
                                     .AddConsole());
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer              = true,
+                    ValidateAudience            = true,
+                    ValidateLifetime            = true,
+                    ValidateIssuerSigningKey    = true,
+                    ValidIssuer                 = Configuration["Jwt:Issuer"],
+                    ValidAudience               = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey            = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+            });
+
+            services.AddAuthorization(options =>
+            {
+                foreach (UserRole role in Enum.GetValues(typeof(UserRole)))
+                {
+                    string roleName = role.ToString();
+                    options.AddPolicy(roleName, policy => policy.RequireRole(roleName));
+                }
+            });
+
             // Add framework services.
             services.AddMvc(
                 config =>
@@ -61,8 +89,6 @@ namespace Anabi
                 }   
                 )
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddCategory>());
-
-
 
             AddDbContext(services);
 
@@ -135,10 +161,11 @@ namespace Anabi
                 builder.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod());
-            
+
+            app.UseAuthentication();
+
             app.UseMvc();
 
-            
             var context = app.ApplicationServices.GetService<AnabiContext>();
             DbInitializer.Initialize(context);
 

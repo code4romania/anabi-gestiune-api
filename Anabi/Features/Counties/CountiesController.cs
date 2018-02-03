@@ -5,9 +5,11 @@ using Anabi.Domain.Models;
 using Anabi.Features.Counties.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Anabi.Features.Counties
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Counties")]
     public class CountiesController : BaseController
