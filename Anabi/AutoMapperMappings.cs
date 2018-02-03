@@ -11,7 +11,9 @@ namespace Anabi
 {
     using Anabi.Domain.Common.Address;
     using Anabi.Domain.Institution.Commands;
+    using Anabi.Domain.StorageSpaces.Commands;
     using Anabi.Features.Institution.Models;
+    using Anabi.Features.StorageSpaces.Models;
 
     public class AutoMapperMappings : Profile
     {
@@ -23,6 +25,9 @@ namespace Anabi
             CreateMap<Category, CategoryDb>().ReverseMap();
             CreateMap<AddCategory, CategoryDb>();
             CreateMap<EditCategory, CategoryDb>();
+
+            CreateMap<AddStorageSpace, StorageSpaceDb>().ReverseMap();
+            CreateMap<EditStorageSpace, StorageSpaceDb>().ReverseMap();
 
             CreateMap<County, CountyDb>().ReverseMap();
             CreateMap<Decision, DecisionDb>().ReverseMap();
@@ -40,7 +45,11 @@ namespace Anabi
             CreateMap<Person, PersonDb>().ReverseMap();
             CreateMap<RecoveryBeneficiary, RecoveryBeneficiaryDb>().ReverseMap();
             CreateMap<Stage, StageDb>().ReverseMap();
+
             CreateMap<StorageSpace, StorageSpaceDb>().ReverseMap();
+            CreateMap<StorageSpace, StorageSpaceViewModel>().ReverseMap();
+            CreateMap<StorageSpaceViewModel, StorageSpaceDb>().ReverseMap();
+
             CreateMap<User, UserDb>().ReverseMap();
         }
     }

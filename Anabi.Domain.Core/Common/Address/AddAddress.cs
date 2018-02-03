@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Anabi.DataAccess.Ef.DbModels;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Anabi.Domain.Common.Address
 {
@@ -42,15 +38,15 @@ namespace Anabi.Domain.Common.Address
 
         public void AddRules()
         {
-            RuleFor(m => m.City).NotEmpty().Length(1, 30);
-            RuleFor(m => m.CountyCode).NotEmpty().Length(1, 2);
-            RuleFor(m => m.Street).NotEmpty().Length(1, 100);
-            RuleFor(m => m.Building).MaximumLength(30);
-            RuleFor(m => m.Stair).MaximumLength(5);
-            RuleFor(m => m.Floor).MaximumLength(5);
-            RuleFor(m => m.FlatNo).MaximumLength(5);
+            RuleFor(m => m.City).NotEmpty().Length(1, 30).WithMessage("INVALID_CITY");
+            RuleFor(m => m.CountyCode).NotEmpty().Length(1, 2).WithMessage("INVALID_COUNTY_CODE_MIN_1_MAX_2");
+            RuleFor(m => m.Street).NotEmpty().Length(1, 100).WithMessage("INVALID_STREET_NAME");
+            RuleFor(m => m.Building).MaximumLength(30).WithMessage("TOO_LONG_MAX_30");
+            RuleFor(m => m.Stair).MaximumLength(5).WithMessage("TOO_LONG_MAX_5");
+            RuleFor(m => m.Floor).MaximumLength(5).WithMessage("TOO_LONG_MAX_5");
+            RuleFor(m => m.FlatNo).MaximumLength(5).WithMessage("TOO_LONG_MAX_5");
 
-            RuleFor(m => m.CountyCode).MustAsync(checks.CountyExists).WithMessage("Codul judetului este invalid");
+            RuleFor(m => m.CountyCode).MustAsync(checks.CountyExists).WithMessage("INVALID_COUNTY_CODE");
         }
     }
 

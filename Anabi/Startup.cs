@@ -22,6 +22,8 @@ using FluentValidation.AspNetCore;
 using Anabi.Domain.Common;
 using Anabi.Middleware;
 using Anabi.Filters;
+using Anabi.Domain.Common.Address;
+using FluentValidation;
 
 namespace Anabi
 {
@@ -94,11 +96,15 @@ namespace Anabi
 
         private void MapInterfacesAndClasses(IServiceCollection services)
         {
+            services.AddScoped<EmptyAddAddressValidator, EmptyAddAddressValidator>();
+            services.AddScoped<AbstractValidator<IAddAddress>, AddAddressValidator>(); ;
             services.AddScoped<IDatabaseChecks, DatabaseChecks>();
+
+            
 
             services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
             services.AddScoped<IGenericRepository<StageDb>, StagesRepository>();
-            services.AddScoped<IGenericRepository<StorageSpaceDb>, StorageSpacesRepository>();
+            
 
             services.AddScoped<IGenericRepository<RecoveryBeneficiaryDb>, RecoveryBeneficiariesRepository>();
 
