@@ -8,10 +8,16 @@ using Anabi.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 using Anabi.Extensions;
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Anabi.Features.StorageSpaces
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class StorageSpacesController : BaseController
