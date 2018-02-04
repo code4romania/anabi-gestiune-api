@@ -17,7 +17,7 @@ namespace Anabi.Domain.Institution
 
     public class InstitutionHandler : BaseHandler,
                                       IAsyncRequestHandler<DeleteInstitution>,
-                                      IAsyncRequestHandler<AddInstitution>,
+                                      IAsyncRequestHandler<AddInstitution, int>,
                                       IAsyncRequestHandler<EditInstitution>
     {
 
@@ -39,7 +39,7 @@ namespace Anabi.Domain.Institution
             await this.context.SaveChangesAsync();
         }
 
-        public async Task Handle(AddInstitution message)
+        public async Task<int> Handle(AddInstitution message)
         {
             var institution = this.mapper.Map<InstitutionDb>(message);
             institution.AddedDate = DateTime.UtcNow;
@@ -52,6 +52,7 @@ namespace Anabi.Domain.Institution
             }
 
             await this.context.SaveChangesAsync();
+            return institution.Id;
         }
 
         public async Task Handle(EditInstitution message)
