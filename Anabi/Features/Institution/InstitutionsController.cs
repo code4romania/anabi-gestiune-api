@@ -1,9 +1,12 @@
-﻿namespace Anabi.Features.Institution
+﻿using Anabi.Features.Institution.Models;
+using Anabi.Middleware;
+using Microsoft.AspNetCore.Http;
+
+namespace Anabi.Features.Institution
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net.Http;
     using System.Threading.Tasks;
 
     using Anabi.Controllers;
@@ -12,9 +15,6 @@
 
     using Microsoft.AspNetCore.Mvc;
     using Anabi.Domain.Institution.Commands;
-
-    using FluentValidation;
-    using Microsoft.AspNetCore.Authorization;
 
     //[Authorize]
     [Produces("application/json")]
@@ -27,31 +27,50 @@
         {
             this.mediator = mediator;
         }
-        
+
+        [ProducesResponseType(typeof(List<Models.Institution>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpGet]
-        public async Task<IEnumerable<Models.Institution>> Get()
+        public async Task<IActionResult> Get()
         {
             var results = await this.mediator.Send(new Models.GetInstitution());
 
-            return results;
+            return Ok(results);
         }
 
+        [ProducesResponseType(typeof(Models.Institution), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpGet("{id}")]
-        public async Task<Models.Institution> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var results = await this.mediator.Send(new Models.GetInstitution { Id = id });
+            if (id <= 0)
+            {
+                return BadRequest("Id-ul trebuie sa fie >= 0");
+            }
 
-            return results.SingleOrDefault();
+            var models = await mediator.Send(new GetInstitution() { Id = id });
+            var result = models.FirstOrDefault();
+
+            if (result == null)
+            {
+                return BadRequest("Institutia nu exista!");
+            }
+            return Ok(result);
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddInstitution(AddInstitution institution)
         {
          var id =       await this.mediator.Send(institution);
 
-            return Created("api/Instituions", id);
+            return Created("api/institutions", id);
         }
 
+        [HttpPut]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPut]
         public async Task<IActionResult> EditInstitution(EditInstitution institution)
         {
@@ -60,6 +79,9 @@
             return Ok();
         }
 
+        [HttpDelete]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpDelete]
         public async Task<IActionResult> Delete(DeleteInstitution institution)
         {
