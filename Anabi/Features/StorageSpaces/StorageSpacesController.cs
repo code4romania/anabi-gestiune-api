@@ -45,8 +45,10 @@ namespace Anabi.Features.StorageSpaces
         /// </remarks>
         /// <response code="200">Array of storage spaces</response>
         /// <response code="400">No storage spaces found!</response>
+        /// <response code="500">Server error</response>
         [ProducesResponseType(typeof(List<Models.StorageSpaceViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -67,8 +69,10 @@ namespace Anabi.Features.StorageSpaces
         /// </remarks>
         /// <response code="200">Array of storage spaces</response>
         /// <response code="400">No storage spaces found!</response>
+        /// <response code="500">Server error</response>
         [ProducesResponseType(typeof(Models.StorageSpaceViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -92,10 +96,12 @@ namespace Anabi.Features.StorageSpaces
         /// </remarks>
         /// <response code="201">The id of the new storage space</response>
         /// <response code="400">In case of validation errors</response>
+        /// <response code="500">Server error</response>
         /// <param name="newStorageSpace">The details of the new storage space to be added</param>
         /// <returns>The id of the new storage space</returns>
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]AddStorageSpace newStorageSpace)
         {
@@ -105,7 +111,7 @@ namespace Anabi.Features.StorageSpaces
 
         }
 
-        
+
         /// <summary>
         /// Returns the storage space for the supplied id
         /// </summary>
@@ -122,8 +128,10 @@ namespace Anabi.Features.StorageSpaces
         /// </remarks>
         /// <response code="200">The edited version of the storage space</response>
         /// <response code="400">No storage spaces found!</response>
+        /// <response code="500">Server error</response>
         [ProducesResponseType(typeof(Models.StorageSpaceViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpPut()]
         public async Task<IActionResult> Put([FromBody]EditStorageSpace storageSpace)
         {
@@ -144,8 +152,10 @@ namespace Anabi.Features.StorageSpaces
         /// </remarks>
         /// <response code="204">The storage space has been deleted</response>
         /// <response code="400"></response>
+        /// <response code="500">Server error</response>
         [ProducesResponseType(typeof(int), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpDelete()]
         public async Task<IActionResult> Delete([FromBody]DeleteStorageSpace storageSpace)
         {
