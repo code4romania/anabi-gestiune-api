@@ -75,7 +75,13 @@ namespace Anabi.DataAccess.Ef
                         {
                 new StorageSpaceDb
                 {
-                    AddressId = 1,
+                    Address = new AddressDb{
+                    City = "Bucuresti",
+                    Building = "Cladire 1",
+                    CountyId = 1,
+                    Street = "Sos Pantelimon 11"
+
+                },
                     Name = "Spatiul de stocare 1",
                     CategoryId = 1,
                     TotalVolume = 30,
@@ -91,7 +97,13 @@ namespace Anabi.DataAccess.Ef
                 },
                 new StorageSpaceDb
                 {
-                    AddressId =2,
+                    Address = new AddressDb{
+                    City = "Bucuresti",
+                    Building = "Cladire 1",
+                    CountyId = 1,
+                    Street = "Sos Pantelimon 11"
+
+                },
                     Name = "Spatiul de stocare 2",
                     CategoryId = 1,
                     TotalVolume = 20,

@@ -3,12 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Anabi.Features.Assets.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Anabi.Controllers;
 
 namespace Anabi.Features.Assets
 {
+    //[Authorize]
     [Produces("application/json")]
     [Route("api/Assets")]
-    public class AssetsController : Controller
+    public class AssetsController : BaseController
     {
         private readonly IMediator mediator;
         public AssetsController(IMediator _mediator)

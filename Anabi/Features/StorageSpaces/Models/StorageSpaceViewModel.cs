@@ -1,12 +1,19 @@
-﻿namespace Anabi.Domain.Models
+﻿using Anabi.Domain.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Anabi.Features.StorageSpaces.Models
 {
-    public class StorageSpace
+    public class StorageSpaceViewModel
     {
         public int Id { get; set; }
 
         public Address Address { get; set; }
 
         public string Name { get; set; }
+        
 
         public decimal? TotalVolume { get; set; }
 

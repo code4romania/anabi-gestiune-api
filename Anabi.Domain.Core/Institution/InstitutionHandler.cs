@@ -62,14 +62,10 @@ namespace Anabi.Domain.Institution
 
             this.mapper.Map(message, institution);
 
-            if (this.checks.EmptyAddress(message))
-            {
-                await DeleteCurrentAddress(institution);
-            }
-            else
-            {
-                await SetNewAddressToInstitution(message, institution);
-            }
+           
+            
+            await SetNewAddressToInstitution(message, institution);
+            
 
             await this.context.SaveChangesAsync();
         }

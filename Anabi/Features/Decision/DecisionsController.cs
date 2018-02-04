@@ -8,9 +8,11 @@ using Anabi.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Anabi.Features.Decision
 {
+    //[Authorize]
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
     public class DecisionsController : BaseController
