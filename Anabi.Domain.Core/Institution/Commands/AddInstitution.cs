@@ -16,7 +16,7 @@ namespace Anabi.Domain.Institution.Commands
     using FluentValidation;
 
 
-    public class AddInstitution : IAddAddress, IRequest
+    public class AddInstitution : IAddAddress, IRequest<int>
     {
         public string Name { get; set; }
 

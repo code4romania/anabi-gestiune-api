@@ -21,21 +21,9 @@
     {
         private readonly IMediator mediator;
 
-        private readonly AbstractValidator<AddInstitution> addInstitutionValidator;
-
-        private readonly AbstractValidator<EditInstitution> editInstitutionValidator;
-
-        private readonly AbstractValidator<DeleteInstitution> deleteInstitutionValidator;
-
-        public InstitutionsController(IMediator mediator, 
-            AbstractValidator<AddInstitution> addInstitutionValidator, 
-            AbstractValidator<EditInstitution> editInstitutionValidator, 
-            AbstractValidator<DeleteInstitution> deleteInstitutionValidator)
+        public InstitutionsController(IMediator mediator)
         {
             this.mediator = mediator;
-            this.addInstitutionValidator = addInstitutionValidator;
-            this.editInstitutionValidator = editInstitutionValidator;
-            this.deleteInstitutionValidator = deleteInstitutionValidator;
         }
         
         [HttpGet]
@@ -55,39 +43,27 @@
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> AddInstitution(AddInstitution institution)
+        public async Task<IActionResult> AddInstitution(AddInstitution institution)
         {
-            var validationResult = this.addInstitutionValidator.Validate(institution);
-            if (validationResult.IsValid)
-            {
-                await this.mediator.Send(institution);
-            }
+         var id =       await this.mediator.Send(institution);
 
-            return ErrorHelper.GenerateErrorResponse(validationResult, "Error adding institution");
+            return Created("api/Instituions", id);
         }
 
         [HttpPut]
-        public async Task<HttpResponseMessage> EditInstitution(EditInstitution institution)
+        public async Task<IActionResult> EditInstitution(EditInstitution institution)
         {
-            var validationResult = this.editInstitutionValidator.Validate(institution);
-            if (validationResult.IsValid)
-            {
+         
                 await this.mediator.Send(institution);
-            }
-
-            return ErrorHelper.GenerateErrorResponse(validationResult, "Error editing institution");
+            return Ok();
         }
 
         [HttpDelete]
-        public async Task<HttpResponseMessage> Delete(DeleteInstitution institution)
+        public async Task<IActionResult> Delete(DeleteInstitution institution)
         {
-            var validationResult = this.deleteInstitutionValidator.Validate(institution);
-            if (validationResult.IsValid)
-            {
+           
                 await this.mediator.Send(institution);
-            }
-
-            return ErrorHelper.GenerateErrorResponse(validationResult, "Error deleting institution");
+            return Ok();
         }
     }
 }
