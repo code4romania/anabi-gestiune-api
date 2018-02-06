@@ -15,7 +15,7 @@ namespace Anabi.Features.Assets.Models
         public int DecizieId { get; set; }
         public string DecisionName { get; set; }
 
-        public int InstitutionId { get; set; }
+        public int? InstitutionId { get; set; }
         public string InstitutionName { get; set; }
 
         public decimal EstimatedAmount { get; set; }
@@ -48,7 +48,7 @@ namespace Anabi.Features.Assets.Models
 
         public string DecisionNumber { get; set; }
 
-        public DateTime DecisionDate { get; set; }
+        public DateTime? DecisionDate { get; set; }
 
         
 
