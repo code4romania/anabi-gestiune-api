@@ -15,8 +15,7 @@ namespace Anabi.Domain.Asset.Commands
 
         public string Identifier { get; set; }
 
-        public string UserCode { get; set; }
-
+        
         public int StageId { get; set; }
     }
 }
