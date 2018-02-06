@@ -61,7 +61,7 @@ namespace Anabi.Middleware
             var errorMessage = JsonConvert.SerializeObject(
                 new AnabiExceptionResponse
                 {
-                    CorrelationId = "",
+                    
                     Message = message,
                     Errors = errors 
                 }

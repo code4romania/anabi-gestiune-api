@@ -7,7 +7,7 @@ namespace Anabi.Middleware
 {
     public class AnabiExceptionResponse
     {
-        public string CorrelationId { get; set; }
+        
 
         public string Message { get; set; }
 
