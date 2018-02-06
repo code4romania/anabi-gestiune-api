@@ -10,7 +10,7 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public string Name { get; set; }
 
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
         
         public virtual AddressDb Address { get; set; }
 
@@ -20,7 +20,7 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public string Description { get; set; }
 
-        public int DecisionId { get; set; }
+        public int? DecisionId { get; set; }
 
         public virtual DecisionDb CurrentDecision { get; set; }
 

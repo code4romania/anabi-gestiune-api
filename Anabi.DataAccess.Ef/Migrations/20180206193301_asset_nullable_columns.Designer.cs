@@ -11,9 +11,10 @@ using System;
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20180206193301_asset_nullable_columns")]
+    partial class asset_nullable_columns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
