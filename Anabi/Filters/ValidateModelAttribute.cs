@@ -42,7 +42,7 @@ namespace Anabi.Filters
             var errorMessage = 
                 new AnabiExceptionResponse
                 {
-                    CorrelationId = "",
+                    
                     Message = "Validation Errors",
                     Errors = errors
                 }
