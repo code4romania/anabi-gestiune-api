@@ -76,5 +76,22 @@ namespace Anabi.Features.Assets
 
         }
 
+
+        /// <summary>
+        /// Gets the possible stages for an asset
+        /// </summary>
+        /// <response code="200">The list of stages</response>
+        /// <response code="400"></response>
+        /// <response code="500">Server error</response>
+        /// <returns>The possible stages</returns>
+        [ProducesResponseType(typeof(List<StageViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
+        [HttpGet("stages")]
+        public async Task<IActionResult> GetStages()
+        {
+            var models = await mediator.Send(new GetStages());
+            return Ok(models);
+        }
     }
 }
