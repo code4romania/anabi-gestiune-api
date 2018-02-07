@@ -93,5 +93,48 @@ namespace Anabi.Features.Assets
             var models = await mediator.Send(new GetStages());
             return Ok(models);
         }
+
+
+        /// <summary>
+        /// Gets the parent categories
+        /// </summary>
+        /// <response code="200">The list of parent categories</response>
+        /// <response code="400"></response>
+        /// <response code="500">Server error</response>
+        /// <returns>The parent categories</returns>
+        [ProducesResponseType(typeof(List<CategoryViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
+        [HttpGet("parentcategories")]
+        public async Task<IActionResult> GetParentCategories()
+        {
+            var models = await mediator.Send(new GetCategories() { ParentsOnly = true });
+            return Ok(models);
+        }
+
+
+        /// <summary>
+        /// Gets the children categories for a Parent Id
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Returns the children categories for a Parent Id
+        /// Validation Errors:
+        /// INVALID_ID
+        /// </para>
+        /// </remarks>
+        /// <response code="200">The list of subcategories</response>
+        /// <response code="400"></response>
+        /// <response code="500">Server error</response>
+        /// <returns>The subcategories</returns>
+        [ProducesResponseType(typeof(List<CategoryViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
+        [HttpGet("subcategories/{parentId:int}")]
+        public async Task<IActionResult> GetSubCategories(int parentId)
+        {
+            var models = await mediator.Send(new GetCategories() { ParentsOnly = false, ParentId = parentId });
+            return Ok(models);
+        }
     }
 }
