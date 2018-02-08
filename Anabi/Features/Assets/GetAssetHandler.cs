@@ -71,7 +71,7 @@ namespace Anabi.Features.Assets
                 DecisionName = x.decisionDictionary.Name,
                 DecisionNumber = x.historicalStage.DecisionNumber,
                 DecizieId = x.decisionDictionary.Id,
-                EstimatedAmount = x.historicalStage.EstimatedAmount,
+                EstimatedAmount = x.historicalStage.EstimatedAmount ?? 0,
                 EstimatedAmountCurrency = x.historicalStage.EstimatedAmountCurrency,
                 InstitutionId = x.historicalStage.InstitutionId,
                 InstitutionName = x.institutionDictionary.Name,

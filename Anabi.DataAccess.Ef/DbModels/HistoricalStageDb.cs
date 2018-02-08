@@ -12,15 +12,15 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public int StageId { get; set; }
 
-        public int DecizieId { get; set; }
+        public int? DecizieId { get; set; }
 
-        public int InstitutionId { get; set; }
+        public int? InstitutionId { get; set; }
 
         public virtual AssetDb Asset { get; set; }
 
         
 
-        public decimal EstimatedAmount { get; set; }
+        public decimal? EstimatedAmount { get; set; }
 
         public string EstimatedAmountCurrency { get; set; }
 
@@ -53,7 +53,7 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public string DecisionNumber { get; set; }
 
-        public DateTime DecisionDate { get; set; }
+        public DateTime? DecisionDate { get; set; }
 
         public virtual InstitutionDb IssuingInstitution { get; set; }
 

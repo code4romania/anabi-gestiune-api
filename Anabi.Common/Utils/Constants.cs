@@ -1,4 +1,6 @@
-﻿namespace Anabi.Common.Utils
+﻿using System;
+
+namespace Anabi.Common.Utils
 {
     public static class Constants
     {
@@ -13,5 +15,8 @@
 
         public const string ENTITY_IS_REFERENCED_BY_OTHER_ENTITIES = "ENTITY_IS_REFERENCED_BY_OTHER_ENTITIES";
 
+        public const string IDENTIFIER_MAX_LENGTH_200 = "IDENTIFIER_MAX_LENGTH_200";
+        public const string STAGE_INVALID_ID = "STAGE_INVALID_ID";
+        public const string CATEGORY_INVALID_ID = "CATEGORY_INVALID_ID";
     }
 }

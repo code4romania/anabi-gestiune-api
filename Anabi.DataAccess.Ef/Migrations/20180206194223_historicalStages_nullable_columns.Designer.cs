@@ -11,9 +11,10 @@ using System;
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20180206194223_historicalStages_nullable_columns")]
+    partial class historicalStages_nullable_columns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -427,8 +428,7 @@ namespace Anabi.DataAccess.Ef.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("DecizieId")
-                        .IsRequired();
+                    b.Property<int>("DecizieId");
 
                     b.Property<decimal?>("EstimatedAmount")
                         .IsRequired()
@@ -591,23 +591,17 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
-
                     b.Property<bool>("IsFinal");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("ParentId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique()
                         .HasName("indx_uq_stagename");
-
-                    b.HasIndex("ParentId");
 
                     b.ToTable("Stages");
                 });
@@ -1023,13 +1017,6 @@ namespace Anabi.DataAccess.Ef.Migrations
                         .HasConstraintName("FK_Persons_User_Change")
                         .HasPrincipalKey("UserCode")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.StageDb", b =>
-                {
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.StageDb", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.StagesForDecisionDb", b =>

@@ -12,6 +12,7 @@ namespace Anabi
     using Anabi.Domain.Common.Address;
     using Anabi.Domain.Institution.Commands;
     using Anabi.Domain.StorageSpaces.Commands;
+    using Anabi.Features.Assets.Models;
     using Anabi.Features.Institution.Models;
     using Anabi.Features.StorageSpaces.Models;
 
@@ -20,6 +21,7 @@ namespace Anabi
         public AutoMapperMappings()
         {
             CreateMap<Address, AddressDb>().ReverseMap();
+            CreateMap<Anabi.Domain.Models.Address, AddressDb>().ReverseMap();
             CreateMap<Asset, AssetDb>().ReverseMap();
 
             CreateMap<Category, CategoryDb>().ReverseMap();
@@ -48,7 +50,13 @@ namespace Anabi
 
             CreateMap<StorageSpace, StorageSpaceDb>().ReverseMap();
             CreateMap<StorageSpace, StorageSpaceViewModel>().ReverseMap();
+
+            CreateMap<Anabi.Domain.Models.StorageSpace, StorageSpaceDb>().ReverseMap();
+
             CreateMap<StorageSpaceViewModel, StorageSpaceDb>().ReverseMap();
+
+            CreateMap<StageViewModel, StageDb>().ReverseMap();
+            CreateMap<CategoryViewModel, CategoryDb>().ReverseMap();
 
             CreateMap<User, UserDb>().ReverseMap();
         }

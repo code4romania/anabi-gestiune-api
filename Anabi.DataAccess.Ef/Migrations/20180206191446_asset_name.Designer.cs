@@ -11,9 +11,10 @@ using System;
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20180206191446_asset_name")]
+    partial class asset_name
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,13 +63,11 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("DateTime");
 
-                    b.Property<int?>("AddressId")
-                        .IsRequired();
+                    b.Property<int>("AddressId");
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<int?>("DecisionId")
-                        .IsRequired();
+                    b.Property<int>("DecisionId");
 
                     b.Property<string>("Description");
 
@@ -419,27 +418,23 @@ namespace Anabi.DataAccess.Ef.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<DateTime?>("DecisionDate")
-                        .IsRequired()
+                    b.Property<DateTime>("DecisionDate")
                         .HasColumnType("Date");
 
                     b.Property<string>("DecisionNumber")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("DecizieId")
-                        .IsRequired();
+                    b.Property<int>("DecizieId");
 
-                    b.Property<decimal?>("EstimatedAmount")
-                        .IsRequired()
+                    b.Property<decimal>("EstimatedAmount")
                         .HasColumnType("Decimal(20,2)");
 
                     b.Property<string>("EstimatedAmountCurrency")
                         .IsRequired()
                         .HasMaxLength(3);
 
-                    b.Property<int?>("InstitutionId")
-                        .IsRequired();
+                    b.Property<int>("InstitutionId");
 
                     b.Property<DateTime?>("LastChangeDate")
                         .HasColumnType("Datetime");
@@ -591,23 +586,17 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
-
                     b.Property<bool>("IsFinal");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("ParentId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique()
                         .HasName("indx_uq_stagename");
-
-                    b.HasIndex("ParentId");
 
                     b.ToTable("Stages");
                 });
@@ -1023,13 +1012,6 @@ namespace Anabi.DataAccess.Ef.Migrations
                         .HasConstraintName("FK_Persons_User_Change")
                         .HasPrincipalKey("UserCode")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.StageDb", b =>
-                {
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.StageDb", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.StagesForDecisionDb", b =>
