@@ -6,16 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Anabi.DataAccess.Ef;
 using Microsoft.EntityFrameworkCore;
-using Anabi.DataAccess.Ef.DbModels;
 using Swashbuckle.AspNetCore.Swagger;
 using Serilog;
 using System.IO;
 using Anabi.Domain;
 using Anabi.Domain.Category.Commands;
-using Anabi.Domain.Decision;
-using Anabi.Domain.RecoveryBeneficiary;
-using Anabi.Domain.Stage;
-using Anabi.Domain.StorageSpaces;
 using AutoMapper;
 using MediatR;
 using FluentValidation.AspNetCore;
@@ -128,14 +123,6 @@ namespace Anabi
             services.AddScoped<EmptyAddAddressValidator, EmptyAddAddressValidator>();
             services.AddScoped<AbstractValidator<IAddAddress>, AddAddressValidator>(); ;
             services.AddScoped<IDatabaseChecks, DatabaseChecks>();
-
-            
-
-            services.AddScoped<IGenericRepository<DecisionDb>, DecisionsRepository>();
-            services.AddScoped<IGenericRepository<StageDb>, StagesRepository>();
-            
-
-            services.AddScoped<IGenericRepository<RecoveryBeneficiaryDb>, RecoveryBeneficiariesRepository>();
 
         }
 
