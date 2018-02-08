@@ -71,8 +71,8 @@ namespace Anabi.Features.Assets
         [HttpPost("addminimalasset")]
         public async Task<IActionResult> AddMinimalAsset([FromBody]AddMinimalAsset minimalAsset)
         {
-            //var id = await mediator.Send(minimalAsset);
-            return Created("api/assets", 1735);
+            var id = await mediator.Send(minimalAsset);
+            return Created("api/assets", id);
 
         }
 

@@ -26,6 +26,15 @@ namespace AnabiControllers.Tests
         }
 
 
+        [TestCleanup]
+        public void CleanUp()
+        {
+            context.Dispose();
+            context = null;
+
+            mapper = null;
+        }
+
         [TestMethod]
         public async Task GetParentCategories_Expected2Categories()
         {
