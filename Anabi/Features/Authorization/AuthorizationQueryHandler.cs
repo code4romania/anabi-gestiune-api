@@ -17,9 +17,9 @@ namespace Anabi.Features.Authorization
             
         }
 
-        public Task<Anabi.Domain.Models.User> Handle(AuthenticationRequest request)
+        public async Task<Anabi.Domain.Models.User> Handle(AuthenticationRequest request)
         {
-            return context.Utilizatori
+            return await context.Utilizatori
                 .AsQueryable()
                 .Where(u => u.UserCode == request.Username && u.Password == request.Password && u.IsActive == true)
                 .Select(u => Mapper.Map<Anabi.Domain.Models.User>(u))
