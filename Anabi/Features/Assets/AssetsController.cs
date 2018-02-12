@@ -58,6 +58,10 @@ namespace Anabi.Features.Assets
         /// USERCODE_NOT_EMPTY (for test use pop)
         /// USERCODE_MAX_LENGTH_20 -- if the user code is over 20 characters long
         /// INVALID_STAGE_ID -- if StageId lower than or equal to zero, or the stage id does not exist
+        /// MEASUREUNIT_MAX_LENGTH_10 -- measure unit max 10 characters
+        /// QUANTITY_MUST_BE_GREATER_THAN_ZERO -- quantity must be gt zero
+        /// ESTIMATED_AMOUNT_GREATER_THAN_ZERO -- estimated amount must be gt zero
+        /// ESTIMATED_AMT_CURRENCY_THREE_CHARS -- currency must have 3 characters (USD, RON, EUR)
         /// </para>
         /// </remarks>
         /// <response code="201">The id of the new asset</response>
