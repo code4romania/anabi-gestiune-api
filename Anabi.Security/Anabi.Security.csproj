@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="2.1.2" />
+    <PackageReference Include="MediatR" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Anabi.DataAccess.Ef\Anabi.DataAccess.Ef.csproj" />
+    <ProjectReference Include="..\Anabi.Domain.Core\Anabi.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

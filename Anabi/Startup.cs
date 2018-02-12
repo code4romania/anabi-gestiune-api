@@ -25,7 +25,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Anabi.Domain.Enums;
-
+using Anabi.Security;
 
 namespace Anabi
 {
@@ -98,7 +98,7 @@ namespace Anabi
 
             services.AddAutoMapper(typeof(Startup), typeof(BaseHandler));
 
-            services.AddMediatR(typeof(Startup), typeof(BaseHandler));
+            services.AddMediatR(typeof(Startup), typeof(BaseHandler), typeof(PasswordHashHandler));
         }
 
         private static void ConfigureSwagger(IServiceCollection services)

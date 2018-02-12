@@ -19,9 +19,11 @@ namespace Anabi.Features.Authorization
 
         public async Task<Anabi.Domain.Models.User> Handle(AuthenticationRequest request)
         {
+
+
             return await context.Utilizatori
                 .AsQueryable()
-                .Where(u => u.UserCode == request.Username && u.Password == request.Password && u.IsActive == true)
+                .Where(u => u.UserCode == request.Username && u.IsActive == true)
                 .Select(u => Mapper.Map<Anabi.Domain.Models.User>(u))
                 .FirstOrDefaultAsync();
 

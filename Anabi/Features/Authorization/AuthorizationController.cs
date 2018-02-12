@@ -1,6 +1,7 @@
 ﻿using Anabi.Controllers;
 using Anabi.Domain.Models;
 using Anabi.Features.Authorization.Models;
+using Anabi.Security.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,13 @@ namespace Anabi.Features.Authorization
                 return Unauthorized();
             }
 
+            var isPasswordCorrect = await _mediator.Send(new GetPasswordEquality(){ ClearPassword = request.Password, HashedPassword = user.Password});
+
+            if (!isPasswordCorrect)
+            {
+                return Unauthorized();
+            }
+
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
@@ -57,6 +65,23 @@ namespace Anabi.Features.Authorization
               signingCredentials: creds);
 
             return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet("gethashedpassword")]
+        public async Task<IActionResult> GetHashedPassword(string password)
+        {
+            var hash = await _mediator.Send(new GetPasswordHash() { Password = password });
+            return Ok(hash);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("comparepasswords")]
+        public async Task<IActionResult> ComparePasswords([FromBody]GetPasswordEquality passEqualities)
+        {
+            var passwordsAreEqual = await _mediator.Send(passEqualities);
+            return Ok(passwordsAreEqual);
         }
 
     }

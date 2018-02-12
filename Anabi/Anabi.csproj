@@ -43,6 +43,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Anabi.DataAccess.Ef\Anabi.DataAccess.Ef.csproj" />
     <ProjectReference Include="..\Anabi.Domain.Core\Anabi.Domain.csproj" />
+    <ProjectReference Include="..\Anabi.Security\Anabi.Security.csproj" />
   </ItemGroup>
   
 </Project>
