@@ -20,21 +20,21 @@ namespace Anabi.Features.Assets
         public async Task<List<AssetSummary>> Handle(SearchAsset message)
         {
 
-            var query = from asset in context.Bunuri
-                        join cat in context.Categorii on asset.CategoryId equals cat.Id
+            var query = from asset in context.Assets
+                        join cat in context.Categories on asset.CategoryId equals cat.Id
                         join assetFile in context.BunuriDosare on asset.Id equals assetFile.AssetId
                         join file in context.Dosare on assetFile.FileId equals file.Id
                         join fileNumber in context.NumereDosare on file.CurrentFileNumber equals fileNumber.FileNumber
                         join defendant in context.InculpatiDosar on file.Id equals defendant.FileId
-                        join person in context.Persoane on defendant.PersonId equals person.Id
+                        join person in context.Persons on defendant.PersonId equals person.Id
 
-                        from historicalStage in context.EtapeIstorice
+                        from historicalStage in context.HistoricalStages
                                                 .Where(x => x.AssetId == asset.Id)
                                                 .OrderByDescending(x => x.DecisionDate)
                                                 .Take(1) 
-                            join institution in context.Institutii on historicalStage.InstitutionId equals institution.Id
-                            join decision in context.Decizii on historicalStage.DecizieId equals decision.Id
-                            join stage in context.Etape on historicalStage.StageId equals stage.Id
+                            join institution in context.Institutions on historicalStage.InstitutionId equals institution.Id
+                            join decision in context.Decisions on historicalStage.DecizieId equals decision.Id
+                            join stage in context.Stages on historicalStage.StageId equals stage.Id
 
                         where (string.IsNullOrEmpty(message.PersonID) || person.Identification == message.PersonID)
                         where (string.IsNullOrEmpty(message.PersonName) || person.Name == message.PersonName)

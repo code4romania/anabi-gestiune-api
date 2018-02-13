@@ -30,12 +30,12 @@ namespace Anabi.Domain.Institution
 
         public async Task Handle(DeleteInstitution message)
         {
-            var institution = await this.context.Institutii.FindAsync(message.Id);
+            var institution = await this.context.Institutions.FindAsync(message.Id);
             if (institution.AddressId.HasValue)
             {
                 await this.DeleteCurrentAddress(institution);
             }
-            this.context.Institutii.Remove(institution);
+            this.context.Institutions.Remove(institution);
             await this.context.SaveChangesAsync();
         }
 
@@ -44,7 +44,7 @@ namespace Anabi.Domain.Institution
             var institution = this.mapper.Map<InstitutionDb>(message);
             institution.AddedDate = DateTime.UtcNow;
 
-            this.context.Institutii.Add(institution);
+            this.context.Institutions.Add(institution);
 
             if (!this.checks.EmptyAddress(message))
             {
@@ -57,7 +57,7 @@ namespace Anabi.Domain.Institution
 
         public async Task Handle(EditInstitution message)
         {
-            var institution = await this.context.Institutii.FindAsync(message.Id);
+            var institution = await this.context.Institutions.FindAsync(message.Id);
             institution.LastChangeDate = DateTime.UtcNow;
 
             this.mapper.Map(message, institution);
@@ -75,8 +75,8 @@ namespace Anabi.Domain.Institution
             var oldAddressId = institution.AddressId;
             if (oldAddressId.HasValue)
             {
-                this.context.Adrese.Remove(
-                    await this.context.Adrese.FindAsync(oldAddressId.Value));
+                this.context.Addresses.Remove(
+                    await this.context.Addresses.FindAsync(oldAddressId.Value));
             }
         }
 
@@ -85,7 +85,7 @@ namespace Anabi.Domain.Institution
             AddressDb address;
             if (institution.AddressId.HasValue)
             {
-                address = await this.context.Adrese.FindAsync(institution.AddressId.Value);
+                address = await this.context.Addresses.FindAsync(institution.AddressId.Value);
                 this.mapper.Map(message, address);
             }
             else
@@ -94,7 +94,7 @@ namespace Anabi.Domain.Institution
             }
 
             var countyCode = message.CountyCode.ToUpperInvariant();
-            address.County = context.Judete.SingleOrDefault(x => x.Abreviation == countyCode);
+            address.County = context.Counties.SingleOrDefault(x => x.Abreviation == countyCode);
             institution.Address = address;
         }
     }

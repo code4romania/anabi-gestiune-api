@@ -44,7 +44,7 @@ namespace Anabi.Domain.Category.Commands
 
         private async Task<bool> HaveUniqueCode(string arg1, CancellationToken arg2)
         {
-            var codeExists = await context.Categorii.AnyAsync(c => c.Code == arg1);
+            var codeExists = await context.Categories.AnyAsync(c => c.Code == arg1);
             return !codeExists;
 
         }

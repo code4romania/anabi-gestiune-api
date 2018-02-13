@@ -53,7 +53,7 @@ namespace AnabiControllers.Tests
 
             await queryHandler.Handle(query);
 
-            var cat = await context.Categorii.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
+            var cat = await context.Categories.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
 
             Assert.IsNotNull(cat);
 
@@ -77,7 +77,7 @@ namespace AnabiControllers.Tests
 
             await queryHandler.Handle(query);
 
-            var cat = await context.Categorii.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
+            var cat = await context.Categories.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
 
             Assert.IsNotNull(cat);
 
@@ -96,7 +96,7 @@ namespace AnabiControllers.Tests
 
             await handler.Handle(query);
 
-            var cat = await context.Categorii.AnyAsync<CategoryDb>(p => p.Id == 1);
+            var cat = await context.Categories.AnyAsync<CategoryDb>(p => p.Id == 1);
 
             Assert.IsFalse(cat);
         }
@@ -106,7 +106,7 @@ namespace AnabiControllers.Tests
         {
             Setup();
             DbInitializer.Initialize(context);
-            Assert.AreEqual(2, context.SpatiiStocare.Count());
+            Assert.AreEqual(2, context.StorageSpaces.Count());
         }
 
         #region Setup
@@ -117,7 +117,7 @@ namespace AnabiControllers.Tests
             context = new AnabiContext(options);
             categoriesForDb = GetCategoriesForDb();
 
-            context.Categorii.AddRange(categoriesForDb);
+            context.Categories.AddRange(categoriesForDb);
             context.SaveChanges();
 
             Mapper.Initialize(cfg =>

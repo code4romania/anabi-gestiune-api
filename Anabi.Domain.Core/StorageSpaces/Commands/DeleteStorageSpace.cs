@@ -35,7 +35,7 @@ namespace Anabi.Domain.StorageSpaces.Commands
         {
             var hasReferents = false;
 
-            var storageSpace = await context.SpatiiStocare
+            var storageSpace = await context.StorageSpaces
                 .Include(a => a.AssetsStorageSpaces)
                 .FirstOrDefaultAsync(c => c.Id == query.Id);
 

@@ -28,7 +28,7 @@ namespace Anabi.Domain.Category.Commands
         {
             var hasNoChildren = false;
 
-            var category = await context.Categorii.FirstAsync(c => c.Id == query.Id);
+            var category = await context.Categories.FirstAsync(c => c.Id == query.Id);
 
             hasNoChildren = (
                      (!(category.Children == null ? false : category.Children.Any())) &&

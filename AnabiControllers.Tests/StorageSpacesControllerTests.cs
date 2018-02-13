@@ -68,7 +68,7 @@ namespace AnabiControllers.Tests
 
             await queryHandler.Handle(query);
 
-            var cat = await context.SpatiiStocare.FirstOrDefaultAsync<StorageSpaceDb>(p => p.Name == "S1");
+            var cat = await context.StorageSpaces.FirstOrDefaultAsync<StorageSpaceDb>(p => p.Name == "S1");
 
             Assert.IsNotNull(cat);
 
@@ -108,7 +108,7 @@ namespace AnabiControllers.Tests
 
             await queryHandler.Handle(query);
 
-            var cat = await context.SpatiiStocare.FirstAsync<StorageSpaceDb>(p => p.Id == 1);
+            var cat = await context.StorageSpaces.FirstAsync<StorageSpaceDb>(p => p.Id == 1);
 
             Assert.IsTrue(cat.Name == "S1");
 
@@ -127,7 +127,7 @@ namespace AnabiControllers.Tests
 
             await handler.Handle(query);
 
-            var cat = await context.SpatiiStocare.AnyAsync<StorageSpaceDb>(p => p.Id == 1);
+            var cat = await context.StorageSpaces.AnyAsync<StorageSpaceDb>(p => p.Id == 1);
 
             Assert.IsFalse(cat);
         }
@@ -142,7 +142,7 @@ namespace AnabiControllers.Tests
             context = new AnabiContext(options);
             storageSpacesForDb = GetStorageSpacesForDb();
 
-            context.SpatiiStocare.AddRange(storageSpacesForDb);
+            context.StorageSpaces.AddRange(storageSpacesForDb);
             context.SaveChanges();
 
             Mapper.Initialize(cfg =>

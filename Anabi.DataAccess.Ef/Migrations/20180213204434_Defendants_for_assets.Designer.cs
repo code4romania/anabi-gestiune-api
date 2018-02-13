@@ -11,9 +11,10 @@ using System;
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20180213204434_Defendants_for_assets")]
+    partial class Defendants_for_assets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -608,7 +609,7 @@ namespace Anabi.DataAccess.Ef.Migrations
                         .IsRequired()
                         .HasMaxLength(20);
 
-                    b.Property<int>("IdentifierId");
+                    b.Property<int?>("IdentifierId");
 
                     b.Property<bool>("IsPerson");
 

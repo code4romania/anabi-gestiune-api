@@ -28,7 +28,7 @@ namespace Anabi.Domain.StorageSpaces
 
             Mapper.Map(message, newStorageSpace);
 
-            context.SpatiiStocare.Add(newStorageSpace);
+            context.StorageSpaces.Add(newStorageSpace);
 
             await SetNewAddressToStorageSpace(message, newStorageSpace);
 
@@ -41,7 +41,7 @@ namespace Anabi.Domain.StorageSpaces
         public async Task<StorageSpace> Handle(EditStorageSpace message)
         {
 
-            var storageSpace = await context.SpatiiStocare.FindAsync(message.Id);
+            var storageSpace = await context.StorageSpaces.FindAsync(message.Id);
 
 
             ValidateStorageSpace(storageSpace);
@@ -61,13 +61,13 @@ namespace Anabi.Domain.StorageSpaces
 
         public async Task Handle(DeleteStorageSpace message)
         {
-            var command = context.SpatiiStocare.Where(m => m.Id == message.Id).AsQueryable()
+            var command = context.StorageSpaces.Where(m => m.Id == message.Id).AsQueryable()
                 .Include(a => a.Address);
 
             var storageSpace = await command.FirstOrDefaultAsync();
             ValidateStorageSpace(storageSpace);
 
-            context.SpatiiStocare.Remove(storageSpace);
+            context.StorageSpaces.Remove(storageSpace);
 
             await context.SaveChangesAsync();
         }
@@ -85,7 +85,7 @@ namespace Anabi.Domain.StorageSpaces
             AddressDb address;
             if (storageSpace.AddressId > 0)
             {
-                address = await this.context.Adrese.FindAsync(storageSpace.AddressId);
+                address = await this.context.Addresses.FindAsync(storageSpace.AddressId);
                 this.mapper.Map(message, address);
             }
             else
@@ -94,7 +94,7 @@ namespace Anabi.Domain.StorageSpaces
             }
 
             var countyCode = message.CountyCode.ToUpperInvariant();
-            address.County = context.Judete.SingleOrDefault(x => x.Abreviation == countyCode);
+            address.County = context.Counties.SingleOrDefault(x => x.Abreviation == countyCode);
             storageSpace.Address = address;
         }
     }

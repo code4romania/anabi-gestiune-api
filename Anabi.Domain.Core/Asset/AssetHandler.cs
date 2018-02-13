@@ -37,8 +37,8 @@ namespace Anabi.Domain.Asset
 
             historicalStageDb.Asset = asset;
 
-            context.Bunuri.Add(asset);
-            context.EtapeIstorice.Add(historicalStageDb);
+            context.Assets.Add(asset);
+            context.HistoricalStages.Add(historicalStageDb);
             await context.SaveChangesAsync();
 
             return asset.Id;

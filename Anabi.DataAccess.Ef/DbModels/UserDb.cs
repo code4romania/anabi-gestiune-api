@@ -51,5 +51,11 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual ICollection<AssetStorageSpaceDb> AssetsStorageSpacesAdded { get; set; }
         public virtual ICollection<AssetStorageSpaceDb> AssetsStorageSpacesChanged { get; set; }
+
+        public virtual ICollection<IdentifierDb> IdentifiersAdded { get; set; }
+        public virtual ICollection<IdentifierDb> IdentifiersChanged { get; set; }
+
+        public virtual ICollection<AssetDefendantDb> AssetDefendantsAdded { get; set; }
+        public virtual ICollection<AssetDefendantDb> AssetDefendantsChanged { get; set; }
     }
 }

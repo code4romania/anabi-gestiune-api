@@ -21,7 +21,7 @@ namespace Anabi.Features.Category
         public Task<List<Models.Category>> Handle(GetCategory message)
         {
 
-            var command = context.Categorii.AsQueryable();
+            var command = context.Categories.AsQueryable();
 
             if (message.Id != null)
             {
