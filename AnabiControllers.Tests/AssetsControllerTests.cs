@@ -6,6 +6,7 @@ using Anabi.Features.Assets.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -92,7 +93,7 @@ namespace AnabiControllers.Tests
         private DbContextOptions<AnabiContext> GetContextOptions()
         {
             return new DbContextOptionsBuilder<AnabiContext>()
-                            .UseInMemoryDatabase(databaseName: "AssetsInMemory")
+                            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                             .Options;
         }
 
@@ -112,8 +113,8 @@ namespace AnabiControllers.Tests
                 Name = "Stage 2"
             };
 
-            this.context.Etape.Add(stage1);
-            this.context.Etape.Add(stage2);
+            this.context.Stages.Add(stage1);
+            this.context.Stages.Add(stage2);
 
             context.SaveChanges();
         }
@@ -137,9 +138,9 @@ namespace AnabiControllers.Tests
             };
 
 
-            context.Categorii.Add(parent1);
-            context.Categorii.Add(parent2);
-            context.Categorii.Add(parent3);
+            context.Categories.Add(parent1);
+            context.Categories.Add(parent2);
+            context.Categories.Add(parent3);
             context.SaveChanges();
 
             var children = new List<CategoryDb> {
@@ -163,7 +164,7 @@ namespace AnabiControllers.Tests
             }
         };
 
-            context.Categorii.AddRange(children);
+            context.Categories.AddRange(children);
             context.SaveChanges();
         }
 

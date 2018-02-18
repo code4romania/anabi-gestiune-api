@@ -45,7 +45,7 @@ namespace Anabi.Domain.Category.Commands
 
         private async Task<bool> HaveUniqueCode(string code, int id, CancellationToken token)
         {
-            var hasCode = await context.Categorii.AnyAsync(c => c.Code == code && c.Id != id);
+            var hasCode = await context.Categories.AnyAsync(c => c.Code == code && c.Id != id);
             return !hasCode;
         }
     }

@@ -10,7 +10,7 @@ namespace Anabi.DataAccess.Ef
         {
             context.Database.EnsureCreated();
 
-            if (context.Judete.Any())
+            if (context.Counties.Any())
             {
                 return; // DB has been seeded
             }
@@ -65,7 +65,7 @@ namespace Anabi.DataAccess.Ef
                     AddedDate = new DateTime(2017,2,8)
                 }
                         };
-            context.BunuriSpatiiStocare.AddRange(bunurispatiiStocare);
+            context.AssetStorageSpaces.AddRange(bunurispatiiStocare);
             context.SaveChanges();
         }
 
@@ -119,7 +119,7 @@ namespace Anabi.DataAccess.Ef
 
                 }
                         };
-            context.SpatiiStocare.AddRange(spatiiStocare);
+            context.StorageSpaces.AddRange(spatiiStocare);
             context.SaveChanges();
         }
 
@@ -148,9 +148,20 @@ namespace Anabi.DataAccess.Ef
                     Role = "SuperUser",
                     IsActive = true
 
+                },
+                new UserDb
+                {
+                    UserCode = "admin",
+                    Email="admin@gmailx.com",
+                    Name = "admin",
+                    Password ="$2a$10$McB4.Yuu8zeBaKvd8bHgU.zvg2aXM9l0Gj.gN6hi4xiFv4DsJyPQq",
+                    Salt = "sarea",
+                    Role = "Admin",
+                    IsActive = true
+
                 }
             };
-            context.Utilizatori.AddRange(utilizatori);
+            context.Users.AddRange(utilizatori);
             context.SaveChanges();
         }
 
@@ -214,7 +225,7 @@ namespace Anabi.DataAccess.Ef
                     NecessaryVolume = null
                 }
             };
-            context.Bunuri.AddRange(bunuri);
+            context.Assets.AddRange(bunuri);
             context.SaveChanges();
         }
 
@@ -257,7 +268,7 @@ namespace Anabi.DataAccess.Ef
                     ActualValueCurrency = "usd"
                 }
                         };
-            context.EtapeIstorice.AddRange(etapeIstorice);
+            context.HistoricalStages.AddRange(etapeIstorice);
             context.SaveChanges();
         }
 
@@ -345,7 +356,7 @@ namespace Anabi.DataAccess.Ef
                 new PersonDb {Name = "Popescu Gigi", IsPerson = true, Identification = "11122336658", AddressId = 1, UserCodeAdd="pop", AddedDate = new DateTime(2017, 1,1), IdNumber ="122345", IdSerie= "RR"},
                 new PersonDb {Name = "SC Alfa si Omega SRL", IsPerson = false, Identification ="1231123", AddressId = 2, UserCodeAdd="pop", AddedDate = new DateTime(2017, 1,1)}
                         };
-            context.Persoane.AddRange(persoane);
+            context.Persons.AddRange(persoane);
             context.SaveChanges();
         }
 
@@ -356,7 +367,7 @@ namespace Anabi.DataAccess.Ef
                 new InstitutionDb {AddressId = 1, CategoryId = 4, UserCodeAdd="pop", AddedDate = new DateTime(2017,1, 2), Name ="Parchetul din Iasi"},
                 new InstitutionDb {AddressId = 2, CategoryId = 5, UserCodeAdd = "pop", AddedDate = new DateTime(2017,2,3), Name = "Instanta din Craiova"}
                         };
-            context.Institutii.AddRange(institutii);
+            context.Institutions.AddRange(institutii);
             context.SaveChanges();
         }
 
@@ -371,7 +382,7 @@ namespace Anabi.DataAccess.Ef
                 new StagesForDecisionDb {DecisionId = 2, StageId = 2},
                 new StagesForDecisionDb {DecisionId = 2, StageId = 3}
                         };
-            context.EtapePentruDecizii.AddRange(etapePtDecizie);
+            context.StagesForDecisions.AddRange(etapePtDecizie);
             context.SaveChanges();
         }
 
@@ -382,7 +393,7 @@ namespace Anabi.DataAccess.Ef
                 new DecisionDb {Name = "Hotarare"},
                 new DecisionDb {Name = "Ordonanta"}
                         };
-            context.Decizii.AddRange(decizii);
+            context.Decisions.AddRange(decizii);
             context.SaveChanges();
         }
 
@@ -394,7 +405,7 @@ namespace Anabi.DataAccess.Ef
                 new StageDb {Name = "Valorificare", IsFinal = true},
                 new StageDb {Name = "Sechestru", IsFinal = false}
                         };
-            context.Etape.AddRange(etape);
+            context.Stages.AddRange(etape);
             context.SaveChanges();
         }
 
@@ -409,7 +420,7 @@ namespace Anabi.DataAccess.Ef
                 new CategoryDb {ForEntity = "institutie", Code ="Parchet"}
 
                         };
-            context.Categorii.AddRange(categorii);
+            context.Categories.AddRange(categorii);
             context.SaveChanges();
         }
 
@@ -422,7 +433,7 @@ namespace Anabi.DataAccess.Ef
                 new AddressDb {Street = "Iancului 22", Building="Blco 102S", CountyId = 1, City="Bucuresti"},
                 new AddressDb {Street = "O strada 22", Building="Bloc 13", CountyId = 3, City ="Constanta"}
                                     };
-            context.Adrese.AddRange(adrese);
+            context.Addresses.AddRange(adrese);
             context.SaveChanges();
 
         }
@@ -438,7 +449,7 @@ namespace Anabi.DataAccess.Ef
                 new CountyDb {Abreviation = "BV", Name = "Brasov"},
                 new CountyDb {Abreviation = "SB", Name = "Sibiu"}
                     };
-            context.Judete.AddRange(judete);
+            context.Counties.AddRange(judete);
             context.SaveChanges();
 
         }
@@ -451,7 +462,7 @@ namespace Anabi.DataAccess.Ef
                 new RecoveryBeneficiaryDb {Name = "Fane Croitoru"},
                 new RecoveryBeneficiaryDb {Name = "Gogu Icsulescu"}
                     };
-            context.BeneficiariValorificari.AddRange(beneficiari);
+            context.RecoveryBeneficiaries.AddRange(beneficiari);
             context.SaveChanges();
 
         }

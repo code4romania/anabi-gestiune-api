@@ -37,12 +37,12 @@ namespace Anabi.Features.Assets
 
         private async Task<List<DecisionDetails>> GetDecisionsAsync(GetAssetDetails message)
         {
-            var query = (from h in context.EtapeIstorice
-                         join a in context.Bunuri on h.AssetId equals a.Id
-                         join d in context.Decizii on h.DecizieId equals d.Id
-                         join i in context.Institutii on h.InstitutionId equals i.Id
-                         join p in context.Persoane on h.OwnerId equals p.Id
-                         join s in context.Etape on h.StageId equals s.Id
+            var query = (from h in context.HistoricalStages
+                         join a in context.Assets on h.AssetId equals a.Id
+                         join d in context.Decisions on h.DecizieId equals d.Id
+                         join i in context.Institutions on h.InstitutionId equals i.Id
+                         join p in context.Persons on h.OwnerId equals p.Id
+                         join s in context.Stages on h.StageId equals s.Id
                          
                          where a.Id == message.Id
                          select new
@@ -91,10 +91,10 @@ namespace Anabi.Features.Assets
         private async Task<Asset> GetAssetAsync(GetAssetDetails message)
         {
             var assetTask = (from
-                          a in context.Bunuri
-                               join adr in context.Adrese on a.AddressId equals adr.Id
-                               join c in context.Judete on adr.CountyId equals c.Id
-                               join cat in context.Categorii on a.CategoryId equals cat.Id
+                          a in context.Assets
+                               join adr in context.Addresses on a.AddressId equals adr.Id
+                               join c in context.Counties on adr.CountyId equals c.Id
+                               join cat in context.Categories on a.CategoryId equals cat.Id
                                where a.Id == message.Id
                                select new Asset
                                {
@@ -126,11 +126,11 @@ namespace Anabi.Features.Assets
 
                                }).FirstAsync();
 
-            var storageSpacesTask = (from a in context.Bunuri
-                                     join asp in context.BunuriSpatiiStocare on a.Id equals asp.AssetId
-                                     join sp in context.SpatiiStocare on asp.StorageSpaceId equals sp.Id
-                                     join adr in context.Adrese on sp.AddressId equals adr.Id
-                                     join c in context.Judete on adr.CountyId equals c.Id
+            var storageSpacesTask = (from a in context.Assets
+                                     join asp in context.AssetStorageSpaces on a.Id equals asp.AssetId
+                                     join sp in context.StorageSpaces on asp.StorageSpaceId equals sp.Id
+                                     join adr in context.Addresses on sp.AddressId equals adr.Id
+                                     join c in context.Counties on adr.CountyId equals c.Id
                                      where a.Id == message.Id
                                      select new StorageSpace
                                      {
@@ -185,9 +185,9 @@ namespace Anabi.Features.Assets
             var defendantsTask = (from a in context.BunuriDosare
                                   join f in context.Dosare on a.FileId equals f.Id
                                   join df in context.InculpatiDosar on f.Id equals df.FileId
-                                  join d in context.Persoane on df.PersonId equals d.Id
-                                  join adr in context.Adrese on d.AddressId equals adr.Id
-                                  join c in context.Judete on adr.CountyId equals c.Id
+                                  join d in context.Persons on df.PersonId equals d.Id
+                                  join adr in context.Addresses on d.AddressId equals adr.Id
+                                  join c in context.Counties on adr.CountyId equals c.Id
                                   where a.AssetId == message.Id
                                   select new Defendant
                                   {

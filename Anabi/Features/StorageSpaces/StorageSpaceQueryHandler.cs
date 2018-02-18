@@ -41,7 +41,7 @@ namespace Anabi.Features.StorageSpaces
 
         private IQueryable<DataAccess.Ef.DbModels.StorageSpaceDb> GetCommand(GetStorageSpace message)
         {
-            var command = context.SpatiiStocare.AsQueryable();
+            var command = context.StorageSpaces.AsQueryable();
             if (message.Id != null)
             {
                 command = command.Where(m => m.Id == message.Id);

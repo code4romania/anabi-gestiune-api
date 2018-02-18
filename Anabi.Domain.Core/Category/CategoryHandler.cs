@@ -25,7 +25,7 @@ namespace Anabi.Domain.Category
             
             Mapper.Map(message, newCategory);
             
-            context.Categorii.Add(newCategory);
+            context.Categories.Add(newCategory);
 
             await context.SaveChangesAsync();
 
@@ -34,15 +34,15 @@ namespace Anabi.Domain.Category
 
         public async Task Handle(DeleteCategory message)
         {
-            var categoryToDelete = await context.Categorii.FirstAsync(c => c.Id == message.Id);
-            context.Categorii.Remove(categoryToDelete);
+            var categoryToDelete = await context.Categories.FirstAsync(c => c.Id == message.Id);
+            context.Categories.Remove(categoryToDelete);
             await context.SaveChangesAsync();
         }
 
         public async Task Handle(EditCategory message)
         {
 
-            var categoryToEdit = await this.context.Categorii.Where(p => p.Id == message.Id).FirstAsync();
+            var categoryToEdit = await this.context.Categories.Where(p => p.Id == message.Id).FirstAsync();
 
             Mapper.Map(message, categoryToEdit);
 

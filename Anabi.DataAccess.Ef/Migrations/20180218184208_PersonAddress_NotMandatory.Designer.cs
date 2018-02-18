@@ -11,9 +11,10 @@ using System;
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20180218184208_PersonAddress_NotMandatory")]
+    partial class PersonAddress_NotMandatory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

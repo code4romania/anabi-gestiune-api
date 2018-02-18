@@ -20,7 +20,7 @@ namespace Anabi.Features.Counties
 
         public Task<List<County>> Handle(GetCounties message)
         {
-            return context.Judete
+            return context.Counties
                 .Select(j => Mapper.Map<County>(j))
                 .ToListAsync();
         }
