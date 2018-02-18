@@ -33,7 +33,7 @@ namespace Anabi.Features.Assets
                              AddedDate = a.AddedDate,
                              CategoryId = a.CategoryId,
                              Description = a.Description,
-                             EstimatedAmount = historicalStage.EstimatedAmount.Value,
+                             EstimatedAmount = (historicalStage.EstimatedAmount ?? 0),
                              EstimatedAmountCurrency = historicalStage.EstimatedAmountCurrency,
                              Id = a.Id,
                              Identifier = a.Identifier,
