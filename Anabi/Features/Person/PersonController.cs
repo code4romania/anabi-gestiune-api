@@ -68,6 +68,18 @@ namespace Anabi.Features.Person
         /// <remarks>
         /// <para>
         /// Creates a new defendant by adding a new Person record and a new AssetDefendants record
+        /// 
+        /// Validation errors:
+        /// 
+        ///IDNUMBER_MAX_LENGTH_6;
+        ///IDSERIE_MAX_LENGTH_2;
+        ///IDENTIFICATION_MAX_LENGTH_20;
+        ///PERSONNAME_MAX_LENGTH_200;
+        ///FIRSTNAME_MAX_LENGTH_50;
+        ///NATIONALITY_MAX_LENGTH_20;
+        ///IDENTIFICATION_CANNOT_BE_EMPTY;
+        ///PERSONNAME_CANNOT_BE_EMPTY;
+        ///PERSONIDENTIFICATION_ALREADY_EXISTS;
         /// </para>
         /// </remarks>
         /// <response code="201">Id of the new defendant</response>
