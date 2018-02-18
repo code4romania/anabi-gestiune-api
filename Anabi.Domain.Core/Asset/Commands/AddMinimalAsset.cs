@@ -16,6 +16,15 @@ namespace Anabi.Domain.Asset.Commands
 
         
         public int StageId { get; set; }
+
+        public decimal Quantity { get; set; }
+
+        public string MeasureUnit { get; set; }
+
+        public decimal EstimatedAmount { get; set; }
+
+        public string EstimatedAmountCurrency { get; set; }
+
     }
 
     public class AddStorageSpaceValidator : AbstractValidator<AddMinimalAsset>
@@ -29,6 +38,12 @@ namespace Anabi.Domain.Asset.Commands
 
             RuleFor(c => c.StageId).GreaterThan(0).WithMessage(Constants.STAGE_INVALID_ID);
             RuleFor(c => c.CategoryId).GreaterThan(0).WithMessage(Constants.CATEGORY_INVALID_ID);
+
+            RuleFor(c => c.MeasureUnit).MaximumLength(10).WithMessage(Constants.MEASUREUNIT_MAX_LENGTH_10);
+            RuleFor(c => c.Quantity).GreaterThan(0).WithMessage(Constants.QUANTITY_MUST_BE_GREATER_THAN_ZERO);
+            RuleFor(c => c.EstimatedAmount).GreaterThan(0).WithMessage(Constants.ESTIMATED_AMOUNT_GREATER_THAN_ZERO);
+            RuleFor(c => c.EstimatedAmountCurrency).Length(3).WithMessage(Constants.ESTIMATED_AMT_CURRENCY_THREE_CHARS);
+
         }
     }
 }
