@@ -11,6 +11,7 @@ using Anabi.Domain.Category;
 using Anabi.Domain.Category.Commands;
 using Anabi.Features.Category;
 using Anabi.Features.Category.Models;
+using System;
 
 namespace AnabiControllers.Tests
 {
@@ -139,7 +140,7 @@ namespace AnabiControllers.Tests
         private DbContextOptions<AnabiContext> GetContextOptions()
         {
             return new DbContextOptionsBuilder<AnabiContext>()
-                            .UseInMemoryDatabase(databaseName: "AnabiInMemory")
+                            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                             .Options;
         } 
         #endregion

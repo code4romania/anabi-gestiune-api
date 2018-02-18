@@ -18,5 +18,19 @@ namespace Anabi.Common.Utils
         public const string IDENTIFIER_MAX_LENGTH_200 = "IDENTIFIER_MAX_LENGTH_200";
         public const string STAGE_INVALID_ID = "STAGE_INVALID_ID";
         public const string CATEGORY_INVALID_ID = "CATEGORY_INVALID_ID";
+
+        public const string NO_IDENTIFIERS_FOUND = "NO_IDENTIFIERS_FOUND";
+
+        public const string IDNUMBER_MAX_LENGTH_6 = nameof(IDNUMBER_MAX_LENGTH_6);
+        public const string IDSERIE_MAX_LENGTH_2 = nameof(IDSERIE_MAX_LENGTH_2);
+        public const string IDENTIFICATION_MAX_LENGTH_20 = nameof(IDENTIFICATION_MAX_LENGTH_20);
+        public const string PERSONNAME_MAX_LENGTH_200 = nameof(PERSONNAME_MAX_LENGTH_200);
+        public const string FIRSTNAME_MAX_LENGTH_50 = nameof(FIRSTNAME_MAX_LENGTH_50);
+        public const string NATIONALITY_MAX_LENGTH_20 = nameof(NATIONALITY_MAX_LENGTH_20);
+
+        public const string IDENTIFICATION_CANNOT_BE_EMPTY = nameof(IDENTIFICATION_CANNOT_BE_EMPTY);
+        public const string PERSONNAME_CANNOT_BE_EMPTY = nameof(PERSONNAME_CANNOT_BE_EMPTY);
+        public const string PERSONIDENTIFICATION_ALREADY_EXISTS = nameof(PERSONIDENTIFICATION_ALREADY_EXISTS);
+
     }
 }

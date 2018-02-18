@@ -6,6 +6,7 @@ using Anabi.Features.Assets.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -92,7 +93,7 @@ namespace AnabiControllers.Tests
         private DbContextOptions<AnabiContext> GetContextOptions()
         {
             return new DbContextOptionsBuilder<AnabiContext>()
-                            .UseInMemoryDatabase(databaseName: "AssetsInMemory")
+                            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                             .Options;
         }
 
