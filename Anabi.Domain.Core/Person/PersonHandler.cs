@@ -8,19 +8,29 @@ using MediatR;
 
 namespace Anabi.Domain.Person
 {
-    public class PersonHandler : BaseHandler, IAsyncRequestHandler<AddPerson, int>
+    public class PersonHandler : BaseHandler, IAsyncRequestHandler<AddDefendant, int>
     {
         public PersonHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
         {
         }
 
-        public async Task<int> Handle(AddPerson message)
+        public async Task<int> Handle(AddDefendant message)
         {
             var personDb = mapper.Map<PersonDb>(message);
             personDb.UserCodeAdd = "pop";
             personDb.AddedDate = DateTime.Now;
 
+
+            var assetDefendant = new AssetDefendantDb()
+            {
+                AddedDate = DateTime.Now,
+                UserCodeAdd = "pop",
+                AssetId = message.AssetId,
+                Person = personDb
+            };
+
             context.Persons.Add(personDb);
+            context.AssetDefendants.Add(assetDefendant);
 
             await context.SaveChangesAsync();
 

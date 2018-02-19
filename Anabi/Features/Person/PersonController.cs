@@ -67,7 +67,8 @@ namespace Anabi.Features.Person
         /// </summary>
         /// <remarks>
         /// <para>
-        /// Creates a new defendant by adding a new Person record and a new AssetDefendants record
+        /// Creates a new defendant by adding a new Person record and a new AssetDefendants record. 
+        /// Checks that the AssetId provided exists in the database
         /// 
         /// Validation errors:
         /// 
@@ -80,6 +81,7 @@ namespace Anabi.Features.Person
         ///IDENTIFICATION_CANNOT_BE_EMPTY;
         ///PERSONNAME_CANNOT_BE_EMPTY;
         ///PERSONIDENTIFICATION_ALREADY_EXISTS;
+        ///ASSET_INVALID_ID
         /// </para>
         /// </remarks>
         /// <response code="201">Id of the new defendant</response>
@@ -88,12 +90,12 @@ namespace Anabi.Features.Person
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
-        [HttpPost("adddefendant")]
-        public async Task<IActionResult> AddDefendant([FromBody]AddPerson addPerson)
+        [HttpPost("defendant")]
+        public async Task<IActionResult> AddDefendant([FromBody]AddDefendant addPerson)
         {
 
             var personId = await mediator.Send(addPerson);
-            return Created("api/defendant", personId);
+            return Created("api/person", personId);
 
         }
 

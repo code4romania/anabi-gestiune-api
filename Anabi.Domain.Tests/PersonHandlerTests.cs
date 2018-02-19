@@ -24,7 +24,7 @@ namespace Anabi.Domain.Tests
 
             var personHandler = new PersonHandler(context, mapper);
 
-            var addPerson = new AddPerson()
+            var addPerson = new AddDefendant()
             {
                 Birthdate = new DateTime(1982, 10, 25),
                 FirstName = "Alex",
@@ -51,7 +51,7 @@ namespace Anabi.Domain.Tests
 
             var personHandler = new PersonHandler(context, mapper);
 
-            var addPerson = new AddPerson()
+            var addPerson = new AddDefendant()
             {
                 Birthdate = new DateTime(1982, 10, 25),
                 FirstName = "Alex",
@@ -68,7 +68,7 @@ namespace Anabi.Domain.Tests
             var id = await personHandler.Handle(addPerson);
 
 
-            var addPerson2 = new AddPerson()
+            var addPerson2 = new AddDefendant()
             {
                 Birthdate = new DateTime(1982, 10, 25),
                 FirstName = "Alex",

@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace Anabi.Domain.Person.Commands
 {
-    public class AddPerson : IRequest<int>
+    public class AddDefendant : IRequest<int>
     {
+        public int AssetId { get; set; }
         public string IdNumber { get; set; }
 
         public string IdSerie { get; set; }
@@ -34,7 +35,7 @@ namespace Anabi.Domain.Person.Commands
     }
 
     
-    public class AddPersonValidator : AbstractValidator<AddPerson>
+    public class AddPersonValidator : AbstractValidator<AddDefendant>
     {
         private readonly AnabiContext context;
 
@@ -56,12 +57,20 @@ namespace Anabi.Domain.Person.Commands
 
             RuleFor(p => p.Identification).MustAsync(NotExist).WithMessage(Constants.PERSONIDENTIFICATION_ALREADY_EXISTS);
 
+            RuleFor(p => p.AssetId).MustAsync(AssetIdMustExist).WithMessage(Constants.ASSET_INVALID_ID);
         }
 
         private async Task<bool> NotExist(string identification, CancellationToken cancellationToken)
         {
             var identificationExists = await context.Persons.AnyAsync(x => x.Identification == identification);
             return !identificationExists;
+        }
+
+
+        private async Task<bool> AssetIdMustExist(int id, CancellationToken cancellationToken)
+        {
+            var assetExists = await context.Assets.AnyAsync(x => x.Id == id);
+            return assetExists;
         }
 
     }

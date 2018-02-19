@@ -63,7 +63,7 @@ namespace Anabi
             CreateMap<User, UserDb>().ReverseMap();
 
             CreateMap<IdentifierDb, Identifier>().ReverseMap();
-            CreateMap<AddPerson, PersonDb>().ReverseMap();
+            CreateMap<AddDefendant, PersonDb>().ReverseMap();
         }
     }
 }
