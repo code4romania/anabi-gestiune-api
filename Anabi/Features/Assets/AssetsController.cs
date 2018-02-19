@@ -34,12 +34,23 @@ namespace Anabi.Features.Assets
 
 
         // GET: api/Assets/5
+        /// <summary>
+        /// Returns the minimal asset for the supplied id
+        /// </summary>
+        /// <response code="200">The asset for the supplied id</response>
+        /// <response code="400">The asset is not found</response>
+        /// <response code="500">Server error</response>
+        /// <param name="id">Must be greater than or equal to 0</param>
+        /// <returns>Minimal asset details</returns>
+        [ProducesResponseType(typeof(AssetViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpGet("{id}", Name = "Get")]
-        public async Task<AssetDetails> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var model = await mediator.Send(new GetAssetDetails { Id = id });
 
-            return model;
+            return Ok(model);
         }
 
 
