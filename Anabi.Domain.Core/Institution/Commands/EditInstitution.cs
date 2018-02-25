@@ -22,8 +22,6 @@ namespace Anabi.Domain.Institution.Commands
 
         public int CategoryId { get; set; }
 
-        public string ChangeByUserCode { get; set; }
-
         public string CountyCode { get; set; }
 
         public string City { get; set; }
@@ -45,9 +43,6 @@ namespace Anabi.Domain.Institution.Commands
             IDatabaseChecks checks, AbstractValidator<IAddAddress> addAddressValidator)
         {
             RuleFor(m => m.Id).GreaterThan(0);
-
-            RuleFor(m => m.ChangeByUserCode).MustAsync(
-                checks.UserExists).WithMessage("Utilizatorul nu exista");
 
             RuleFor(m => m).SetValidator(addAddressValidator);
         }

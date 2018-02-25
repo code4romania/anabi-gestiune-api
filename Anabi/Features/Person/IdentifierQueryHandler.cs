@@ -15,7 +15,7 @@ namespace Anabi.Features.Person
 {
     public class IdentifierQueryHandler : BaseHandler, IAsyncRequestHandler<GetIdentifier, List<Identifier>>
     {
-        public IdentifierQueryHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public IdentifierQueryHandler(BaseHandlerNeeds needs) : base(needs)
         {
 
         }

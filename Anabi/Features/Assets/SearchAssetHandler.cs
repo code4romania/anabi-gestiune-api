@@ -13,7 +13,7 @@ namespace Anabi.Features.Assets
 {
     public class SearchAssetHandler : BaseHandler, IAsyncRequestHandler<SearchAsset, List<AssetSummary>>
     {
-        public SearchAssetHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public SearchAssetHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 

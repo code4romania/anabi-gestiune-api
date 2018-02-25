@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace Anabi.Domain.Tests
@@ -16,13 +17,16 @@ namespace Anabi.Domain.Tests
     {
         private AnabiContext context;
         private IMapper mapper;
+        private IPrincipal principal;
+
+        private BaseHandlerNeeds BasicNeeds => new BaseHandlerNeeds(context, mapper, principal);
 
         [TestMethod]
         public async Task AddPerson_ExpectedId()
         {
             Setup();
 
-            var personHandler = new PersonHandler(context, mapper);
+            var personHandler = new PersonHandler(BasicNeeds);
 
             var addPerson = new AddDefendant()
             {
@@ -49,7 +53,7 @@ namespace Anabi.Domain.Tests
         {
             Setup();
 
-            var personHandler = new PersonHandler(context, mapper);
+            var personHandler = new PersonHandler(BasicNeeds);
 
             var addPerson = new AddDefendant()
             {
@@ -102,6 +106,7 @@ namespace Anabi.Domain.Tests
                 cfg.AddProfile<AutoMapperMappings>();
             });
             mapper = Mapper.Instance;
+            principal = Utils.TestAuthentificatedPrincipal();
         }
 
        

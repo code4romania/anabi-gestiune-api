@@ -10,7 +10,7 @@ namespace Anabi.Domain.Person
 {
     public class PersonHandler : BaseHandler, IAsyncRequestHandler<AddDefendant, int>
     {
-        public PersonHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public PersonHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 

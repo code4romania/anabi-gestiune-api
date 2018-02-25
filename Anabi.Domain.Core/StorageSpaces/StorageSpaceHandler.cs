@@ -18,7 +18,7 @@ namespace Anabi.Domain.StorageSpaces
         ,IAsyncRequestHandler<EditStorageSpace, StorageSpace>
         ,IAsyncRequestHandler<DeleteStorageSpace>
     {
-        public StorageSpaceHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public StorageSpaceHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Anabi.Features.Counties
 {
-    //[Authorize]
+    [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/Counties")]
     public class CountiesController : BaseController

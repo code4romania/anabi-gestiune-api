@@ -14,7 +14,7 @@ namespace Anabi.Features.Assets
 {
     public class GetAssetHandler : BaseHandler, IAsyncRequestHandler<GetAssetDetails, AssetViewModel>
     {
-        public GetAssetHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public GetAssetHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 

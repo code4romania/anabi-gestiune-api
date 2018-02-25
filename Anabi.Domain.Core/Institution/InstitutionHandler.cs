@@ -23,7 +23,7 @@ namespace Anabi.Domain.Institution
 
         private readonly IDatabaseChecks checks;
 
-        public InstitutionHandler(AnabiContext context, IMapper mapper, IDatabaseChecks checks) : base(context, mapper)
+        public InstitutionHandler(BaseHandlerNeeds needs, IDatabaseChecks checks) : base(needs)
         {
             this.checks = checks;
         }
@@ -42,6 +42,7 @@ namespace Anabi.Domain.Institution
         public async Task<int> Handle(AddInstitution message)
         {
             var institution = this.mapper.Map<InstitutionDb>(message);
+            institution.UserCodeAdd = UserCode();
             institution.AddedDate = DateTime.UtcNow;
 
             this.context.Institutions.Add(institution);
@@ -58,14 +59,12 @@ namespace Anabi.Domain.Institution
         public async Task Handle(EditInstitution message)
         {
             var institution = await this.context.Institutions.FindAsync(message.Id);
+            institution.UserCodeLastChange = UserCode();
             institution.LastChangeDate = DateTime.UtcNow;
 
             this.mapper.Map(message, institution);
-
-           
             
             await SetNewAddressToInstitution(message, institution);
-            
 
             await this.context.SaveChangesAsync();
         }

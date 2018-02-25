@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Anabi.Features.Category
 {
-    //[Authorize]
+    [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class CategoriesController : BaseController

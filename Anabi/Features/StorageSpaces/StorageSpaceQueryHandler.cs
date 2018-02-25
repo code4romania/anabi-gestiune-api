@@ -14,7 +14,7 @@ namespace Anabi.Features.StorageSpaces
 {
     public class StorageSpaceQueryHandler : BaseHandler, IAsyncRequestHandler<GetStorageSpace, List<Models.StorageSpaceViewModel>>
     {
-        public StorageSpaceQueryHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public StorageSpaceQueryHandler(BaseHandlerNeeds needs) : base(needs)
         {
 
         }

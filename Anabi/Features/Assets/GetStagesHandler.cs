@@ -13,7 +13,7 @@ namespace Anabi.Features.Assets
 {
     public class GetStagesHandler : BaseHandler, IAsyncRequestHandler<GetStages, List<StageViewModel>>
     {
-        public GetStagesHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public GetStagesHandler(BaseHandlerNeeds needs) : base(needs)
         {
 
         }

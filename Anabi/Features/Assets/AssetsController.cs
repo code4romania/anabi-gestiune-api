@@ -11,7 +11,7 @@ using Anabi.Middleware;
 
 namespace Anabi.Features.Assets
 {
-    //[Authorize]
+    [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/Assets")]
     public class AssetsController : BaseController
