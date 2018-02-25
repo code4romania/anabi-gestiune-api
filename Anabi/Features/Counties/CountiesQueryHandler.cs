@@ -13,7 +13,7 @@ namespace Anabi.Features.Counties
 {
     public class CountiesQueryHandler : BaseHandler, IAsyncRequestHandler<GetCounties, List<County>>
     {
-        public CountiesQueryHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public CountiesQueryHandler(BaseHandlerNeeds needs) : base(needs)
         {
 
         }

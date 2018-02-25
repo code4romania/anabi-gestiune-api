@@ -10,7 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 using System.Threading.Tasks;
+using Anabi.Domain;
 
 namespace AnabiControllers.Tests
 {
@@ -20,6 +22,9 @@ namespace AnabiControllers.Tests
         private AnabiContext context;
         private List<StorageSpaceDb> storageSpacesForDb;
         private IMapper mapper;
+        private IPrincipal principal;
+
+        private BaseHandlerNeeds BasicNeeds => new BaseHandlerNeeds(context, mapper, principal);
 
 
         [TestMethod]
@@ -27,7 +32,7 @@ namespace AnabiControllers.Tests
         {
             Setup();
 
-            var queryHandler = new StorageSpaceQueryHandler(context, mapper);
+            var queryHandler = new StorageSpaceQueryHandler(BasicNeeds);
 
             var query = new GetStorageSpace() { Id = null };
 
@@ -43,7 +48,7 @@ namespace AnabiControllers.Tests
 
             Setup();
 
-            var queryHandler = new StorageSpaceHandler(context, mapper);
+            var queryHandler = new StorageSpaceHandler(BasicNeeds);
             var query = new AddStorageSpace()
             {
                 Name = "S1",
@@ -82,7 +87,7 @@ namespace AnabiControllers.Tests
         {
             Setup();
 
-            var queryHandler = new StorageSpaceHandler(context, mapper);
+            var queryHandler = new StorageSpaceHandler(BasicNeeds);
 
             var query = new EditStorageSpace()
             {
@@ -119,7 +124,7 @@ namespace AnabiControllers.Tests
         public async Task Delete()
         {
             Setup();
-            var handler = new StorageSpaceHandler(context, mapper);
+            var handler = new StorageSpaceHandler(BasicNeeds);
 
             var query = new DeleteStorageSpace
             {
@@ -152,6 +157,7 @@ namespace AnabiControllers.Tests
                 
             });
             mapper = Mapper.Instance;
+            principal = Utils.TestAuthentificatedPrincipal();
         }
 
         private List<StorageSpaceDb> GetStorageSpacesForDb()

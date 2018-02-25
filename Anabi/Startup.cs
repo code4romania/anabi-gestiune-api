@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using Serilog;
 using System.IO;
+using System.Security.Principal;
 using Anabi.Domain;
 using Anabi.Domain.Category.Commands;
 using AutoMapper;
@@ -25,6 +26,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Anabi.Domain.Enums;
+using Anabi.Features.Authorization;
+using Microsoft.AspNetCore.Http;
 
 
 namespace Anabi
@@ -90,6 +93,10 @@ namespace Anabi
                 )
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddCategory>());
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IPrincipal>(
+                provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+
             AddDbContext(services);
 
             ConfigureSwagger(services);
@@ -106,7 +113,7 @@ namespace Anabi
             services.AddSwaggerGen((c) =>
             {
                 c.SwaggerDoc("v1", new Info() { Title = "ANABI", Version = "v1" });
-
+                c.OperationFilter<AddAuthorizationHeaderFilter>();
                 var basePath = AppContext.BaseDirectory;
                 var xmlPath = Path.Combine(basePath, "Anabi.xml");
                 c.IncludeXmlComments(xmlPath);

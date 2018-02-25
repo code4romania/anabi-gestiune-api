@@ -23,7 +23,7 @@ namespace Anabi.Domain.Institution
 
         private readonly IDatabaseChecks checks;
 
-        public InstitutionHandler(AnabiContext context, IMapper mapper, IDatabaseChecks checks) : base(context, mapper)
+        public InstitutionHandler(BaseHandlerNeeds needs, IDatabaseChecks checks) : base(needs)
         {
             this.checks = checks;
         }

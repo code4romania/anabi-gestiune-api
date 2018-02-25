@@ -14,7 +14,7 @@ namespace Anabi.Domain.Category
         , IAsyncRequestHandler<DeleteCategory>
         , IAsyncRequestHandler<EditCategory>
     {
-        public CategoryHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public CategoryHandler(BaseHandlerNeeds needs) : base(needs)
         {
 
         }

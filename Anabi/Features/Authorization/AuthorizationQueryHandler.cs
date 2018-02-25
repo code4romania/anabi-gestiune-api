@@ -12,7 +12,7 @@ namespace Anabi.Features.Authorization
 {
     public class AuthorizationQueryHandler : BaseHandler, IAsyncRequestHandler<AuthenticationRequest, Anabi.Domain.Models.User>
     {
-        public AuthorizationQueryHandler(AnabiContext _context, IMapper _mapper) : base(_context, _mapper)
+        public AuthorizationQueryHandler(BaseHandlerNeeds needs) : base(needs)
         {
             
         }

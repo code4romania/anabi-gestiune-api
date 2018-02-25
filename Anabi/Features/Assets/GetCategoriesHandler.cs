@@ -15,7 +15,7 @@ namespace Anabi.Features.Assets
 {
     public class GetCategoriesHandler : BaseHandler, IAsyncRequestHandler<GetCategories, List<CategoryViewModel>>
     {
-        public GetCategoriesHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public GetCategoriesHandler(BaseHandlerNeeds needs) : base(needs)
         {
 
         }
