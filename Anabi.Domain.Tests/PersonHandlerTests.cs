@@ -106,6 +106,7 @@ namespace Anabi.Domain.Tests
                 cfg.AddProfile<AutoMapperMappings>();
             });
             mapper = Mapper.Instance;
+            principal = Utils.TestAuthentificatedPrincipal();
         }
 
        
