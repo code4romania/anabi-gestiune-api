@@ -6,6 +6,7 @@ using Anabi.Domain.Person.Commands;
 using Anabi.Features.Person.Models;
 using Anabi.Middleware;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Anabi.Features.Person
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class PersonController : Controller
     {
         private readonly IMediator mediator;

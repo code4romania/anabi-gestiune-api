@@ -22,8 +22,6 @@ namespace Anabi.Domain.Institution.Commands
 
         public int CategoryId { get; set; }
 
-        public string UserCodeAdd { get; set; }
-
         public string CountyCode { get; set; }
 
         public string City { get; set; }
@@ -47,9 +45,6 @@ namespace Anabi.Domain.Institution.Commands
             RuleFor(m => m.CategoryId).NotEmpty();
 
             RuleFor(p => p.Name).Length(1, 50).WithMessage("Numele poate avea o lungime de 1-50 caractere");
-
-            RuleFor(m => m.UserCodeAdd).MustAsync(
-                checks.UserExists).WithMessage("Utilizatorul nu exista");
 
             RuleFor(m => m).SetValidator(addAddressValidator).Unless(m=> checks.EmptyAddress(m));
         }

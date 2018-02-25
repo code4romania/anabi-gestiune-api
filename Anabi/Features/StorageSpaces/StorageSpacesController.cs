@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Anabi.Features.StorageSpaces
 {
-    //[Authorize]
+    [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class StorageSpacesController : BaseController

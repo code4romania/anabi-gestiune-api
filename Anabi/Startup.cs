@@ -26,8 +26,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Anabi.Domain.Enums;
-using Anabi.Features.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 
 namespace Anabi
@@ -83,11 +84,15 @@ namespace Anabi
                     options.AddPolicy(roleName, policy => policy.RequireRole(roleName));
                 }
             });
-
+            
             // Add framework services.
             services.AddMvc(
                 config =>
-                {                    
+                {
+                    var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
+                    config.Filters.Add(new AuthorizeFilter(policy));
                     config.Filters.Add(new ValidateModelAttribute());
                 }   
                 )
@@ -127,6 +132,7 @@ namespace Anabi
 
         private void MapInterfacesAndClasses(IServiceCollection services)
         {
+            services.AddTransient<BaseHandlerNeeds>();
             services.AddScoped<EmptyAddAddressValidator, EmptyAddAddressValidator>();
             services.AddScoped<AbstractValidator<IAddAddress>, AddAddressValidator>(); ;
             services.AddScoped<IDatabaseChecks, DatabaseChecks>();
