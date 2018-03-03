@@ -26,6 +26,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Anabi.Domain.Enums;
+using Anabi.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -132,6 +133,7 @@ namespace Anabi
 
         private void MapInterfacesAndClasses(IServiceCollection services)
         {
+            services.AddSingleton<IAnabiCrypt, AnabiCrypt>();
             services.AddTransient<BaseHandlerNeeds>();
             services.AddScoped<EmptyAddAddressValidator, EmptyAddAddressValidator>();
             services.AddScoped<AbstractValidator<IAddAddress>, AddAddressValidator>(); ;

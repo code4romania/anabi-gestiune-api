@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anabi", "Anabi\Anabi.csproj", "{53B03776-32A0-47F3-9B1B-E18D3DD433A0}"
 EndProject
@@ -20,7 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnabiControllers.Tests", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anabi.Common", "Anabi.Common\Anabi.Common.csproj", "{52170705-98A5-4341-B8C6-434C68EF561F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anabi.Domain.Tests", "Anabi.Domain.Tests\Anabi.Domain.Tests.csproj", "{6535EED6-8A0C-480A-A727-5822364A2C14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anabi.Domain.Tests", "Anabi.Domain.Tests\Anabi.Domain.Tests.csproj", "{6535EED6-8A0C-480A-A727-5822364A2C14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anabi.Security", "Anabi.Security\Anabi.Security.csproj", "{E20A6432-A53D-4315-90F3-C0D6CEB17042}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{6535EED6-8A0C-480A-A727-5822364A2C14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6535EED6-8A0C-480A-A727-5822364A2C14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6535EED6-8A0C-480A-A727-5822364A2C14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E20A6432-A53D-4315-90F3-C0D6CEB17042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E20A6432-A53D-4315-90F3-C0D6CEB17042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E20A6432-A53D-4315-90F3-C0D6CEB17042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E20A6432-A53D-4315-90F3-C0D6CEB17042}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
