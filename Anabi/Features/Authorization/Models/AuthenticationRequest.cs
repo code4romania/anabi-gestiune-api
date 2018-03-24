@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Anabi.Features.Authorization.Models
 {
-    public class AuthenticationRequest : IRequest<Anabi.Domain.Models.User>
+    public class AuthenticationRequest : IRequest<User>
     {
         public string Username { get; set; }
 

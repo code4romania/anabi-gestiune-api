@@ -30,7 +30,7 @@ using Anabi.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
-
+using Anabi.Security;
 
 namespace Anabi
 {
@@ -97,7 +97,11 @@ namespace Anabi
                     config.Filters.Add(new ValidateModelAttribute());
                 }   
                 )
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddCategory>());
+                .AddFluentValidation(fv => 
+                    {
+                        fv.RegisterValidatorsFromAssemblyContaining<AddCategory>();
+                        fv.RegisterValidatorsFromAssemblyContaining<Startup>();
+                    });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(
@@ -111,7 +115,7 @@ namespace Anabi
 
             services.AddAutoMapper(typeof(Startup), typeof(BaseHandler));
 
-            services.AddMediatR(typeof(Startup), typeof(BaseHandler));
+            services.AddMediatR(typeof(Startup), typeof(BaseHandler), typeof(PasswordHashHandler));
         }
 
         private static void ConfigureSwagger(IServiceCollection services)

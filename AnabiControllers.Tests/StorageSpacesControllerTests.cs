@@ -38,7 +38,7 @@ namespace AnabiControllers.Tests
 
             var actual = await queryHandler.Handle(query);
 
-            Assert.IsTrue(actual.Count > 0);
+            Assert.IsTrue(actual.Count == 2);
         }
 
 

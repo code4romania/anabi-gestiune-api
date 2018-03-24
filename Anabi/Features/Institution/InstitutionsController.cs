@@ -4,18 +4,17 @@ using Microsoft.AspNetCore.Http;
 
 namespace Anabi.Features.Institution
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
     using Anabi.Controllers;
-
     using MediatR;
-
     using Microsoft.AspNetCore.Mvc;
     using Anabi.Domain.Institution.Commands;
+    using Microsoft.AspNetCore.Authorization;
+    using Anabi.Common.Utils;
 
+    [Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class InstitutionsController : BaseController
@@ -42,17 +41,13 @@ namespace Anabi.Features.Institution
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            if (id <= 0)
-            {
-                return BadRequest("Id-ul trebuie sa fie >= 0");
-            }
-
-            var models = await mediator.Send(new GetInstitution() { Id = id });
+            
+            var models = await mediator.Send(new GetInstitution { Id = id });
             var result = models.FirstOrDefault();
 
             if (result == null)
             {
-                return BadRequest("Institutia nu exista!");
+                return BadRequest(Constants.INSTITUTION_DOES_NOT_EXIST);
             }
             return Ok(result);
         }
@@ -62,7 +57,7 @@ namespace Anabi.Features.Institution
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddInstitution([FromBody]AddInstitution institution)
         {
-         var id =       await this.mediator.Send(institution);
+            var id = await this.mediator.Send(institution);
 
             return Created("api/institutions", id);
         }
