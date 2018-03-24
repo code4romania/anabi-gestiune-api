@@ -1,13 +1,11 @@
-﻿using Anabi.DataAccess.Ef;
-using Anabi.Domain;
-using Anabi.Domain.Models;
+﻿using Anabi.Domain;
 using Anabi.Features.Authorization.Models;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 using Anabi.Security;
+using System;
 
 namespace Anabi.Features.Authorization
 {
@@ -22,20 +20,20 @@ namespace Anabi.Features.Authorization
 
         public async Task<Anabi.Domain.Models.User> Handle(AuthenticationRequest request)
         {
-            var foundUser = await context.Users.SingleOrDefaultAsync(u => u.UserCode == request.Username);
+            var foundUser = await context.Users
+                .SingleOrDefaultAsync(u => u.UserCode == request.Username && u.IsActive == true);
 
             if (foundUser == null)
             {
-                return null;
+                throw new Exception("Invalid credentials!");
             }
-            if (foundUser.IsActive == false)
-            {
-                return null;
-            }
+            
             if (_crypt.IsHashCorrespondingToValue(foundUser.Password, request.Password))
             {
                 return Mapper.Map<Anabi.Domain.Models.User>(foundUser);
             }
+
+            throw new Exception("Invalid credentials!");
 
         }
     }

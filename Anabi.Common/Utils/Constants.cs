@@ -39,5 +39,6 @@ namespace Anabi.Common.Utils
         public const string ESTIMATED_AMOUNT_GREATER_THAN_ZERO = "ESTIMATED_AMOUNT_GREATER_THAN_ZERO";
         public const string ESTIMATED_AMT_CURRENCY_THREE_CHARS = "ESTIMATED_AMT_CURRENCY_THREE_CHARS";
         public const string ASSET_INVALID_ID = nameof(ASSET_INVALID_ID);
+        public const string INSTITUTION_DOES_NOT_EXIST = nameof(INSTITUTION_DOES_NOT_EXIST);
     }
 }

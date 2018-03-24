@@ -97,7 +97,11 @@ namespace Anabi
                     config.Filters.Add(new ValidateModelAttribute());
                 }   
                 )
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddCategory>());
+                .AddFluentValidation(fv => 
+                    {
+                        fv.RegisterValidatorsFromAssemblyContaining<AddCategory>();
+                        fv.RegisterValidatorsFromAssemblyContaining<Startup>();
+                    });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(
