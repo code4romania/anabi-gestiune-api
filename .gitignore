@@ -11,3 +11,4 @@ Tests.GeneratedStubs/.DS_Store
 *.userprefs
 Anabi/appsettings.Development.json
 *.txt
+packages/

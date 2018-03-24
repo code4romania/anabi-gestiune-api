@@ -8,6 +8,7 @@ using Anabi.Features.StorageSpaces.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace AnabiControllers.Tests
 
             var actual = await queryHandler.Handle(query);
 
-            Assert.IsTrue(actual.Count > 0);
+            Assert.IsTrue(actual.Count == 2);
         }
 
 
@@ -68,7 +69,7 @@ namespace AnabiControllers.Tests
 
             await queryHandler.Handle(query);
 
-            var cat = await context.SpatiiStocare.FirstOrDefaultAsync<StorageSpaceDb>(p => p.Name == "S1");
+            var cat = await context.StorageSpaces.FirstOrDefaultAsync<StorageSpaceDb>(p => p.Name == "S1");
 
             Assert.IsNotNull(cat);
 
@@ -108,7 +109,7 @@ namespace AnabiControllers.Tests
 
             await queryHandler.Handle(query);
 
-            var cat = await context.SpatiiStocare.FirstAsync<StorageSpaceDb>(p => p.Id == 1);
+            var cat = await context.StorageSpaces.FirstAsync<StorageSpaceDb>(p => p.Id == 1);
 
             Assert.IsTrue(cat.Name == "S1");
 
@@ -127,7 +128,7 @@ namespace AnabiControllers.Tests
 
             await handler.Handle(query);
 
-            var cat = await context.SpatiiStocare.AnyAsync<StorageSpaceDb>(p => p.Id == 1);
+            var cat = await context.StorageSpaces.AnyAsync<StorageSpaceDb>(p => p.Id == 1);
 
             Assert.IsFalse(cat);
         }
@@ -142,7 +143,7 @@ namespace AnabiControllers.Tests
             context = new AnabiContext(options);
             storageSpacesForDb = GetStorageSpacesForDb();
 
-            context.SpatiiStocare.AddRange(storageSpacesForDb);
+            context.StorageSpaces.AddRange(storageSpacesForDb);
             context.SaveChanges();
 
             Mapper.Initialize(cfg =>
@@ -179,7 +180,7 @@ namespace AnabiControllers.Tests
         private DbContextOptions<AnabiContext> GetContextOptions()
         {
             return new DbContextOptionsBuilder<AnabiContext>()
-                            .UseInMemoryDatabase(databaseName: "AnabiInMemory")
+                            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                             .Options;
         }
         #endregion

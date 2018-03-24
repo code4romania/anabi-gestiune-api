@@ -24,7 +24,7 @@
         }
        public async Task<List<Institution>> Handle(GetInstitution message)
         {
-            var result = context.Institutii
+            var result = context.Institutions
                 .Include(nameof(InstitutionDb.Address))
                 .AsQueryable();
             if (message.Id.HasValue)

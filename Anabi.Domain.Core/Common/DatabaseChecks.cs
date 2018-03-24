@@ -26,7 +26,7 @@ namespace Anabi.Domain.Common
                 return false;
             }
 
-            return await this.context.Utilizatori.AnyAsync(x => x.UserCode == userCode, cancellationToken);
+            return await this.context.Users.AnyAsync(x => x.UserCode == userCode, cancellationToken);
         }
 
         public bool EmptyAddress(IAddAddress address)
@@ -38,7 +38,7 @@ namespace Anabi.Domain.Common
 
         public async Task<bool> CountyExists(string countyCode, CancellationToken token)
         {
-            var r = await this.context.Judete.SingleOrDefaultAsync(x => x.Abreviation == countyCode, token);
+            var r = await this.context.Counties.SingleOrDefaultAsync(x => x.Abreviation == countyCode, token);
 
             return r != null;
         }

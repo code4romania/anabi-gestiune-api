@@ -27,7 +27,7 @@ namespace Anabi.Features.Assets
                 throw new Exception(Constants.INVALID_ID);
             }
 
-            var command = context.Categorii
+            var command = context.Categories
                 .Where(c => c.ForEntity == "bun");
 
             if (message.ParentsOnly == true)

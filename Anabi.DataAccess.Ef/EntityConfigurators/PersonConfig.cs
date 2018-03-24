@@ -66,6 +66,12 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
             entity.Property(p => p.LastChangeDate)
                 .HasColumnType("Datetime");
 
+            entity.HasOne(p => p.Identifier)
+                .WithMany(identifier => identifier.Persons)
+                .HasForeignKey(k => k.IdentifierId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_Persons_Identifiers")
+                ;
 
         }
     }

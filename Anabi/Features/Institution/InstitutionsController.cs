@@ -4,19 +4,16 @@ using Microsoft.AspNetCore.Http;
 
 namespace Anabi.Features.Institution
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
     using Anabi.Controllers;
-
     using MediatR;
-
     using Microsoft.AspNetCore.Mvc;
     using Anabi.Domain.Institution.Commands;
+    using Microsoft.AspNetCore.Authorization;
 
-    //[Authorize]
+    [Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class InstitutionsController : BaseController

@@ -20,7 +20,7 @@ namespace Anabi.Features.Assets
 
         public async Task<List<StageViewModel>> Handle(GetStages message)
         {
-            var models = await (context.Etape.OrderBy(s => s.Name)
+            var models = await (context.Stages.OrderBy(s => s.Name)
                          .Select(s => mapper.Map<StageViewModel>(s))
                          ).ToListAsync();
 

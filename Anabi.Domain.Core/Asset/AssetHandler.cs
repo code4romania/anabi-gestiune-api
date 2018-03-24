@@ -24,7 +24,10 @@ namespace Anabi.Domain.Asset
                 Identifier = message.Identifier,
                 CategoryId = message.CategoryId,
                 UserCodeAdd = "pop",
-                AddedDate = DateTime.Now
+                AddedDate = DateTime.Now,
+                NrOfObjects = (int)message.Quantity,
+                MeasureUnit = message.MeasureUnit
+
 
             };
 
@@ -32,13 +35,15 @@ namespace Anabi.Domain.Asset
             {
                 AddedDate = DateTime.Now,
                 StageId = message.StageId,
-                UserCodeAdd = "pop"
+                UserCodeAdd = "pop",
+                EstimatedAmount = message.EstimatedAmount,
+                EstimatedAmountCurrency = message.EstimatedAmountCurrency
             };
 
             historicalStageDb.Asset = asset;
 
-            context.Bunuri.Add(asset);
-            context.EtapeIstorice.Add(historicalStageDb);
+            context.Assets.Add(asset);
+            context.HistoricalStages.Add(historicalStageDb);
             await context.SaveChangesAsync();
 
             return asset.Id;
