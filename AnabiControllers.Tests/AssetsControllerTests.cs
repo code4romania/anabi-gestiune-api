@@ -8,7 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 using System.Threading.Tasks;
+using Anabi.Domain;
 
 namespace AnabiControllers.Tests
 {
@@ -19,6 +21,10 @@ namespace AnabiControllers.Tests
         private AnabiContext context;
         
         private IMapper mapper;
+        private IPrincipal principal;
+
+        private BaseHandlerNeeds BasicNeeds => new BaseHandlerNeeds(context, mapper, principal);
+
 
         [TestInitialize]
         public void Initialize()
@@ -39,7 +45,7 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public async Task GetParentCategories_Expected2Categories()
         {
-            var queryHandler = new GetCategoriesHandler(context, mapper);
+            var queryHandler = new GetCategoriesHandler(BasicNeeds);
             var query = new GetCategories() { ParentsOnly = true };
 
             var actual = await queryHandler.Handle(query);
@@ -50,7 +56,7 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public async Task GetSubCategories_Expected2Categories()
         {
-            var queryHandler = new GetCategoriesHandler(context, mapper);
+            var queryHandler = new GetCategoriesHandler(BasicNeeds);
             var query = new GetCategories() { ParentsOnly = false, ParentId = 1 };
 
             var actual = await queryHandler.Handle(query);
@@ -64,7 +70,7 @@ namespace AnabiControllers.Tests
         {
             
 
-            var queryHandler = new GetStagesHandler(context, mapper);
+            var queryHandler = new GetStagesHandler(BasicNeeds);
 
             var query = new GetStages();
 
@@ -88,6 +94,7 @@ namespace AnabiControllers.Tests
                 cfg.AddProfile<AutoMapperMappings>();
             });
             mapper = Mapper.Instance;
+            principal = Utils.TestAuthentificatedPrincipal();
         }
 
         private DbContextOptions<AnabiContext> GetContextOptions()

@@ -38,9 +38,7 @@ namespace Anabi
 
             CreateMap<Institution, InstitutionDb>().ReverseMap();
             CreateMap<AddInstitution, InstitutionDb>();
-            CreateMap<EditInstitution, InstitutionDb>().ForMember(
-                d => d.UserCodeLastChange,
-                m => m.MapFrom(s => s.ChangeByUserCode));
+            CreateMap<EditInstitution, InstitutionDb>();
             CreateMap<IAddAddress, AddressDb>();
 
             CreateMap<Person, PersonDb>().ReverseMap();

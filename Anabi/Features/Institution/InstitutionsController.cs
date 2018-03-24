@@ -13,7 +13,6 @@ namespace Anabi.Features.Institution
     using Anabi.Domain.Institution.Commands;
     using Microsoft.AspNetCore.Authorization;
 
-    [Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class InstitutionsController : BaseController

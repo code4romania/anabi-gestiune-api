@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using Serilog;
 using System.IO;
+using System.Security.Principal;
 using Anabi.Domain;
 using Anabi.Domain.Category.Commands;
 using AutoMapper;
@@ -25,6 +26,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Anabi.Domain.Enums;
+using Anabi.Security;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Anabi.Security;
 
 namespace Anabi
@@ -80,15 +85,23 @@ namespace Anabi
                     options.AddPolicy(roleName, policy => policy.RequireRole(roleName));
                 }
             });
-
+            
             // Add framework services.
             services.AddMvc(
                 config =>
-                {                    
+                {
+                    var policy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
+                    config.Filters.Add(new AuthorizeFilter(policy));
                     config.Filters.Add(new ValidateModelAttribute());
                 }   
                 )
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddCategory>());
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IPrincipal>(
+                provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
 
             AddDbContext(services);
 
@@ -106,7 +119,7 @@ namespace Anabi
             services.AddSwaggerGen((c) =>
             {
                 c.SwaggerDoc("v1", new Info() { Title = "ANABI", Version = "v1" });
-
+                c.OperationFilter<AddAuthorizationHeaderFilter>();
                 var basePath = AppContext.BaseDirectory;
                 var xmlPath = Path.Combine(basePath, "Anabi.xml");
                 c.IncludeXmlComments(xmlPath);
@@ -120,6 +133,8 @@ namespace Anabi
 
         private void MapInterfacesAndClasses(IServiceCollection services)
         {
+            services.AddSingleton<IAnabiCrypt, AnabiCrypt>();
+            services.AddTransient<BaseHandlerNeeds>();
             services.AddScoped<EmptyAddAddressValidator, EmptyAddAddressValidator>();
             services.AddScoped<AbstractValidator<IAddAddress>, AddAddressValidator>(); ;
             services.AddScoped<IDatabaseChecks, DatabaseChecks>();

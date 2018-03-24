@@ -13,7 +13,7 @@ namespace Anabi.Features.Category
     public class CategoryQueryHandler : BaseHandler, IAsyncRequestHandler<GetCategory, List<Models.Category>>
     {
         
-        public CategoryQueryHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public CategoryQueryHandler(BaseHandlerNeeds needs) : base(needs)
         {
             
         }

@@ -18,7 +18,7 @@
 
     public class InstitutionQueryHandler : Domain.BaseHandler, IAsyncRequestHandler<GetInstitution, List<Institution>>
     {
-        public InstitutionQueryHandler(AnabiContext _context, IMapper _mapper) : base(_context, _mapper)
+        public InstitutionQueryHandler(BaseHandlerNeeds needs) : base(needs)
         {
 
         }

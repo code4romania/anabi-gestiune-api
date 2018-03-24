@@ -12,6 +12,8 @@ using Anabi.Domain.Category.Commands;
 using Anabi.Features.Category;
 using Anabi.Features.Category.Models;
 using System;
+using System.Security.Principal;
+using Anabi.Domain;
 
 namespace AnabiControllers.Tests
 {
@@ -21,13 +23,16 @@ namespace AnabiControllers.Tests
         private AnabiContext context;
         private List<CategoryDb> categoriesForDb;
         private IMapper mapper;
+        private IPrincipal principal;
+
+        private BaseHandlerNeeds BasicNeeds => new BaseHandlerNeeds(context, mapper, principal);
 
         [TestMethod]
         public async Task Get_ReturnsListAsync()
         {
             Setup();
 
-            var queryHandler = new CategoryQueryHandler(context, mapper);
+            var queryHandler = new CategoryQueryHandler(BasicNeeds);
 
             var query = new GetCategory() { Id = null };
 
@@ -42,7 +47,7 @@ namespace AnabiControllers.Tests
 
             Setup();
 
-            var queryHandler = new CategoryHandler(context, mapper);
+            var queryHandler = new CategoryHandler(BasicNeeds);
             var query = new AddCategory()
             {
                 Code = "Code 3",
@@ -65,7 +70,7 @@ namespace AnabiControllers.Tests
         {
             Setup();
 
-            var queryHandler = new CategoryHandler(context, mapper);
+            var queryHandler = new CategoryHandler(BasicNeeds);
 
             var query = new EditCategory()
             {
@@ -88,7 +93,7 @@ namespace AnabiControllers.Tests
         public async Task Delete()
         {
             Setup();
-            var handler = new CategoryHandler(context, mapper);
+            var handler = new CategoryHandler(BasicNeeds);
 
             var query = new DeleteCategory
             {
@@ -126,6 +131,7 @@ namespace AnabiControllers.Tests
                 cfg.AddProfile<AutoMapperMappings>();
             });
             mapper = Mapper.Instance;
+            principal = Utils.TestAuthentificatedPrincipal();
         }
 
         private List<CategoryDb> GetCategoriesForDb()

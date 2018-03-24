@@ -11,7 +11,7 @@ namespace Anabi.Domain.Asset
     public class AssetHandler : BaseHandler
         , IAsyncRequestHandler<AddMinimalAsset, int>
     {
-        public AssetHandler(AnabiContext _ctx, IMapper _mapper) : base(_ctx, _mapper)
+        public AssetHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
