@@ -8,14 +8,14 @@ namespace Anabi.Common.Utils
         public const string NO_STORAGE_SPACES_FOUND = "NO_STORAGE_SPACES_FOUND";
 
         public const string NAME_NOT_EMPTY = "NAME_NOT_EMPTY";
-        public const string NAME_MAX_LENGTH_200 = "NAME_MAX_LENGTH_200";
+        public const string NAME_MAX_LENGTH_100 = "NAME_MAX_LENGTH_100";
 
         public const string CONTACTDATA_MAX_LENGTH_1000 = "CONTACTDATA_MAX_LENGTH_1000";
         public const string DESCRIPTION_MAX_LENGTH_2000 = "DESCRIPTION_MAX_LENGTH_2000";
 
         public const string ENTITY_IS_REFERENCED_BY_OTHER_ENTITIES = "ENTITY_IS_REFERENCED_BY_OTHER_ENTITIES";
 
-        public const string IDENTIFIER_MAX_LENGTH_200 = "IDENTIFIER_MAX_LENGTH_200";
+        public const string IDENTIFIER_MAX_LENGTH_100 = "IDENTIFIER_MAX_LENGTH_100";
         public const string STAGE_INVALID_ID = "STAGE_INVALID_ID";
         public const string CATEGORY_INVALID_ID = "CATEGORY_INVALID_ID";
 
@@ -40,5 +40,6 @@ namespace Anabi.Common.Utils
         public const string ESTIMATED_AMT_CURRENCY_THREE_CHARS = "ESTIMATED_AMT_CURRENCY_THREE_CHARS";
         public const string ASSET_INVALID_ID = nameof(ASSET_INVALID_ID);
         public const string INSTITUTION_DOES_NOT_EXIST = nameof(INSTITUTION_DOES_NOT_EXIST);
+        public const string IDENTIFIER_NOT_EMPTY = nameof(IDENTIFIER_NOT_EMPTY);
     }
 }

@@ -66,8 +66,6 @@ namespace Anabi.Features.Assets
         /// IDENTIFIER_MAX_LENGTH_100
         /// IDENTIFIER_NOT_EMPTY
         /// INVALID_CATEGORY_ID -- if CategoryId lower than or equal to zero, or the category does not exist
-        /// USERCODE_NOT_EMPTY (for test use pop)
-        /// USERCODE_MAX_LENGTH_20 -- if the user code is over 20 characters long
         /// INVALID_STAGE_ID -- if StageId lower than or equal to zero, or the stage id does not exist
         /// MEASUREUNIT_MAX_LENGTH_10 -- measure unit max 10 characters
         /// QUANTITY_MUST_BE_GREATER_THAN_ZERO -- quantity must be gt zero
