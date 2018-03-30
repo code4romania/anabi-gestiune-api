@@ -51,7 +51,7 @@ namespace Anabi.Domain.StorageSpaces.Commands
         public AddStorageSpaceValidator(IDatabaseChecks checks, AbstractValidator<IAddAddress> addAddressValidator)
         {
             RuleFor(c => c.Name).NotEmpty().WithMessage(Constants.NAME_NOT_EMPTY);
-            RuleFor(c => c.Name).MaximumLength(200).WithMessage(Constants.NAME_MAX_LENGTH_200);
+            RuleFor(c => c.Name).MaximumLength(200).WithMessage(Constants.NAME_MAX_LENGTH_100);
 
             RuleFor(c => c.ContactData).MaximumLength(1000).WithMessage(Constants.CONTACTDATA_MAX_LENGTH_1000);
             RuleFor(c => c.Description).MaximumLength(2000).WithMessage(Constants.DESCRIPTION_MAX_LENGTH_2000);

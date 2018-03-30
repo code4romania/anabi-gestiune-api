@@ -32,9 +32,10 @@ namespace Anabi.Domain.Asset.Commands
         public AddStorageSpaceValidator()
         {
             RuleFor(c => c.Name).NotEmpty().WithMessage(Constants.NAME_NOT_EMPTY);
-            RuleFor(c => c.Name).MaximumLength(200).WithMessage(Constants.NAME_MAX_LENGTH_200);
+            RuleFor(c => c.Name).MaximumLength(100).WithMessage(Constants.NAME_MAX_LENGTH_100);
 
-            RuleFor(c => c.Identifier).MaximumLength(200).WithMessage(Constants.IDENTIFIER_MAX_LENGTH_200);
+            RuleFor(c => c.Identifier).NotEmpty().WithMessage(Constants.IDENTIFIER_NOT_EMPTY);
+            RuleFor(c => c.Identifier).MaximumLength(100).WithMessage(Constants.IDENTIFIER_MAX_LENGTH_100);
 
             RuleFor(c => c.StageId).GreaterThan(0).WithMessage(Constants.STAGE_INVALID_ID);
             RuleFor(c => c.CategoryId).GreaterThan(0).WithMessage(Constants.CATEGORY_INVALID_ID);
