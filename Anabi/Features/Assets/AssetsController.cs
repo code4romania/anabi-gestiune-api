@@ -70,13 +70,10 @@ namespace Anabi.Features.Assets
         /// NAME_NOT_EMPTY
         /// NAME_MAX_LENGTH_100 
         /// IDENTIFIER_MAX_LENGTH_100
-        /// IDENTIFIER_NOT_EMPTY
         /// INVALID_CATEGORY_ID -- if CategoryId lower than or equal to zero, or the category does not exist
         /// INVALID_STAGE_ID -- if StageId lower than or equal to zero, or the stage id does not exist
         /// MEASUREUNIT_MAX_LENGTH_10 -- measure unit max 10 characters
-        /// QUANTITY_MUST_BE_GREATER_THAN_ZERO -- quantity must be gt zero
-        /// ESTIMATED_AMOUNT_GREATER_THAN_ZERO -- estimated amount must be gt zero
-        /// ESTIMATED_AMT_CURRENCY_THREE_CHARS -- currency must have 3 characters (USD, RON, EUR)
+        /// ESTIMATED_AMT_CURRENCY_THREE_CHARS -- currency must have 3 characters (if not empty) (USD, RON, EUR)
         /// </para>
         /// </remarks>
         /// <response code="201">The id of the new asset</response>
