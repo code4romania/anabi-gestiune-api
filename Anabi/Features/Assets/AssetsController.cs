@@ -30,9 +30,9 @@ namespace Anabi.Features.Assets
         /// <returns>The list of assets</returns>
         [ProducesResponseType(typeof(IEnumerable<AssetSummary>), StatusCodes.Status200OK)]
         [HttpGet]
-        public async Task<IActionResult> Get(SearchAsset filter)
+        public async Task<IActionResult> Get()
         {
-            var results = await mediator.Send(filter);
+            var results = await mediator.Send(new SearchAsset());
 
             return Ok(results);
         }
