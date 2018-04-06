@@ -25,7 +25,7 @@ namespace Anabi.Features.Assets
                         
                         from historicalStage in context.HistoricalStages
                                                 .Where(x => x.AssetId == asset.Id)
-                                                .OrderByDescending(x => x.DecisionDate)
+                                                .OrderByDescending(x => x.Id)
                                                 .Take(1) 
                             join stage in context.Stages on historicalStage.StageId equals stage.Id                       
                             orderby asset.Id descending
