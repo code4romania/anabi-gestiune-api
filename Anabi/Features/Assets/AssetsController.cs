@@ -22,13 +22,19 @@ namespace Anabi.Features.Assets
             mediator = _mediator;
         }
 
-
+        /// <summary>
+        /// Returns a list of assets
+        /// </summary>
+        /// <response code="200">The list of assets</response>
+        /// <param name="filter">Empty parameter</param>
+        /// <returns>The list of assets</returns>
+        [ProducesResponseType(typeof(IEnumerable<AssetSummary>), StatusCodes.Status200OK)]
         [HttpGet]
-        public async Task<IEnumerable<AssetSummary>> Get(SearchAsset filter)
+        public async Task<IActionResult> Get()
         {
-            var results = await mediator.Send(filter);
+            var results = await mediator.Send(new SearchAsset());
 
-            return results;
+            return Ok(results);
         }
 
 

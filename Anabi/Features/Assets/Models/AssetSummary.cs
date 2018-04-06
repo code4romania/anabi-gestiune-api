@@ -8,13 +8,19 @@ namespace Anabi.Features.Assets.Models
     public class AssetSummary
     {
         public int AssetId { get; set; }
+
+        public string AssetName { get; set; }
+
         public string AssetIdentifier { get; set; }
         public string AssetCategory { get; set; }
-        public string AssetDescription { get; set; }
-        public string FileNumber { get; set; }
-        public string Institution { get; set; }
-        public string CurrentDecision { get; set; }
-        public string CurrentStage { get; set; }
+
+        public string AssetSubcategory { get; set; }
         
+        public string CurrentStage { get; set; }
+
+        public decimal? EstimatedAmount { get; set; }
+
+        public string EstimatedAmountCurrency { get; set; }
+
     }
 }
