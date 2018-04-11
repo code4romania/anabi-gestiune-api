@@ -12,9 +12,11 @@ namespace Anabi.Features.Assets.Models
         public string Description { get; set; }
 
         public int CategoryId { get; set; }
+        public int SubcategoryId { get; set; }
 
         public string Identifier { get; set; }
 
+        public string Remarks { get; set; }
 
         public int StageId { get; set; }
 

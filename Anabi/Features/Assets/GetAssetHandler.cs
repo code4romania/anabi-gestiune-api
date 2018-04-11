@@ -22,6 +22,7 @@ namespace Anabi.Features.Assets
         {
 
             var asset = await (from a in context.Assets
+
                                //last stage of the asset
                                from historicalStage in context.HistoricalStages
                                         .Where(x => x.AssetId == a.Id)
@@ -31,7 +32,8 @@ namespace Anabi.Features.Assets
                          select new AssetViewModel()
                          {
                              AddedDate = a.AddedDate,
-                             CategoryId = a.CategoryId,
+                             SubcategoryId = a.CategoryId,
+                             CategoryId = a.Category.Parent.Id,
                              Description = a.Description,
                              EstimatedAmount = (historicalStage.EstimatedAmount ?? 0),
                              EstimatedAmountCurrency = historicalStage.EstimatedAmountCurrency,
@@ -40,6 +42,7 @@ namespace Anabi.Features.Assets
                              LastChangedDate = a.LastChangeDate,
                              MeasureUnit = a.MeasureUnit,
                              Name = a.Name,
+                             Remarks = a.Remarks,
                              Quantity = (a.NrOfObjects ?? 0),
                              StageId = historicalStage.StageId,
                              UserCodeAdd = a.UserCodeAdd,
