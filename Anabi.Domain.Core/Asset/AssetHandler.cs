@@ -1,7 +1,5 @@
-﻿using Anabi.DataAccess.Ef;
-using Anabi.DataAccess.Ef.DbModels;
+﻿using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Asset.Commands;
-using AutoMapper;
 using MediatR;
 using System;
 using System.Threading.Tasks;
@@ -22,13 +20,12 @@ namespace Anabi.Domain.Asset
                 Name = message.Name,
                 Description = message.Description,
                 Identifier = message.Identifier,
-                CategoryId = message.CategoryId,
+                CategoryId = message.SubcategoryId,
                 UserCodeAdd = "pop",
                 AddedDate = DateTime.Now,
                 NrOfObjects = (int)message.Quantity,
-                MeasureUnit = message.MeasureUnit
-
-
+                MeasureUnit = message.MeasureUnit,
+                Remarks = message.Remarks
             };
 
             var historicalStageDb = new HistoricalStageDb()

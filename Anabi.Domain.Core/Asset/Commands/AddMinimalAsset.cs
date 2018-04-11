@@ -10,11 +10,12 @@ namespace Anabi.Domain.Asset.Commands
 
         public string Description { get; set; }
 
-        public int CategoryId { get; set; }
+        public int SubcategoryId { get; set; }
 
         public string Identifier { get; set; }
 
-        
+        public string Remarks { get; set; }
+
         public int StageId { get; set; }
 
         public decimal Quantity { get; set; }
@@ -38,7 +39,7 @@ namespace Anabi.Domain.Asset.Commands
             RuleFor(c => c.Identifier).MaximumLength(100).WithMessage(Constants.IDENTIFIER_MAX_LENGTH_100);
 
             RuleFor(c => c.StageId).GreaterThan(0).WithMessage(Constants.STAGE_INVALID_ID);
-            RuleFor(c => c.CategoryId).GreaterThan(0).WithMessage(Constants.CATEGORY_INVALID_ID);
+            RuleFor(c => c.SubcategoryId).GreaterThan(0).WithMessage(Constants.CATEGORY_INVALID_ID);
 
             RuleFor(c => c.MeasureUnit).MaximumLength(10).WithMessage(Constants.MEASUREUNIT_MAX_LENGTH_10);
             
