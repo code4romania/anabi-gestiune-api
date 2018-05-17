@@ -61,22 +61,21 @@ namespace Anabi.DataAccess.Ef.DbModels
         [MaxLength(500)]
         public string Source { get; set; }
 
-        public bool SentOnEmail { get; set; }
+        public bool? SentOnEmail { get; set; }
 
-        [Required]
         [MaxLength(200)]
         public string FileNumber { get; set; }
 
         [MaxLength(200)]
         public string FileNumberParquet { get; set; }
 
-        public DateTime ReceivingDate { get; set; }
+        public DateTime? ReceivingDate { get; set; }
 
         public DateTime? DefinitiveDate { get; set; }
 
         public DateTime? SendToAuthoritiesDate { get; set; }
 
-        public bool IsDefinitive { get; set; }
+        public bool? IsDefinitive { get; set; }
 
         [ForeignKey("CrimeTypes")]
         public int? CrimeTypeId { get; set; }
@@ -106,5 +105,9 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public string RecoveryCommittee { get; set; }
 
+        public DateTime? LastActivity { get; set; }
+
+        [MaxLength(200)]
+        public string PersonResponsible { get; set; }
     }
 }
