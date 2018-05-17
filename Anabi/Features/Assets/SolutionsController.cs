@@ -37,10 +37,10 @@ namespace Anabi.Features.Assets
         [HttpPost("assets/{assetId}/solutions")]
         public async Task<IActionResult> AddSolution(int assetId, AddSolutionRequest request)
         {
-            //throw new NotImplementedException();
-            var model = await mediator.Send(new AddSolution (assetId));
+            throw new NotImplementedException();
+            //var model = await mediator.Send(new AddSolution (assetId));
 
-            return Ok(model);
+            //return Ok(model);
         }
     }
 }

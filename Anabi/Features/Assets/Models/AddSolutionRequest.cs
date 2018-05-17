@@ -7,7 +7,7 @@ namespace Anabi.Features.Assets.Models
     {
         public int StageId { get; set; }
 
-        public int DecizieId { get; set; }
+        public int DecisionId { get; set; }
 
         public int InstitutionId { get; set; }
 
@@ -46,7 +46,7 @@ namespace Anabi.Features.Assets.Models
         public DateTime? DefinitiveDate { get; set; }
 
 
-        public DateTime? SendToAuthoritiesDate { get; set; }
+        public DateTime? SentToAuthoritiesDate { get; set; }
 
         
 
