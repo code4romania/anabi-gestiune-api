@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Anabi.Common.Enums;
+using System.Collections.Generic;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
@@ -7,6 +8,8 @@ namespace Anabi.DataAccess.Ef.DbModels
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public StageCategory? StageCategory { get; set; }
 
         public string Description { get; set; }
 

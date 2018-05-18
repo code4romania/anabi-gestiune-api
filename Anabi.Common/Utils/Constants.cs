@@ -36,10 +36,17 @@ namespace Anabi.Common.Utils
 
         public const string MEASUREUNIT_MAX_LENGTH_10 = "MEASUREUNIT_MAX_LENGTH_10";
         public const string QUANTITY_MUST_BE_GREATER_THAN_ZERO = "QUANTITY_MUST_BE_GREATER_THAN_ZERO";
+
+
         public const string ESTIMATED_AMOUNT_GREATER_THAN_ZERO = "ESTIMATED_AMOUNT_GREATER_THAN_ZERO";
         public const string ESTIMATED_AMT_CURRENCY_THREE_CHARS = "ESTIMATED_AMT_CURRENCY_THREE_CHARS";
         public const string ASSET_INVALID_ID = nameof(ASSET_INVALID_ID);
         public const string INSTITUTION_DOES_NOT_EXIST = nameof(INSTITUTION_DOES_NOT_EXIST);
         public const string IDENTIFIER_NOT_EMPTY = nameof(IDENTIFIER_NOT_EMPTY);
+
+        public const string DECISION_INVALID_ID = nameof(DECISION_INVALID_ID);
+        public const string INSTITUTION_INVALID_ID = nameof(INSTITUTION_INVALID_ID);
+        public const string RECOVERYBENEFICIARY_INVALID_ID = nameof(RECOVERYBENEFICIARY_INVALID_ID);
+        public const string DECISIONNUMBER_NOT_VALID = nameof(DECISIONNUMBER_NOT_VALID);
     }
 }

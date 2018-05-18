@@ -1,10 +1,10 @@
 ﻿using Anabi.Common.Exceptions;
-using Anabi.Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,6 +33,11 @@ namespace Anabi.Middleware
                 _logger.LogError(aex, "Error");
                 await WriteErrorMessage(context, aex, StatusCodes.Status400BadRequest);
             }
+            catch (AnabiValidationException avex)
+            {
+                _logger.LogError(avex, "Error");
+                await WriteErrorMessage(context, avex, StatusCodes.Status400BadRequest);
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error");
@@ -44,13 +49,18 @@ namespace Anabi.Middleware
         private static async Task WriteErrorMessage(HttpContext context, Exception ex, int responseCode)
         {
             var errors = new List<string>() { ex.Message };
-            await WriteErrorToContext(context, errors, ex.Message, responseCode);
+            if (ex is AnabiValidationException)
+            {
+                errors = ex.Message.Split(",").ToList();
+                await WriteErrorToContext(context, errors, "Validation Errors", responseCode);
+            }
+            else
+            {
+                await WriteErrorToContext(context, errors, ex.Message, responseCode);
+            }
+            
 
         }
-
-       
-
-        
 
 
         private static async Task WriteErrorToContext(HttpContext context, 

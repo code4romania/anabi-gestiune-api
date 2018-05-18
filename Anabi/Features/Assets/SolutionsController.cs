@@ -30,17 +30,17 @@ namespace Anabi.Features.Assets
         /// <response code="200">The id of the new solution</response>
         /// <response code="400">Validation errors</response>
         /// <param name="assetId"></param>
-        /// <param name="message"></param>
+        /// <param name="request"></param>
         /// <returns>Id of the new solution</returns>
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPost("assets/{assetId}/solutions")]
-        public async Task<IActionResult> AddSolution(int assetId, AddSolutionRequest request)
+        public async Task<IActionResult> AddSolution(int assetId, [FromBody] AddSolutionRequest request)
         {
-            throw new NotImplementedException();
-            //var model = await mediator.Send(new AddSolution (assetId));
+            //throw new NotImplementedException();
+            var model = await mediator.Send(new AddSolution (assetId, 0, 0, 0, DateTime.Now, null, 0, null, null));
 
-            //return Ok(model);
+            return Ok(model);
         }
     }
 }
