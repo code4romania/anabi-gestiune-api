@@ -28,9 +28,9 @@ namespace Anabi.Domain.Asset.Commands
 
     }
 
-    public class AddStorageSpaceValidator : AbstractValidator<AddMinimalAsset>
+    public class AddMinimalAssetValidator : AbstractValidator<AddMinimalAsset>
     {
-        public AddStorageSpaceValidator()
+        public AddMinimalAssetValidator()
         {
             RuleFor(c => c.Name).NotEmpty().WithMessage(Constants.NAME_NOT_EMPTY);
             RuleFor(c => c.Name).MaximumLength(100).WithMessage(Constants.NAME_MAX_LENGTH_100);

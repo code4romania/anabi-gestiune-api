@@ -137,12 +137,13 @@ namespace Anabi
 
         private void MapInterfacesAndClasses(IServiceCollection services)
         {
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
             services.AddSingleton<IAnabiCrypt, AnabiCrypt>();
             services.AddTransient<BaseHandlerNeeds>();
             services.AddScoped<EmptyAddAddressValidator, EmptyAddAddressValidator>();
             services.AddScoped<AbstractValidator<IAddAddress>, AddAddressValidator>(); ;
             services.AddScoped<IDatabaseChecks, DatabaseChecks>();
-
+            
         }
 
         private void AddDbContext(IServiceCollection services)

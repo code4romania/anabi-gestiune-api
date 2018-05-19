@@ -401,9 +401,9 @@ namespace Anabi.DataAccess.Ef
         {
             var etape = new[]
                         {
-                new StageDb {Name = "Confiscare", IsFinal = false},
-                new StageDb {Name = "Valorificare", IsFinal = true},
-                new StageDb {Name = "Sechestru", IsFinal = false}
+                new StageDb {Name = "Confiscare", IsFinal = false, StageCategory = Common.Enums.StageCategory.Confiscation},
+                new StageDb {Name = "Valorificare", IsFinal = true, StageCategory = Common.Enums.StageCategory.Recovery},
+                new StageDb {Name = "Sechestru", IsFinal = false, StageCategory = Common.Enums.StageCategory.Sequester}
                         };
             context.Stages.AddRange(etape);
             context.SaveChanges();
