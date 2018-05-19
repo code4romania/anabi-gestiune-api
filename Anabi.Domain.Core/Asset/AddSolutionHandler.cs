@@ -26,10 +26,10 @@ namespace Anabi.Domain.Asset
                 RecoveryBeneficiaryId = message.RecoveryBeneficiaryId,
             };
             
-            newStage.ActualValue = message.RecoveryDetails?.ActualValue;
+            newStage.ActualValue = message.RecoveryDetails?.ActualAmount;
             newStage.EstimatedAmount = message.RecoveryDetails?.EstimatedAmount;
             newStage.EstimatedAmountCurrency = message.RecoveryDetails?.EstimatedAmountCurrency;
-            newStage.ActualValueCurrency = message.RecoveryDetails?.ActualValueCurrency;
+            newStage.ActualValueCurrency = message.RecoveryDetails?.ActualAmountCurrency;
             newStage.RecoveryState = message.RecoveryDetails?.RecoveryState;
 
             newStage.EvaluationCommittee = message.RecoveryDetails?.EvaluationCommittee?.EvaluationCommitteeMembers;

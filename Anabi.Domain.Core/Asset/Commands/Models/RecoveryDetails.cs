@@ -5,20 +5,20 @@ namespace Anabi.Domain.Asset.Commands.Models
 {
     public class RecoveryDetails
     {
-        public RecoveryDetails(decimal? actualValue,
+        public RecoveryDetails(decimal? actualAmount,
             decimal? estimatedAmount,
             string estimatedAmountCurrency,
-            string actualValueCurrency,
+            string actualAmountCurrency,
             string recoveryState,
             EvaluationCommittee evaluationCommittee,
             RecoveryCommittee recoveryCommittee,
             DateTime? lastActivity,
             string personResponsible)
         {
-            ActualValue = actualValue;
+            ActualAmount = actualAmount;
             EstimatedAmount = estimatedAmount;
             EstimatedAmountCurrency = estimatedAmountCurrency;
-            ActualValueCurrency = actualValueCurrency;
+            ActualAmountCurrency = actualAmountCurrency;
             RecoveryState = recoveryState;
             EvaluationCommittee = evaluationCommittee;
             RecoveryCommittee = recoveryCommittee;
@@ -26,13 +26,13 @@ namespace Anabi.Domain.Asset.Commands.Models
             PersonResponsible = personResponsible;
         }
 
-        public decimal? ActualValue { get; }
+        public decimal? ActualAmount { get; }
 
         public decimal? EstimatedAmount { get; }
 
         public string EstimatedAmountCurrency { get; }
 
-        public string ActualValueCurrency { get; }
+        public string ActualAmountCurrency { get; }
 
         public string RecoveryState { get; }
 
