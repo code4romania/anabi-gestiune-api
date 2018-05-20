@@ -21,7 +21,7 @@ namespace Anabi.Features.Assets
                          .Select(s => new StageViewModel {
                              Id = s.Id,
                              IsFinal = s.IsFinal,
-                             IsRecovery = s.StageCategory == Common.Enums.StageCategory.Recovery,
+                             IsRecovery = s.StageCategory == Anabi.Common.Enums.StageCategory.Recovery,
                              Name = s.Name,
                          })
                          ).ToListAsync();

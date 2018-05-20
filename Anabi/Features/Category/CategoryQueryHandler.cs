@@ -18,7 +18,7 @@ namespace Anabi.Features.Category
             
         }
 
-        public Task<List<Models.Category>> Handle(GetCategory message)
+        public async Task<List<Models.Category>> Handle(GetCategory message)
         {
 
             var command = context.Categories.AsQueryable();
@@ -28,7 +28,7 @@ namespace Anabi.Features.Category
                 command = command.Where(m => m.Id == message.Id);
             }
 
-            var result = command.Select(x => Mapper.Map<Models.Category>(x)).ToListAsync();
+            var result = await command.Select(x => Mapper.Map<Models.Category>(x)).ToListAsync();
             return result;
         }
     }
