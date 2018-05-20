@@ -1,10 +1,7 @@
-﻿using Anabi.DataAccess.Ef;
-using Anabi.Domain;
+﻿using Anabi.Domain;
 using Anabi.Features.Assets.Models;
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +18,12 @@ namespace Anabi.Features.Assets
         public async Task<List<StageViewModel>> Handle(GetStages message)
         {
             var models = await (context.Stages.OrderBy(s => s.Name)
-                         .Select(s => mapper.Map<StageViewModel>(s))
+                         .Select(s => new StageViewModel {
+                             Id = s.Id,
+                             IsFinal = s.IsFinal,
+                             IsRecovery = s.StageCategory == Anabi.Common.Enums.StageCategory.Recovery,
+                             Name = s.Name,
+                         })
                          ).ToListAsync();
 
             return models;
