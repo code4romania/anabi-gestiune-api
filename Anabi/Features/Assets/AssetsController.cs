@@ -81,9 +81,8 @@ namespace Anabi.Features.Assets
         /// <response code="500">Server error</response>
         /// <param name="minimalAsset">The details of the new asset to be added</param>
         /// <returns>The id of the new asset</returns>
-        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(AddMinimalAssetResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpPost("addminimalasset")]
         public async Task<IActionResult> AddMinimalAsset([FromBody]AddMinimalAsset minimalAsset)
         {

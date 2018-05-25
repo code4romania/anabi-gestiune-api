@@ -62,6 +62,13 @@ namespace Anabi.Domain.Asset
 
             var response = mapper.Map<AddSolution, AddSolutionResponse>(message);
             response.SolutionId = newStage.Id;
+            response.Journal = new Models.Journal
+            {
+                UserCodeAdd = newStage.UserCodeAdd,
+                AddedDate = newStage.AddedDate,
+                UserCodeLastChange = newStage.UserCodeLastChange,
+                LastChangeDate = newStage.LastChangeDate,
+            };
 
             return response;
         }

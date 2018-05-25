@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Anabi.Domain.Asset.Commands.Models;
+using Anabi.Domain.Models;
 
 namespace Anabi.Domain.Asset.Commands
 {
@@ -12,5 +13,7 @@ namespace Anabi.Domain.Asset.Commands
         }
 
         public int SolutionId { get; set; }
+
+        public Journal Journal { get; set; }
     }
 }
