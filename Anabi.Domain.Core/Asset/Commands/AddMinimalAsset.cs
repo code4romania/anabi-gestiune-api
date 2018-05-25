@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Anabi.Domain.Asset.Commands
 {
-    public class AddMinimalAsset : IRequest<int>
+    public class AddMinimalAsset : IRequest<AddMinimalAssetResponse>
     {
         public string Name { get; set; }
 

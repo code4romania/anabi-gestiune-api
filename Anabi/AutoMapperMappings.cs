@@ -64,7 +64,7 @@ namespace Anabi
 
             CreateMap<AddSolutionRequest, AddSolution>();
             CreateMap<AddSolution, AddSolutionResponse>();
-
+            CreateMap<AddMinimalAsset, AddMinimalAssetResponse>();
         }
     }
 }
