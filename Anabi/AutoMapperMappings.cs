@@ -6,6 +6,7 @@ using AutoMapper;
 
 namespace Anabi
 {
+    using Anabi.Domain.Asset.Commands;
     using Anabi.Domain.Common.Address;
     using Anabi.Domain.Institution.Commands;
     using Anabi.Domain.Person.Commands;
@@ -60,6 +61,9 @@ namespace Anabi
             CreateMap<IdentifierDb, Identifier>().ReverseMap();
 
             CreateMap<AddDefendant, PersonDb>().ReverseMap();
+
+            CreateMap<AddSolutionRequest, AddSolution>();
+            CreateMap<AddSolution, AddSolutionResponse>();
 
         }
     }
