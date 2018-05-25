@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Anabi.DataAccess.Ef;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Person.Commands;
-using AutoMapper;
 using MediatR;
 
 namespace Anabi.Domain.Person
 {
-    public class PersonHandler : BaseHandler, IAsyncRequestHandler<AddDefendant, int>
+    public class PersonHandler : BaseHandler, IAsyncRequestHandler<AddDefendant, AddDefendantResponse>
     {
         public PersonHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<int> Handle(AddDefendant message)
+        public async Task<AddDefendantResponse> Handle(AddDefendant message)
         {
             var personDb = mapper.Map<PersonDb>(message);
             personDb.UserCodeAdd = "pop";
@@ -33,8 +31,17 @@ namespace Anabi.Domain.Person
             context.AssetDefendants.Add(assetDefendant);
 
             await context.SaveChangesAsync();
+            var response = mapper.Map<AddDefendant, AddDefendantResponse>(message);
+            response.DefendantId = personDb.Id;
+            response.Journal = new Models.Journal
+            {
+                AddedDate = personDb.AddedDate,
+                UserCodeAdd = personDb.UserCodeAdd,
+                LastChangeDate = personDb.LastChangeDate,
+                UserCodeLastChange = personDb.UserCodeLastChange,
+            };
 
-            return personDb.Id;
+            return response;
 
         }
     }

@@ -10,7 +10,7 @@ namespace Anabi.Domain.Models
 
         public DateTime AddedDate { get; set; }
 
-        public DateTime LastChangeDate { get; set; }
+        public DateTime? LastChangeDate { get; set; }
 
     }
 }
