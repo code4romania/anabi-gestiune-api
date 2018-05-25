@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Anabi.Domain.Asset.Commands;
 using Anabi.Middleware;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,10 +15,12 @@ namespace Anabi.Features.Assets
     public class SolutionsController : Controller
     {
         private readonly IMediator mediator;
+        private readonly IMapper mapper;
 
-        public SolutionsController(IMediator _mediator)
+        public SolutionsController(IMediator _mediator, IMapper _mapper)
         {
             mediator = _mediator;
+            mapper = _mapper;
         }
 
         /// <summary>
@@ -48,15 +51,18 @@ namespace Anabi.Features.Assets
         /// </remarks>
         /// <response code="200">The id of the new solution</response>
         /// <response code="400">Validation errors</response>
+        /// <param name="assetId">Asset id to add solution for</param>
         /// <param name="request"></param>
         /// <returns>Id of the new solution</returns>
-        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AddSolutionResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
-        [HttpPost("assets/solutions")]
-        public async Task<IActionResult> AddSolution([FromBody] AddSolution request)
+        [HttpPost("assets/{assetId}/solutions")]
+        public async Task<IActionResult> AddSolution(int assetId, [FromBody] AddSolutionRequest request)
         {
-            //throw new NotImplementedException();
-           var model = await mediator.Send(request);
+            var message = mapper.Map<AddSolutionRequest, AddSolution>(request);
+            message.AssetId = assetId;
+
+            var model = await mediator.Send(message);
 
             return Ok(model);
         }

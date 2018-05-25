@@ -1,18 +1,19 @@
 ﻿using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Asset.Commands;
 using MediatR;
+using System;
 using System.Threading.Tasks;
 
 namespace Anabi.Domain.Asset
 {
     public class AddSolutionHandler : BaseHandler
-        , IAsyncRequestHandler<AddSolution, int>
+        , IAsyncRequestHandler<AddSolution, AddSolutionResponse>
     {
         public AddSolutionHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<int> Handle(AddSolution message)
+        public async Task<AddSolutionResponse> Handle(AddSolution message)
         {
 
             var newStage = new HistoricalStageDb
@@ -24,6 +25,8 @@ namespace Anabi.Domain.Asset
                 DecisionDate = message.DecisionDate,
                 DecisionNumber = message.DecisionNumber,
                 RecoveryBeneficiaryId = message.RecoveryBeneficiaryId,
+                AddedDate = DateTime.Now,
+                UserCodeAdd = "admin"
             };
             
             newStage.ActualValue = message.RecoveryDetails?.ActualAmount;
@@ -57,7 +60,10 @@ namespace Anabi.Domain.Asset
             context.HistoricalStages.Add(newStage);
             await context.SaveChangesAsync();
 
-            return newStage.Id;
+            var response = mapper.Map<AddSolution, AddSolutionResponse>(message);
+            response.SolutionId = newStage.Id;
+
+            return response;
         }
     }
 }
