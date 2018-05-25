@@ -46,6 +46,13 @@ namespace Anabi.Domain.Asset
             var response = mapper.Map<AddMinimalAsset, AddMinimalAssetResponse>(message);
             response.AssetId = asset.Id;
             response.HistoricalStageId = historicalStageDb.Id;
+            response.Journal = new Models.Journal
+            {
+                UserCodeAdd = asset.UserCodeAdd,
+                AddedDate = asset.AddedDate,
+                UserCodeLastChange = asset.UserCodeLastChange,
+                LastChangeDate = asset.LastChangeDate,
+            };
 
             return response;
 
