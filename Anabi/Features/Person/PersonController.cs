@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Anabi.Domain.Person.Commands;
 using Anabi.Features.Person.Models;
 using Anabi.Middleware;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,29 +15,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Anabi.Features.Person
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [AllowAnonymous]
     public class PersonController : Controller
     {
         private readonly IMediator mediator;
+        private readonly IMapper mapper;
 
-        public PersonController(IMediator _mediator)
+
+        public PersonController(IMediator _mediator, IMapper _mapper)
         {
             mediator = _mediator;
+            mapper = _mapper;
         }
-        //// GET: api/<controller>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        // GET api/<controller>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        
 
         // GET: api/identifiers
         /// <summary>
@@ -52,8 +44,7 @@ namespace Anabi.Features.Person
         /// <param name="isForPerson"></param>
         [ProducesResponseType(typeof(List<Models.Identifier>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
-        [HttpGet("identifiers")]
+        [HttpGet("person/identifiers")]
         public async Task<IActionResult> GetIdentifiers(bool isForPerson)
         {
 
@@ -88,29 +79,19 @@ namespace Anabi.Features.Person
         /// </remarks>
         /// <response code="201">Id of the new defendant</response>
         /// <response code="400">Validation errors</response>
+        /// <param name="assetId">Asset id where the defendant is added to</param>
         /// <param name="addPerson">Details for new defendant</param>
-        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(AddDefendantResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
-        [HttpPost("defendant")]
-        public async Task<IActionResult> AddDefendant([FromBody]AddDefendant addPerson)
+        [HttpPost("assets/{assetId}/defendant")]
+        public async Task<IActionResult> AddDefendant(int assetId, [FromBody]AddDefendantRequest addPerson)
         {
+            var message = mapper.Map<AddDefendantRequest, AddDefendant>(addPerson);
+            message.AssetId = assetId;
 
-            var personId = await mediator.Send(addPerson);
-            return Created("api/person", personId);
+            var model = await mediator.Send(message);
+            return Created("api/person", model);
 
         }
-
-        //// PUT api/<controller>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/<controller>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }
