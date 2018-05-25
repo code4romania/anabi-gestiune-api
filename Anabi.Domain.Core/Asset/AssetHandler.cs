@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace Anabi.Domain.Asset
 {
     public class AssetHandler : BaseHandler
-        , IAsyncRequestHandler<AddMinimalAsset, int>
+        , IAsyncRequestHandler<AddMinimalAsset, AddMinimalAssetResponse>
     {
         public AssetHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<int> Handle(AddMinimalAsset message)
+        public async Task<AddMinimalAssetResponse> Handle(AddMinimalAsset message)
         {
             var asset = new AssetDb()
             {
@@ -43,7 +43,11 @@ namespace Anabi.Domain.Asset
             context.HistoricalStages.Add(historicalStageDb);
             await context.SaveChangesAsync();
 
-            return asset.Id;
+            var response = mapper.Map<AddMinimalAsset, AddMinimalAssetResponse>(message);
+            response.AssetId = asset.Id;
+            response.HistoricalStageId = historicalStageDb.Id;
+
+            return response;
 
         }
     }
