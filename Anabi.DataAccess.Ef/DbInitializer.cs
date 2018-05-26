@@ -459,8 +459,12 @@ namespace Anabi.DataAccess.Ef
 
             var beneficiari = new[]
                     {
-                new RecoveryBeneficiaryDb {Name = "Fane Croitoru"},
-                new RecoveryBeneficiaryDb {Name = "Gogu Icsulescu"}
+                new RecoveryBeneficiaryDb {Name = "Ministerul Educaţiei Naţionale şi Cercetării Ştiinţifice"},
+                new RecoveryBeneficiaryDb {Name = "Ministerul Sănătăţii"},
+                new RecoveryBeneficiaryDb {Name = "Ministerul Afacerilor Interne"},
+                new RecoveryBeneficiaryDb {Name = "Ministerul Public"},
+                new RecoveryBeneficiaryDb {Name = "Ministerul Justiţiei"},
+
                     };
             context.RecoveryBeneficiaries.AddRange(beneficiari);
             context.SaveChanges();

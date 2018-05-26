@@ -32,7 +32,7 @@ namespace Anabi.Domain.Person
 
             await context.SaveChangesAsync();
             var response = mapper.Map<AddDefendant, AddDefendantResponse>(message);
-            response.DefendantId = personDb.Id;
+            response.Id = personDb.Id;
             response.Journal = new Models.Journal
             {
                 AddedDate = personDb.AddedDate,

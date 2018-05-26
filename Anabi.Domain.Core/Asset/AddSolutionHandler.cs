@@ -61,7 +61,7 @@ namespace Anabi.Domain.Asset
             await context.SaveChangesAsync();
 
             var response = mapper.Map<AddSolution, AddSolutionResponse>(message);
-            response.SolutionId = newStage.Id;
+            response.Id = newStage.Id;
             response.Journal = new Models.Journal
             {
                 UserCodeAdd = newStage.UserCodeAdd,

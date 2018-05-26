@@ -44,7 +44,7 @@ namespace Anabi.Domain.Asset
             await context.SaveChangesAsync();
 
             var response = mapper.Map<AddMinimalAsset, AddMinimalAssetResponse>(message);
-            response.AssetId = asset.Id;
+            response.Id = asset.Id;
             response.HistoricalStageId = historicalStageDb.Id;
             response.Journal = new Models.Journal
             {
