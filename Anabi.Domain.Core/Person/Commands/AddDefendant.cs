@@ -1,4 +1,5 @@
 ﻿using Anabi.Common.Utils;
+using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef;
 using FluentValidation;
 using MediatR;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Anabi.Domain.Person.Commands
 {
-    public class AddDefendant : AddDefendantRequest, IRequest<AddDefendantResponse>
+    public class AddDefendant : AddDefendantRequest, IRequest<DefendantViewModel>
     {
         public int AssetId { get; set; }
     }

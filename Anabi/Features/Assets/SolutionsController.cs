@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Anabi.Common.ViewModels;
 using Anabi.Domain.Asset.Commands;
 using Anabi.Middleware;
 using AutoMapper;
@@ -54,7 +55,7 @@ namespace Anabi.Features.Assets
         /// <param name="assetId">Asset id to add solution for</param>
         /// <param name="request"></param>
         /// <returns>Id of the new solution</returns>
-        [ProducesResponseType(typeof(AddSolutionResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SolutionViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPost("assets/{assetId}/solutions")]
         public async Task<IActionResult> AddSolution(int assetId, [FromBody] AddSolutionRequest request)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Anabi.Common.ViewModels;
 using Anabi.Domain.Person.Commands;
 using Anabi.Features.Person.Models;
 using Anabi.Middleware;
@@ -81,7 +82,7 @@ namespace Anabi.Features.Person
         /// <response code="400">Validation errors</response>
         /// <param name="assetId">Asset id where the defendant is added to</param>
         /// <param name="addPerson">Details for new defendant</param>
-        [ProducesResponseType(typeof(AddDefendantResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(DefendantViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPost("assets/{assetId}/defendant")]
         public async Task<IActionResult> AddDefendant(int assetId, [FromBody]AddDefendantRequest addPerson)

@@ -1,10 +1,11 @@
 ﻿using Anabi.Common.Utils;
+using Anabi.Common.ViewModels;
 using FluentValidation;
 using MediatR;
 
 namespace Anabi.Domain.Asset.Commands
 {
-    public class AddMinimalAsset : IRequest<AddMinimalAssetResponse>
+    public class AddMinimalAsset : IRequest<MinimalAssetViewModel>
     {
         public string Name { get; set; }
 
