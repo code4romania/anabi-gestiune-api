@@ -6,7 +6,9 @@ using AutoMapper;
 
 namespace Anabi
 {
+    using Anabi.Common.ViewModels;
     using Anabi.Domain.Asset.Commands;
+    using Anabi.Domain.Asset.Commands.Models;
     using Anabi.Domain.Common.Address;
     using Anabi.Domain.Institution.Commands;
     using Anabi.Domain.Person.Commands;
@@ -63,11 +65,16 @@ namespace Anabi
             CreateMap<AddDefendant, PersonDb>().ReverseMap();
 
             CreateMap<AddSolutionRequest, AddSolution>();
-            CreateMap<AddSolution, AddSolutionResponse>();
-            CreateMap<AddMinimalAsset, AddMinimalAssetResponse>();
+            CreateMap<AddSolution, SolutionViewModel>();
+            CreateMap<AddMinimalAsset, MinimalAssetViewModel>();
 
             CreateMap<AddDefendantRequest, AddDefendant>();
-            CreateMap<AddDefendantRequest, AddDefendantResponse>();
+            CreateMap<AddDefendantRequest, DefendantViewModel>();
+
+            CreateMap<RecoveryDetails, RecoveryDetailsViewModel>();
+            CreateMap<EvaluationCommittee, EvaluationCommitteeViewModel>();
+            CreateMap<SolutionDetails, SolutionDetailsViewModel>();
+            CreateMap<RecoveryCommittee, RecoveryCommitteeViewModel>();
         }
     }
 }

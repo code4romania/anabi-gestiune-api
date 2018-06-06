@@ -1,10 +1,11 @@
 ﻿using Anabi.Common.Utils;
+using Anabi.Common.ViewModels;
 using FluentValidation;
 using MediatR;
 
 namespace Anabi.Features.Assets.Models
 {
-    public class GetAssetDetails : IRequest<AssetViewModel>
+    public class GetAssetDetails : IRequest<MinimalAssetViewModel>
     {
         public int Id { get; set; }
 

@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Anabi.Features.Assets.Models
+﻿namespace Anabi.Common.ViewModels
 {
-    public class AssetViewModel
+    public class MinimalAssetViewModel : BaseViewModel
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public int CategoryId { get; set; }
         public int SubcategoryId { get; set; }
 
         public string Identifier { get; set; }
@@ -27,14 +21,5 @@ namespace Anabi.Features.Assets.Models
         public decimal EstimatedAmount { get; set; }
 
         public string EstimatedAmountCurrency { get; set; }
-
-        public DateTime AddedDate { get; set; }
-
-        public string UserCodeAdd { get; set; }
-
-        public DateTime? LastChangedDate { get; set; }
-
-        public string UserCodeLastChange { get; set; }
-
     }
 }

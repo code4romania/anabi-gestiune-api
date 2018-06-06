@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Http;
 using Anabi.Controllers;
 using Anabi.Domain.Asset.Commands;
 using Anabi.Middleware;
+using Anabi.Common.ViewModels;
 
 namespace Anabi.Features.Assets
 {
     [AllowAnonymous]
     [Produces("application/json")]
-    [Route("api/Assets")]
+    [Route("api/assets")]
     public class AssetsController : BaseController
     {
         private readonly IMediator mediator;
@@ -48,9 +49,8 @@ namespace Anabi.Features.Assets
         /// <response code="500">Server error</response>
         /// <param name="id">Must be greater than or equal to 0</param>
         /// <returns>Minimal asset details</returns>
-        [ProducesResponseType(typeof(AssetViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MinimalAssetViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> Get(int id)
         {
@@ -81,7 +81,7 @@ namespace Anabi.Features.Assets
         /// <response code="500">Server error</response>
         /// <param name="minimalAsset">The details of the new asset to be added</param>
         /// <returns>The id of the new asset</returns>
-        [ProducesResponseType(typeof(AddMinimalAssetResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(MinimalAssetViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPost("addminimalasset")]
         public async Task<IActionResult> AddMinimalAsset([FromBody]AddMinimalAsset minimalAsset)
@@ -101,7 +101,6 @@ namespace Anabi.Features.Assets
         /// <returns>The possible stages</returns>
         [ProducesResponseType(typeof(List<StageViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpGet("stages")]
         public async Task<IActionResult> GetStages()
         {
@@ -119,7 +118,6 @@ namespace Anabi.Features.Assets
         /// <returns>The parent categories</returns>
         [ProducesResponseType(typeof(List<CategoryViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpGet("parentcategories")]
         public async Task<IActionResult> GetParentCategories()
         {
@@ -144,7 +142,6 @@ namespace Anabi.Features.Assets
         /// <returns>The subcategories</returns>
         [ProducesResponseType(typeof(List<CategoryViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpGet("subcategories/{parentId:int}")]
         public async Task<IActionResult> GetSubCategories(int parentId)
         {

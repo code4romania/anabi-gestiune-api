@@ -1,10 +1,8 @@
 ﻿using System;
-using Anabi.Domain.Asset.Commands.Models;
-using Anabi.Domain.Models;
 
-namespace Anabi.Domain.Asset.Commands
+namespace Anabi.Common.ViewModels
 {
-    public class AddSolutionResponse : BaseModel
+    public class SolutionViewModel : BaseViewModel
     {
         public int StageId { get; set; }
 
@@ -18,8 +16,8 @@ namespace Anabi.Domain.Asset.Commands
 
         public int? RecoveryBeneficiaryId { get; set; }
 
-        public RecoveryDetails RecoveryDetails { get; set; }
+        public RecoveryDetailsViewModel RecoveryDetails { get; set; }
 
-        public SolutionDetails SolutionDetails { get; set; }
+        public SolutionDetailsViewModel SolutionDetails { get; set; }
     }
 }

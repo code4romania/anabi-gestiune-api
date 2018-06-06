@@ -1,4 +1,5 @@
-﻿using Anabi.DataAccess.Ef.DbModels;
+﻿using Anabi.Common.ViewModels;
+using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Asset.Commands;
 using MediatR;
 using System;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 namespace Anabi.Domain.Asset
 {
     public class AssetHandler : BaseHandler
-        , IAsyncRequestHandler<AddMinimalAsset, AddMinimalAssetResponse>
+        , IAsyncRequestHandler<AddMinimalAsset, MinimalAssetViewModel>
     {
         public AssetHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<AddMinimalAssetResponse> Handle(AddMinimalAsset message)
+        public async Task<MinimalAssetViewModel> Handle(AddMinimalAsset message)
         {
             var asset = new AssetDb()
             {
@@ -43,10 +44,10 @@ namespace Anabi.Domain.Asset
             context.HistoricalStages.Add(historicalStageDb);
             await context.SaveChangesAsync();
 
-            var response = mapper.Map<AddMinimalAsset, AddMinimalAssetResponse>(message);
+            var response = mapper.Map<AddMinimalAsset, MinimalAssetViewModel>(message);
             response.Id = asset.Id;
-            response.HistoricalStageId = historicalStageDb.Id;
-            response.Journal = new Models.Journal
+            response.StageId = historicalStageDb.Id;
+            response.Journal = new JournalViewModel
             {
                 UserCodeAdd = asset.UserCodeAdd,
                 AddedDate = asset.AddedDate,

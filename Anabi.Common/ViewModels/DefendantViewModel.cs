@@ -1,9 +1,8 @@
-﻿using Anabi.Domain.Models;
-using System;
+﻿using System;
 
-namespace Anabi.Domain.Person.Commands
+namespace Anabi.Common.ViewModels
 {
-    public class AddDefendantResponse : BaseModel
+    public class DefendantViewModel : BaseViewModel
     {
         public string IdNumber { get; set; }
 

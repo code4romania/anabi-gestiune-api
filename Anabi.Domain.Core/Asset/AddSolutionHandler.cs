@@ -1,4 +1,5 @@
-﻿using Anabi.DataAccess.Ef.DbModels;
+﻿using Anabi.Common.ViewModels;
+using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Asset.Commands;
 using MediatR;
 using System;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 namespace Anabi.Domain.Asset
 {
     public class AddSolutionHandler : BaseHandler
-        , IAsyncRequestHandler<AddSolution, AddSolutionResponse>
+        , IAsyncRequestHandler<AddSolution, SolutionViewModel>
     {
         public AddSolutionHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<AddSolutionResponse> Handle(AddSolution message)
+        public async Task<SolutionViewModel> Handle(AddSolution message)
         {
 
             var newStage = new HistoricalStageDb
@@ -60,9 +61,9 @@ namespace Anabi.Domain.Asset
             context.HistoricalStages.Add(newStage);
             await context.SaveChangesAsync();
 
-            var response = mapper.Map<AddSolution, AddSolutionResponse>(message);
+            var response = mapper.Map<AddSolution, SolutionViewModel>(message);
             response.Id = newStage.Id;
-            response.Journal = new Models.Journal
+            response.Journal = new JournalViewModel
             {
                 UserCodeAdd = newStage.UserCodeAdd,
                 AddedDate = newStage.AddedDate,

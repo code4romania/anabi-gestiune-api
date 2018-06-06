@@ -1,4 +1,5 @@
 ﻿using Anabi.Common.Utils;
+using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef;
 using Anabi.Domain.Asset.Commands.Models;
 using FluentValidation;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Anabi.Domain.Asset.Commands
 {
-    public class AddSolution : AddSolutionRequest, IRequest<AddSolutionResponse>
+    public class AddSolution : AddSolutionRequest, IRequest<SolutionViewModel>
     {
         public AddSolution(int stageId, int decisionId
             , int institutionId, DateTime decisionDate, string decisionNumber,
