@@ -6,9 +6,9 @@ namespace Anabi.Common.ViewModels
     {
         public int StageId { get; set; }
 
-        public int DecisionId { get; set; }
+        public int? DecisionId { get; set; }
 
-        public int InstitutionId { get; set; }
+        public int? InstitutionId { get; set; }
 
         public DateTime DecisionDate { get; set; }
 
