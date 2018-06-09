@@ -31,6 +31,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Anabi.Security;
+using Anabi.Validators;
+using Anabi.Validators.Interfaces;
 
 namespace Anabi
 {
@@ -143,6 +145,7 @@ namespace Anabi
             services.AddScoped<EmptyAddAddressValidator, EmptyAddAddressValidator>();
             services.AddScoped<AbstractValidator<IAddAddress>, AddAddressValidator>(); ;
             services.AddScoped<IDatabaseChecks, DatabaseChecks>();
+            services.AddScoped<IAssetValidator, AssetValidator>();
             
         }
 

@@ -2,6 +2,7 @@
 using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef;
 using Anabi.Domain.Asset.Commands.Models;
+using Anabi.Validators.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -36,10 +37,10 @@ namespace Anabi.Domain.Asset.Commands
     {
         private readonly AnabiContext context;
 
-        public AddSolutionValidator(AnabiContext ctx)
+        public AddSolutionValidator(AnabiContext ctx, IAssetValidator _validator)
         {
             context = ctx;
-            RuleFor(c => c.AssetId).MustAsync(AssetIdExistsInDatabaseAsync).WithMessage(Constants.ASSET_INVALID_ID);
+            RuleFor(c => c.AssetId).MustAsync(_validator.AssetIdExistsInDatabaseAsync).WithMessage(Constants.ASSET_INVALID_ID);
             RuleFor(c => c.StageId).MustAsync(StageIdExistsInDatabaseAsync).WithMessage(Constants.STAGE_INVALID_ID);
             RuleFor(c => c.DecisionId).MustAsync(DecisionIdExistsInDatabaseAsync).WithMessage(Constants.DECISION_INVALID_ID);
             RuleFor(c => c.InstitutionId).MustAsync(InstitutionIdExistsInDatabaseAsync).WithMessage(Constants.INSTITUTION_INVALID_ID);
@@ -93,16 +94,6 @@ namespace Anabi.Domain.Asset.Commands
                 .MaximumLength(200)
                 .When(c => c.RecoveryDetails != null && c.RecoveryDetails.EvaluationCommittee != null)
                 .WithMessage(Constants.RECOVERY_EVALUATIONCOMMITTEEPRESIDENT_MAX_LENGTH_200);
-        }
-
-        private async Task<bool> AssetIdExistsInDatabaseAsync(int arg1, CancellationToken arg2)
-        {
-            if (arg1 <= 0)
-            {
-                return false;
-            }
-            var exists = await context.Assets.AnyAsync(x => x.Id == arg1, arg2);
-            return exists;
         }
 
         private async Task<bool> RecoveryBeneficiaryIdShouldExistInDatabaseAsync(int? arg1, CancellationToken arg2)

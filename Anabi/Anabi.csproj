@@ -44,6 +44,7 @@
     <ProjectReference Include="..\Anabi.DataAccess.Ef\Anabi.DataAccess.Ef.csproj" />
     <ProjectReference Include="..\Anabi.Domain.Core\Anabi.Domain.csproj" />
     <ProjectReference Include="..\Anabi.Security\Anabi.Security.csproj" />
+    <ProjectReference Include="..\Anabi.Validators\Anabi.Validators.csproj" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
   

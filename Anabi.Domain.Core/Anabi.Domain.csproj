@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Anabi.Common\Anabi.Common.csproj" />
     <ProjectReference Include="..\Anabi.DataAccess.Ef\Anabi.DataAccess.Ef.csproj" />
+    <ProjectReference Include="..\Anabi.Validators\Anabi.Validators.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Anabi.Features.Person
+namespace Anabi.Features.Defendant.Models
 {
     public class IdentifierQueryHandler : BaseHandler, IAsyncRequestHandler<GetIdentifier, List<Identifier>>
     {

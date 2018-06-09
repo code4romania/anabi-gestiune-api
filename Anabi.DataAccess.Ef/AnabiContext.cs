@@ -70,8 +70,6 @@ namespace Anabi.DataAccess.Ef
         public DbSet<AssetStorageSpaceDb> AssetStorageSpaces { get; set; }
         public DbSet<RecoveryBeneficiaryDb> RecoveryBeneficiaries { get; set; }
 
-        public DbSet<AssetDefendantDb> Defendants { get; set; }
-
         public DbSet<IdentifierDb> Identifiers { get; set; }
 
         public DbSet<AssetDefendantDb> AssetDefendants { get; set; }
