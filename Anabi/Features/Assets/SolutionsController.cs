@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Anabi.Common.ViewModels;
 using Anabi.Domain.Asset.Commands;
+using Anabi.Features.Assets.Models;
 using Anabi.Middleware;
 using AutoMapper;
 using MediatR;
@@ -55,7 +57,7 @@ namespace Anabi.Features.Assets
         /// <param name="assetId">Asset id to add solution for</param>
         /// <param name="request"></param>
         /// <returns>Id of the new solution</returns>
-        [ProducesResponseType(typeof(SolutionViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SolutionViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPost("assets/{assetId}/solutions")]
         public async Task<IActionResult> AddSolution(int assetId, [FromBody] AddSolutionRequest request)
@@ -65,7 +67,22 @@ namespace Anabi.Features.Assets
 
             var model = await mediator.Send(message);
 
-            return Ok(model);
+            return Created("", model);
+        }
+
+        /// <summary>
+        /// Returns a list of solutions for a given asset id
+        /// </summary>
+        /// <param name="assetId">Asset id</param>
+        /// <returns></returns>
+        [ProducesResponseType(typeof(List<SolutionViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpGet("assets/{assetId}/solutions")]
+        public async Task<IActionResult> GetSolutions(int assetId)
+        {
+            var models = await mediator.Send(new GetSolutions(assetId));
+
+            return Ok(models);
         }
     }
 }
