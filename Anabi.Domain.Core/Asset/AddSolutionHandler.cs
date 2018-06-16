@@ -25,9 +25,10 @@ namespace Anabi.Domain.Asset
                 InstitutionId = message.InstitutionId,
                 DecisionDate = message.DecisionDate,
                 DecisionNumber = message.DecisionNumber,
-                RecoveryBeneficiaryId = message.RecoveryBeneficiaryId,
+                RecoveryBeneficiaryId = message.ConfiscationDetails?.RecoveryBeneficiaryId,
                 AddedDate = DateTime.Now,
-                UserCodeAdd = "admin"
+                UserCodeAdd = "admin",
+                PrecautionaryMeasureId = message.SequesterDetails?.PrecautionaryMeasureId
             };
             
             newStage.ActualValue = message.RecoveryDetails?.ActualAmount;

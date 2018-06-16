@@ -14,7 +14,9 @@ namespace Anabi.Common.ViewModels
 
         public string DecisionNumber { get; set; }
 
-        public int? RecoveryBeneficiaryId { get; set; }
+        public ConfiscationDetailsViewModel ConfiscationDetails { get; set; }
+
+        public SequesterDetailsViewModel SequesterDetails { get; set; }
 
         public RecoveryDetailsViewModel RecoveryDetails { get; set; }
 

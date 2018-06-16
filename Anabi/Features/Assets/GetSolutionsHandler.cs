@@ -29,7 +29,7 @@ namespace Anabi.Features.Assets
                     Id = h.Id,
                     InstitutionId = h.InstitutionId,
                     StageId = h.StageId,
-                    RecoveryBeneficiaryId = h.RecoveryBeneficiaryId,
+                    ConfiscationDetails = new ConfiscationDetailsViewModel(h.RecoveryBeneficiaryId),
                     RecoveryDetails = new RecoveryDetailsViewModel (h.ActualValue, h.EstimatedAmount, h.EstimatedAmountCurrency, h.ActualValueCurrency, h.RecoveryState, 
                                                  new EvaluationCommitteeViewModel(h.EvaluationCommitteeDesignationDate, h.EvaluationCommitteePresident, h.EvaluationCommittee),
                                                     new RecoveryCommitteeViewModel(h.RecoveryCommitteeDesignationDate, h.RecoveryCommitteePresident, h.RecoveryCommittee),
@@ -41,7 +41,8 @@ namespace Anabi.Features.Assets
                         UserCodeAdd = h.UserCodeAdd,
                         LastChangeDate = h.LastChangeDate,
                         UserCodeLastChange = h.UserCodeLastChange
-                    }
+                    },
+                    SequesterDetails = new SequesterDetailsViewModel(h.PrecautionaryMeasureId)
                 }).
                 ToListAsync();
 

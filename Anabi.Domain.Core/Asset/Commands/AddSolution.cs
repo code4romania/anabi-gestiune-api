@@ -16,16 +16,18 @@ namespace Anabi.Domain.Asset.Commands
     {
         public AddSolution(int stageId, int decisionId
             , int institutionId, DateTime decisionDate, string decisionNumber,
-            int? recoveryBeneficiaryId,
+            ConfiscationDetails confiscationDetails,
             RecoveryDetails recoveryDetails,
-            SolutionDetails solutionDetails) : base (stageId,
+            SolutionDetails solutionDetails,
+            SequesterDetails sequesterDetails) : base (stageId,
                 decisionId,
                 institutionId,
                 decisionDate,
                 decisionNumber,
-                recoveryBeneficiaryId,
+                confiscationDetails,
                 recoveryDetails,
-                solutionDetails)
+                solutionDetails,
+                sequesterDetails)
         {
             
         }
@@ -44,8 +46,16 @@ namespace Anabi.Domain.Asset.Commands
             RuleFor(c => c.StageId).MustAsync(StageIdExistsInDatabaseAsync).WithMessage(Constants.STAGE_INVALID_ID);
             RuleFor(c => c.DecisionId).MustAsync(DecisionIdExistsInDatabaseAsync).WithMessage(Constants.DECISION_INVALID_ID);
             RuleFor(c => c.InstitutionId).MustAsync(InstitutionIdExistsInDatabaseAsync).WithMessage(Constants.INSTITUTION_INVALID_ID);
-            RuleFor(c => c.RecoveryBeneficiaryId).MustAsync(RecoveryBeneficiaryIdShouldExistInDatabaseAsync)
-                .WithMessage(Constants.RECOVERYBENEFICIARY_INVALID_ID);
+
+            RuleFor(c => c.ConfiscationDetails.RecoveryBeneficiaryId).MustAsync(RecoveryBeneficiaryIdShouldExistInDatabaseAsync)
+                .When(c => c.ConfiscationDetails != null)
+                .WithMessage(Constants.RECOVERYBENEFICIARY_INVALID_ID)
+                ;
+
+            RuleFor(c => c.SequesterDetails.PrecautionaryMeasureId).MustAsync(PrecautionaryMeasureIdShouldExistInDatabaseAsync)
+                .When(c => c.SequesterDetails != null)
+                .WithMessage(Constants.PRECAUTIONARYMEASURE_INVALID_ID)
+                ;
 
             RuleFor(c => c.DecisionNumber).NotEmpty().MaximumLength(50).WithMessage(Constants.DECISION_DECISIONNUMBER_INVALID);
 
@@ -94,6 +104,22 @@ namespace Anabi.Domain.Asset.Commands
                 .MaximumLength(200)
                 .When(c => c.RecoveryDetails != null && c.RecoveryDetails.EvaluationCommittee != null)
                 .WithMessage(Constants.RECOVERY_EVALUATIONCOMMITTEEPRESIDENT_MAX_LENGTH_200);
+        }
+
+        private async Task<bool> PrecautionaryMeasureIdShouldExistInDatabaseAsync(int? arg1, CancellationToken arg2)
+        {
+            if (arg1 == null)
+            {
+                return true;
+            }
+
+            if (arg1 <= 0)
+            {
+                return false;
+            }
+
+            var exists = await context.PrecautionaryMeasures.AnyAsync(x => x.Id == arg1, arg2);
+            return exists;
         }
 
         private async Task<bool> RecoveryBeneficiaryIdShouldExistInDatabaseAsync(int? arg1, CancellationToken arg2)
