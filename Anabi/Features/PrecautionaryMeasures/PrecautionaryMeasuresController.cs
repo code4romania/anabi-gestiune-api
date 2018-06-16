@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Anabi.Features.Common.Models;
 using Anabi.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

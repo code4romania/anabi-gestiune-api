@@ -75,6 +75,9 @@ namespace Anabi
             CreateMap<EvaluationCommittee, EvaluationCommitteeViewModel>();
             CreateMap<SolutionDetails, SolutionDetailsViewModel>();
             CreateMap<RecoveryCommittee, RecoveryCommitteeViewModel>();
+
+            CreateMap<SequesterDetails, SequesterDetailsViewModel>();
+            CreateMap<ConfiscationDetails, ConfiscationDetailsViewModel>();
         }
     }
 }

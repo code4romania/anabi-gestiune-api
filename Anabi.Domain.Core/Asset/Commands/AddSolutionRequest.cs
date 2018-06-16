@@ -7,18 +7,20 @@ namespace Anabi.Domain.Asset.Commands
     {
         public AddSolutionRequest(int stageId, int decisionId
             , int institutionId, DateTime decisionDate, string decisionNumber,
-            int? recoveryBeneficiaryId,
+            ConfiscationDetails confiscationDetails,
             RecoveryDetails recoveryDetails,
-            SolutionDetails solutionDetails)
+            SolutionDetails solutionDetails, 
+            SequesterDetails sequesterDetails)
         {            
             StageId = stageId;
             DecisionId = decisionId;
             InstitutionId = institutionId;
             DecisionDate = decisionDate;
             DecisionNumber = decisionNumber;
-            RecoveryBeneficiaryId = recoveryBeneficiaryId;
+            ConfiscationDetails = confiscationDetails;
             RecoveryDetails = recoveryDetails;
             SolutionDetails = solutionDetails;
+            SequesterDetails = sequesterDetails;
         }
 
         
@@ -33,11 +35,14 @@ namespace Anabi.Domain.Asset.Commands
 
         public string DecisionNumber { get; }
 
-        public int? RecoveryBeneficiaryId { get; }
+        public ConfiscationDetails ConfiscationDetails { get; }
+
 
         public RecoveryDetails RecoveryDetails { get; }
 
         public SolutionDetails SolutionDetails { get; }
-        
+
+        public SequesterDetails SequesterDetails { get; }
+
     }
 }

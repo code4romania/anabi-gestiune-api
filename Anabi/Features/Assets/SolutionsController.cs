@@ -37,6 +37,7 @@ namespace Anabi.Features.Assets
         /// DECISION_INVALID_ID -- if lower than or equal to zero, or the id does not exist in the database
         /// INSTITUTION_INVALID_ID -- if lower than or equal to zero, or the id does not exist in the database
         /// RECOVERYBENEFICIARY_INVALID_ID -- it is checked only if the value is not null (null value passes validation, but 0 will not)
+        /// PRECAUTIONARYMEASURE_INVALID_ID -- it is checked only if the value is not null (null value passes validation, but 0 will not) (scop masura asiguratorie)
         /// STAGE_INVALID_ID -- if lower than or equal to zero, or the id does not exist in the database
         /// DECISION_DECISIONNUMBER_INVALID -- empty or exceeds 50 chars
         /// DECISION_DECISIONDATE_INVALID
