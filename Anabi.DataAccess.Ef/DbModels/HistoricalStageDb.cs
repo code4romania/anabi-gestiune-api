@@ -83,6 +83,12 @@ namespace Anabi.DataAccess.Ef.DbModels
         [ForeignKey("CrimeTypeId")]
         public virtual CrimeTypeDb CrimeType { get; set; }
 
+        [ForeignKey("PrecautionaryMeasures")]
+        public int? PrecautionaryMeasureId { get; set; }
+
+        [ForeignKey("PrecautionaryMeasureId")]
+        public virtual PrecautionaryMeasureDb PrecautionaryMeasure { get; set; }
+
         [ForeignKey("RecoveryBeneficiaries")]
         public int? RecoveryBeneficiaryId { get; set; }
 
