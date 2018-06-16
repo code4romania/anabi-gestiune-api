@@ -81,5 +81,7 @@ namespace Anabi.DataAccess.Ef
         public DbSet<FileNumberDb> NumereDosare { get; set; }
 
         public DbSet<CrimeTypeDb> CrimeTypes { get; set; }
+
+        public DbSet<PrecautionaryMeasureDb> PrecautionaryMeasures { get; set; }
     }
 }
