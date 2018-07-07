@@ -17,8 +17,8 @@ namespace Anabi
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel()
+                .UseUrls("http://*:3000")
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
                 .UseDefaultServiceProvider(options => options.ValidateScopes = false)
                 .UseStartup<Startup>()             
                 .UseApplicationInsights("68fec371-3f13-45b8-ae53-92d0b6a9e18d")
