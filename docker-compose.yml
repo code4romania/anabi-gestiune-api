@@ -1,15 +1,22 @@
-version: '2'
-
+version: '3'
 services:
   anabi-gestiune-api:
     image: anabi-gestiune-api
+    restart: always
     build: .
     ports:
       - 3000:3000
     depends_on:
-            - db
+      - db
+
   db:
-      image: "microsoft/mssql-server-linux"
-      environment:
-          SA_PASSWORD: "Puiu2108####"
-          ACCEPT_EULA: "Y"
+    image: microsoft/mssql-server-linux
+    restart: always
+    environment:
+      SA_PASSWORD: Puiu2108####
+      ACCEPT_EULA: Y
+    volumes:
+      - mssql-storage:/var/opt/mssql
+
+volumes:
+  mssql-storage:
