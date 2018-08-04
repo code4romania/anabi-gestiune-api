@@ -28,7 +28,7 @@ namespace Anabi.DataAccess.Ef
 
             AdaugaBeneficiariValorificari(context);
 
-            AdaugaInstitutii(context);
+            //AdaugaInstitutii(context);
 
             AdaugaInfractiuni(context);
         }
@@ -175,9 +175,6 @@ namespace Anabi.DataAccess.Ef
 
         private static void AdaugaCategorii(AnabiContext context)
         {
-            
-            
-
             var mobile = new CategoryDb {ForEntity = "bun", Code = "Bunuri Mobile", Description = "Bunuri care pot fi ridicate"};
             context.Categories.Add(mobile);
             context.SaveChanges();
@@ -198,7 +195,7 @@ namespace Anabi.DataAccess.Ef
                 new CategoryDb {ForEntity ="institutie", Code ="Instanta", Description =""},
                 new CategoryDb {ForEntity = "institutie", Code ="Parchet"},
                 //Subcategorii
-                new CategoryDb {ForEntity = "bun", Code = "Autovehicule", ParentId = mobile.Id},
+                new CategoryDb {ForEntity = "bun", Code = "Autovehicule", ParentId = idBunuriMobile},
                 new CategoryDb {ForEntity = "bun", Code = "Autoutilitare", ParentId = idBunuriMobile},
                 new CategoryDb {ForEntity = "bun", Code = "Aparate de zbor", ParentId = idBunuriMobile},
                 new CategoryDb {ForEntity = "bun", Code = "Ambarcatiuni", ParentId = idBunuriMobile},
@@ -218,7 +215,7 @@ namespace Anabi.DataAccess.Ef
                 new CategoryDb {ForEntity = "bun", Code = "Arme si munitie", ParentId = idBunuriMobile},
                 new CategoryDb {ForEntity = "bun", Code = "Articole pirotehnice", ParentId = idBunuriMobile},
                 new CategoryDb {ForEntity = "bun", Code = "Corpuri delicte", ParentId = idBunuriMobile},
-                new CategoryDb {ForEntity = "bun", Code = "Altele", ParentId = idBunuriMobile},
+                new CategoryDb {ForEntity = "bun", Code = "Alte bunuri mobile", ParentId = idBunuriMobile},
 
                 new CategoryDb {ForEntity = "bun", Code = "Apartamente", ParentId = idBunuriImobile},
                 new CategoryDb {ForEntity = "bun", Code = "Casa", ParentId = idBunuriImobile},
@@ -235,7 +232,7 @@ namespace Anabi.DataAccess.Ef
                 new CategoryDb {ForEntity = "bun", Code = "Garaj/Parcare", ParentId = idBunuriImobile},
                 new CategoryDb {ForEntity = "bun", Code = "Restaurant/Motel/Hotel/Pensiuni", ParentId = idBunuriImobile},
                 new CategoryDb {ForEntity = "bun", Code = "Spatiu comercial", ParentId = idBunuriImobile},
-                new CategoryDb {ForEntity = "bun", Code = "Altele", ParentId = idBunuriImobile},
+                new CategoryDb {ForEntity = "bun", Code = "Alte bunuri imobile", ParentId = idBunuriImobile},
 
                 new CategoryDb {ForEntity = "bun", Code = "Conturi", ParentId = idBani},
                 new CategoryDb {ForEntity = "bun", Code = "Moneda virtuala", ParentId = idBani},
