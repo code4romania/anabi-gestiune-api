@@ -17,7 +17,6 @@ services:
       ACCEPT_EULA: Y
     volumes:
       - mssql-storage:/var/opt/mssql
-    # Export SQL port so that we can connect to it, see Db, and also develop on local computer
     ports:
       - 1433:1433
 
