@@ -26,7 +26,8 @@ namespace Anabi.Domain
             var p = principal as ClaimsPrincipal;
             if (p == null)
             {
-                return null;
+                //TODO return error at a later time
+                return "admin";
             }
 
             return p.Claims?.SingleOrDefault(c =>
