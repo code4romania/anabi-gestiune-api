@@ -9,6 +9,7 @@ using Anabi.Controllers;
 using Anabi.Domain.Asset.Commands;
 using Anabi.Middleware;
 using Anabi.Common.ViewModels;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Anabi.Features.Assets
 {
@@ -89,6 +90,36 @@ namespace Anabi.Features.Assets
             var id = await mediator.Send(minimalAsset);
             return Created("api/assets", id);
 
+        }
+        
+        /// <summary>
+        /// Adds a new asset with minimal required details
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Returns the id of the newly added asset
+        /// Validation Errors:
+        /// NAME_NOT_EMPTY
+        /// NAME_MAX_LENGTH_100 
+        /// IDENTIFIER_MAX_LENGTH_100
+        /// INVALID_CATEGORY_ID -- if CategoryId lower than or equal to zero, or the category does not exist
+        /// INVALID_STAGE_ID -- if StageId lower than or equal to zero, or the stage id does not exist
+        /// MEASUREUNIT_MAX_LENGTH_10 -- measure unit max 10 characters
+        /// ESTIMATED_AMT_CURRENCY_THREE_CHARS -- currency must have 3 characters (if not empty) (USD, RON, EUR)
+        /// </para>
+        /// </remarks>
+        /// <response code="201">The id of the modified asset</response>
+        /// <response code="400">In case of validation errors</response>
+        /// <response code="500">Server error</response>
+        /// <param name="minimalAsset">The details of the existing asset to be modified</param>
+        /// <returns>The id of the modified asset</returns>
+        [ProducesResponseType(typeof(MinimalAssetViewModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpPut("modifyminimalasset")]
+        public async Task<IActionResult> ModifyMinimalAsset([FromBody] AddMinimalAsset minimalAsset)
+        {
+            var id = await mediator.Send(minimalAsset);
+            return Created("api/assets", id); 
         }
 
 

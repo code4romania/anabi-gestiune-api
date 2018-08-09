@@ -12,3 +12,6 @@ Tests.GeneratedStubs/.DS_Store
 Anabi/appsettings.Development.json
 *.txt
 packages/
+.vscode/
+.idea/
+*.code-workspace

@@ -1,0 +1,24 @@
+version: '3'
+services:
+  anabi-gestiune-api:
+    image: anabi-gestiune-api
+    restart: always
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    network_mode: bridge  
+  db:
+    image: microsoft/mssql-server-linux
+    restart: always
+    environment:
+      - MSSQL_SA_PASSWORD=Puiu2108####
+      - ACCEPT_EULA=Y
+    volumes:
+      - mssql-storage:/var/opt/mssql
+    ports:
+      - 8090:1433
+    network_mode: bridge 
+volumes:
+  mssql-storage:
