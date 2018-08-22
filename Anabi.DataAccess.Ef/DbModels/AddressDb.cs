@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class AddressDb
+    public class AddressDb : BaseEntity
     {
-        public int Id { get; set; }
-
         public int CountyId { get; set; }
 
         public virtual CountyDb County { get; set; }

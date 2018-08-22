@@ -88,7 +88,6 @@ namespace Anabi.Features.Assets
         {
             var id = await mediator.Send(minimalAsset);
             return Created("api/assets", id);
-
         }
 
 
@@ -107,7 +106,6 @@ namespace Anabi.Features.Assets
             var models = await mediator.Send(new GetStages());
             return Ok(models);
         }
-
 
         /// <summary>
         /// Gets the parent categories
@@ -148,5 +146,19 @@ namespace Anabi.Features.Assets
             var models = await mediator.Send(new GetCategories() { ParentsOnly = false, ParentId = parentId });
             return Ok(models);
         }
+
+        [ProducesResponseType(typeof(AddressViewModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpPost("{assetId}/address")]
+        public async Task<IActionResult> AddAssetAddress(int assetId, [FromBody] AddAssetAddressRequest request)
+        {
+            var message = AutoMapper.Mapper.Map<AddAssetAddressRequest, AddAssetAddress>(request);
+            message.AssetId = assetId;
+
+            var model = await mediator.Send(message);
+
+            return Created("api/address", model);
+        }
+
     }
 }
