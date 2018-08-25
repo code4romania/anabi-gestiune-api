@@ -12,19 +12,7 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
         {
             var entity = modelBuilder.Entity<IdentifierDb>();
 
-            entity.HasOne(u => u.UserAdd)
-                .WithMany(nd => nd.IdentifiersAdded)
-                .HasForeignKey(k => k.UserCodeAdd)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Identifiers_User_Add")
-                .HasPrincipalKey(k2 => k2.UserCode);
-
-            entity.HasOne(u => u.UserLastChange)
-                .WithMany(nd => nd.IdentifiersChanged)
-                .HasForeignKey(k => k.UserCodeLastChange)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Identifiers_User_Change")
-                .HasPrincipalKey(k2 => k2.UserCode);
+            
         }
     }
 }

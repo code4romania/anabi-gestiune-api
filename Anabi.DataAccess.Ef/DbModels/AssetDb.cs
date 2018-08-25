@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class AssetDb
+    public class AssetDb : BaseEntity
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public int? AddressId { get; set; }
@@ -32,23 +30,12 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public bool IsDeleted { get; set; }
 
-        public UserDb UserAdd { get; set; }
-        public UserDb UserLastChange { get; set; }
-
-
-        public string UserCodeAdd { get; set; }
-
-        public string UserCodeLastChange { get; set; }
 
         public int? NrOfObjects     { get; set; }
 
         public string MeasureUnit   { get; set; }
 
         public string Remarks       { get; set; }
-
-        public DateTime AddedDate { get; set; }
-
-        public DateTime? LastChangeDate { get; set; }
 
         public virtual ICollection<AssetsFileDb> FilesForAsset { get; set; }
 

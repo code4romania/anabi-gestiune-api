@@ -1,5 +1,5 @@
 ﻿using Anabi.DataAccess.Ef.DbModels;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace Anabi.DataAccess.Ef
@@ -8,8 +8,6 @@ namespace Anabi.DataAccess.Ef
     {
         public static void Initialize(AnabiContext context)
         {
-            context.Database.EnsureCreated();
-
             if (context.Counties.Any())
             {
                 return; // DB has been seeded

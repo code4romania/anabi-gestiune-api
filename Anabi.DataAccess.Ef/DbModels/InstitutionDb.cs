@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class InstitutionDb
+    public class InstitutionDb : BaseEntity
     {
-        public int Id { get; set; }
-
         public int CategoryId { get; set; }
 
         public virtual CategoryDb Category { get; set; }
@@ -18,20 +16,10 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual AddressDb Address { get; set; }
 
-        public string UserCodeAdd { get; set; }
-
-        public string UserCodeLastChange { get; set; }
-
-        public DateTime AddedDate { get; set; }
-
-        public DateTime? LastChangeDate { get; set; }
-
+        
         public virtual ICollection<FileNumberDb> FileNumbers { get; set; }
 
         public virtual ICollection<HistoricalStageDb> HistoricalStages { get; set; }
 
-
-        public UserDb UserAdd { get; set; }
-        public UserDb UserLastChange { get; set; }
     }
 }
