@@ -1,26 +1,25 @@
 ﻿using Anabi.Common.Exceptions;
 using Anabi.Common.Utils;
-using Anabi.DataAccess.Ef;
 using Anabi.Domain;
 using Anabi.Features.Assets.Models;
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anabi.Features.Assets
 {
-    public class GetCategoriesHandler : BaseHandler, IAsyncRequestHandler<GetCategories, List<CategoryViewModel>>
+    public class GetCategoriesHandler : BaseHandler, IRequestHandler<GetCategories, List<CategoryViewModel>>
     {
         public GetCategoriesHandler(BaseHandlerNeeds needs) : base(needs)
         {
 
         }
 
-        public async Task<List<CategoryViewModel>> Handle(GetCategories message)
+        public async Task<List<CategoryViewModel>> Handle(GetCategories message, CancellationToken cancellationToken)
         {
             if (message.ParentId != null && message.ParentId <= 0)
             {
@@ -41,7 +40,7 @@ namespace Anabi.Features.Assets
 
             var models = await command
                 .Select(c => mapper.Map<CategoryViewModel>(c))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             if (models.Count == 0)
             {

@@ -1,23 +1,23 @@
 ﻿using Anabi.Common.ViewModels;
-using Anabi.DataAccess.Ef;
 using Anabi.Domain;
 using Anabi.Features.Defendant.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anabi.Features.Defendant
 {
-    public class GetDefendantsQueryHandler : BaseHandler, IAsyncRequestHandler<GetDefendants, List<DefendantViewModel>>
+    public class GetDefendantsQueryHandler : BaseHandler, IRequestHandler<GetDefendants, List<DefendantViewModel>>
     {
 
         public GetDefendantsQueryHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<List<DefendantViewModel>> Handle(GetDefendants message)
+        public async Task<List<DefendantViewModel>> Handle(GetDefendants message, CancellationToken cancellationToken)
         {
             var response = await context.AssetDefendants
                 .Include(p => p.Person)
@@ -42,7 +42,7 @@ namespace Anabi.Features.Defendant
                     Name = r.Person.Name,
                     Nationality = r.Person.Nationality
                 })
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return response;
         }

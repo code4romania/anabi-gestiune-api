@@ -4,17 +4,18 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anabi.Features.CrimeTypes
 {
-    public class CrimeTypesQueryHandler : BaseHandler, IAsyncRequestHandler<GetCrimeTypes, List<CrimeType>>
+    public class CrimeTypesQueryHandler : BaseHandler, IRequestHandler<GetCrimeTypes, List<CrimeType>>
     {
         public CrimeTypesQueryHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<List<CrimeType>> Handle(GetCrimeTypes message)
+        public async Task<List<CrimeType>> Handle(GetCrimeTypes message, CancellationToken cancellationToken)
         {
             var command = context.CrimeTypes.AsQueryable();
 
@@ -27,7 +28,7 @@ namespace Anabi.Features.CrimeTypes
             {
                 Id = x.Id,
                 Name = x.CrimeName
-            }).ToListAsync();
+            }).ToListAsync(cancellationToken);
 
             return result;
         }

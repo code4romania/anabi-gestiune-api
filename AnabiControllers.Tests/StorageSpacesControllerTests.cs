@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using Anabi.Domain;
+using System.Threading;
 
 namespace AnabiControllers.Tests
 {
@@ -36,7 +37,7 @@ namespace AnabiControllers.Tests
 
             var query = new GetStorageSpace() { Id = null };
 
-            var actual = await queryHandler.Handle(query);
+            var actual = await queryHandler.Handle(query, CancellationToken.None);
 
             Assert.IsTrue(actual.Count == 2);
         }

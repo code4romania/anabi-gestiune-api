@@ -4,17 +4,18 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anabi.Features.RecoveryBeneficiaries
 {
-    public class RecoveryBeneficiariesQueryHandler : BaseHandler, IAsyncRequestHandler<GetBeneficiaries, List<Beneficiary>>
+    public class RecoveryBeneficiariesQueryHandler : BaseHandler, IRequestHandler<GetBeneficiaries, List<Beneficiary>>
     {
         public RecoveryBeneficiariesQueryHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<List<Beneficiary>> Handle(GetBeneficiaries message)
+        public async Task<List<Beneficiary>> Handle(GetBeneficiaries message, CancellationToken cancellationToken)
         {
             var command = context.RecoveryBeneficiaries.AsQueryable();
 
@@ -27,7 +28,7 @@ namespace Anabi.Features.RecoveryBeneficiaries
             {
                 Id = x.Id,
                 Name = x.Name
-            }).ToListAsync();
+            }).ToListAsync(cancellationToken);
 
             return result;
         }

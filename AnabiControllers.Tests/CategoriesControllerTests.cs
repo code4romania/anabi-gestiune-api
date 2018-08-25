@@ -14,6 +14,7 @@ using Anabi.Features.Category.Models;
 using System;
 using System.Security.Principal;
 using Anabi.Domain;
+using System.Threading;
 
 namespace AnabiControllers.Tests
 {
@@ -36,7 +37,7 @@ namespace AnabiControllers.Tests
 
             var query = new GetCategory() { Id = null };
 
-            var actual = await queryHandler.Handle(query);
+            var actual = await queryHandler.Handle(query, CancellationToken.None);
 
             Assert.AreEqual(2, actual.Count);
         }

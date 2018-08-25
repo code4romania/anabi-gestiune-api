@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Anabi.DataAccess.Ef;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Category.Commands;
 using AutoMapper;

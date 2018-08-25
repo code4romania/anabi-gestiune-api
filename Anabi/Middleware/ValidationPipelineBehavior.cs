@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anabi.Middleware
@@ -16,7 +17,7 @@ namespace Anabi.Middleware
         {
             validators = _validators;
         }
-        public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next)
+        public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
             var failures = validators
             .Select(v => v.Validate(request))
