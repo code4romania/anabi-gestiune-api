@@ -1,5 +1,6 @@
 ﻿using Anabi.DataAccess.Ef.DbModels;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace Anabi.DataAccess.Ef
@@ -22,11 +23,9 @@ namespace Anabi.DataAccess.Ef
 
             AdaugaUtilizatori(context);
 
-            AdaugaSpatiiStocare(context);
 
             AdaugaBeneficiariValorificari(context);
 
-            //AdaugaInstitutii(context);
 
             AdaugaInfractiuni(context);
         }
@@ -35,75 +34,16 @@ namespace Anabi.DataAccess.Ef
         {
             var infractiuni = new[] 
             {
-                new CrimeTypeDb{CrimeName = "Furt calificat"},
-                new CrimeTypeDb{CrimeName = "Spalare bani"},
-                new CrimeTypeDb{CrimeName = "Coruptie"},
-                new CrimeTypeDb{CrimeName = "Altele"} 
+                new CrimeTypeDb{CrimeName = "Furt calificat", UserCodeAdd = "admin", AddedDate = DateTime.Now},
+                new CrimeTypeDb{CrimeName = "Spalare bani", UserCodeAdd = "admin", AddedDate = DateTime.Now},
+                new CrimeTypeDb{CrimeName = "Coruptie", UserCodeAdd = "admin", AddedDate = DateTime.Now},
+                new CrimeTypeDb{CrimeName = "Altele", UserCodeAdd = "admin", AddedDate = DateTime.Now} 
             };
             context.CrimeTypes.AddRange(infractiuni);
             context.SaveChanges();
         }
 
-        private static void AdaugaInstitutii(AnabiContext context)
-        {
-            var institutii = new[] {new InstitutionDb{Name = "Nume Institutie"}};
-            context.Institutions.AddRange(institutii);
-            context.SaveChanges();
-        }
-
-        private static void AdaugaSpatiiStocare(AnabiContext context)
-        {
-            var spatiiStocare = new[]
-                        {
-                new StorageSpaceDb
-                {
-                    Address = new AddressDb{
-                    City = "Bucuresti",
-                    Building = "Cladire 1",
-                    CountyId = 1,
-                    Street = "Sos Pantelimon 11"
-
-                    },
-                    Name = "Spatiul de stocare 1",
-                    CategoryId = 1,
-                    TotalVolume = 30,
-                    AvailableVolume = 2,
-                    Length = 2,
-                    Width = 2,
-                    Description = "Some fairly well preserved good.",
-                    AsphaltedArea = 3,
-                    UndevelopedArea = 0,
-                    ContactData = "95685485",
-                    MonthlyMaintenanceCost = 0,
-                    MaintenanceMentions = "hope it will not break"
-                },
-                new StorageSpaceDb
-                {
-                    Address = new AddressDb{
-                    City = "Bucuresti",
-                    Building = "Cladire 1",
-                    CountyId = 1,
-                    Street = "Sos Pantelimon 11"
-
-                },
-                    Name = "Spatiul de stocare 2",
-                    CategoryId = 1,
-                    TotalVolume = 20,
-                    AvailableVolume = 2,
-                    Length = 2,
-                    Width = 2,
-                    Description = "Some badly preserved good.",
-                    AsphaltedArea = 3,
-                    UndevelopedArea = 0,
-                    ContactData = "12345679",
-                    MonthlyMaintenanceCost = 0,
-                    MaintenanceMentions = " it will break"
-
-                }
-                        };
-            context.StorageSpaces.AddRange(spatiiStocare);
-            context.SaveChanges();
-        }
+                
 
         private static void AdaugaUtilizatori(AnabiContext context)
         {
@@ -120,28 +60,7 @@ namespace Anabi.DataAccess.Ef
                     IsActive = true
 
                 },
-                new UserDb
-                {
-                    UserCode = "maria",
-                    Email="maria@gmailx.com",
-                    Name = "Maria Ionescu",
-                    Password ="54321",
-                    Salt = "sarea",
-                    Role = "SuperUser",
-                    IsActive = true
-
-                },
-                new UserDb
-                {
-                    UserCode = "admin",
-                    Email="admin@gmailx.com",
-                    Name = "admin",
-                    Password ="$2a$10$McB4.Yuu8zeBaKvd8bHgU.zvg2aXM9l0Gj.gN6hi4xiFv4DsJyPQq",
-                    Salt = "sarea",
-                    Role = "Admin",
-                    IsActive = true
-
-                }
+                
             };
             context.Users.AddRange(utilizatori);
             context.SaveChanges();
@@ -164,8 +83,12 @@ namespace Anabi.DataAccess.Ef
             var etape = new[]
                         {
                 new StageDb {Name = "Confiscare", IsFinal = false, StageCategory = Common.Enums.StageCategory.Confiscation},
-                new StageDb {Name = "Valorificare", IsFinal = true, StageCategory = Common.Enums.StageCategory.Recovery},
-                new StageDb {Name = "Sechestru", IsFinal = false, StageCategory = Common.Enums.StageCategory.Sequester}
+                new StageDb {Name = "Valorificare anticipata", IsFinal = true, StageCategory = Common.Enums.StageCategory.Recovery},
+                new StageDb {Name = "Sechestru", IsFinal = false, StageCategory = Common.Enums.StageCategory.Sequester},
+                new StageDb {Name = "Valorificare standard", IsFinal = true, StageCategory = Common.Enums.StageCategory.Recovery},
+                new StageDb {Name = "Ridicare sechestru", IsFinal = false, StageCategory = Common.Enums.StageCategory.LiftingSeizure},
+                new StageDb {Name = "Reutilizare sociala", IsFinal = false, StageCategory = Common.Enums.StageCategory.SocialReuse},
+                new StageDb {Name = "Administrare simpla", IsFinal = false, StageCategory = Common.Enums.StageCategory.SimpleAdministration},
                         };
             context.Stages.AddRange(etape);
             context.SaveChanges();
@@ -262,11 +185,11 @@ namespace Anabi.DataAccess.Ef
 
             var beneficiari = new[]
                     {
-                new RecoveryBeneficiaryDb {Name = "Ministerul Educaţiei Naţionale şi Cercetării Ştiinţifice"},
-                new RecoveryBeneficiaryDb {Name = "Ministerul Sănătăţii"},
-                new RecoveryBeneficiaryDb {Name = "Ministerul Afacerilor Interne"},
-                new RecoveryBeneficiaryDb {Name = "Ministerul Public"},
-                new RecoveryBeneficiaryDb {Name = "Ministerul Justiţiei"},
+                new RecoveryBeneficiaryDb {Name = "Ministerul Educaţiei Naţionale şi Cercetării Ştiinţifice", UserCodeAdd = "admin", AddedDate = DateTime.Now},
+                new RecoveryBeneficiaryDb {Name = "Ministerul Sănătăţii", UserCodeAdd = "admin", AddedDate = DateTime.Now},
+                new RecoveryBeneficiaryDb {Name = "Ministerul Afacerilor Interne", UserCodeAdd = "admin", AddedDate = DateTime.Now},
+                new RecoveryBeneficiaryDb {Name = "Ministerul Public", UserCodeAdd = "admin", AddedDate = DateTime.Now},
+                new RecoveryBeneficiaryDb {Name = "Ministerul Justiţiei", UserCodeAdd = "admin", AddedDate = DateTime.Now},
 
                     };
             context.RecoveryBeneficiaries.AddRange(beneficiari);

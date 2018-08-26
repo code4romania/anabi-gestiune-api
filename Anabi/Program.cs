@@ -24,7 +24,6 @@ namespace Anabi
                 try
                 {
                     var context = services.GetRequiredService<AnabiContext>();
-                    //context.Database.EnsureCreated();
                     logger.LogInformation("Starting migration...");
                     context.Database.Migrate();
                     logger.LogInformation("Migration finished.");
