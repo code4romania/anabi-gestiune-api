@@ -9,6 +9,7 @@ using Anabi.Controllers;
 using Anabi.Domain.Asset.Commands;
 using Anabi.Middleware;
 using Anabi.Common.ViewModels;
+using Anabi.Domain.Core.Asset.Commands;
 using Microsoft.AspNetCore.JsonPatch;
 
 namespace Anabi.Features.Assets
@@ -112,14 +113,15 @@ namespace Anabi.Features.Assets
         /// <response code="400">In case of validation errors</response>
         /// <response code="500">Server error</response>
         /// <param name="minimalAsset">The details of the existing asset to be modified</param>
+        /// <param name="id">The id of the existing asset to be modified</param>
         /// <returns>The id of the modified asset</returns>
         [ProducesResponseType(typeof(MinimalAssetViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
-        [HttpPut("modifyminimalasset")]
-        public async Task<IActionResult> ModifyMinimalAsset([FromBody] AddMinimalAsset minimalAsset)
+        [HttpPut("{id}/minimalasset")]
+        public async Task<IActionResult> ModifyMinimalAsset(int id, [FromBody] ModifyMinimalAsset minimalAsset)
         {
-            var id = await mediator.Send(minimalAsset);
-            return Created("api/assets", id); 
+            var viewModel = await mediator.Send(minimalAsset);
+            return Ok(viewModel);
         }
 
 

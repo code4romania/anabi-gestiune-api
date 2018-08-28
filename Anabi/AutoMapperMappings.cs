@@ -1,5 +1,6 @@
 ﻿using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Category.Commands;
+using Anabi.Domain.Core.Asset.Commands;
 using Anabi.Domain.Models;
 using Anabi.Features.Category.Models;
 using AutoMapper;
@@ -67,7 +68,8 @@ namespace Anabi
             CreateMap<AddSolutionRequest, AddSolution>();
             CreateMap<AddSolution, SolutionViewModel>();
             CreateMap<AddMinimalAsset, MinimalAssetViewModel>();
-
+            CreateMap<ModifyMinimalAsset, MinimalAssetViewModel>();
+            CreateMap<ModifyMinimalAsset, AssetDb>();
             CreateMap<AddDefendantRequest, AddDefendant>();
             CreateMap<AddDefendantRequest, DefendantViewModel>();
 
