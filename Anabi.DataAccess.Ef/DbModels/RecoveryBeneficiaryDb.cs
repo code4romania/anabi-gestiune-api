@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class RecoveryBeneficiaryDb
+    public class RecoveryBeneficiaryDb : BaseEntity
     {
-        public int Id { get; set; }
 
         public string Name { get; set; }
     }

@@ -998,6 +998,9 @@ namespace Anabi.DataAccess.Ef.Migrations
                 principalTable: "Files",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
+                
+                //add default user
+                migrationBuilder.Sql("insert Users(Email, IsActive, Name, [Password], Role, Salt, UserCode) values ('admin@admin.com', 1, 'Admin', '$2a$10$McB4.Yuu8zeBaKvd8bHgU.zvg2aXM9l0Gj.gN6hi4xiFv4DsJyPQq', 'Admin', 'sarea', 'admin')");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
