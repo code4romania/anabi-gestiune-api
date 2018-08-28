@@ -1,4 +1,5 @@
-public class AddAssetAddressRequest
+using Anabi.DataAccess.Ef.DbModels;
+public class AddAssetAddressRequest : BaseEntity
     {
          public int CountyId { get; set; }
 
