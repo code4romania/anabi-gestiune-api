@@ -70,6 +70,7 @@ namespace Anabi
             CreateMap<AddMinimalAsset, MinimalAssetViewModel>();
             CreateMap<ModifyMinimalAsset, MinimalAssetViewModel>();
             CreateMap<ModifyMinimalAsset, AssetDb>();
+            CreateMap<AssetDb, ModifyMinimalAsset>();
             CreateMap<AddDefendantRequest, AddDefendant>();
             CreateMap<AddDefendantRequest, DefendantViewModel>();
 

@@ -9,8 +9,13 @@ using Anabi.Controllers;
 using Anabi.Domain.Asset.Commands;
 using Anabi.Middleware;
 using Anabi.Common.ViewModels;
+using Anabi.DataAccess.Ef;
 using Anabi.Domain.Core.Asset.Commands;
 using Microsoft.AspNetCore.JsonPatch;
+using Anabi.DataAccess.Ef.DbModels;
+using Anabi.Domain;
+using AutoMapper;
+using SQLitePCL;
 
 namespace Anabi.Features.Assets
 {
@@ -20,6 +25,8 @@ namespace Anabi.Features.Assets
     public class AssetsController : BaseController
     {
         private readonly IMediator mediator;
+        private static Mapper mapper;
+        private AnabiContext context;
         public AssetsController(IMediator _mediator)
         {
             mediator = _mediator;
@@ -120,7 +127,8 @@ namespace Anabi.Features.Assets
         [HttpPut("{id}/minimalasset")]
         public async Task<IActionResult> ModifyMinimalAsset(int id, [FromBody] ModifyMinimalAsset minimalAsset)
         {
-            var viewModel = await mediator.Send(minimalAsset);
+            var modifyMinimalAssetObj = new ModifyMinimalAssetObj {Id = id, ModifyMinimalAsset = minimalAsset};
+            var viewModel = await mediator.Send(modifyMinimalAssetObj);
             return Ok(viewModel);
         }
 
