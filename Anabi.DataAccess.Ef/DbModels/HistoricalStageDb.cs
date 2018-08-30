@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class HistoricalStageDb
+    public class HistoricalStageDb : BaseEntity
     {
-        public int Id { get; set; }
-
         public int AssetId { get; set; }
 
         public int StageId { get; set; }
@@ -25,14 +23,6 @@ namespace Anabi.DataAccess.Ef.DbModels
         public virtual StageDb Stage { get; set; }
 
         public virtual DecisionDb Decision { get; set; }
-
-        public string UserCodeAdd { get; set; }
-
-        public string UserCodeLastChange { get; set; }
-
-        public DateTime AddedDate { get; set; }
-
-        public DateTime? LastChangeDate { get; set; }
 
         public string AssetState { get; set; }
 
@@ -54,9 +44,6 @@ namespace Anabi.DataAccess.Ef.DbModels
         public DateTime DecisionDate { get; set; }
 
         public virtual InstitutionDb IssuingInstitution { get; set; }
-
-        public UserDb UserAdd { get; set; }
-        public UserDb UserLastChange { get; set; }
 
         [MaxLength(500)]
         public string Source { get; set; }

@@ -11,10 +11,8 @@ namespace Anabi.DataAccess.Ef.DbModels
     /// </summary>
     /// 
     [Table("AssetDefendants")]
-    public class AssetDefendantDb
+    public class AssetDefendantDb : BaseEntity
     {
-        public int Id { get; set; }
-
         public int AssetId { get; set; }
 
         public int PersonId { get; set; }
@@ -22,20 +20,6 @@ namespace Anabi.DataAccess.Ef.DbModels
         public virtual AssetDb Asset { get; set; }
 
         public virtual PersonDb Person { get; set; }
-
-        [StringLength(20)]
-        [Required]
-        public string UserCodeAdd { get; set; }
-
-        [StringLength(20)]
-        public string UserCodeLastChange { get; set; }
-
-        public DateTime AddedDate { get; set; }
-
-        public DateTime? LastChangeDate { get; set; }
-
-        public UserDb UserAdd { get; set; }
-        public UserDb UserLastChange { get; set; }
 
     }
 }

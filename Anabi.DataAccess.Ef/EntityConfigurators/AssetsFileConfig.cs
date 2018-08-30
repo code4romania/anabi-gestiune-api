@@ -38,20 +38,6 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
                 .HasMaxLength(20);
 
 
-            entity.HasOne(u => u.UserAdd)
-                .WithMany(nd => nd.AssetsFileAdded)
-                .HasForeignKey(k => k.UserCodeAdd)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_AssetsFiles_User_Add")
-                .HasPrincipalKey(k2 => k2.UserCode);
-
-            entity.HasOne(u => u.UserLastChange)
-                .WithMany(nd => nd.AssetsFileChange)
-                .HasForeignKey(k => k.UserCodeLastChange)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_AssetsFiles_User_Change")
-                .HasPrincipalKey(k2 => k2.UserCode);
-
             entity.Property(p => p.AddedDate)
                 .HasColumnType("DateTime")
                 .IsRequired();

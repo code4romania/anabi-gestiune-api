@@ -5,9 +5,8 @@ using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class PersonDb
+    public class PersonDb : BaseEntity
     {
-        public int Id { get; set; }
 
         public int? AddressId { get; set; }
         
@@ -23,21 +22,10 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public bool IsPerson { get; set; }
 
-        [Required]
-        public string UserCodeAdd { get; set; }
-
-        public string UserCodeLastChange { get; set; }
-
-        public DateTime AddedDate { get; set; }
-
-        public DateTime? LastChangeDate { get; set; }
                 
         public virtual ICollection<DefendantsFileDb> Files { get; set; }
 
         public virtual ICollection<HistoricalStageDb> HistoricalStages { get; set; }
-
-        public UserDb UserAdd { get; set; }
-        public UserDb UserLastChange { get; set; }
 
         public DateTime? Birthdate { get; set; }
 

@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class FileNumberDb
+    public class FileNumberDb : BaseEntity
     {
-        public int Id { get; set; }
-
                 
         public string FileNumber { get; set; }
 
@@ -22,20 +20,6 @@ namespace Anabi.DataAccess.Ef.DbModels
         /// Data la care a primit numarul de la instanta
         /// </summary>
         public DateTime NumberDate { get; set; }
-
-        public UserDb UserAdd { get; set; }
-
-        public string UserCodeAdd { get; set; }
-
-        public UserDb UserLastChange { get; set; }
-
-        public string UserCodeLastChange { get; set; }
-
-        public DateTime AddedDate { get; set; }
-
-        public DateTime? LastChangeDate { get; set; }
-
-        
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
@@ -8,8 +9,11 @@ namespace Anabi.DataAccess.Ef.DbModels
     {
         public int Id { get; set; }
 
+        [StringLength(20)]
+        [Required]
         public string UserCodeAdd { get; set; }
 
+        [StringLength(20)]
         public string UserCodeLastChange { get; set; }
 
         public DateTime AddedDate { get; set; }
