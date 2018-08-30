@@ -30,9 +30,9 @@ using Anabi.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Anabi.Security;
 using Anabi.Validators;
 using Anabi.Validators.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Anabi
 {
@@ -103,7 +103,8 @@ namespace Anabi
                     {
                         fv.RegisterValidatorsFromAssemblyContaining<AddCategory>();
                         fv.RegisterValidatorsFromAssemblyContaining<Startup>();
-                    });
+                    })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(

@@ -24,20 +24,19 @@ namespace Anabi.Functional.Tests
         {
             var mobile = new CategoryDb { ForEntity = "bun", Code = "Bunuri Mobile", Description = "Bunuri care pot fi ridicate" };
             context.Categories.Add(mobile);
-            context.SaveChanges();
             var idBunuriMobile = mobile.Id;
 
             var imobile = new CategoryDb { ForEntity = "bun", Code = "Bunuri Imobile", Description = "Bunuri care nu pot fi ridicate" };
             context.Categories.Add(imobile);
-            context.SaveChanges();
             var idBunuriImobile = imobile.Id;
 
             var bani = new CategoryDb { ForEntity = "bun", Code = "Bani", Description = "Bani" };
             context.Categories.Add(bani);
-            context.SaveChanges();
             var idBani = bani.Id;
 
-            var parentCategories = new[]
+            context.SaveChanges();
+
+            var childCategories = new[]
                         {
                 new CategoryDb {ForEntity ="institutie", Code ="Instanta", Description =""},
                 new CategoryDb {ForEntity = "institutie", Code ="Parchet"},
@@ -86,7 +85,7 @@ namespace Anabi.Functional.Tests
                 new CategoryDb {ForEntity = "bun", Code = "Cash", ParentId = idBani}
                         };
 
-            context.Categories.AddRange(parentCategories);
+            context.Categories.AddRange(childCategories);
             context.SaveChanges();
 
             return this;

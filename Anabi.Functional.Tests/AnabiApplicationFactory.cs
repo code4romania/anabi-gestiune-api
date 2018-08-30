@@ -11,6 +11,7 @@ using Anabi.Domain;
 using Anabi.Security;
 using MediatR;
 using AutoMapper;
+using Microsoft.AspNetCore.TestHost;
 
 namespace Anabi.Functional.Tests
 {
