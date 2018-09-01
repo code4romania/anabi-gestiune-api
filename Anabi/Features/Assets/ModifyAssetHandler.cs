@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef.DbModels;
@@ -24,24 +26,22 @@ namespace Anabi.Features.Assets
             var id = assetObj.Id;
             var assetEntity = await context.FindAsync<AssetDb>(id);
             
-            
-            var historicalStageDb = new HistoricalStageDb()
+            assetEntity.HistoricalStages.Where(hs => hs.AssetId == id).Select(hs =>
             {
-                AddedDate = DateTime.Now,
-                StageId = message.StageId,
-                UserCodeAdd = "pop",
-                EstimatedAmount = message.EstimatedAmount,
-                EstimatedAmountCurrency = message.EstimatedAmountCurrency
-            };
-            historicalStageDb.Asset = assetEntity;
-            context.HistoricalStages.Add(historicalStageDb);
+                hs.StageId = message.StageId;
+                hs.UserCodeAdd = UserCode();
+                hs.Source = "popping";
+                hs.EstimatedAmount = message.EstimatedAmount;
+                hs.EstimatedAmountCurrency = message.EstimatedAmountCurrency;
+                return hs;
+            });
             
             var updatedAssetDb = mapper.Map<ModifyMinimalAsset, AssetDb>(message, assetEntity);
             var updatedAssetDto = mapper.Map<AssetDb, ModifyMinimalAsset>(assetEntity);
             context.Update(updatedAssetDb);
             await context.SaveChangesAsync();
             var response = mapper.Map<ModifyMinimalAsset, MinimalAssetViewModel>(updatedAssetDto);
-            response.StageId = historicalStageDb.StageId;
+            response.StageId = message.StageId;
             return response;
         }
     }

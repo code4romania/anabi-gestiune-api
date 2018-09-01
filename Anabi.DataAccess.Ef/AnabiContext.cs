@@ -83,5 +83,13 @@ namespace Anabi.DataAccess.Ef
         public DbSet<CrimeTypeDb> CrimeTypes { get; set; }
 
         public DbSet<PrecautionaryMeasureDb> PrecautionaryMeasures { get; set; }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<HistoricalStageDb>()
+                .HasOne(p => p.Asset)
+                .WithMany(b => b.HistoricalStages);
+        }
     }
+    
 }
