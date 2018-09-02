@@ -73,7 +73,7 @@ namespace AnabiControllers.Tests
                
             };
 
-            await queryHandler.Handle(query);
+            await queryHandler.Handle(query, CancellationToken.None);
 
             var cat = await context.StorageSpaces.FirstOrDefaultAsync<StorageSpaceDb>(p => p.Name == "S1");
 
@@ -113,7 +113,7 @@ namespace AnabiControllers.Tests
                 Stair = "B"
             };
 
-            await queryHandler.Handle(query);
+            await queryHandler.Handle(query, CancellationToken.None);
 
             var cat = await context.StorageSpaces.FirstAsync<StorageSpaceDb>(p => p.Id == 1);
 
@@ -132,7 +132,7 @@ namespace AnabiControllers.Tests
                 Id = 1
             };
 
-            await handler.Handle(query);
+            await handler.Handle(query, CancellationToken.None);
 
             var cat = await context.StorageSpaces.AnyAsync<StorageSpaceDb>(p => p.Id == 1);
 

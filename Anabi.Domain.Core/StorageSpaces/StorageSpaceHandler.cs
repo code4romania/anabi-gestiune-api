@@ -1,8 +1,8 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Anabi.Common.Exceptions;
 using Anabi.Common.Utils;
-using Anabi.DataAccess.Ef;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Common.Address;
 using Anabi.Domain.Models;
@@ -14,15 +14,15 @@ using Microsoft.EntityFrameworkCore;
 namespace Anabi.Domain.StorageSpaces
 {
     public class StorageSpaceHandler : BaseHandler
-        ,IAsyncRequestHandler<AddStorageSpace, int>
-        ,IAsyncRequestHandler<EditStorageSpace, StorageSpace>
-        ,IAsyncRequestHandler<DeleteStorageSpace>
+        ,IRequestHandler<AddStorageSpace, int>
+        ,IRequestHandler<EditStorageSpace, StorageSpace>
+        ,IRequestHandler<DeleteStorageSpace>
     {
         public StorageSpaceHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<int> Handle(AddStorageSpace message)
+        public async Task<int> Handle(AddStorageSpace message, CancellationToken cancellationToken)
         {
             var newStorageSpace = new StorageSpaceDb();
 
@@ -38,7 +38,7 @@ namespace Anabi.Domain.StorageSpaces
 
         }
 
-        public async Task<StorageSpace> Handle(EditStorageSpace message)
+        public async Task<StorageSpace> Handle(EditStorageSpace message, CancellationToken cancellationToken)
         {
 
             var storageSpace = await context.StorageSpaces.FindAsync(message.Id);
@@ -59,7 +59,7 @@ namespace Anabi.Domain.StorageSpaces
 
         }
 
-        public async Task Handle(DeleteStorageSpace message)
+        public async Task<Unit> Handle(DeleteStorageSpace message, CancellationToken cancellationToken)
         {
             var command = context.StorageSpaces.Where(m => m.Id == message.Id).AsQueryable()
                 .Include(a => a.Address);
@@ -70,6 +70,7 @@ namespace Anabi.Domain.StorageSpaces
             context.StorageSpaces.Remove(storageSpace);
 
             await context.SaveChangesAsync();
+            return Unit.Value;
         }
 
         private static void ValidateStorageSpace(StorageSpaceDb storageSpace)

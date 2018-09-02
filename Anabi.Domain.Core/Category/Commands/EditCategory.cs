@@ -2,13 +2,12 @@
 using System.Threading.Tasks;
 using Anabi.DataAccess.Ef;
 using FluentValidation;
-using FluentValidation.Attributes;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Anabi.Domain.Category.Commands
 {
-    
+
     public class EditCategory : IRequest
     {
         public int Id { get; set; }

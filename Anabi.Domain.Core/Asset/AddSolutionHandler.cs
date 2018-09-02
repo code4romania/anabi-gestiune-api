@@ -3,18 +3,19 @@ using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Asset.Commands;
 using MediatR;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anabi.Domain.Asset
 {
     public class AddSolutionHandler : BaseHandler
-        , IAsyncRequestHandler<AddSolution, SolutionViewModel>
+        , IRequestHandler<AddSolution, SolutionViewModel>
     {
         public AddSolutionHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<SolutionViewModel> Handle(AddSolution message)
+        public async Task<SolutionViewModel> Handle(AddSolution message, CancellationToken cancellationToken)
         {
 
             var newStage = new HistoricalStageDb
@@ -60,7 +61,7 @@ namespace Anabi.Domain.Asset
             newStage.LegalBasis = message.SolutionDetails?.LegalBasis;
 
             context.HistoricalStages.Add(newStage);
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(cancellationToken);
 
             var response = mapper.Map<AddSolution, SolutionViewModel>(message);
             response.Id = newStage.Id;

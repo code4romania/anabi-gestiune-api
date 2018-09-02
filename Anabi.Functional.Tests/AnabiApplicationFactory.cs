@@ -6,12 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore;
-using System.IO;
 using Anabi.Domain;
 using Anabi.Security;
 using MediatR;
 using AutoMapper;
-using Microsoft.AspNetCore.TestHost;
 
 namespace Anabi.Functional.Tests
 {
@@ -65,7 +63,7 @@ namespace Anabi.Functional.Tests
                     try
                     {
                         // Seed the database with test data.
-                        DbInitializer.Initialize(db);
+                        DbInitializer.InitializeFullDb(db);
                     }
                     catch (Exception ex)
                     {

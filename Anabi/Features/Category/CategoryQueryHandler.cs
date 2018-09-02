@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Anabi.Domain;
 using Anabi.Features.Category.Models;
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +25,7 @@ namespace Anabi.Features.Category
                 command = command.Where(m => m.Id == message.Id);
             }
 
-            var result = await command.Select(x => Mapper.Map<Models.Category>(x)).ToListAsync(cancellationToken);
+            var result = await command.Select(x => mapper.Map<Models.Category>(x)).ToListAsync(cancellationToken);
             return result;
         }
     }

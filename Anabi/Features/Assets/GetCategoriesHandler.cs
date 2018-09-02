@@ -42,11 +42,6 @@ namespace Anabi.Features.Assets
                 .Select(c => mapper.Map<CategoryViewModel>(c))
                 .ToListAsync(cancellationToken);
 
-            if (models.Count == 0)
-            {
-                throw new AnabiEntityNotFoundException(Constants.INVALID_ID);
-            }
-
             return models;
         }
     }

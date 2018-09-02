@@ -27,7 +27,7 @@ namespace Anabi
                     logger.LogInformation("Starting migration...");
                     context.Database.Migrate();
                     logger.LogInformation("Migration finished.");
-                    DbInitializer.Initialize(context);
+                    DbInitializer.InitializeFullDb(context);
                 }
                 catch (Exception ex)
                 {

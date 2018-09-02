@@ -58,7 +58,7 @@ namespace AnabiControllers.Tests
                 ParentId = null
             };
 
-            await queryHandler.Handle(query);
+            await queryHandler.Handle(query, CancellationToken.None);
 
             var cat = await context.Categories.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
 
@@ -82,7 +82,7 @@ namespace AnabiControllers.Tests
                 ParentId = null
             };
 
-            await queryHandler.Handle(query);
+            await queryHandler.Handle(query, CancellationToken.None);
 
             var cat = await context.Categories.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
 
@@ -101,7 +101,7 @@ namespace AnabiControllers.Tests
                 Id = 1
             };
 
-            await handler.Handle(query);
+            await handler.Handle(query, CancellationToken.None);
 
             var cat = await context.Categories.AnyAsync<CategoryDb>(p => p.Id == 1);
 
@@ -112,7 +112,7 @@ namespace AnabiControllers.Tests
         public void InitializeDB()
         {
             Setup();
-            DbInitializer.Initialize(context);
+            DbInitializer.InitializeFullDb(context);
             Assert.AreEqual(2, context.StorageSpaces.Count());
         }
 

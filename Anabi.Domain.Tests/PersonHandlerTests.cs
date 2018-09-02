@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Security.Principal;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anabi.Domain.Tests
@@ -42,7 +43,7 @@ namespace Anabi.Domain.Tests
 
             };
 
-            var id = await personHandler.Handle(addPerson);
+            var id = await personHandler.Handle(addPerson, CancellationToken.None);
 
             Assert.AreEqual(1, id);
         }
@@ -69,7 +70,7 @@ namespace Anabi.Domain.Tests
 
             };
 
-            var id = await personHandler.Handle(addPerson);
+            var id = await personHandler.Handle(addPerson, CancellationToken.None);
 
 
             var addPerson2 = new AddDefendant()
@@ -86,7 +87,7 @@ namespace Anabi.Domain.Tests
 
             };
 
-            var id2 = await personHandler.Handle(addPerson2);
+            var id2 = await personHandler.Handle(addPerson2, CancellationToken.None);
 
             
         }

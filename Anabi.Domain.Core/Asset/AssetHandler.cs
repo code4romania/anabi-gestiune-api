@@ -3,18 +3,19 @@ using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Asset.Commands;
 using MediatR;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anabi.Domain.Asset
 {
     public class AssetHandler : BaseHandler
-        , IAsyncRequestHandler<AddMinimalAsset, MinimalAssetViewModel>
+        , IRequestHandler<AddMinimalAsset, MinimalAssetViewModel>
     {
         public AssetHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<MinimalAssetViewModel> Handle(AddMinimalAsset message)
+        public async Task<MinimalAssetViewModel> Handle(AddMinimalAsset message, CancellationToken cancellationToken)
         {
             var asset = new AssetDb()
             {
