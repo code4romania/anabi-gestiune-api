@@ -14,6 +14,7 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using Anabi.Domain;
 using System.Threading;
+using System.Linq;
 
 namespace AnabiControllers.Tests
 {
@@ -27,11 +28,27 @@ namespace AnabiControllers.Tests
 
         private BaseHandlerNeeds BasicNeeds => new BaseHandlerNeeds(context, mapper, principal);
 
+        [TestInitialize]
+        public void Initialize()
+        {
+            Setup();
+        }
+
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            context.Dispose();
+            context = null;
+
+            mapper = null;
+            Mapper.Reset();
+        }
+
 
         [TestMethod]
         public async Task Get_ReturnsListAsync()
         {
-            Setup();
 
             var queryHandler = new StorageSpaceQueryHandler(BasicNeeds);
 
@@ -46,8 +63,6 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public async Task Post()
         {
-
-            Setup();
 
             var queryHandler = new StorageSpaceHandler(BasicNeeds);
             var query = new AddStorageSpace()
@@ -86,13 +101,11 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public async Task Put()
         {
-            Setup();
-
             var queryHandler = new StorageSpaceHandler(BasicNeeds);
-
+            var sp = context.StorageSpaces.First();
             var query = new EditStorageSpace()
             {
-                Id = 1,
+                Id = sp.Id,
                 Name = "S1",
                 Width = 2,
                 Length = 2,
@@ -115,7 +128,7 @@ namespace AnabiControllers.Tests
 
             await queryHandler.Handle(query, CancellationToken.None);
 
-            var cat = await context.StorageSpaces.FirstAsync<StorageSpaceDb>(p => p.Id == 1);
+            var cat = await context.StorageSpaces.FirstAsync<StorageSpaceDb>(p => p.Id == sp.Id);
 
             Assert.IsTrue(cat.Name == "S1");
 
@@ -124,17 +137,17 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public async Task Delete()
         {
-            Setup();
             var handler = new StorageSpaceHandler(BasicNeeds);
 
+            var sp = context.StorageSpaces.First();
             var query = new DeleteStorageSpace
             {
-                Id = 1
+                Id = sp.Id,
             };
 
             await handler.Handle(query, CancellationToken.None);
 
-            var cat = await context.StorageSpaces.AnyAsync<StorageSpaceDb>(p => p.Id == 1);
+            var cat = await context.StorageSpaces.AnyAsync<StorageSpaceDb>(p => p.Id == sp.Id);
 
             Assert.IsFalse(cat);
         }
@@ -155,7 +168,7 @@ namespace AnabiControllers.Tests
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile<AutoMapperMappings>();
-                
+
             });
             mapper = Mapper.Instance;
             principal = Utils.TestAuthentificatedPrincipal();

@@ -41,6 +41,7 @@ namespace AnabiControllers.Tests
             context = null;
 
             mapper = null;
+            Mapper.Reset();
         }
 
         [TestMethod]
@@ -90,10 +91,12 @@ namespace AnabiControllers.Tests
             AddStages();
             AddCategories();
 
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<AutoMapperMappings>();
-            });
+           
+                Mapper.Initialize(cfg =>
+                {
+                    cfg.AddProfile<AutoMapperMappings>();
+                });
+           
             mapper = Mapper.Instance;
             principal = Utils.TestAuthentificatedPrincipal();
         }

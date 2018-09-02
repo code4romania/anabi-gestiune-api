@@ -23,7 +23,7 @@ namespace Anabi.Domain.Category
         {
             var newCategory = new CategoryDb();
             
-            Mapper.Map(message, newCategory);
+            mapper.Map(message, newCategory);
             
             context.Categories.Add(newCategory);
 
@@ -45,7 +45,7 @@ namespace Anabi.Domain.Category
 
             var categoryToEdit = await this.context.Categories.Where(p => p.Id == message.Id).FirstAsync();
 
-            Mapper.Map(message, categoryToEdit);
+            mapper.Map(message, categoryToEdit);
 
             await context.SaveChangesAsync();
             return Unit.Value;

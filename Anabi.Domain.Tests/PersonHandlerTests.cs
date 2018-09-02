@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,10 +23,26 @@ namespace Anabi.Domain.Tests
 
         private BaseHandlerNeeds BasicNeeds => new BaseHandlerNeeds(context, mapper, principal);
 
+        [TestInitialize]
+        public void Initialize()
+        {
+            Setup();
+        }
+
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            context.Dispose();
+            context = null;
+
+            mapper = null;
+            Mapper.Reset();
+        }
+
         [TestMethod]
         public async Task AddPerson_ExpectedId()
         {
-            Setup();
 
             var personHandler = new PersonHandler(BasicNeeds);
 
@@ -43,54 +60,14 @@ namespace Anabi.Domain.Tests
 
             };
 
-            var id = await personHandler.Handle(addPerson, CancellationToken.None);
+            var viewmodel = await personHandler.Handle(addPerson, CancellationToken.None);
 
-            Assert.AreEqual(1, id);
+            var defendant = context.Persons.First(x => x.Identification == "182084115982");
+
+            Assert.AreEqual(defendant.Id, viewmodel.Id);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(Exception))]
-        public async Task AddPerson_Existing_ExpectedError()
-        {
-            Setup();
-
-            var personHandler = new PersonHandler(BasicNeeds);
-
-            var addPerson = new AddDefendant()
-            {
-                Birthdate = new DateTime(1982, 10, 25),
-                FirstName = "Alex",
-                Identification = "182084115982",
-                IdentifierId = 1,
-                IdNumber = "123123",
-                IdSerie = "TT",
-                IsPerson = true,
-                Name = "Albu",
-                Nationality = "Romana"
-
-            };
-
-            var id = await personHandler.Handle(addPerson, CancellationToken.None);
-
-
-            var addPerson2 = new AddDefendant()
-            {
-                Birthdate = new DateTime(1982, 10, 25),
-                FirstName = "Alex",
-                Identification = "182084115982",
-                IdentifierId = 1,
-                IdNumber = "123123",
-                IdSerie = "TT",
-                IsPerson = true,
-                Name = "Albu",
-                Nationality = "Romana"
-
-            };
-
-            var id2 = await personHandler.Handle(addPerson2, CancellationToken.None);
-
-            
-        }
+       
 
         #region Setup
         private void Setup()
