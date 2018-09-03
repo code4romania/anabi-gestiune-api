@@ -9,6 +9,7 @@ using Anabi.Domain.Asset.Commands;
 using Anabi.Domain.Core.Asset.Commands;
 using Anabi.Domain.Models;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace Anabi.Features.Assets
@@ -24,8 +25,9 @@ namespace Anabi.Features.Assets
         {
             var message = assetObj.ModifyMinimalAsset;
             var id = assetObj.Id;
-            var assetEntity = await context.FindAsync<AssetDb>(id);
-            
+//            var assetEntity = await context.FindAsync<AssetDb>(id);
+            var assetEntity =
+                await context.Assets.Include(a => a.HistoricalStages).FirstOrDefaultAsync(a => a.Id == id);
             assetEntity.HistoricalStages.Where(hs => hs.AssetId == id).Select(hs =>
             {
                 hs.StageId = message.StageId;
@@ -35,7 +37,7 @@ namespace Anabi.Features.Assets
                 hs.EstimatedAmountCurrency = message.EstimatedAmountCurrency;
                 return hs;
             });
-            
+
             var updatedAssetDb = mapper.Map<ModifyMinimalAsset, AssetDb>(message, assetEntity);
             var updatedAssetDto = mapper.Map<AssetDb, ModifyMinimalAsset>(assetEntity);
             context.Update(updatedAssetDb);
