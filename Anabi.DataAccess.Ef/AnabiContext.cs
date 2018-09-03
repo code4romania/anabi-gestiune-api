@@ -83,5 +83,7 @@ namespace Anabi.DataAccess.Ef
         public DbSet<CrimeTypeDb> CrimeTypes { get; set; }
 
         public DbSet<PrecautionaryMeasureDb> PrecautionaryMeasures { get; set; }
+        
     }
+    
 }
