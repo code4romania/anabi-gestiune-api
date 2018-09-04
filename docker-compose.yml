@@ -1,11 +1,11 @@
-version: '3'
+version: '2.0'
 services:
   anabi-gestiune-api:
     image: anabi-gestiune-api
     restart: always
     build: .
     ports:
-      - 3000:3000
+      - 7000:3000
     depends_on:
       - db
 

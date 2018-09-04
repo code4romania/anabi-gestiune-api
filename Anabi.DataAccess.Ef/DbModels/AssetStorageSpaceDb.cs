@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class AssetStorageSpaceDb
+    public class AssetStorageSpaceDb : BaseEntity
     {
-        public int Id { get; set; }
-
         public AssetDb Asset { get; set; }
         public int AssetId { get; set; }
 
@@ -17,17 +15,6 @@ namespace Anabi.DataAccess.Ef.DbModels
         public DateTime EntryDate { get; set; }
 
         public DateTime? ExitDate { get; set; }
-
-        public UserDb UserAdd { get; set; }
-        public UserDb UserLastChange { get; set; }
-
-
-        public string UserCodeAdd { get; set; }
-
-        public string UserCodeLastChange { get; set; }
-
-        public DateTime AddedDate { get; set; }
-
-        public DateTime? LastChangeDate { get; set; }
+        
     }
 }

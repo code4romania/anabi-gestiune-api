@@ -185,9 +185,6 @@ namespace Anabi
 
             app.UseMvc();
 
-            var context = app.ApplicationServices.GetService<AnabiContext>();
-            DbInitializer.Initialize(context);
-
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 

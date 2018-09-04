@@ -12,9 +12,10 @@ using System;
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20180825213017_DockerDbChanges")]
+    partial class DockerDbChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,35 +27,19 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-
-                    b.Property<DateTime>("AddedDate");
-
-                    b.Property<string>("Building")
-                        .HasMaxLength(10);
+                    b.Property<string>("Building");
 
                     b.Property<string>("City");
 
                     b.Property<int>("CountyId");
 
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(300);
-
-                    b.Property<string>("FlatNo")
-                        .HasMaxLength(5);
+                    b.Property<string>("FlatNo");
 
                     b.Property<string>("Floor");
 
-                    b.Property<DateTime?>("LastChangeDate");
-
-                    b.Property<string>("Stair")
-                        .HasMaxLength(5);
+                    b.Property<string>("Stair");
 
                     b.Property<string>("Street");
-
-                    b.Property<string>("UserCodeAdd");
-
-                    b.Property<string>("UserCodeLastChange");
 
                     b.HasKey("Id");
 

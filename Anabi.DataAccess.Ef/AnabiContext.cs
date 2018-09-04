@@ -12,7 +12,7 @@ namespace Anabi.DataAccess.Ef
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        /* protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("dbo");
 
@@ -48,7 +48,7 @@ namespace Anabi.DataAccess.Ef
             
 
             base.OnModelCreating(modelBuilder);
-        }
+        } */
 
         public DbSet<AddressDb> Addresses { get; set; }
         public DbSet<AssetDb> Assets { get; set; }
@@ -83,5 +83,7 @@ namespace Anabi.DataAccess.Ef
         public DbSet<CrimeTypeDb> CrimeTypes { get; set; }
 
         public DbSet<PrecautionaryMeasureDb> PrecautionaryMeasures { get; set; }
+        
     }
+    
 }

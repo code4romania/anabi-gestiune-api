@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class FileDb
+    public class FileDb : BaseEntity
     {
-        public int Id { get; set; }
 
         public int InitialFileId { get; set; }
 
@@ -39,15 +38,6 @@ namespace Anabi.DataAccess.Ef.DbModels
         public string CriminalField { get; set; }
 
 
-   
-
-        public string UserCodeAdd { get; set; }
-
-        public string UserCodeLastChange { get; set; }
-
-        public DateTime AddedDate { get; set; }
-
-        public DateTime? LastChangeDate { get; set; }
 
 
         public virtual ICollection<DefendantsFileDb> Defendants { get; set; }
@@ -55,7 +45,5 @@ namespace Anabi.DataAccess.Ef.DbModels
         public virtual ICollection<AssetDb> Assets { get; set; }
         public virtual ICollection<AssetsFileDb> AssetsFile { get; set; }
 
-        public UserDb UserAdd { get; set; }
-        public UserDb UserLastChange { get; set; }
     }
 }
