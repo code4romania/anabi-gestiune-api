@@ -14,9 +14,9 @@
     <None Remove="ViewModels\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="6.1.1" />
-    <PackageReference Include="FluentValidation" Version="7.1.1" />
-    <PackageReference Include="MediatR" Version="3.0.1" />
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="FluentValidation" Version="8.0.0" />
+    <PackageReference Include="MediatR" Version="5.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Anabi.Common\Anabi.Common.csproj" />

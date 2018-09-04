@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef.DbModels;
@@ -7,23 +8,23 @@ using MediatR;
 
 namespace Anabi.Domain.Person
 {
-    public class PersonHandler : BaseHandler, IAsyncRequestHandler<AddDefendant, DefendantViewModel>
+    public class PersonHandler : BaseHandler, IRequestHandler<AddDefendant, DefendantViewModel>
     {
         public PersonHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<DefendantViewModel> Handle(AddDefendant message)
+        public async Task<DefendantViewModel> Handle(AddDefendant message, CancellationToken cancellationToken)
         {
             var personDb = mapper.Map<PersonDb>(message);
-            personDb.UserCodeAdd = "pop";
+            personDb.UserCodeAdd = UserCode();
             personDb.AddedDate = DateTime.Now;
 
 
             var assetDefendant = new AssetDefendantDb()
             {
                 AddedDate = DateTime.Now,
-                UserCodeAdd = "pop",
+                UserCodeAdd = UserCode(),
                 AssetId = message.AssetId,
                 Person = personDb
             };

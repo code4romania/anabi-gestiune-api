@@ -3,15 +3,16 @@ using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Asset.Commands;
 using MediatR;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anabi.Domain.Asset
 {
-    public class AddAssetAddressHandler : BaseHandler, IAsyncRequestHandler<AddAssetAddress, AddressViewModel>
+    public class AddAssetAddressHandler : BaseHandler, IRequestHandler<AddAssetAddress, AddressViewModel>
     {
         public AddAssetAddressHandler(BaseHandlerNeeds needs) : base(needs) {}
 
-        public async Task<AddressViewModel> Handle(AddAssetAddress message)
+        public async Task<AddressViewModel> Handle(AddAssetAddress message, CancellationToken cancellationToken)
         {
             var address = new AddressDb()
             {
@@ -28,7 +29,7 @@ namespace Anabi.Domain.Asset
             }; 
 
             context.Addresses.Add(address);
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(cancellationToken);
 
             var response = mapper.Map<AddAssetAddress, AddressViewModel>(message);
             response.Id = address.Id;

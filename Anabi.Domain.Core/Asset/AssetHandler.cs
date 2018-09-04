@@ -3,18 +3,19 @@ using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Asset.Commands;
 using MediatR;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anabi.Domain.Asset
 {
     public class AssetHandler : BaseHandler
-        , IAsyncRequestHandler<AddMinimalAsset, MinimalAssetViewModel>
+        , IRequestHandler<AddMinimalAsset, MinimalAssetViewModel>
     {
         public AssetHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<MinimalAssetViewModel> Handle(AddMinimalAsset message)
+        public async Task<MinimalAssetViewModel> Handle(AddMinimalAsset message, CancellationToken cancellationToken)
         {
             var asset = new AssetDb()
             {
@@ -22,7 +23,7 @@ namespace Anabi.Domain.Asset
                 Description = message.Description,
                 Identifier = message.Identifier,
                 CategoryId = message.SubcategoryId,
-                UserCodeAdd = "pop",
+                UserCodeAdd = UserCode(),
                 AddedDate = DateTime.Now,
                 NrOfObjects = (int)message.Quantity,
                 MeasureUnit = message.MeasureUnit,
@@ -33,7 +34,7 @@ namespace Anabi.Domain.Asset
             {
                 AddedDate = DateTime.Now,
                 StageId = message.StageId,
-                UserCodeAdd = "pop",
+                UserCodeAdd = UserCode(),
                 EstimatedAmount = message.EstimatedAmount,
                 EstimatedAmountCurrency = message.EstimatedAmountCurrency
             };

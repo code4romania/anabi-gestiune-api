@@ -30,14 +30,16 @@ using Anabi.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Anabi.Security;
 using Anabi.Validators;
 using Anabi.Validators.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Anabi
 {
     public class Startup
     {
+        public IHostingEnvironment CurrentEnvironment { get; }
+
         public Startup(IHostingEnvironment env)
         {
             Log.Logger = new LoggerConfiguration()
@@ -51,6 +53,7 @@ namespace Anabi
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
+            CurrentEnvironment = env;
             
         }
 
@@ -103,7 +106,8 @@ namespace Anabi
                     {
                         fv.RegisterValidatorsFromAssemblyContaining<AddCategory>();
                         fv.RegisterValidatorsFromAssemblyContaining<Startup>();
-                    });
+                    })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(
@@ -151,22 +155,22 @@ namespace Anabi
 
         private void AddDbContext(IServiceCollection services)
         {
-
-            var connection = Configuration.GetConnectionString("AnabiDatabase");
-
-            services.AddDbContext<AnabiContext>(options =>
-            options.UseSqlServer(connection,
-                         sqlServerOptionsAction: sqlOptions =>
-                         {
-                             sqlOptions.EnableRetryOnFailure(maxRetryCount: 5,
-
-                             maxRetryDelay: TimeSpan.FromSeconds(15),
-
-                             errorNumbersToAdd: null);
-
-                         }));
-
             
+                var connection = Configuration.GetConnectionString("AnabiDatabase");
+
+                services.AddDbContext<AnabiContext>(options =>
+                options
+                    .UseSqlServer(connection,
+                                 sqlServerOptionsAction: sqlOptions =>
+                                 {
+                                     sqlOptions.EnableRetryOnFailure(maxRetryCount: 5,
+
+                                     maxRetryDelay: TimeSpan.FromSeconds(15),
+
+                                     errorNumbersToAdd: null);
+
+                                 }));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -194,6 +198,8 @@ namespace Anabi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ANABI API V1");
                 
             });
+
+            
         }
     }
 }

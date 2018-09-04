@@ -5,18 +5,19 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anabi.Features.Assets
 {
-    public class GetSolutionsHandler : BaseHandler, IAsyncRequestHandler<GetSolutions, List<SolutionViewModel>>
+    public class GetSolutionsHandler : BaseHandler, IRequestHandler<GetSolutions, List<SolutionViewModel>>
     {
         public GetSolutionsHandler(BaseHandlerNeeds needs) : base(needs)
         {
 
         }
 
-        public async Task<List<SolutionViewModel>> Handle(GetSolutions message)
+        public async Task<List<SolutionViewModel>> Handle(GetSolutions message, CancellationToken cancellationToken)
         {
 
             var result = await context.HistoricalStages
@@ -44,7 +45,7 @@ namespace Anabi.Features.Assets
                     },
                     SequesterDetails = new SequesterDetailsViewModel(h.PrecautionaryMeasureId)
                 }).
-                ToListAsync();
+                ToListAsync(cancellationToken);
 
             return result;
 

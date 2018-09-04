@@ -14,6 +14,7 @@ using Anabi.Features.Category.Models;
 using System;
 using System.Security.Principal;
 using Anabi.Domain;
+using System.Threading;
 
 namespace AnabiControllers.Tests
 {
@@ -27,16 +28,32 @@ namespace AnabiControllers.Tests
 
         private BaseHandlerNeeds BasicNeeds => new BaseHandlerNeeds(context, mapper, principal);
 
+        [TestInitialize]
+        public void Initialize()
+        {
+            Setup();
+        }
+
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            context.Dispose();
+            context = null;
+
+            mapper = null;
+            Mapper.Reset();
+        }
+
         [TestMethod]
         public async Task Get_ReturnsListAsync()
         {
-            Setup();
 
             var queryHandler = new CategoryQueryHandler(BasicNeeds);
 
             var query = new GetCategory() { Id = null };
 
-            var actual = await queryHandler.Handle(query);
+            var actual = await queryHandler.Handle(query, CancellationToken.None);
 
             Assert.AreEqual(2, actual.Count);
         }
@@ -44,8 +61,6 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public async Task Post()
         {
-
-            Setup();
 
             var queryHandler = new CategoryHandler(BasicNeeds);
             var query = new AddCategory()
@@ -57,7 +72,7 @@ namespace AnabiControllers.Tests
                 ParentId = null
             };
 
-            await queryHandler.Handle(query);
+            await queryHandler.Handle(query, CancellationToken.None);
 
             var cat = await context.Categories.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
 
@@ -68,20 +83,19 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public async Task Put()
         {
-            Setup();
-
             var queryHandler = new CategoryHandler(BasicNeeds);
 
+            var categ = context.Categories.First();
             var query = new EditCategory()
             {
                 Code = "Code 3",
                 Description = "Desc Code 3",
                 ForEntity = "Test ent 3",
-                Id = 1,
+                Id = categ.Id,
                 ParentId = null
             };
 
-            await queryHandler.Handle(query);
+            await queryHandler.Handle(query, CancellationToken.None);
 
             var cat = await context.Categories.FirstAsync<CategoryDb>(p => p.Code == "Code 3");
 
@@ -92,17 +106,17 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public async Task Delete()
         {
-            Setup();
             var handler = new CategoryHandler(BasicNeeds);
 
+            var categ = context.Categories.First();
             var query = new DeleteCategory
             {
-                Id = 1
+                Id = categ.Id,
             };
 
-            await handler.Handle(query);
+            await handler.Handle(query, CancellationToken.None);
 
-            var cat = await context.Categories.AnyAsync<CategoryDb>(p => p.Id == 1);
+            var cat = await context.Categories.AnyAsync<CategoryDb>(p => p.Id == categ.Id);
 
             Assert.IsFalse(cat);
         }
@@ -110,9 +124,8 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public void InitializeDB()
         {
-            Setup();
-            DbInitializer.Initialize(context);
-            Assert.AreEqual(2, context.StorageSpaces.Count());
+            DbInitializer.InitializeFullDb(context);
+            Assert.IsTrue(context.Categories.Count() > 0);
         }
 
         #region Setup

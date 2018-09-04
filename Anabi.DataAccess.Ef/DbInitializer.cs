@@ -7,7 +7,7 @@ namespace Anabi.DataAccess.Ef
 {
     public static class DbInitializer
     {
-        public static void Initialize(AnabiContext context)
+        public static void InitializeFullDb(AnabiContext context)
         {
             if (context.Counties.Any())
             {
@@ -15,22 +15,22 @@ namespace Anabi.DataAccess.Ef
             }
 
 
-            AdaugaJudete(context);
-            AdaugaCategorii(context);
-            AdaugaEtape(context);
-            AdaugareDecizii(context);
+            AddCounties(context);
+            AddCategories(context);
+            AddStages(context);
+            AddDecisions(context);
 
 
-            AdaugaUtilizatori(context);
+            AddUsers(context);
 
 
-            AdaugaBeneficiariValorificari(context);
+            AddRecoveryBeneficiaries(context);
 
 
-            AdaugaInfractiuni(context);
+            AddCrimeTypes(context);
         }
 
-        private static void AdaugaInfractiuni(AnabiContext context)
+        public static void AddCrimeTypes(AnabiContext context)
         {
             var infractiuni = new[] 
             {
@@ -45,7 +45,7 @@ namespace Anabi.DataAccess.Ef
 
                 
 
-        private static void AdaugaUtilizatori(AnabiContext context)
+        public static void AddUsers(AnabiContext context)
         {
             var utilizatori = new[]{
 
@@ -67,7 +67,7 @@ namespace Anabi.DataAccess.Ef
         }
 
 
-        private static void AdaugareDecizii(AnabiContext context)
+        public static void AddDecisions(AnabiContext context)
         {
             var decizii = new[]
                         {
@@ -78,7 +78,7 @@ namespace Anabi.DataAccess.Ef
             context.SaveChanges();
         }
 
-        private static void AdaugaEtape(AnabiContext context)
+        public static void AddStages(AnabiContext context)
         {
             var etape = new[]
                         {
@@ -94,7 +94,7 @@ namespace Anabi.DataAccess.Ef
             context.SaveChanges();
         }
 
-        private static void AdaugaCategorii(AnabiContext context)
+        public static void AddCategories(AnabiContext context)
         {
             var mobile = new CategoryDb {ForEntity = "bun", Code = "Bunuri Mobile", Description = "Bunuri care pot fi ridicate"};
             context.Categories.Add(mobile);
@@ -164,7 +164,7 @@ namespace Anabi.DataAccess.Ef
             context.SaveChanges();
         }
 
-        private static void AdaugaJudete(AnabiContext context)
+        public static void AddCounties(AnabiContext context)
         {
 
             var judete = new[]
@@ -180,7 +180,7 @@ namespace Anabi.DataAccess.Ef
 
         }
 
-        private static void AdaugaBeneficiariValorificari(AnabiContext context)
+        public static void AddRecoveryBeneficiaries(AnabiContext context)
         {
 
             var beneficiari = new[]

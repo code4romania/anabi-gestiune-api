@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using Anabi.Domain;
+using System.Threading;
 
 namespace AnabiControllers.Tests
 {
@@ -40,6 +41,7 @@ namespace AnabiControllers.Tests
             context = null;
 
             mapper = null;
+            Mapper.Reset();
         }
 
         [TestMethod]
@@ -48,7 +50,7 @@ namespace AnabiControllers.Tests
             var queryHandler = new GetCategoriesHandler(BasicNeeds);
             var query = new GetCategories() { ParentsOnly = true };
 
-            var actual = await queryHandler.Handle(query);
+            var actual = await queryHandler.Handle(query, CancellationToken.None);
 
             Assert.IsTrue(actual.Count == 2);
         }
@@ -59,7 +61,7 @@ namespace AnabiControllers.Tests
             var queryHandler = new GetCategoriesHandler(BasicNeeds);
             var query = new GetCategories() { ParentsOnly = false, ParentId = 1 };
 
-            var actual = await queryHandler.Handle(query);
+            var actual = await queryHandler.Handle(query, CancellationToken.None);
 
             Assert.IsTrue(actual.Count == 2);
         }
@@ -74,7 +76,7 @@ namespace AnabiControllers.Tests
 
             var query = new GetStages();
 
-            var actual = await queryHandler.Handle(query);
+            var actual = await queryHandler.Handle(query, CancellationToken.None);
 
             Assert.IsTrue(actual.Count > 0);
         }
@@ -89,10 +91,12 @@ namespace AnabiControllers.Tests
             AddStages();
             AddCategories();
 
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<AutoMapperMappings>();
-            });
+           
+                Mapper.Initialize(cfg =>
+                {
+                    cfg.AddProfile<AutoMapperMappings>();
+                });
+           
             mapper = Mapper.Instance;
             principal = Utils.TestAuthentificatedPrincipal();
         }

@@ -1,38 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain;
-using Anabi.Domain.Asset.Commands;
 using Anabi.Domain.Core.Asset.Commands;
-using Anabi.Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace Anabi.Features.Assets
 {
     public class ModifyAssetHandler : BaseHandler
-        , IAsyncRequestHandler<ModifyMinimalAssetObj, MinimalAssetViewModel>
+        , IRequestHandler<ModifyMinimalAssetObj, MinimalAssetViewModel>
     {
         public ModifyAssetHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<MinimalAssetViewModel> Handle(ModifyMinimalAssetObj assetObj)
+        public async Task<MinimalAssetViewModel> Handle(ModifyMinimalAssetObj assetObj, CancellationToken cancellationToken)
         {
             var message = assetObj.ModifyMinimalAsset;
             var id = assetObj.Id;
-//            var assetEntity = await context.FindAsync<AssetDb>(id);
+
             var assetEntity =
                 await context.Assets.Include(a => a.HistoricalStages).FirstOrDefaultAsync(a => a.Id == id);
             assetEntity.HistoricalStages.Where(hs => hs.AssetId == id).Select(hs =>
             {
                 hs.StageId = message.StageId;
                 hs.UserCodeAdd = UserCode();
-                hs.Source = "popping";
                 hs.EstimatedAmount = message.EstimatedAmount;
                 hs.EstimatedAmountCurrency = message.EstimatedAmountCurrency;
                 return hs;

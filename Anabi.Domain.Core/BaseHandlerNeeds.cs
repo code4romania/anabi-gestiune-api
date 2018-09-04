@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Security.Principal;
-using System.Text;
+﻿using System.Security.Principal;
 using Anabi.DataAccess.Ef;
 using AutoMapper;
 

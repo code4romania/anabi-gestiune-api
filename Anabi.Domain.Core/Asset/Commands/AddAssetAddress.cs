@@ -15,10 +15,11 @@ namespace Anabi.Domain.Asset.Commands
 {
     public class AddAssetAddress : AddAssetAddressRequest, IRequest<AddressViewModel>
     {
-        public AddAssetAddress(int AssetId, int CountyId, string Street, string City, string Building, string Stair, 
-                                string Floor, string FlatNo, string Description)
-        {
+        public int AssetId { get; set; }
 
+        public AddAssetAddress(int assetId)
+        {
+            AssetId = assetId;
         }
     }
 

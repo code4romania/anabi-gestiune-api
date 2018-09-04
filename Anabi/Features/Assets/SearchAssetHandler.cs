@@ -1,23 +1,21 @@
 ﻿using Anabi.Domain;
 using Anabi.Features.Assets.Models;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Anabi.DataAccess.Ef;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
 
 namespace Anabi.Features.Assets
 {
-    public class SearchAssetHandler : BaseHandler, IAsyncRequestHandler<SearchAsset, List<AssetSummary>>
+    public class SearchAssetHandler : BaseHandler, IRequestHandler<SearchAsset, List<AssetSummary>>
     {
         public SearchAssetHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<List<AssetSummary>> Handle(SearchAsset message)
+        public async Task<List<AssetSummary>> Handle(SearchAsset message, CancellationToken cancellationToken)
         {
             var query = from asset in context.Assets
                         join subcat in context.Categories on asset.CategoryId equals subcat.Id
@@ -41,7 +39,7 @@ namespace Anabi.Features.Assets
                             CurrentStage = stage.Name  
                         };
 
-            return await query.ToListAsync();
+            return await query.ToListAsync(cancellationToken);
 
         }
     }

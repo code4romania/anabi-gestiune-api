@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Anabi.Common.Exceptions;
 using Anabi.Common.ViewModels;
+using System.Threading;
 
 namespace Anabi.Features.Assets
 {
-    public class GetAssetHandler : BaseHandler, IAsyncRequestHandler<GetAssetDetails, MinimalAssetViewModel>
+    public class GetAssetHandler : BaseHandler, IRequestHandler<GetAssetDetails, MinimalAssetViewModel>
     {
         public GetAssetHandler(BaseHandlerNeeds needs) : base(needs)
         {
         }
 
-        public async Task<MinimalAssetViewModel> Handle(GetAssetDetails message)
+        public async Task<MinimalAssetViewModel> Handle(GetAssetDetails message, CancellationToken cancellationToken)
         {
 
             var asset = await (from a in context.Assets
@@ -47,7 +48,7 @@ namespace Anabi.Features.Assets
                                  LastChangeDate = a.LastChangeDate
                              },
                          })
-                         .FirstOrDefaultAsync();
+                         .FirstOrDefaultAsync(cancellationToken);
 
             if (asset == null)
             {
