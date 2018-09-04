@@ -75,6 +75,8 @@ namespace Anabi
                 .ForMember(ma=> ma.SubcategoryId, opt=>opt.MapFrom(a => a.CategoryId));
             CreateMap<AddDefendantRequest, AddDefendant>();
             CreateMap<AddDefendantRequest, DefendantViewModel>();
+            CreateMap<AddAssetAddressRequest, AddAssetAddress>();
+            CreateMap<AddAssetAddressRequest, AddressViewModel>();
 
             CreateMap<RecoveryDetails, RecoveryDetailsViewModel>();
             CreateMap<EvaluationCommittee, EvaluationCommitteeViewModel>();

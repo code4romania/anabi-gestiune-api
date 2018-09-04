@@ -27,6 +27,7 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
             entity.Property(p => p.Stair).HasMaxLength(5);
             entity.Property(p => p.Floor).HasMaxLength(5);
             entity.Property(p => p.FlatNo).HasMaxLength(5);
+            entity.Property(p => p.Description).HasMaxLength(300);
 
 
 
