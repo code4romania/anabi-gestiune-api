@@ -1,5 +1,4 @@
-﻿using Anabi.Common.Exceptions;
-using Anabi.Common.Utils;
+﻿using Anabi.Common.Utils;
 using Anabi.Domain;
 using Anabi.Features.Assets.Models;
 using MediatR;
