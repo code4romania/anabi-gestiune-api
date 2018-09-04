@@ -22,20 +22,12 @@ namespace Anabi.Domain.Asset
                 Stair = message.Stair,
                 Floor = message.Floor,
                 FlatNo = message.FlatNo,
-                UserCodeAdd = "pop",
-                UserCodeLastChange = message.UserCodeLastChange,
-                LastChangeDate = message.AddedDate,
+                Description = message.Description,
+                UserCodeAdd = UserCode(),
                 AddedDate = DateTime.Now
             }; 
 
-            var historicalStageDb = new HistoricalStageDb()
-            {
-                AddedDate = DateTime.Now,
-                UserCodeAdd = "pop",
-            };
-
             context.Addresses.Add(address);
-            context.HistoricalStages.Add(historicalStageDb);
             await context.SaveChangesAsync();
 
             var response = mapper.Map<AddAssetAddress, AddressViewModel>(message);
@@ -44,8 +36,6 @@ namespace Anabi.Domain.Asset
             {
                 UserCodeAdd = address.UserCodeAdd,
                 AddedDate = address.AddedDate,
-                UserCodeLastChange = address.UserCodeLastChange,
-                LastChangeDate = address.LastChangeDate
             };
 
             return response;

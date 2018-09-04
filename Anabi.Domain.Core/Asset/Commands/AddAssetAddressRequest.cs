@@ -16,4 +16,6 @@ public class AddAssetAddressRequest : BaseEntity
         public string FlatNo{ get; set; }
 
         public int AssetId{ get; set; }
+        
+        public string Description{ get; set; }
     }
