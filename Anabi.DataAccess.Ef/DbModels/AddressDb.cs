@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class AddressDb
-    {
-        public int Id { get; set; }
+    [Table("Addresses")]
 
+    public class AddressDb : BaseEntity
+    {
         public int CountyId { get; set; }
 
         public virtual CountyDb County { get; set; }
@@ -23,6 +25,9 @@ namespace Anabi.DataAccess.Ef.DbModels
         public string Floor { get; set; }
 
         public string FlatNo { get; set; }
+
+        [MaxLength(300)]
+        public string Description { get; set; }
 
         //pt foreign key
 

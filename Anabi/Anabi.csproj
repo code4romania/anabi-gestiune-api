@@ -1,23 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-  
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
   </PropertyGroup>
-  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netcoreapp2.0\Anabi.xml</DocumentationFile>
   </PropertyGroup>
-  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netcoreapp2.0\Anabi.xml</DocumentationFile>
     <noWarn>1591</noWarn>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="anabi-apilog-20170829.txt" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
@@ -48,6 +43,9 @@
     <ProjectReference Include="..\Anabi.Security\Anabi.Security.csproj" />
     <ProjectReference Include="..\Anabi.Validators\Anabi.Validators.csproj" />
   </ItemGroup>
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
-  
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties appsettings_1json__JSONSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

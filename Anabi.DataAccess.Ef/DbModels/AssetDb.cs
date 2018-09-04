@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
@@ -26,10 +27,9 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public decimal? NecessaryVolume { get; set; }
 
-        public virtual ICollection<HistoricalStageDb> HistoricalStages { get; set; }
+        public  virtual ICollection<HistoricalStageDb> HistoricalStages { get; set; }
 
         public bool IsDeleted { get; set; }
-
 
         public int? NrOfObjects     { get; set; }
 

@@ -12,12 +12,14 @@ using System;
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20180904124437_AssetAddress")]
+    partial class AssetAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("dbo")
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -26,16 +28,15 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-
                     b.Property<DateTime>("AddedDate");
 
                     b.Property<string>("Building")
                         .HasMaxLength(10);
 
-                    b.Property<string>("City");
+                    b.Property<string>("City")
+                        .HasMaxLength(30);
 
                     b.Property<int>("CountyId");
-
 
                     b.Property<string>("Description")
                         .HasMaxLength(300);
@@ -43,14 +44,17 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("FlatNo")
                         .HasMaxLength(5);
 
-                    b.Property<string>("Floor");
+                    b.Property<string>("Floor")
+                        .HasMaxLength(5);
 
                     b.Property<DateTime?>("LastChangeDate");
 
                     b.Property<string>("Stair")
                         .HasMaxLength(5);
 
-                    b.Property<string>("Street");
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(100);
 
                     b.Property<string>("UserCodeAdd");
 
@@ -68,31 +72,35 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("AddedDate");
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("DateTime");
 
-                    b.Property<int?>("AddressId");
+                    b.Property<int?>("AddressId")
+                        .IsRequired();
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<int?>("CurrentDecisionId");
-
-                    b.Property<int?>("DecisionId");
+                    b.Property<int?>("DecisionId")
+                        .IsRequired();
 
                     b.Property<string>("Description");
 
                     b.Property<int?>("FileDbId");
 
-                    b.Property<string>("Identifier");
+                    b.Property<string>("Identifier")
+                        .HasMaxLength(100);
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<DateTime?>("LastChangeDate");
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("Datetime");
 
                     b.Property<string>("MeasureUnit");
 
                     b.Property<string>("Name");
 
-                    b.Property<decimal?>("NecessaryVolume");
+                    b.Property<decimal?>("NecessaryVolume")
+                        .HasColumnType("Decimal(20, 2)");
 
                     b.Property<int?>("NrOfObjects");
 
@@ -105,23 +113,19 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("UserCodeLastChange")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("UserDbId");
-
-                    b.Property<int?>("UserDbId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CurrentDecisionId");
+                    b.HasIndex("DecisionId");
 
                     b.HasIndex("FileDbId");
 
-                    b.HasIndex("UserDbId");
+                    b.HasIndex("UserCodeAdd");
 
-                    b.HasIndex("UserDbId1");
+                    b.HasIndex("UserCodeLastChange");
 
                     b.ToTable("Assets");
                 });
@@ -146,19 +150,15 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("UserCodeLastChange")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("UserDbId");
-
-                    b.Property<int?>("UserDbId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AssetId");
 
                     b.HasIndex("PersonId");
 
-                    b.HasIndex("UserDbId");
+                    b.HasIndex("UserCodeAdd");
 
-                    b.HasIndex("UserDbId1");
+                    b.HasIndex("UserCodeLastChange");
 
                     b.ToTable("AssetDefendants");
                 });
@@ -168,13 +168,15 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("AddedDate");
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("DateTime");
 
                     b.Property<int>("AssetId");
 
                     b.Property<int>("FileId");
 
-                    b.Property<DateTime?>("LastChangeDate");
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("Datetime");
 
                     b.Property<string>("UserCodeAdd")
                         .IsRequired()
@@ -183,21 +185,17 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("UserCodeLastChange")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("UserDbId");
-
-                    b.Property<int?>("UserDbId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AssetId");
 
                     b.HasIndex("FileId");
 
-                    b.HasIndex("UserDbId");
+                    b.HasIndex("UserCodeAdd");
 
-                    b.HasIndex("UserDbId1");
+                    b.HasIndex("UserCodeLastChange");
 
-                    b.ToTable("BunuriDosare");
+                    b.ToTable("AssetsFiles");
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.AssetStorageSpaceDb", b =>
@@ -205,15 +203,19 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("AddedDate");
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("DateTime");
 
                     b.Property<int>("AssetId");
 
-                    b.Property<DateTime>("EntryDate");
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("DateTime");
 
-                    b.Property<DateTime?>("ExitDate");
+                    b.Property<DateTime?>("ExitDate")
+                        .HasColumnType("Datetime");
 
-                    b.Property<DateTime?>("LastChangeDate");
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("Datetime");
 
                     b.Property<int>("StorageSpaceId");
 
@@ -224,21 +226,17 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("UserCodeLastChange")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("UserDbId");
-
-                    b.Property<int?>("UserDbId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AssetId");
 
                     b.HasIndex("StorageSpaceId");
 
-                    b.HasIndex("UserDbId");
+                    b.HasIndex("UserCodeAdd");
 
-                    b.HasIndex("UserDbId1");
+                    b.HasIndex("UserCodeLastChange");
 
-                    b.ToTable("AssetStorageSpaces");
+                    b.ToTable("AssetsStorageSpaces");
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.CategoryDb", b =>
@@ -246,17 +244,26 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Code");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000);
 
-                    b.Property<string>("ForEntity");
+                    b.Property<string>("ForEntity")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<int?>("ParentId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
+
+                    b.HasIndex("Code", "ForEntity")
+                        .IsUnique()
+                        .HasName("indx_code_forentity");
 
                     b.ToTable("Categories");
                 });
@@ -266,11 +273,18 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Abreviation");
+                    b.Property<string>("Abreviation")
+                        .IsRequired()
+                        .HasMaxLength(2);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Abreviation")
+                        .IsUnique();
 
                     b.ToTable("Counties");
                 });
@@ -288,12 +302,9 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.Property<DateTime?>("LastChangeDate");
 
-                    b.Property<string>("UserCodeAdd")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                    b.Property<string>("UserCodeAdd");
 
-                    b.Property<string>("UserCodeLastChange")
-                        .HasMaxLength(20);
+                    b.Property<string>("UserCodeLastChange");
 
                     b.HasKey("Id");
 
@@ -305,9 +316,15 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasName("indx_uq_Decision");
 
                     b.ToTable("Decisions");
                 });
@@ -317,13 +334,13 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("AddedDate");
-
-                    b.Property<int?>("DefendantId");
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("DateTime");
 
                     b.Property<int>("FileId");
 
-                    b.Property<DateTime?>("LastChangeDate");
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("Datetime");
 
                     b.Property<int>("PersonId");
 
@@ -334,21 +351,19 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("UserCodeLastChange")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("UserDbId");
-
-                    b.Property<int?>("UserDbId1");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("DefendantId");
 
                     b.HasIndex("FileId");
 
-                    b.HasIndex("UserDbId");
+                    b.HasIndex("UserCodeAdd");
 
-                    b.HasIndex("UserDbId1");
+                    b.HasIndex("UserCodeLastChange");
 
-                    b.ToTable("InculpatiDosar");
+                    b.HasIndex("PersonId", "FileId")
+                        .IsUnique()
+                        .HasName("indx_uq_DefendantsFile");
+
+                    b.ToTable("DefendantsFiles");
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.FileDb", b =>
@@ -356,11 +371,15 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("AddedDate");
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("DateTime");
 
-                    b.Property<string>("CriminalField");
+                    b.Property<string>("CriminalField")
+                        .IsRequired();
 
-                    b.Property<string>("CurrentFileNumber");
+                    b.Property<string>("CurrentFileNumber")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<int>("CurrentFileNumberId");
 
@@ -368,17 +387,22 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.Property<decimal>("DamageAmount");
 
-                    b.Property<string>("DamageCurrency");
+                    b.Property<string>("DamageCurrency")
+                        .IsRequired();
 
                     b.Property<int>("InitialFileId");
 
-                    b.Property<string>("InitialFileNumber");
+                    b.Property<string>("InitialFileNumber")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<int?>("InitialNumberId");
 
-                    b.Property<DateTime?>("LastChangeDate");
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("Datetime");
 
-                    b.Property<string>("LegalClassification");
+                    b.Property<string>("LegalClassification")
+                        .IsRequired();
 
                     b.Property<string>("UserCodeAdd")
                         .IsRequired()
@@ -386,10 +410,6 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.Property<string>("UserCodeLastChange")
                         .HasMaxLength(20);
-
-                    b.Property<int?>("UserDbId");
-
-                    b.Property<int?>("UserDbId1");
 
                     b.HasKey("Id");
 
@@ -397,11 +417,11 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.HasIndex("InitialNumberId");
 
-                    b.HasIndex("UserDbId");
+                    b.HasIndex("UserCodeAdd");
 
-                    b.HasIndex("UserDbId1");
+                    b.HasIndex("UserCodeLastChange");
 
-                    b.ToTable("Dosare");
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.FileNumberDb", b =>
@@ -409,17 +429,22 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("AddedDate");
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("DateTime");
 
                     b.Property<int?>("FileDbId");
 
-                    b.Property<string>("FileNumber");
+                    b.Property<string>("FileNumber")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<int>("InstitutionId");
 
-                    b.Property<DateTime?>("LastChangeDate");
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("Datetime");
 
-                    b.Property<DateTime>("NumberDate");
+                    b.Property<DateTime>("NumberDate")
+                        .HasColumnType("Datetime");
 
                     b.Property<string>("UserCodeAdd")
                         .IsRequired()
@@ -428,21 +453,17 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("UserCodeLastChange")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("UserDbId");
-
-                    b.Property<int?>("UserDbId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FileDbId");
 
                     b.HasIndex("InstitutionId");
 
-                    b.HasIndex("UserDbId");
+                    b.HasIndex("UserCodeAdd");
 
-                    b.HasIndex("UserDbId1");
+                    b.HasIndex("UserCodeLastChange");
 
-                    b.ToTable("NumereDosare");
+                    b.ToTable("FileNumbers");
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.HistoricalStageDb", b =>
@@ -450,31 +471,43 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal?>("ActualValue");
+                    b.Property<decimal?>("ActualValue")
+                        .HasColumnType("Decimal(20, 2)");
 
-                    b.Property<string>("ActualValueCurrency");
+                    b.Property<string>("ActualValueCurrency")
+                        .IsRequired()
+                        .HasMaxLength(3);
 
-                    b.Property<DateTime>("AddedDate");
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("DateTime");
 
                     b.Property<int>("AssetId");
 
-                    b.Property<string>("AssetState");
+                    b.Property<string>("AssetState")
+                        .IsRequired()
+                        .HasMaxLength(100);
 
                     b.Property<int?>("CrimeTypeId");
 
-                    b.Property<DateTime>("DecisionDate");
+                    b.Property<DateTime>("DecisionDate")
+                        .HasColumnType("Date");
 
-                    b.Property<int?>("DecisionId");
+                    b.Property<string>("DecisionNumber")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("DecisionNumber");
-
-                    b.Property<int?>("DecizieId");
+                    b.Property<int?>("DecizieId")
+                        .IsRequired();
 
                     b.Property<DateTime?>("DefinitiveDate");
 
-                    b.Property<decimal?>("EstimatedAmount");
+                    b.Property<decimal?>("EstimatedAmount")
+                        .IsRequired()
+                        .HasColumnType("Decimal(20,2)");
 
-                    b.Property<string>("EstimatedAmountCurrency");
+                    b.Property<string>("EstimatedAmountCurrency")
+                        .IsRequired()
+                        .HasMaxLength(3);
 
                     b.Property<string>("EvaluationCommittee");
 
@@ -489,21 +522,22 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("FileNumberParquet")
                         .HasMaxLength(200);
 
-                    b.Property<int?>("InstitutionId");
+                    b.Property<int?>("InstitutionId")
+                        .IsRequired();
 
                     b.Property<bool?>("IsDefinitive");
 
-                    b.Property<int?>("IssuingInstitutionId");
-
                     b.Property<DateTime?>("LastActivity");
 
-                    b.Property<DateTime?>("LastChangeDate");
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("Datetime");
 
-                    b.Property<string>("LegalBasis");
+                    b.Property<string>("LegalBasis")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
-                    b.Property<int?>("OwnerId");
-
-                    b.Property<int?>("PersonId");
+                    b.Property<int?>("OwnerId")
+                        .HasColumnType("Int");
 
                     b.Property<string>("PersonResponsible")
                         .HasMaxLength(200);
@@ -539,21 +573,17 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("UserCodeLastChange")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("UserDbId");
-
-                    b.Property<int?>("UserDbId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AssetId");
 
                     b.HasIndex("CrimeTypeId");
 
-                    b.HasIndex("DecisionId");
+                    b.HasIndex("DecizieId");
 
-                    b.HasIndex("IssuingInstitutionId");
+                    b.HasIndex("InstitutionId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("OwnerId");
 
                     b.HasIndex("PrecautionaryMeasureId");
 
@@ -561,9 +591,9 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.HasIndex("StageId");
 
-                    b.HasIndex("UserDbId");
+                    b.HasIndex("UserCodeAdd");
 
-                    b.HasIndex("UserDbId1");
+                    b.HasIndex("UserCodeLastChange");
 
                     b.ToTable("HistoricalStages");
                 });
@@ -590,15 +620,11 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("UserCodeLastChange")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("UserDbId");
-
-                    b.Property<int?>("UserDbId1");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserDbId");
+                    b.HasIndex("UserCodeAdd");
 
-                    b.HasIndex("UserDbId1");
+                    b.HasIndex("UserCodeLastChange");
 
                     b.ToTable("Identifiers");
                 });
@@ -608,15 +634,19 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("AddedDate");
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("DateTime");
 
                     b.Property<int?>("AddressId");
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<DateTime?>("LastChangeDate");
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("Datetime");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<string>("UserCodeAdd")
                         .IsRequired()
@@ -625,19 +655,15 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("UserCodeLastChange")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("UserDbId");
-
-                    b.Property<int?>("UserDbId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("UserDbId");
+                    b.HasIndex("UserCodeAdd");
 
-                    b.HasIndex("UserDbId1");
+                    b.HasIndex("UserCodeLastChange");
 
                     b.ToTable("Institutions");
                 });
@@ -647,28 +673,37 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("AddedDate");
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("DateTime");
 
-                    b.Property<int?>("AddressId");
+                    b.Property<int?>("AddressId")
+                        .IsRequired();
 
                     b.Property<DateTime?>("Birthdate");
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(50);
 
-                    b.Property<string>("IdNumber");
+                    b.Property<string>("IdNumber")
+                        .HasMaxLength(6);
 
-                    b.Property<string>("IdSerie");
+                    b.Property<string>("IdSerie")
+                        .HasMaxLength(2);
 
-                    b.Property<string>("Identification");
+                    b.Property<string>("Identification")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<int>("IdentifierId");
 
                     b.Property<bool>("IsPerson");
 
-                    b.Property<DateTime?>("LastChangeDate");
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("Datetime");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<string>("Nationality")
                         .HasMaxLength(20);
@@ -680,19 +715,19 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("UserCodeLastChange")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("UserDbId");
-
-                    b.Property<int?>("UserDbId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
 
+                    b.HasIndex("Identification")
+                        .IsUnique()
+                        .HasName("indx_uq_Persons");
+
                     b.HasIndex("IdentifierId");
 
-                    b.HasIndex("UserDbId");
+                    b.HasIndex("UserCodeAdd");
 
-                    b.HasIndex("UserDbId1");
+                    b.HasIndex("UserCodeLastChange");
 
                     b.ToTable("Persons");
                 });
@@ -712,12 +747,9 @@ namespace Anabi.DataAccess.Ef.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<string>("UserCodeAdd")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                    b.Property<string>("UserCodeAdd");
 
-                    b.Property<string>("UserCodeLastChange")
-                        .HasMaxLength(20);
+                    b.Property<string>("UserCodeLastChange");
 
                     b.HasKey("Id");
 
@@ -729,20 +761,14 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("AddedDate");
-
-                    b.Property<DateTime?>("LastChangeDate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("UserCodeAdd")
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.Property<string>("UserCodeLastChange")
-                        .HasMaxLength(20);
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("RecoveryBeneficiaries");
                 });
@@ -756,13 +782,19 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.Property<bool>("IsFinal");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<int?>("ParentId");
 
                     b.Property<int?>("StageCategory");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasName("indx_uq_stagename");
 
                     b.HasIndex("ParentId");
 
@@ -782,7 +814,9 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.HasIndex("DecisionId");
 
-                    b.HasIndex("StageId");
+                    b.HasIndex("StageId", "DecisionId")
+                        .IsUnique()
+                        .HasName("indx_Stage_Decision");
 
                     b.ToTable("StagesForDecisions");
                 });
@@ -794,29 +828,41 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.Property<int>("AddressId");
 
-                    b.Property<decimal?>("AsphaltedArea");
+                    b.Property<decimal?>("AsphaltedArea")
+                        .HasColumnType("Decimal(20, 2)");
 
-                    b.Property<decimal?>("AvailableVolume");
+                    b.Property<decimal?>("AvailableVolume")
+                        .HasColumnType("Decimal(20, 2)");
 
-                    b.Property<int?>("CategoryId");
+                    b.Property<int?>("CategoryId")
+                        .IsRequired();
 
-                    b.Property<string>("ContactData");
+                    b.Property<string>("ContactData")
+                        .HasMaxLength(1000);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000);
 
-                    b.Property<decimal?>("Length");
+                    b.Property<decimal?>("Length")
+                        .HasColumnType("Decimal(20, 2)");
 
                     b.Property<string>("MaintenanceMentions");
 
-                    b.Property<decimal?>("MonthlyMaintenanceCost");
+                    b.Property<decimal?>("MonthlyMaintenanceCost")
+                        .HasColumnType("Decimal(20, 2)");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
-                    b.Property<decimal?>("TotalVolume");
+                    b.Property<decimal?>("TotalVolume")
+                        .HasColumnType("Decimal(20, 2)");
 
-                    b.Property<decimal?>("UndevelopedArea");
+                    b.Property<decimal?>("UndevelopedArea")
+                        .HasColumnType("Decimal(20, 2)");
 
-                    b.Property<decimal?>("Width");
+                    b.Property<decimal?>("Width")
+                        .HasColumnType("Decimal(20, 2)");
 
                     b.HasKey("Id");
 
@@ -824,6 +870,9 @@ namespace Anabi.DataAccess.Ef.Migrations
                         .IsUnique();
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("StorageSpaces");
                 });
@@ -833,21 +882,41 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100);
 
-                    b.Property<bool>("IsActive");
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(true);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
 
-                    b.Property<string>("Role");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(5000);
 
-                    b.Property<string>("Salt");
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
 
-                    b.Property<string>("UserCode");
+                    b.Property<string>("UserCode")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("UserCode")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -857,35 +926,47 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.CountyDb", "County")
                         .WithMany("Addresses")
                         .HasForeignKey("CountyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_Addresses_Counties")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.AssetDb", b =>
                 {
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.AddressDb", "Address")
                         .WithMany("Assets")
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .HasConstraintName("FK_Assets_Addresses")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.CategoryDb", "Category")
                         .WithMany("Assets")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_Assets_Categories")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.DecisionDb", "CurrentDecision")
                         .WithMany("Assets")
-                        .HasForeignKey("CurrentDecisionId");
+                        .HasForeignKey("DecisionId")
+                        .HasConstraintName("FK_Assets_Decisions")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.FileDb")
                         .WithMany("Assets")
                         .HasForeignKey("FileDbId");
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserAdd")
                         .WithMany("AssetsAdded")
-                        .HasForeignKey("UserDbId");
+                        .HasForeignKey("UserCodeAdd")
+                        .HasConstraintName("FK_Assets_User_Add")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserLastChange")
                         .WithMany("AssetsChanged")
-                        .HasForeignKey("UserDbId1");
+                        .HasForeignKey("UserCodeLastChange")
+                        .HasConstraintName("FK_Assets_User_Change")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.AssetDefendantDb", b =>
@@ -900,13 +981,19 @@ namespace Anabi.DataAccess.Ef.Migrations
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserAdd")
                         .WithMany("AssetDefendantsAdded")
-                        .HasForeignKey("UserDbId");
+                        .HasForeignKey("UserCodeAdd")
+                        .HasConstraintName("FK_AssetDefendants_User_Add")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserLastChange")
                         .WithMany("AssetDefendantsChanged")
-                        .HasForeignKey("UserDbId1");
+                        .HasForeignKey("UserCodeLastChange")
+                        .HasConstraintName("FK_AssetDefendants_User_Change")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.AssetsFileDb", b =>
@@ -914,20 +1001,28 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.AssetDb", "Asset")
                         .WithMany("FilesForAsset")
                         .HasForeignKey("AssetId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_AssetsFiles_Assets")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.FileDb", "File")
                         .WithMany("AssetsFile")
                         .HasForeignKey("FileId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_AssetsFiles_Files")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserAdd")
                         .WithMany("AssetsFileAdded")
-                        .HasForeignKey("UserDbId");
+                        .HasForeignKey("UserCodeAdd")
+                        .HasConstraintName("FK_AssetsFiles_User_Add")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserLastChange")
                         .WithMany("AssetsFileChange")
-                        .HasForeignKey("UserDbId1");
+                        .HasForeignKey("UserCodeLastChange")
+                        .HasConstraintName("FK_AssetsFiles_User_Change")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.AssetStorageSpaceDb", b =>
@@ -935,47 +1030,66 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.AssetDb", "Asset")
                         .WithMany("AssetsStorageSpaces")
                         .HasForeignKey("AssetId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_AssetsStorageSpaces_Assets")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.StorageSpaceDb", "StorageSpace")
                         .WithMany("AssetsStorageSpaces")
                         .HasForeignKey("StorageSpaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_AssetsStorageSpaces_StorageSpaces")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserAdd")
                         .WithMany("AssetsStorageSpacesAdded")
-                        .HasForeignKey("UserDbId");
+                        .HasForeignKey("UserCodeAdd")
+                        .HasConstraintName("FK_AssetsStorageSpaces_User_Add")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserLastChange")
                         .WithMany("AssetsStorageSpacesChanged")
-                        .HasForeignKey("UserDbId1");
+                        .HasForeignKey("UserCodeLastChange")
+                        .HasConstraintName("FK_AssetsStorageSpaces_User_Change")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.CategoryDb", b =>
                 {
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.CategoryDb", "Parent")
                         .WithMany("Children")
-                        .HasForeignKey("ParentId");
+                        .HasForeignKey("ParentId")
+                        .HasConstraintName("FK_Categories_Parent")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.DefendantsFileDb", b =>
                 {
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.PersonDb", "Defendant")
-                        .WithMany("Files")
-                        .HasForeignKey("DefendantId");
-
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.FileDb", "File")
                         .WithMany("Defendants")
                         .HasForeignKey("FileId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_DefendantsFile_Dosare")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.PersonDb", "Defendant")
+                        .WithMany("Files")
+                        .HasForeignKey("PersonId")
+                        .HasConstraintName("FK_DefendantsFile_Persoane")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserAdd")
                         .WithMany("DefendantFilesAdded")
-                        .HasForeignKey("UserDbId");
+                        .HasForeignKey("UserCodeAdd")
+                        .HasConstraintName("FK_DefendantsFile_User_Add")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserLastChange")
                         .WithMany("DefendantFilesChanged")
-                        .HasForeignKey("UserDbId1");
+                        .HasForeignKey("UserCodeLastChange")
+                        .HasConstraintName("FK_DefendantsFile_User_Change")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.FileDb", b =>
@@ -988,13 +1102,19 @@ namespace Anabi.DataAccess.Ef.Migrations
                         .WithMany()
                         .HasForeignKey("InitialNumberId");
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserAdd")
                         .WithMany("FilesAdded")
-                        .HasForeignKey("UserDbId");
+                        .HasForeignKey("UserCodeAdd")
+                        .HasConstraintName("FK_Files_User_Add")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserLastChange")
                         .WithMany("FilesChanged")
-                        .HasForeignKey("UserDbId1");
+                        .HasForeignKey("UserCodeLastChange")
+                        .HasConstraintName("FK_Files_User_Change")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.FileNumberDb", b =>
@@ -1006,15 +1126,22 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.InstitutionDb", "Institution")
                         .WithMany("FileNumbers")
                         .HasForeignKey("InstitutionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_NumereDosare_Institutii")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserAdd")
                         .WithMany("FilesNumbersAdded")
-                        .HasForeignKey("UserDbId");
+                        .HasForeignKey("UserCodeAdd")
+                        .HasConstraintName("FK_NumereDosare_Utilizator_Adaugare")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserLastChange")
                         .WithMany("FilesNumbersChanged")
-                        .HasForeignKey("UserDbId1");
+                        .HasForeignKey("UserCodeLastChange")
+                        .HasConstraintName("FK_NumereDosare_Utilizator_Modificare")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.HistoricalStageDb", b =>
@@ -1022,7 +1149,8 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.AssetDb", "Asset")
                         .WithMany("HistoricalStages")
                         .HasForeignKey("AssetId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_HistoricalStages_Assets")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.CrimeTypeDb", "CrimeType")
                         .WithMany()
@@ -1030,15 +1158,21 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.DecisionDb", "Decision")
                         .WithMany("HistoricalStages")
-                        .HasForeignKey("DecisionId");
+                        .HasForeignKey("DecizieId")
+                        .HasConstraintName("FK_HistoricalStages_Decisions")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.InstitutionDb", "IssuingInstitution")
                         .WithMany("HistoricalStages")
-                        .HasForeignKey("IssuingInstitutionId");
+                        .HasForeignKey("InstitutionId")
+                        .HasConstraintName("FK_HistoricalStages_Institutions")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.PersonDb", "Person")
                         .WithMany("HistoricalStages")
-                        .HasForeignKey("PersonId");
+                        .HasForeignKey("OwnerId")
+                        .HasConstraintName("FK_OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.PrecautionaryMeasureDb", "PrecautionaryMeasure")
                         .WithMany("Stages")
@@ -1051,26 +1185,39 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.StageDb", "Stage")
                         .WithMany("HistoricalStages")
                         .HasForeignKey("StageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_HistoricalStages_Stages")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserAdd")
                         .WithMany("HistoricalStagesAdded")
-                        .HasForeignKey("UserDbId");
+                        .HasForeignKey("UserCodeAdd")
+                        .HasConstraintName("FK_HistoricalStages_Utilizator_Add")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserLastChange")
                         .WithMany("HistoricalStagesChanged")
-                        .HasForeignKey("UserDbId1");
+                        .HasForeignKey("UserCodeLastChange")
+                        .HasConstraintName("FK_HistoricalStages_Utilizator_Change")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.IdentifierDb", b =>
                 {
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserAdd")
                         .WithMany("IdentifiersAdded")
-                        .HasForeignKey("UserDbId");
+                        .HasForeignKey("UserCodeAdd")
+                        .HasConstraintName("FK_Identifiers_User_Add")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserLastChange")
                         .WithMany("IdentifiersChanged")
-                        .HasForeignKey("UserDbId1");
+                        .HasForeignKey("UserCodeLastChange")
+                        .HasConstraintName("FK_Identifiers_User_Change")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.InstitutionDb", b =>
@@ -1082,35 +1229,51 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.CategoryDb", "Category")
                         .WithMany("Institutions")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_Institutions_Categories")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserAdd")
                         .WithMany("InstitutionsAdded")
-                        .HasForeignKey("UserDbId");
+                        .HasForeignKey("UserCodeAdd")
+                        .HasConstraintName("FK_Institutions_User_Add")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserLastChange")
                         .WithMany("InstitutionsChanged")
-                        .HasForeignKey("UserDbId1");
+                        .HasForeignKey("UserCodeLastChange")
+                        .HasConstraintName("FK_Institutions_User_Change")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.PersonDb", b =>
                 {
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.AddressDb", "Address")
                         .WithMany("Persons")
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .HasConstraintName("FK_Persons_Addresses")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.IdentifierDb", "Identifier")
                         .WithMany("Persons")
                         .HasForeignKey("IdentifierId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_Persons_Identifiers")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserAdd")
                         .WithMany("PersonsAdded")
-                        .HasForeignKey("UserDbId");
+                        .HasForeignKey("UserCodeAdd")
+                        .HasConstraintName("FK_Persons_User_Add")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb", "UserLastChange")
                         .WithMany("PersonsChanged")
-                        .HasForeignKey("UserDbId1");
+                        .HasForeignKey("UserCodeLastChange")
+                        .HasConstraintName("FK_Persons_User_Change")
+                        .HasPrincipalKey("UserCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.StageDb", b =>
@@ -1125,12 +1288,14 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.DecisionDb", "Decision")
                         .WithMany("PossibleStages")
                         .HasForeignKey("DecisionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_StagesForDecision_Decision")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.StageDb", "Stage")
                         .WithMany("PossibleDecisions")
                         .HasForeignKey("StageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_StagesForDecision_Stage")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.StorageSpaceDb", b =>
@@ -1138,11 +1303,14 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.AddressDb", "Address")
                         .WithOne("StorageRoom")
                         .HasForeignKey("Anabi.DataAccess.Ef.DbModels.StorageSpaceDb", "AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("FK_StorageSpaces_Addresses")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.CategoryDb", "Category")
                         .WithMany("StorageSpaces")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .HasConstraintName("FK_StorageSpaces_Categories")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

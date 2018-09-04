@@ -9,6 +9,7 @@ using Anabi.Controllers;
 using Anabi.Domain.Asset.Commands;
 using Anabi.Middleware;
 using Anabi.Common.ViewModels;
+using Anabi.Domain.Core.Asset.Commands;
 
 namespace Anabi.Features.Assets
 {
@@ -88,7 +89,38 @@ namespace Anabi.Features.Assets
         {
             var id = await mediator.Send(minimalAsset);
             return Created("api/assets", id);
-
+        }
+        
+        /// <summary>
+        /// Adds a new asset with minimal required details
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Returns the id of the newly added asset
+        /// Validation Errors:
+        /// NAME_NOT_EMPTY
+        /// NAME_MAX_LENGTH_100 
+        /// IDENTIFIER_MAX_LENGTH_100
+        /// INVALID_CATEGORY_ID -- if CategoryId lower than or equal to zero, or the category does not exist
+        /// INVALID_STAGE_ID -- if StageId lower than or equal to zero, or the stage id does not exist
+        /// MEASUREUNIT_MAX_LENGTH_10 -- measure unit max 10 characters
+        /// ESTIMATED_AMT_CURRENCY_THREE_CHARS -- currency must have 3 characters (if not empty) (USD, RON, EUR)
+        /// </para>
+        /// </remarks>
+        /// <response code="201">The id of the modified asset</response>
+        /// <response code="400">In case of validation errors</response>
+        /// <response code="500">Server error</response>
+        /// <param name="minimalAsset">The details of the existing asset to be modified</param>
+        /// <param name="id">The id of the existing asset to be modified</param>
+        /// <returns>The id of the modified asset</returns>
+        [ProducesResponseType(typeof(MinimalAssetViewModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpPut("{id}/minimalasset")]
+        public async Task<IActionResult> ModifyMinimalAsset(int id, [FromBody] ModifyMinimalAsset minimalAsset)
+        {
+            var modifyMinimalAssetObj = new ModifyMinimalAssetObj {Id = id, ModifyMinimalAsset = minimalAsset};
+            var viewModel = await mediator.Send(modifyMinimalAssetObj);
+            return Ok(viewModel);
         }
 
 
@@ -107,7 +139,6 @@ namespace Anabi.Features.Assets
             var models = await mediator.Send(new GetStages());
             return Ok(models);
         }
-
 
         /// <summary>
         /// Gets the parent categories
@@ -148,5 +179,19 @@ namespace Anabi.Features.Assets
             var models = await mediator.Send(new GetCategories() { ParentsOnly = false, ParentId = parentId });
             return Ok(models);
         }
+
+        [ProducesResponseType(typeof(AddressViewModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpPost("{assetId}/address")]
+        public async Task<IActionResult> AddAssetAddress(int assetId, [FromBody] AddAssetAddressRequest request)
+        {
+            var message = AutoMapper.Mapper.Map<AddAssetAddressRequest, AddAssetAddress>(request);
+            message.AssetId = assetId;
+
+            var model = await mediator.Send(message);
+
+            return Created("api/address", model);
+        }
+
     }
 }
