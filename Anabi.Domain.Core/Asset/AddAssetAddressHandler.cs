@@ -28,6 +28,9 @@ namespace Anabi.Domain.Asset
                 AddedDate = DateTime.Now
             }; 
 
+            var asset = await context.Assets.FindAsync(message.AssetId);
+            asset.Address = address;
+
             context.Addresses.Add(address);
             await context.SaveChangesAsync(cancellationToken);
 
