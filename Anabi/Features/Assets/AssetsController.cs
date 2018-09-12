@@ -10,6 +10,7 @@ using Anabi.Domain.Asset.Commands;
 using Anabi.Middleware;
 using Anabi.Common.ViewModels;
 using Anabi.Domain.Core.Asset.Commands;
+using AutoMapper;
 
 namespace Anabi.Features.Assets
 {
@@ -19,9 +20,12 @@ namespace Anabi.Features.Assets
     public class AssetsController : BaseController
     {
         private readonly IMediator mediator;
-        public AssetsController(IMediator _mediator)
+        private readonly IMapper mapper;
+
+        public AssetsController(IMediator _mediator, IMapper _mapper)
         {
             mediator = _mediator;
+            mapper = _mapper;
         }
 
         /// <summary>
@@ -185,7 +189,7 @@ namespace Anabi.Features.Assets
         [HttpPost("{assetId}/address")]
         public async Task<IActionResult> AddAssetAddress(int assetId, [FromBody] AddAssetAddressRequest request)
         {
-            var message = AutoMapper.Mapper.Map<AddAssetAddressRequest, AddAssetAddress>(request);
+            var message = mapper.Map<AddAssetAddressRequest, AddAssetAddress>(request);
             message.AssetId = assetId;
 
             var model = await mediator.Send(message);

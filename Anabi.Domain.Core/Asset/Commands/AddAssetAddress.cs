@@ -21,6 +21,11 @@ namespace Anabi.Domain.Asset.Commands
         {
             AssetId = assetId;
         }
+        
+        public AddAssetAddress()
+        {
+            
+        }
     }
 
 

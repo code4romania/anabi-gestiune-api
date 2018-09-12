@@ -23,16 +23,25 @@ namespace Anabi.Domain
 
         protected string UserCode()
         {
-            var p = principal as ClaimsPrincipal;
-            if (p == null)
+            try
             {
-                //TODO return error at a later time
-                return "admin";
-            }
+               var p = principal as ClaimsPrincipal;
+                if (p == null)
+                {
+                    //TODO return error at a later time
+                    return "admin";
+                }
 
-            return p.Claims?.SingleOrDefault(c =>
-                    c.Type == ClaimTypes.NameIdentifier)
-                .Value;
+                return p.Claims?.SingleOrDefault(c =>
+                        c.Type == ClaimTypes.NameIdentifier)
+                    .Value; 
+                }
+            catch (System.Exception)
+            {
+                
+                 return "admin";
+            }
+            
         }
     }
 }
