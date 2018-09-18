@@ -23,8 +23,7 @@ namespace Anabi.Domain
 
         protected string UserCode()
         {
-            try
-            {
+            
                var p = principal as ClaimsPrincipal;
                 if (p == null)
                 {
@@ -33,15 +32,7 @@ namespace Anabi.Domain
                 }
 
                 return p.Claims?.SingleOrDefault(c =>
-                        c.Type == ClaimTypes.NameIdentifier)
-                    .Value; 
-                }
-            catch (System.Exception)
-            {
-                
-                 return "admin";
-            }
-            
+                        c.Type == ClaimTypes.NameIdentifier)?.Value ?? "admin";
         }
     }
 }
