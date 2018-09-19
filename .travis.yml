@@ -1,0 +1,21 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+jobs:
+  include:
+    - stage: test
+      script:
+        - echo "Tests should go here"
+
+    - stage: deploy
+      name: "Build and publish image to registry"
+      if: branch = master AND type != pull_request
+      script:
+        - pyenv global system 3.6
+        - pip3 install --user awscli
+        - $(aws ecr get-login --no-include-email --region eu-central-1)
+        - docker build -t $AWS_ECR_REPO:latest .
+        - docker push $AWS_ECR_REPO:latest
