@@ -68,11 +68,7 @@ namespace Anabi
             CreateMap<AddSolutionRequest, AddSolution>();
             CreateMap<AddSolution, SolutionViewModel>();
             CreateMap<AddMinimalAsset, MinimalAssetViewModel>();
-            CreateMap<ModifyMinimalAsset, MinimalAssetViewModel>();
-            CreateMap<ModifyMinimalAsset, AssetDb>()
-                .ForMember(a=> a.CategoryId, opt=> opt.MapFrom(ma=> ma.SubcategoryId));
-            CreateMap<AssetDb, ModifyMinimalAsset>()
-                .ForMember(ma=> ma.SubcategoryId, opt=>opt.MapFrom(a => a.CategoryId));
+
             CreateMap<AddDefendantRequest, AddDefendant>();
             CreateMap<AddDefendantRequest, DefendantViewModel>();
             CreateMap<AddAssetAddressRequest, AddAssetAddress>();

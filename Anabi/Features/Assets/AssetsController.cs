@@ -32,7 +32,6 @@ namespace Anabi.Features.Assets
         /// Returns a list of assets
         /// </summary>
         /// <response code="200">The list of assets</response>
-        /// <param name="filter">Empty parameter</param>
         /// <returns>The list of assets</returns>
         [ProducesResponseType(typeof(IEnumerable<AssetSummary>), StatusCodes.Status200OK)]
         [HttpGet]
@@ -120,9 +119,9 @@ namespace Anabi.Features.Assets
         [ProducesResponseType(typeof(MinimalAssetViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPut("{id}/minimalasset")]
-        public async Task<IActionResult> ModifyMinimalAsset(int id, [FromBody] ModifyMinimalAsset minimalAsset)
+        public async Task<IActionResult> ModifyMinimalAsset(int id, [FromBody] ModifyMinimalAssetRequest minimalAsset)
         {
-            var modifyMinimalAssetObj = new ModifyMinimalAssetObj {Id = id, ModifyMinimalAsset = minimalAsset};
+            var modifyMinimalAssetObj = new ModifyMinimalAssetModel {Id = id, ModifyMinimalAsset = minimalAsset};
             var viewModel = await mediator.Send(modifyMinimalAssetObj);
             return Ok(viewModel);
         }
