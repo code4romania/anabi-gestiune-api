@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Anabi.Domain.Core.Asset.Commands
 {
-    public class ModifyMinimalAsset : IRequest<MinimalAssetViewModel>, IMinimalAsset
+    public class ModifyMinimalAssetRequest : IRequest<MinimalAssetViewModel>, IMinimalAsset
     {
         public string Name { get; set; }
 
@@ -30,7 +30,7 @@ namespace Anabi.Domain.Core.Asset.Commands
 
     }
 
-    public class ModifyMinimalAssetValidator: MinimalAssetValidator<ModifyMinimalAsset> {
+    public class ModifyMinimalAssetValidator: MinimalAssetValidator<ModifyMinimalAssetRequest> {
 
     }
 }
