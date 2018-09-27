@@ -6,17 +6,26 @@
 pool:
   vmImage: 'Ubuntu 16.04'
 
+variables:
+  imageName: 'anabi_api_with_db:$(build.buildId)'
+  buildConfiguration: 'Release'
+  
 - task: DotNetCoreInstaller@0
   inputs:
-    version: '2.1.300' # replace this value with the version that you need for your project
-
-- script: dotnet restore
-
-- script: dotnet build  # Include additional options such as --configuration to meet your need
-
-variables:
-  imageName: 'anabiapiwithdbimage:$(build.buildId)'
+    version: '2.1.401' # replace this value with the version that you need for your project
 
 steps:
-- script: docker build -f Dockerfile -t $(imageName) .
-  displayName: 'docker build'
+- script: |
+    dotnet build --configuration $(buildConfiguration)
+    dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+    dotnet publish --configuration $(buildConfiguration) --output out
+    docker build -f Dockerfile -t $(dockerId).azurecr.io/$(imageName) .
+    docker login -u $(dockerId) -p $pswd $(dockerid).azurecr.io
+    docker push $(dockerId).azurecr.io/$(imageName)
+  env:
+    pswd: $(dockerPassword)
+    
+- task: PublishTestResults@2
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
