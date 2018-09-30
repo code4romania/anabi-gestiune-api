@@ -10,11 +10,6 @@ steps:
   inputs:
     version: 2.1.402
 
-
-- task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 4.3.0'
-
-
 - task: DotNetCoreCLI@2
   displayName: Restore
   inputs:
