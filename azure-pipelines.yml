@@ -1,31 +1,69 @@
-# Docker image
-# Build a Docker image to run, deploy, or push to a container registry.
-# Add steps that use Docker Compose, tag images, push to a registry, run an image, and more:
-# https://docs.microsoft.com/vsts/pipelines/languages/docker
-
-pool:
-  vmImage: 'Ubuntu 16.04'
-
-variables:
-  imageName: 'anabi_api_with_db:$(build.buildId)'
-  buildConfiguration: 'Release'
-  
-- task: DotNetCoreInstaller@0
-  inputs:
-    version: '2.1.401' # replace this value with the version that you need for your project
+resources:
+- repo: self
+queue:
+  name: Hosted VS2017
+  demands: vstest
 
 steps:
-- script: |
-    dotnet build --configuration $(buildConfiguration)
-    dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
-    dotnet publish --configuration $(buildConfiguration) --output out
-    docker build -f Dockerfile -t $(dockerId).azurecr.io/$(imageName) .
-    docker login -u $(dockerId) -p $pswd $(dockerid).azurecr.io
-    docker push $(dockerId).azurecr.io/$(imageName)
-  env:
-    pswd: $(dockerPassword)
-    
-- task: PublishTestResults@2
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core sdk 2.1.402'
   inputs:
-    testRunner: VSTest
-    testResultsFiles: '**/*.trx'
+    version: 2.1.402
+
+
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 4.3.0'
+
+
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+
+    projects: '$(Parameters.RestoreBuildProjects)'
+
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '$(Parameters.RestoreBuildProjects)'
+
+    arguments: '--configuration $(BuildConfiguration)'
+
+
+- task: VSTest@2
+  displayName: 'Integration tests'
+  inputs:
+    testAssemblyVer2: |
+     **\*Integration.Test*.dll
+     !**\*TestAdapter.dll
+     !**\obj\**
+
+    otherConsoleOptions: '/Framework:".NETCoreApp,Version=v2.1" /Blame '
+
+    platform: '$(BuildPlatform)'
+
+    configuration: '$(BuildConfiguration)'
+
+    rerunFailedTests: true
+
+
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+
+    publishWebProjects: True
+
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+
+    zipAfterPublish: True
+
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+
+
+
