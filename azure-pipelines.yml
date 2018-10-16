@@ -17,7 +17,9 @@ variables:
 steps:
 - script: |
     dotnet build --configuration $(buildConfiguration)
-    dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+    dotnet test anabi.domain.tests --configuration $(buildConfiguration) --logger trx
+    dotnet test anabicontrollers.tests --configuration $(buildConfiguration) --logger trx
+    dotnet test anabi.integration.tests --configuration $(buildConfiguration) --logger trx
     dotnet publish --configuration $(buildConfiguration) --output out
     docker build -f Dockerfile -t $(dockerId).azurecr.io/$(imageName) .
     docker login -u $(dockerId) -p $pswd $(dockerid).azurecr.io
