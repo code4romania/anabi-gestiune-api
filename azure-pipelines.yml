@@ -33,7 +33,6 @@ steps:
      **\*Integration.Test*.dll
      !**\*TestAdapter.dll
      !**\obj\**
-
     otherConsoleOptions: '/Framework:".NETCoreApp,Version=v2.1" /Blame '
 
     platform: '$(BuildPlatform)'
@@ -59,6 +58,3 @@ steps:
   displayName: 'Publish Artifact'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
-
-
-
