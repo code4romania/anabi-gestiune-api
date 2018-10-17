@@ -1,8 +1,3 @@
-resources:
-- repo: self
-queue:
-  name: Hosted VS2017
-  demands: vstest
 
 steps:
 - task: DotNetCoreInstaller@0
@@ -25,7 +20,22 @@ steps:
 
     arguments: '--configuration $(BuildConfiguration)'
 
+- task: VSTest@2
+  displayName: 'Unit tests'
+  inputs:
+    testAssemblyVer2: |
+     **\*Test*.dll
+     !**\*Integration.Test*.dll
+     !**\*TestAdapter.dll
+     !**\obj\**
+    otherConsoleOptions: '/Framework:".NETCoreApp,Version=v2.1" /Blame '
 
+    platform: '$(BuildPlatform)'
+
+    configuration: '$(BuildConfiguration)'
+
+    rerunFailedTests: true
+    
 - task: VSTest@2
   displayName: 'Integration tests'
   inputs:
