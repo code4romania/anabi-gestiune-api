@@ -1,37 +1,29 @@
+using Anabi.Common.ViewModels;
+using Anabi.Domain.Core.Asset.Commands;
+using MediatR;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.DataAccess.Ef;
 using Anabi.Common.Utils;
-using Anabi.Common.ViewModels;
 using FluentValidation;
-using MediatR;
 using Anabi.Validators.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 using Anabi.Domain.Asset.Commands.Models;
 using Microsoft.EntityFrameworkCore;
 
-
-namespace Anabi.Domain.Asset.Commands
+namespace Anabi.Domain.Core.Asset.Commands
 {
-    public class AddAssetAddress : AddAssetAddressRequest, IRequest<AddressViewModel>
+    public class ModifyAssetAddressModel : ModifyAssetAddressRequest, IRequest<AddressViewModel>
     {
         public int AssetId { get; set; }
 
-        public AddAssetAddress(int assetId)
-        {
-            AssetId = assetId;
-        }
-        
-        public AddAssetAddress()
-        {
-            
-        }
+        public ModifyAssetAddressRequest ModifyAssetAddress { get; set; }
     }
 
-    public class AddAssetAddressValidator : AbstractValidator<AddAssetAddress>
+    public class ModifyAssetAddressValidator : AbstractValidator<ModifyAssetAddressModel>
     {
         private readonly AnabiContext context;
-        public AddAssetAddressValidator(AnabiContext ctx, IAssetValidator validator)
+        public ModifyAssetAddressValidator(AnabiContext ctx, IAssetValidator validator)
         {
             context = ctx;
 
