@@ -17,7 +17,24 @@ namespace Anabi.Domain.Core.Asset.Commands
     {
         public int AssetId { get; set; }
 
-        public ModifyAssetAddressRequest ModifyAssetAddress { get; set; }
+        public ModifyAssetAddressRequest ModifyAssetAddress 
+        {
+            get
+            {
+                return this;
+            }
+            set
+            {
+                this.CountyId = value.CountyId;
+                this.Street = value.Street;
+                this.City = value.City;
+                this.Building = value.Building;
+                this.Stair = value.Stair;
+                this.Floor = value.Floor;
+                this.FlatNo = value.FlatNo;
+                this.Description = value.Description;
+            }
+        }
     }
 
     public class ModifyAssetAddressValidator : AbstractValidator<ModifyAssetAddressModel>
