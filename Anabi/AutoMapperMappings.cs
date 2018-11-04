@@ -73,6 +73,8 @@ namespace Anabi
             CreateMap<AddDefendantRequest, DefendantViewModel>();
             CreateMap<AddAssetAddressRequest, AddAssetAddress>();
             CreateMap<AddAssetAddressRequest, AddressViewModel>();
+            CreateMap<ModifyAssetAddressRequest, ModifyAssetAddressModel>();
+            CreateMap<ModifyAssetAddressRequest, AddressViewModel>();
 
             CreateMap<RecoveryDetails, RecoveryDetailsViewModel>();
             CreateMap<EvaluationCommittee, EvaluationCommitteeViewModel>();
