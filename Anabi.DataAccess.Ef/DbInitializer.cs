@@ -60,7 +60,17 @@ namespace Anabi.DataAccess.Ef
                     IsActive = true
 
                 },
-                
+                new UserDb()
+                {
+                    UserCode = "admin",
+                    IsActive = true,
+                    Email = "admin@test.com",
+                    Name = "Admin",
+                    Password = "pass",
+                    Role = "admin",
+                    Salt = "salt"
+                }
+
             };
             context.Users.AddRange(utilizatori);
             context.SaveChanges();
