@@ -14,7 +14,7 @@ Just have a quick question? Please e-mail us at at contact@code4.ro
 
 ### Report bugs
 
-:bug: Think you found a bug? Please check [the list of open issues](https://github.com/code4romania/standard-readmes/issues) to see if your bug has already been reported. If it hasn't please [submit a new issue](https://github.com/code4romania/standard-readmes/issues/new). 
+:bug: Think you found a bug? Please check [the list of open issues](https://github.com/code4romania/anabi-gestiune-api/issues) to see if your bug has already been reported. If it hasn't please [submit a new issue](https://github.com/code4romania/anabi-gestiune-api/issues/new).
 
 :shield: If you find a **security vulnerability**, do not open an issue. Please email contact@code4.ro instead.
 
@@ -30,7 +30,7 @@ Please be as specific as possible when describing the issue. Explain the problem
 
 :bulb: Feature requests are welcome. We would love to hear your thoughts on how we can improve our project further. 
 
-To send us a suggestion, just [open an issue](https://github.com/code4romania/standard-readmes/issues/new) which describes the feature you would like to see. Give as much information as you can about what you would like to see:
+To send us a suggestion, just [submit a new issue](https://github.com/code4romania/anabi-gestiune-api/issues/new) which describes the feature you would like to see. Give as much information as you can about what you would like to see:
 
 * Description
 * Step by step behaviour 
@@ -40,9 +40,7 @@ To send us a suggestion, just [open an issue](https://github.com/code4romania/st
 
 :computer: We'd love for you to get your hands dirty and code for the project.
 
-If you are unsure where to begin contributing to the project, you can start by looking through these issues:  
-* [Good first issues](https://github.com/code4romania/standard-readmes/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
-* [Help wanted](https://github.com/code4romania/standard-readmes/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+If you are unsure where to begin contributing to the project, you can start by asking in the Slack channel, or see issues with the "Good first issue" or "Help wanted" labels.
 
 Please make sure to check out the suggested coding [best practices](#best-practices) and tips with working with git below :wink:
 
@@ -52,8 +50,7 @@ Please make sure to check out the suggested coding [best practices](#best-practi
 
 * **The language we code in is English.** Please name your variables, methods, classes and other structures using English words.
 * Use clean code conventions :heavy_check_mark: *tip: read [The book](https://www.goodreads.com/book/show/3735293-clean-code) if you haven't already. Or check out [a summary](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29)*
-* Follow the [Angular styleguide](https://angular.io/guide/styleguide) :exclamation: insert links to styleguides for programming languages used in project :exclamation: [Python styleguide](https://www.python.org/dev/peps/pep-0008/) [Angular styleguide](https://angular.io/guide/styleguide) [JavaScript styleguide](https://github.com/standard/standard) [C# coding conventions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions) [PHP coding recommendations](https://php7.org/guidelines/psr-1.html)  
- [Android design guidelines](https://developer.android.com/design/) and the [Java codes style](https://source.android.com/setup/contribute/code-style) or [Kotlin styleguide](https://developer.android.com/kotlin/style-guide)
+* Follow the [C# coding conventions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions)
 * Tests are appreciated :relieved:
 * Please use relevant commit messages and reference issues in the commit message if applicable
 
