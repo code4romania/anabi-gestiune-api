@@ -40,7 +40,8 @@ To send us a suggestion, just [submit a new issue](https://github.com/code4roman
 
 :computer: We'd love for you to get your hands dirty and code for the project.
 
-If you are unsure where to begin contributing to the project, you can start by asking in the Slack channel, or see issues with the "Good first issue" or "Help wanted" labels.
+If you are unsure where to begin contributing to the project, you can start by asking in the Slack channel (preferred), or see the Kanban board: https://github.com/orgs/code4romania/projects/13
+Especially issues with the "Good first issue" or "Help wanted" labels are good to take.
 
 Please make sure to check out the suggested coding [best practices](#best-practices) and tips with working with git below :wink:
 
