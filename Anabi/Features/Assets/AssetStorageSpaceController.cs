@@ -33,9 +33,9 @@ namespace Anabi.Features.Assets
         [ProducesResponseType(typeof(AddressViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPut("{assetId}/storagespace")]
-        public async Task<IActionResult> AddStorageSpaceToAsset(int assetId, [FromBody] AssetStorageSpaceDb assetStorageSpaceDb)
+        public async Task<IActionResult> AddStorageSpaceToAsset(int assetId, [FromBody] AddAssetToStorageSpaceRequest assetStorageSpaceDb)
         {
-            var assetStorageSpace = new AddAssetStorageSpace { StorageSpaceId = assetId, EntryDate = assetStorageSpaceDb.EntryDate };//nu cred ca este bine
+            var assetStorageSpace = new AddAssetStorageSpace { AssetId = assetId, StorageSpaceId = assetStorageSpaceDb.StorageSpaceId,  EntryDate = assetStorageSpaceDb.EntryDate };
             var viewModel = await mediator.Send(assetStorageSpace);
 
             return Ok();

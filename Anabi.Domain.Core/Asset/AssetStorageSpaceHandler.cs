@@ -9,35 +9,39 @@ using System.Threading.Tasks;
 namespace Anabi.Domain.Asset
 {
     public class AssetStorageSpaceHandler : BaseHandler,
-        IRequestHandler<AddAssetStorageSpace, StorageSpaceViewModel>
+        IRequestHandler<AddAssetStorageSpace, AssetStorageSpaceViewModel>
     {
         public AssetStorageSpaceHandler(BaseHandlerNeeds needs) : base(needs)
         {
             
         }
 
-        public async Task<StorageSpaceViewModel> Handle(AddAssetStorageSpace message, CancellationToken cancellationToken)
+        /**
+         * Method that handle adding of an asset to a storage space
+         **/
+
+        public async Task<AssetStorageSpaceViewModel> Handle(AddAssetStorageSpace message, CancellationToken cancellationToken)
         {
             var assetStorageSpace = new AssetStorageSpaceDb()
             {
+                AssetId = message.AssetId,
                 StorageSpaceId = message.StorageSpaceId,
-                EntryDate = message.EntryDate
+                EntryDate = message.EntryDate,
+                AddedDate = DateTime.Now,
+                UserCodeAdd = UserCode()
             };
 
-            /*var historicalStageDb = new HistoricalStageDb()
-            {
-                AddedDate = DateTime.Now,
-                UserCodeAdd = UserCode(),
-            };*/
             context.AssetStorageSpaces.Add(assetStorageSpace);
             await context.SaveChangesAsync();
 
-            var response = mapper.Map<AddAssetStorageSpace, StorageSpaceViewModel>(message);
+            var response = mapper.Map<AddAssetStorageSpace, AssetStorageSpaceViewModel>(message);
 
             response.Id = assetStorageSpace.Id;
             response.Journal = new JournalViewModel
             {
-
+                //utilizatorul de adaugare si data adaugarii
+                UserCodeAdd = UserCode(),
+                AddedDate = DateTime.Now
             };
 
             return response;
