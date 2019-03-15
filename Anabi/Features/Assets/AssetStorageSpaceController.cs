@@ -29,19 +29,20 @@ namespace Anabi.Features.Assets
             mapper = _mapper;
         }
 
-
         [ProducesResponseType(typeof(AddressViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPut("{assetId}/storagespace")]
         public async Task<IActionResult> AddStorageSpaceToAsset(int assetId, [FromBody] AddAssetToStorageSpaceRequest assetStorageSpaceDb)
         {
-            var assetStorageSpace = new AddAssetStorageSpace { AssetId = assetId, StorageSpaceId = assetStorageSpaceDb.StorageSpaceId,  EntryDate = assetStorageSpaceDb.EntryDate };
+            var assetStorageSpace = new AddAssetStorageSpace
+            {
+                AssetId = assetId,
+                StorageSpaceId = assetStorageSpaceDb.StorageSpaceId,
+                EntryDate = assetStorageSpaceDb.EntryDate
+            };
             var viewModel = await mediator.Send(assetStorageSpace);
 
             return Ok();
-
         }
-
-
     }
 }

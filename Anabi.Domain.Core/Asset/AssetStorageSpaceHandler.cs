@@ -11,13 +11,10 @@ namespace Anabi.Domain.Asset
     public class AssetStorageSpaceHandler : BaseHandler,
         IRequestHandler<AddAssetStorageSpace, AssetStorageSpaceViewModel>
     {
-        public AssetStorageSpaceHandler(BaseHandlerNeeds needs) : base(needs)
-        {
-            
-        }
+        public AssetStorageSpaceHandler(BaseHandlerNeeds needs) : base(needs) { }
 
         /**
-         * Method that handle adding of an asset to a storage space
+         * Method that handles adding of an asset to a storage space
          **/
 
         public async Task<AssetStorageSpaceViewModel> Handle(AddAssetStorageSpace message, CancellationToken cancellationToken)
@@ -39,7 +36,6 @@ namespace Anabi.Domain.Asset
             response.Id = assetStorageSpace.Id;
             response.Journal = new JournalViewModel
             {
-                //utilizatorul de adaugare si data adaugarii
                 UserCodeAdd = UserCode(),
                 AddedDate = DateTime.Now
             };
