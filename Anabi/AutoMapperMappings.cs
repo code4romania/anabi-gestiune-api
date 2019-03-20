@@ -83,6 +83,7 @@ namespace Anabi
 
             CreateMap<SequesterDetails, SequesterDetailsViewModel>();
             CreateMap<ConfiscationDetails, ConfiscationDetailsViewModel>();
+            CreateMap<AddAssetStorageSpace, AssetStorageSpaceViewModel>();
         }
     }
 }
