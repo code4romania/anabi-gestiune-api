@@ -14,19 +14,12 @@ namespace Anabi.DataAccess.Ef
                 return; // DB has been seeded
             }
 
-
             AddCounties(context);
             AddCategories(context);
             AddStages(context);
             AddDecisions(context);
-
-
             AddUsers(context);
-
-
             AddRecoveryBeneficiaries(context);
-
-
             AddCrimeTypes(context);
         }
 
@@ -42,13 +35,11 @@ namespace Anabi.DataAccess.Ef
             context.CrimeTypes.AddRange(infractiuni);
             context.SaveChanges();
         }
-
                 
-
         public static void AddUsers(AnabiContext context)
         {
-            var utilizatori = new[]{
-
+            var utilizatori = new[]
+            {
                 new UserDb
                 {
                     UserCode = "pop",
@@ -58,7 +49,6 @@ namespace Anabi.DataAccess.Ef
                     Password ="12345",
                     Salt = "sarea",
                     IsActive = true
-
                 },
                 new UserDb()
                 {
@@ -70,20 +60,18 @@ namespace Anabi.DataAccess.Ef
                     Role = "admin",
                     Salt = "salt"
                 }
-
             };
             context.Users.AddRange(utilizatori);
             context.SaveChanges();
         }
 
-
         public static void AddDecisions(AnabiContext context)
         {
             var decizii = new[]
-                        {
+            {
                 new DecisionDb {Name = "Hotarare"},
                 new DecisionDb {Name = "Ordonanta"}
-                        };
+            };
             context.Decisions.AddRange(decizii);
             context.SaveChanges();
         }
@@ -91,7 +79,7 @@ namespace Anabi.DataAccess.Ef
         public static void AddStages(AnabiContext context)
         {
             var etape = new[]
-                        {
+            {
                 new StageDb {Name = "Confiscare", IsFinal = false, StageCategory = Common.Enums.StageCategory.Confiscation},
                 new StageDb {Name = "Valorificare anticipata", IsFinal = true, StageCategory = Common.Enums.StageCategory.Recovery},
                 new StageDb {Name = "Sechestru", IsFinal = false, StageCategory = Common.Enums.StageCategory.Sequester},
@@ -99,7 +87,7 @@ namespace Anabi.DataAccess.Ef
                 new StageDb {Name = "Ridicare sechestru", IsFinal = false, StageCategory = Common.Enums.StageCategory.LiftingSeizure},
                 new StageDb {Name = "Reutilizare sociala", IsFinal = false, StageCategory = Common.Enums.StageCategory.SocialReuse},
                 new StageDb {Name = "Administrare simpla", IsFinal = false, StageCategory = Common.Enums.StageCategory.SimpleAdministration},
-                        };
+            };
             context.Stages.AddRange(etape);
             context.SaveChanges();
         }
@@ -122,7 +110,7 @@ namespace Anabi.DataAccess.Ef
             var idBani = bani.Id;
 
             var categorii = new[]
-                        {
+            {
                 new CategoryDb {ForEntity ="institutie", Code ="Instanta", Description =""},
                 new CategoryDb {ForEntity = "institutie", Code ="Parchet"},
                 //Subcategorii
@@ -168,7 +156,7 @@ namespace Anabi.DataAccess.Ef
                 new CategoryDb {ForEntity = "bun", Code = "Conturi", ParentId = idBani},
                 new CategoryDb {ForEntity = "bun", Code = "Moneda virtuala", ParentId = idBani},
                 new CategoryDb {ForEntity = "bun", Code = "Cash", ParentId = idBani}
-                        };
+            };
 
             context.Categories.AddRange(categorii);
             context.SaveChanges();
@@ -176,35 +164,67 @@ namespace Anabi.DataAccess.Ef
 
         public static void AddCounties(AnabiContext context)
         {
-
             var judete = new[]
-                    {
-                new CountyDb {Abreviation = "B", Name = "Bucuresti"},
-                new CountyDb {Abreviation = "AB", Name= "Alba Iulia"},
-                new CountyDb {Abreviation = "CT", Name = "Constanta"},
-                new CountyDb {Abreviation = "BV", Name = "Brasov"},
-                new CountyDb {Abreviation = "SB", Name = "Sibiu"}
-                    };
+            {
+                new CountyDb {Abreviation = "AB", Name = "ALBA"},
+                new CountyDb {Abreviation = "AR", Name= "ARAD"},
+                new CountyDb {Abreviation = "AG", Name = "ARGEȘ"},
+                new CountyDb {Abreviation = "BC", Name = "BACĂU"},
+                new CountyDb {Abreviation = "BH", Name = "BIHOR"},
+                new CountyDb {Abreviation = "BN", Name = "BISTRIȚA-NĂSĂUD"},
+                new CountyDb {Abreviation = "BT", Name= "BOTOȘANI"},
+                new CountyDb {Abreviation = "BV", Name = "BRAȘOV"},
+                new CountyDb {Abreviation = "BR", Name = "BRĂILA"},
+                new CountyDb {Abreviation = "B", Name = "BUCUREȘTI"},
+                new CountyDb {Abreviation = "BZ", Name = "BUZĂU"},
+                new CountyDb {Abreviation = "CS", Name = "CARAȘ-SEVERIN"},
+                new CountyDb {Abreviation = "CL", Name = "CĂLĂRAȘI"},
+                new CountyDb {Abreviation = "CJ", Name= "CLUJ"},
+                new CountyDb {Abreviation = "CT", Name = "CONSTANȚA"},
+                new CountyDb {Abreviation = "CV", Name = "COVASNA"},
+                new CountyDb {Abreviation = "DB", Name = "DÂMBOVIȚA"},
+                new CountyDb {Abreviation = "DJ", Name = "DOLJ"},
+                new CountyDb {Abreviation = "GL", Name= "GALAȚI"},
+                new CountyDb {Abreviation = "GR", Name= "GIURGIU"},
+                new CountyDb {Abreviation = "GJ", Name = "GORJ"},
+                new CountyDb {Abreviation = "HR", Name = "HARGHITA"},
+                new CountyDb {Abreviation = "HD", Name = "HUNEDOARA"},
+                new CountyDb {Abreviation = "IL", Name = "IALOMIȚA"},
+                new CountyDb {Abreviation = "IS", Name= "IAȘI"},
+                new CountyDb {Abreviation = "IF", Name = "ILFOV"},
+                new CountyDb {Abreviation = "MM", Name = "MARAMUREȘ"},
+                new CountyDb {Abreviation = "MH", Name = "MEHEDINȚI"},
+                new CountyDb {Abreviation = "MS", Name = "MUREȘ"},
+                new CountyDb {Abreviation = "NT", Name= "NEAMȚ"},
+                new CountyDb {Abreviation = "OT", Name = "OLT"},
+                new CountyDb {Abreviation = "PH", Name = "PRAHOVA"},
+                new CountyDb {Abreviation = "SM", Name = "SATU MARE"},
+                new CountyDb {Abreviation = "SJ", Name = "SĂLAJ"},
+                new CountyDb {Abreviation = "SB", Name= "SIBIU"},
+                new CountyDb {Abreviation = "SV", Name = "SUCEAVA"},
+                new CountyDb {Abreviation = "TR", Name = "TELEORMAN"},
+                new CountyDb {Abreviation = "TM", Name = "TIMIȘ"},
+                new CountyDb {Abreviation = "TL", Name = "TULCEA"},
+                new CountyDb {Abreviation = "VS", Name= "VASLUI"},
+                new CountyDb {Abreviation = "VL", Name = "VÂLCEA"},
+                new CountyDb {Abreviation = "VN", Name = "VRANCEA"}                                              
+            };
             context.Counties.AddRange(judete);
             context.SaveChanges();
-
         }
 
         public static void AddRecoveryBeneficiaries(AnabiContext context)
         {
-
             var beneficiari = new[]
-                    {
+            {
                 new RecoveryBeneficiaryDb {Name = "Ministerul Educaţiei Naţionale şi Cercetării Ştiinţifice", UserCodeAdd = "admin", AddedDate = DateTime.Now},
                 new RecoveryBeneficiaryDb {Name = "Ministerul Sănătăţii", UserCodeAdd = "admin", AddedDate = DateTime.Now},
                 new RecoveryBeneficiaryDb {Name = "Ministerul Afacerilor Interne", UserCodeAdd = "admin", AddedDate = DateTime.Now},
                 new RecoveryBeneficiaryDb {Name = "Ministerul Public", UserCodeAdd = "admin", AddedDate = DateTime.Now},
                 new RecoveryBeneficiaryDb {Name = "Ministerul Justiţiei", UserCodeAdd = "admin", AddedDate = DateTime.Now},
-
-                    };
+            };
             context.RecoveryBeneficiaries.AddRange(beneficiari);
             context.SaveChanges();
-
         }
     }
 }

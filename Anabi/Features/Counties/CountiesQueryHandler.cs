@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain;
 using Anabi.Domain.Models;
 using Anabi.Features.Counties.Models;
@@ -20,7 +21,11 @@ namespace Anabi.Features.Counties
         public Task<List<County>> Handle(GetCounties message, CancellationToken cancellationToken)
         {
             return context.Counties
-                .Select(j => Mapper.Map<County>(j))
+                .Select(m => new County
+                {
+                    Id = m.Id, Name = m.Name, Abreviation = m.Abreviation
+                })
+                .OrderBy(m => m.Name)
                 .ToListAsync(cancellationToken);
         }
     }
