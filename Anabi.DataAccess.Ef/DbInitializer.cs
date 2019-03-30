@@ -21,6 +21,17 @@ namespace Anabi.DataAccess.Ef
             AddUsers(context);
             AddRecoveryBeneficiaries(context);
             AddCrimeTypes(context);
+            AddInstitutions(context);
+        }
+
+        private static void AddInstitutions(AnabiContext context)
+        {
+            var insitutions = new []
+            {
+                new InstitutionDb { Id = 57, Name = "Curtea de Apel Alba Iulia", ContactData = "Some contact here" }
+            };
+            context.Institutions.AddRange(insitutions);
+            context.SaveChanges();
         }
 
         public static void AddCrimeTypes(AnabiContext context)
