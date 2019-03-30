@@ -16,6 +16,8 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual AddressDb Address { get; set; }
 
+        public string ContactData { get; set; }
+
         
         public virtual ICollection<FileNumberDb> FileNumbers { get; set; }
 
