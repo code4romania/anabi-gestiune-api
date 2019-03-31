@@ -28,6 +28,10 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
                 .WithMany(i => i.Institutions)
                 .HasForeignKey(k => k.AddressId);
 
+            entity.Property(p => p.ContactData)
+                .HasColumnType("Text");
+
+
             entity.Property(p => p.UserCodeAdd)
                .HasMaxLength(20)
                .IsRequired();

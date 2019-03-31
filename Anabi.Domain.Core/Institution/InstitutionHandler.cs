@@ -32,10 +32,6 @@ namespace Anabi.Domain.Institution
         public async Task<Unit> Handle(DeleteInstitution message, CancellationToken cancellationToken)
         {
             var institution = await this.context.Institutions.FindAsync(message.Id);
-            if (institution.AddressId.HasValue)
-            {
-                await this.DeleteCurrentAddress(institution);
-            }
             this.context.Institutions.Remove(institution);
             await this.context.SaveChangesAsync();
 
@@ -50,11 +46,6 @@ namespace Anabi.Domain.Institution
 
             this.context.Institutions.Add(institution);
 
-            if (!this.checks.EmptyAddress(message))
-            {
-                await SetNewAddressToInstitution(message, institution);
-            }
-
             await this.context.SaveChangesAsync();
             return institution.Id;
         }
@@ -67,38 +58,8 @@ namespace Anabi.Domain.Institution
 
             this.mapper.Map(message, institution);
             
-            await SetNewAddressToInstitution(message, institution);
-
             await this.context.SaveChangesAsync();
             return Unit.Value;
-        }
-
-        private async Task DeleteCurrentAddress(InstitutionDb institution)
-        {
-            var oldAddressId = institution.AddressId;
-            if (oldAddressId.HasValue)
-            {
-                this.context.Addresses.Remove(
-                    await this.context.Addresses.FindAsync(oldAddressId.Value));
-            }
-        }
-
-        private async Task SetNewAddressToInstitution(IAddAddress message, InstitutionDb institution)
-        {
-            AddressDb address;
-            if (institution.AddressId.HasValue)
-            {
-                address = await this.context.Addresses.FindAsync(institution.AddressId.Value);
-                this.mapper.Map(message, address);
-            }
-            else
-            {
-                address = this.mapper.Map<IAddAddress, AddressDb>(message);
-            }
-
-            var countyCode = message.CountyCode.ToUpperInvariant();
-            address.County = context.Counties.SingleOrDefault(x => x.Abreviation == countyCode);
-            institution.Address = address;
         }
     }
 }

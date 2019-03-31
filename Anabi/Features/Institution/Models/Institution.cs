@@ -12,5 +12,7 @@ namespace Anabi.Features.Institution.Models
         public string Name { get; set; }
 
         public Address Address { get; set; }
+
+        public string ContactData { get; set; }
     }
 }

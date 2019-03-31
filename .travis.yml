@@ -6,9 +6,9 @@ services:
 
 jobs:
   include:
-    - stage: test
+    - stage: build image
       script:
-        - echo "Tests should go here"
+        - docker build .
 
     - stage: deploy
       name: "Build and publish image to registry"
