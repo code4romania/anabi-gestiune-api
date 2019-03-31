@@ -19,7 +19,6 @@
        public async Task<List<Institution>> Handle(GetInstitution message, CancellationToken cancellationToken)
         {
             var result = context.Institutions
-                .Include(x => x.Address)
                 .AsQueryable();
             if (message.Id.HasValue)
             {
