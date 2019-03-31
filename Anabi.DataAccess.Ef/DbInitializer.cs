@@ -26,9 +26,18 @@ namespace Anabi.DataAccess.Ef
 
         private static void AddInstitutions(AnabiContext context)
         {
+            var categoryForInstitutionId = context.Categories.Where(c => c.ForEntity == "institutie" && c.Code == "Instanta").FirstOrDefault()?.Id;
+
             var insitutions = new []
             {
-                new InstitutionDb { Id = 57, Name = "Curtea de Apel Alba Iulia", ContactData = "Some contact here" }
+                new InstitutionDb
+                {
+                    Name = "Curtea de Apel Alba Iulia",
+                    ContactData = "Some contact here",
+                    AddedDate = DateTime.Now,
+                    UserCodeAdd = "admin",
+                    CategoryId =  categoryForInstitutionId ?? 0,
+                }
             };
             context.Institutions.AddRange(insitutions);
             context.SaveChanges();
