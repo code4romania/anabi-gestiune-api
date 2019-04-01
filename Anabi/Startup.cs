@@ -107,7 +107,7 @@ namespace Anabi
                         fv.RegisterValidatorsFromAssemblyContaining<AddCategory>();
                         fv.RegisterValidatorsFromAssemblyContaining<Startup>();
                     })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2); ;
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(
