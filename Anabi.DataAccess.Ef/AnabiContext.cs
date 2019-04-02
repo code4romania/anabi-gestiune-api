@@ -12,43 +12,42 @@ namespace Anabi.DataAccess.Ef
         {
         }
 
-        /* protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("dbo");
+            //modelBuilder.HasDefaultSchema("dbo");
 
-            (new UserConfig()).SetupEntity(modelBuilder);
+            //(new UserConfig()).SetupEntity(modelBuilder);
 
-            (new CountyConfig()).SetupEntity(modelBuilder);
-            (new AddressConfig()).SetupEntity(modelBuilder);
-            (new CategoryConfig()).SetupEntity(modelBuilder);
+            //(new CountyConfig()).SetupEntity(modelBuilder);
+            //(new AddressConfig()).SetupEntity(modelBuilder);
+            //(new CategoryConfig()).SetupEntity(modelBuilder);
 
-            (new StageConfig()).SetupEntity(modelBuilder);
-            (new DecisionConfig()).SetupEntity(modelBuilder);
-            (new StagesForDecisionConfig()).SetupEntity(modelBuilder);
-            (new InstitutionConfig()).SetupEntity(modelBuilder);
-            (new PersonConfig()).SetupEntity(modelBuilder);
+            //(new StageConfig()).SetupEntity(modelBuilder);
+            //(new DecisionConfig()).SetupEntity(modelBuilder);
+            //(new StagesForDecisionConfig()).SetupEntity(modelBuilder);
+            //(new InstitutionConfig()).SetupEntity(modelBuilder);
+            //(new PersonConfig()).SetupEntity(modelBuilder);
 
-            (new FileNumberConfig()).SetupEntity(modelBuilder);
-            (new FileConfig()).SetupEntity(modelBuilder);
-            (new DefendantsFileConfig()).SetupEntity(modelBuilder);
+            //(new FileNumberConfig()).SetupEntity(modelBuilder);
+            //(new FileConfig()).SetupEntity(modelBuilder);
+            //(new DefendantsFileConfig()).SetupEntity(modelBuilder);
 
-            (new AssetConfig()).SetupEntity(modelBuilder);
-            (new HistoricalStageConfig()).SetupEntity(modelBuilder);
+            //(new AssetConfig()).SetupEntity(modelBuilder);
+            //(new HistoricalStageConfig()).SetupEntity(modelBuilder);
 
-            (new AssetsFileConfig()).SetupEntity(modelBuilder);
+            //(new AssetsFileConfig()).SetupEntity(modelBuilder);
 
-            (new StorageSpaceConfig()).SetupEntity(modelBuilder);
+            //(new StorageSpaceConfig()).SetupEntity(modelBuilder);
 
-            (new AssetsStorageSpacesConfig()).SetupEntity(modelBuilder);
-            (new RecoveryBeneficiaryConfig()).SetupEntity(modelBuilder);
+            //(new AssetsStorageSpacesConfig()).SetupEntity(modelBuilder);
+            //(new RecoveryBeneficiaryConfig()).SetupEntity(modelBuilder);
 
-            (new IdentifierConfig()).SetupEntity(modelBuilder);
-            (new AssetDefendantConfig()).SetupEntity(modelBuilder);
+            //(new IdentifierConfig()).SetupEntity(modelBuilder);
+            //(new AssetDefendantConfig()).SetupEntity(modelBuilder);
 
-            
 
-            base.OnModelCreating(modelBuilder);
-        } */
+            //base.OnModelCreating(modelBuilder);
+        }
 
         public DbSet<AddressDb> Addresses { get; set; }
         public DbSet<AssetDb> Assets { get; set; }
