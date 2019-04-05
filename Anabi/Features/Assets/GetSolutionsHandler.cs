@@ -34,7 +34,7 @@ namespace Anabi.Features.Assets
                     RecoveryDetails = new RecoveryDetailsViewModel (h.ActualValue, h.EstimatedAmount, h.EstimatedAmountCurrency, h.ActualValueCurrency, h.RecoveryState, 
                                                  new EvaluationCommitteeViewModel(h.EvaluationCommitteeDesignationDate, h.EvaluationCommitteePresident, h.EvaluationCommittee),
                                                     new RecoveryCommitteeViewModel(h.RecoveryCommitteeDesignationDate, h.RecoveryCommitteePresident, h.RecoveryCommittee),
-                    h.LastActivity, h.PersonResponsible),
+                    h.LastActivity, h.PersonResponsible, h.RecoveryApplicationNumber, h.RecoveryApplicationDate, h.RecoveryDocumentType, h.RecoveryIssuingInstitution),
                     SolutionDetails = new SolutionDetailsViewModel(h.Source, h.SentOnEmail, h.FileNumber, h.FileNumberParquet, h.ReceivingDate, h.IsDefinitive, h.DefinitiveDate, h.SendToAuthoritiesDate, h.CrimeTypeId, h.LegalBasis),
                     Journal = new JournalViewModel
                     {
