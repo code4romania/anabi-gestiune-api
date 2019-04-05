@@ -23,6 +23,7 @@ namespace Anabi.Integration.Tests
         public AnabiDbContextBuilder CreateInMemorySqliteDbContext()
         {
             context = new AnabiContext(SqliteInMemory.CreateOptions<AnabiContext>());
+            context.Database.EnsureCreated();
             return this;
         }
 

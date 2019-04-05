@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Anabi.Common.Enums;
+using System;
 
 namespace Anabi.Common.ViewModels
 {
@@ -12,7 +13,11 @@ namespace Anabi.Common.ViewModels
             EvaluationCommitteeViewModel evaluationCommittee,
             RecoveryCommitteeViewModel recoveryCommittee,
             DateTime? lastActivity,
-            string personResponsible)
+            string personResponsible,
+            string recoveryApplicationNumber,
+            DateTime? recoveryApplicationDate,
+            RecoveryDocumentType? recoveryDocumentType,
+            string recoveryIssuingInstitution)
         {
             ActualAmount = actualAmount;
             EstimatedAmount = estimatedAmount;
@@ -23,6 +28,10 @@ namespace Anabi.Common.ViewModels
             RecoveryCommittee = recoveryCommittee;
             LastActivity = lastActivity;
             PersonResponsible = personResponsible;
+            RecoveryApplicationNumber = recoveryApplicationNumber;
+            RecoveryApplicationDate = recoveryApplicationDate;
+            RecoveryDocumentType = recoveryDocumentType;
+            RecoveryIssuingInstitution = recoveryIssuingInstitution;
         }
 
         public decimal? ActualAmount { get; }
@@ -43,5 +52,13 @@ namespace Anabi.Common.ViewModels
         public DateTime? LastActivity { get; }
 
         public string PersonResponsible { get; }
+
+        public string RecoveryApplicationNumber { get; set; }
+
+        public DateTime? RecoveryApplicationDate { get; set; }
+
+        public RecoveryDocumentType? RecoveryDocumentType { get; set; }
+
+        public string RecoveryIssuingInstitution { get; set; }
     }
 }

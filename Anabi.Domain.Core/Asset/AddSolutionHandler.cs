@@ -60,6 +60,11 @@ namespace Anabi.Domain.Asset
             newStage.CrimeTypeId = message.SolutionDetails?.CrimeTypeId;
             newStage.LegalBasis = message.SolutionDetails?.LegalBasis;
 
+            newStage.RecoveryApplicationNumber = message.RecoveryDetails?.RecoveryApplicationNumber;
+            newStage.RecoveryApplicationDate = message.RecoveryDetails?.RecoveryApplicationDate;
+            newStage.RecoveryDocumentType = message.RecoveryDetails?.RecoveryDocumentType;
+            newStage.RecoveryIssuingInstitution = message.RecoveryDetails?.RecoveryIssuingInstitution;
+
             context.HistoricalStages.Add(newStage);
             await context.SaveChangesAsync(cancellationToken);
 
