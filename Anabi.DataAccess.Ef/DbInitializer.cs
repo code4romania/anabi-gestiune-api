@@ -90,7 +90,9 @@ namespace Anabi.DataAccess.Ef
             var decizii = new[]
             {
                 new DecisionDb {Name = "Hotarare"},
-                new DecisionDb {Name = "Ordonanta"}
+                new DecisionDb {Name = "Ordonanta"},
+                new DecisionDb {Name = "Adresa"}
+
             };
             context.Decisions.AddRange(decizii);
             context.SaveChanges();

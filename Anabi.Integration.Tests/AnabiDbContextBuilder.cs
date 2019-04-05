@@ -1,6 +1,7 @@
 ﻿using Anabi.DataAccess.Ef;
 using Microsoft.EntityFrameworkCore;
 using System;
+using TestSupport.EfHelpers;
 
 namespace Anabi.Integration.Tests
 {
@@ -16,6 +17,12 @@ namespace Anabi.Integration.Tests
 
             context = new AnabiContext(options);
             
+            return this;
+        }
+
+        public AnabiDbContextBuilder CreateInMemorySqliteDbContext()
+        {
+            context = new AnabiContext(SqliteInMemory.CreateOptions<AnabiContext>());
             return this;
         }
 
