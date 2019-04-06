@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Anabi.Common.Enums;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
@@ -13,6 +14,8 @@ namespace Anabi.DataAccess.Ef.DbModels
         public virtual AddressDb Address { get; set; }
 
         public string Name { get; set; }
+
+        public StorageSpaceTypeEnum StorageSpacesType { get; set; }
 
         public virtual ICollection<AssetStorageSpaceDb> AssetsStorageSpaces { get; set; }
 
