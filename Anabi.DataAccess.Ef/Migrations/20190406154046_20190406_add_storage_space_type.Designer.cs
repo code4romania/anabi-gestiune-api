@@ -4,14 +4,16 @@ using Anabi.DataAccess.Ef;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Anabi.DataAccess.Ef.Migrations
 {
     [DbContext(typeof(AnabiContext))]
-    partial class AnabiContextModelSnapshot : ModelSnapshot
+    [Migration("20190406154046_20190406_add_storage_space_type")]
+    partial class _20190406_add_storage_space_type
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -621,13 +623,9 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.Property<DateTime>("AddedDate");
 
-                    b.Property<int?>("AddressDbId");
-
-                    b.Property<int?>("CategoryDbId");
+                    b.Property<int?>("AddressId");
 
                     b.Property<int>("CategoryId");
-
-                    b.Property<string>("ContactData");
 
                     b.Property<DateTime?>("LastChangeDate");
 
@@ -646,9 +644,9 @@ namespace Anabi.DataAccess.Ef.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressDbId");
+                    b.HasIndex("AddressId");
 
-                    b.HasIndex("CategoryDbId");
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("UserDbId");
 
@@ -1099,13 +1097,14 @@ namespace Anabi.DataAccess.Ef.Migrations
 
             modelBuilder.Entity("Anabi.DataAccess.Ef.DbModels.InstitutionDb", b =>
                 {
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.AddressDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.AddressDb", "Address")
                         .WithMany("Institutions")
-                        .HasForeignKey("AddressDbId");
+                        .HasForeignKey("AddressId");
 
-                    b.HasOne("Anabi.DataAccess.Ef.DbModels.CategoryDb")
+                    b.HasOne("Anabi.DataAccess.Ef.DbModels.CategoryDb", "Category")
                         .WithMany("Institutions")
-                        .HasForeignKey("CategoryDbId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Anabi.DataAccess.Ef.DbModels.UserDb")
                         .WithMany("InstitutionsAdded")

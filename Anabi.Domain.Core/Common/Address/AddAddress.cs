@@ -33,7 +33,7 @@ namespace Anabi.Domain.Common.Address
         public AddAddressValidator(IDatabaseChecks checks)
         {
             this.checks = checks;
-           AddRules();
+            AddRules();
         }
 
         public void AddRules()
