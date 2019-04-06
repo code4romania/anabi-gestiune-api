@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Anabi.Common.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -102,5 +103,16 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         [MaxLength(200)]
         public string PersonResponsible { get; set; }
+
+        [MaxLength(100)]
+        public string RecoveryApplicationNumber { get; set; }
+
+        public DateTime? RecoveryApplicationDate { get; set; }
+
+        public RecoveryDocumentType? RecoveryDocumentType { get; set; }
+
+        [MaxLength(200)]
+        public string RecoveryIssuingInstitution { get; set; }
+
     }
 }

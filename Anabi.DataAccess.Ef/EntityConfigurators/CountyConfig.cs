@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
@@ -11,9 +8,6 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
         public void SetupEntity(ModelBuilder modelBuilder)
         {
             var entity = modelBuilder.Entity<CountyDb>();
-
-            entity.ToTable("Counties");
-            
 
             entity.HasKey(k => k.Id);
             entity.Property(p => p.Abreviation)
