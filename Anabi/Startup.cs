@@ -129,6 +129,7 @@ namespace Anabi
             services.AddSwaggerGen((c) =>
             {
                 c.SwaggerDoc("v1", new Info() { Title = "ANABI", Version = "v1" });
+                c.DescribeAllEnumsAsStrings();
                 c.OperationFilter<AddAuthorizationHeaderFilter>();
                 var basePath = AppContext.BaseDirectory;
                 var xmlPath = Path.Combine(basePath, "Anabi.xml");
@@ -150,6 +151,7 @@ namespace Anabi
             services.AddScoped<AbstractValidator<IAddAddress>, AddAddressValidator>(); ;
             services.AddScoped<IDatabaseChecks, DatabaseChecks>();
             services.AddScoped<IAssetValidator, AssetValidator>();
+            services.AddScoped<AbstractValidator<IAddMinimalAddress>, AddMinimalAddressValidator>();
             
         }
 
