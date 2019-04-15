@@ -26,7 +26,7 @@ namespace Anabi.Domain.Person
                 AddedDate = DateTime.Now,
                 UserCodeAdd = UserCode(),
                 AssetId = message.AssetId,
-                Person = personDb
+                Defendant = personDb
             };
 
             context.Persons.Add(personDb);

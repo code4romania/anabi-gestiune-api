@@ -20,18 +20,18 @@ namespace Anabi.Features.Defendant
         public async Task<List<DefendantViewModel>> Handle(GetDefendants message, CancellationToken cancellationToken)
         {
             var response = await context.AssetDefendants
-                .Include(p => p.Person)
+                .Include(p => p.Defendant)
                 .Where(d => d.AssetId == message.AssetId)
                 .Select(r => new DefendantViewModel
                 {
-                    Id = r.Person.Id,
-                    Birthdate = r.Person.Birthdate,
-                    FirstName = r.Person.FirstName,
-                    Identification = r.Person.Identification,
-                    IdentifierId = r.Person.IdentifierId,
-                    IdNumber = r.Person.IdNumber,
-                    IdSerie = r.Person.IdSerie,
-                    IsPerson = r.Person.IsPerson,
+                    Id = r.Defendant.Id,
+                    Birthdate = r.Defendant.Birthdate,
+                    FirstName = r.Defendant.FirstName,
+                    Identification = r.Defendant.Identification,
+                    IdentifierId = r.Defendant.IdentifierId,
+                    IdNumber = r.Defendant.IdNumber,
+                    IdSerie = r.Defendant.IdSerie,
+                    IsPerson = r.Defendant.IsPerson,
                     Journal = new JournalViewModel
                     {
                         AddedDate = r.AddedDate,
@@ -39,8 +39,8 @@ namespace Anabi.Features.Defendant
                         LastChangeDate = r.LastChangeDate,
                         UserCodeLastChange = r.UserCodeLastChange
                     },
-                    Name = r.Person.Name,
-                    Nationality = r.Person.Nationality
+                    Name = r.Defendant.Name,
+                    Nationality = r.Defendant.Nationality
                 })
                 .ToListAsync(cancellationToken);
 

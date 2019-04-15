@@ -1,7 +1,6 @@
 ﻿using Anabi.Common.Enums;
 using Anabi.Common.ViewModels;
 using Anabi.Domain.Asset.Commands;
-using AutoFixture;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -39,9 +38,12 @@ namespace Anabi.Integration.Tests.Assets
             var json = JsonConvert.SerializeObject(request);
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync($"api/assets/{assetId}/solutions", stringContent);
+            var response = await Client.PostAsync($"api/assets/{assetId}/solutions", stringContent);
 
-            var solution = Context.HistoricalStages.Single();
+            var data = await response.Content.ReadAsStringAsync();
+            var viewModel = JsonConvert.DeserializeObject<SolutionViewModel>(data);
+
+            var solution = Context.HistoricalStages.Find(viewModel.Id);
 
             Assert.Equal(applicationNr, solution.RecoveryApplicationNumber);
             Assert.Equal(applicationDate, solution.RecoveryApplicationDate);
@@ -79,35 +81,29 @@ namespace Anabi.Integration.Tests.Assets
 
         private AddSolutionRequest CreateSolutionRequest(string applicationNr, DateTime applicationDate, RecoveryDocumentType recoveryDocumentType, string issuingInstitution)
         {
-            var r = new Fixture();
-            var request = r.Build<AddSolutionRequest>()
-                .With(x => x.RecoveryDetails.RecoveryApplicationNumber, applicationNr)
-                .With(x => x.RecoveryDetails.RecoveryApplicationDate, applicationDate)
-                .With(x => x.RecoveryDetails.RecoveryDocumentType, recoveryDocumentType)
-                .With(x => x.RecoveryDetails.RecoveryIssuingInstitution, issuingInstitution)
-                .Create();
+            var stage = Context.Stages.First();
+            var decision = Context.Decisions.First();
+            var institution = Context.Institutions.First();
 
-            return request;
-
-            //return new AddSolutionRequest(
-            //    stageId: 0,
-            //    decisionId: 0,
-            //    institutionId: 0,
-            //    decisionDate: DateTime.Today,
-            //    decisionNumber: "aa123",
-            //    confiscationDetails: null,
-            //    recoveryDetails: new Domain.Asset.Commands.Models.RecoveryDetails(actualAmount: 1000,
-            //        estimatedAmount: 2000, estimatedAmountCurrency: "RON", actualAmountCurrency: "RON", recoveryState: "ok",
-            //        evaluationCommittee: new Domain.Asset.Commands.Models.EvaluationCommittee(evaluationCommitteeDesignationDate: DateTime.Today, evaluationCommitteePresident: "P", evaluationCommitteeMembers:"A,B"),
-            //        recoveryCommittee: new Domain.Asset.Commands.Models.RecoveryCommittee(recoveryCommitteeDesignationDate: DateTime.Now, recoveryCommitteePresident: "P", recoveryCommitteeMembers: "A,B"),
-            //        lastActivity: DateTime.Now, personResponsible: "Alex", 
-            //        recoveryApplicationNumber: "aa123", 
-            //        recoveryApplicationDate: DateTime.Now, 
-            //        recoveryDocumentType: Common.Enums.RecoveryDocumentType.Ordonanta,
-            //        recoveryIssuingInstitution: "Institutie"),
-            //    solutionDetails: null,
-            //    sequesterDetails: null
-            //    );
+            return new AddSolutionRequest(
+                stageId: stage.Id,
+                decisionId: decision.Id,
+                institutionId: institution.Id,
+                decisionDate: DateTime.Today,
+                decisionNumber: "aa123",
+                confiscationDetails: null,
+                recoveryDetails: new Domain.Asset.Commands.Models.RecoveryDetails(actualAmount: 1000,
+                    estimatedAmount: 2000, estimatedAmountCurrency: "RON", actualAmountCurrency: "RON", recoveryState: "ok",
+                    evaluationCommittee: new Domain.Asset.Commands.Models.EvaluationCommittee(evaluationCommitteeDesignationDate: DateTime.Today, evaluationCommitteePresident: "P", evaluationCommitteeMembers: "A,B"),
+                    recoveryCommittee: new Domain.Asset.Commands.Models.RecoveryCommittee(recoveryCommitteeDesignationDate: DateTime.Now, recoveryCommitteePresident: "P", recoveryCommitteeMembers: "A,B"),
+                    lastActivity: DateTime.Now, personResponsible: "Alex",
+                    recoveryApplicationNumber: applicationNr,
+                    recoveryApplicationDate: applicationDate,
+                    recoveryDocumentType: recoveryDocumentType,
+                    recoveryIssuingInstitution: issuingInstitution),
+                solutionDetails: null,
+                sequesterDetails: null
+                );
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Anabi.Common.Utils
 
 
         public const string NO_IDENTIFIERS_FOUND = "NO_IDENTIFIERS_FOUND";
+        public const string REMARKS_MAX_LENGTH_2000 = nameof(REMARKS_MAX_LENGTH_2000);
 
         public const string IDNUMBER_MAX_LENGTH_6 = nameof(IDNUMBER_MAX_LENGTH_6);
         public const string IDSERIE_MAX_LENGTH_2 = nameof(IDSERIE_MAX_LENGTH_2);

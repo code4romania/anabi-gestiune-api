@@ -16,5 +16,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Anabi.Common\Anabi.Common.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
   
 </Project>

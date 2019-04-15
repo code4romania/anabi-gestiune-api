@@ -4,99 +4,77 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class HistoricalStageConfig : IEntityConfig
+    public class HistoricalStageConfig : BaseEntityConfig<HistoricalStageDb>
     {
-        public void SetupEntity(ModelBuilder modelBuilder)
+        public override void Configure(EntityTypeBuilder<HistoricalStageDb> builder)
         {
-            var entity = modelBuilder.Entity<HistoricalStageDb>();
-            entity.ToTable("HistoricalStages");
-            entity.HasKey(k => k.Id);
-
-            entity.HasOne(b => b.Asset)
+            builder.HasOne(b => b.Asset)
                 .WithMany(e => e.HistoricalStages)
                 .HasForeignKey(k => k.AssetId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_HistoricalStages_Assets")
                 .IsRequired();
 
-            entity.HasOne(e => e.Stage)
+            builder.HasOne(e => e.Stage)
                 .WithMany(e => e.HistoricalStages)
                 .HasForeignKey(k => k.StageId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_HistoricalStages_Stages")
                 .IsRequired();
 
-            entity.HasOne(d => d.Decision)
+            builder.HasOne(d => d.Decision)
                 .WithMany(e => e.HistoricalStages)
                 .HasForeignKey(k => k.DecizieId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_HistoricalStages_Decisions")
-                .IsRequired();
+                .HasConstraintName("FK_HistoricalStages_Decisions");
 
-            entity.HasOne(i => i.IssuingInstitution)
+            builder.HasOne(i => i.IssuingInstitution)
                 .WithMany(e => e.HistoricalStages)
                 .HasForeignKey(k => k.InstitutionId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_HistoricalStages_Institutions")
-                .IsRequired();
+                .HasConstraintName("FK_HistoricalStages_Institutions");
 
-            entity.Property(p => p.EstimatedAmountCurrency)
-                .HasMaxLength(3)
-                .IsRequired();
-            entity.Property(p => p.EstimatedAmount)
-                .HasColumnType("Decimal(20,2)")
-                .IsRequired();
+            builder.Property(p => p.EstimatedAmountCurrency)
+                .HasMaxLength(3);
 
-            entity.Property(p => p.UserCodeAdd)
-               .HasMaxLength(20)
-               .IsRequired();
+            builder.Property(p => p.EstimatedAmount)
+                .HasColumnType("Decimal(20,2)");
 
-            entity.Property(p => p.UserCodeLastChange)
-                .HasMaxLength(20);
 
-            
-            entity.HasOne(u => u.Person)
+            builder.HasOne(u => u.Person)
                 .WithMany(h => h.HistoricalStages)
                 .HasForeignKey(f => f.OwnerId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_OwnerId");
 
-            entity.Property(p => p.AddedDate)
-                .HasColumnType("DateTime")
-                .IsRequired();
 
-            entity.Property(p => p.LastChangeDate)
-                .HasColumnType("Datetime");
 
-            entity.Property(p => p.LegalBasis)
-                .HasMaxLength(200)
-                .IsRequired();
+            builder.Property(p => p.LegalBasis)
+                .HasMaxLength(200);
 
-            entity.Property(p => p.DecisionNumber)
-                .HasMaxLength(50)
-                .IsRequired();
+            builder.Property(p => p.DecisionNumber)
+                .HasMaxLength(50);
 
-            entity.Property(p => p.DecisionDate)
-                .HasColumnType("Date")
-                .IsRequired();
+            builder.Property(p => p.DecisionDate)
+                .HasColumnType("Date");
 
-            entity.Property(p => p.AssetState)
-                .HasMaxLength(100)
-                .IsRequired();
+            builder.Property(p => p.AssetState)
+                .HasMaxLength(100);
 
-            entity.Property(p => p.OwnerId)
+            builder.Property(p => p.OwnerId)
                 .HasColumnType("Int");
 
-            entity.Property(p => p.ActualValue)
+            builder.Property(p => p.ActualValue)
                 .HasColumnType("Decimal(20, 2)");
 
-            entity.Property(p => p.ActualValueCurrency)
-                .HasMaxLength(3)
-                .IsRequired();
+            builder.Property(p => p.ActualValueCurrency)
+                .HasMaxLength(3);
 
+            base.Configure(builder);
         }
     }
 }

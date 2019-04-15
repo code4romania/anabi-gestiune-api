@@ -1,9 +1,8 @@
-﻿using System.Linq;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Category.Commands;
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +23,7 @@ namespace Anabi.Domain.Category
             var newCategory = new CategoryDb();
             
             mapper.Map(message, newCategory);
+            newCategory.UserCodeAdd = UserCode();
             
             context.Categories.Add(newCategory);
 
@@ -43,9 +43,11 @@ namespace Anabi.Domain.Category
         public async Task<Unit> Handle(EditCategory message, CancellationToken cancellationToken)
         {
 
-            var categoryToEdit = await this.context.Categories.Where(p => p.Id == message.Id).FirstAsync();
+            var categoryToEdit = await this.context.Categories.FindAsync(message.Id);
 
             mapper.Map(message, categoryToEdit);
+            categoryToEdit.UserCodeLastChange = UserCode();
+            categoryToEdit.LastChangeDate = DateTime.Now;
 
             await context.SaveChangesAsync();
             return Unit.Value;

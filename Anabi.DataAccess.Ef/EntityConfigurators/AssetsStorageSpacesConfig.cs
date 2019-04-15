@@ -1,54 +1,38 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class AssetsStorageSpacesConfig : IEntityConfig
+    public class AssetsStorageSpacesConfig : BaseEntityConfig<AssetStorageSpaceDb>
     {
-        public void SetupEntity(ModelBuilder modelBuilder)
+        public override void Configure(EntityTypeBuilder<AssetStorageSpaceDb> builder)
         {
-
-            var entity = modelBuilder.Entity<AssetStorageSpaceDb>();
-            entity.ToTable("AssetsStorageSpaces");
-
-            entity.HasKey(k => k.Id);
-
-            entity.HasOne(s => s.StorageSpace)
+            builder.HasOne(s => s.StorageSpace)
                 .WithMany(sp => sp.AssetsStorageSpaces)
                 .HasForeignKey(k => k.StorageSpaceId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_AssetsStorageSpaces_StorageSpaces")
                 .IsRequired();
 
-            entity.HasOne(s => s.Asset)
+            builder.HasOne(s => s.Asset)
                 .WithMany(sp => sp.AssetsStorageSpaces)
                 .HasForeignKey(k => k.AssetId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_AssetsStorageSpaces_Assets")
                 .IsRequired();
 
+            base.Configure(builder);
+        }
 
-            entity.Property(p => p.UserCodeAdd)
-             .HasMaxLength(20)
-             .IsRequired();
+        public void SetupEntity(ModelBuilder modelBuilder)
+        {
+            //entity.Property(p => p.EntryDate)
+            //   .HasColumnType("DateTime")
+            //   .IsRequired();
 
-            entity.Property(p => p.UserCodeLastChange)
-                .HasMaxLength(20);
-
-            entity.Property(p => p.AddedDate)
-                .HasColumnType("DateTime")
-                .IsRequired();
-
-            entity.Property(p => p.LastChangeDate)
-                .HasColumnType("Datetime");
-
-            entity.Property(p => p.EntryDate)
-               .HasColumnType("DateTime")
-               .IsRequired();
-
-            entity.Property(p => p.ExitDate)
-                .HasColumnType("Datetime");
+            //entity.Property(p => p.ExitDate)
+            //    .HasColumnType("Datetime");
 
         }
     }

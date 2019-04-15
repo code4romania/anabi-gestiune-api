@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
@@ -9,13 +7,14 @@ namespace Anabi.DataAccess.Ef.DbModels
     {
         public int Id { get; set; }
 
-        [StringLength(20)]
+        [StringLength(maximumLength: 20, ErrorMessage = "INVALID_USERNAME_LENGTH_2_20", MinimumLength = 2)]
         [Required]
         public string UserCodeAdd { get; set; }
 
-        [StringLength(20)]
+        [StringLength(maximumLength: 20, ErrorMessage = "INVALID_USERNAME_LENGTH_2_20", MinimumLength = 2)]
         public string UserCodeLastChange { get; set; }
 
+        [Required]
         public DateTime AddedDate { get; set; }
 
         public DateTime? LastChangeDate { get; set; }

@@ -1,63 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class StorageSpaceConfig : IEntityConfig
+    public class StorageSpaceConfig : BaseEntityConfig<StorageSpaceDb>
     {
-        public void SetupEntity(ModelBuilder modelBuilder)
+        public override void Configure(EntityTypeBuilder<StorageSpaceDb> builder)
         {
-            var entity = modelBuilder.Entity<StorageSpaceDb>();
-            entity.ToTable("StorageSpaces");
+            builder.HasIndex(i => i.Name)
+                .HasName("uq_StorageSpaceName")
+                .IsUnique();
 
-            entity.HasKey(k => k.Id);
-            entity.Property(p => p.Name).HasMaxLength(200).IsRequired();
-
-            entity.HasIndex(i => i.Name).IsUnique();
-
-            entity.HasOne(a => a.Address)
+            builder.HasOne(a => a.Address)
                 .WithOne(s => s.StorageRoom)
                 .HasForeignKey<StorageSpaceDb>(k => k.AddressId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_StorageSpaces_Addresses")
                 .IsRequired();
 
-            entity.HasOne(c => c.Category)
-                .WithMany(s => s.StorageSpaces)
-                .HasForeignKey(f => f.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_StorageSpaces_Categories")
-                .IsRequired();
-
-            entity.Property(p => p.TotalVolume)
-                .HasColumnType("Decimal(20, 2)");
-
-            entity.Property(p => p.AvailableVolume)
-                .HasColumnType("Decimal(20, 2)");
-
-            entity.Property(p => p.Length)
-                .HasColumnType("Decimal(20, 2)");
-
-            entity.Property(p => p.Width)
-                .HasColumnType("Decimal(20, 2)");
-
-            entity.Property(p => p.Description)
-                .HasMaxLength(2000);
-
-            entity.Property(p => p.AsphaltedArea)
-                .HasColumnType("Decimal(20, 2)");
-
-            entity.Property(p => p.UndevelopedArea)
-                .HasColumnType("Decimal(20, 2)");
-
-            entity.Property(p => p.ContactData)
-                .HasMaxLength(1000);
-
-            entity.Property(p => p.MonthlyMaintenanceCost)
-                .HasColumnType("Decimal(20, 2)");
-
-            entity.Property(p => p.MaintenanceMentions);
-        }   
+            base.Configure(builder);
+        }
     }
 }

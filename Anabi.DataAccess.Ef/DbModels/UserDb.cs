@@ -1,5 +1,8 @@
-﻿namespace Anabi.DataAccess.Ef.DbModels
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Anabi.DataAccess.Ef.DbModels
 {
+    [Table("Users")]
     public class UserDb
     {
         public int Id { get; set; }
