@@ -70,6 +70,12 @@ namespace Anabi.Integration.Tests
             return this;
         }
 
+        public AnabiDbContextBuilder WithIdentifiers()
+        {
+            DbInitializer.AddIdentifiers(context);
+            return this;
+        }
+
         public AnabiDbContextBuilder WithAllDictionaries()
         {
             DbInitializer.InitializeFullDb(context);

@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class IdentifierConfig : BaseEntityConfig<IdentifierDb>
+    public class PrecautionaryMeasureConfig : BaseEntityConfig<PrecautionaryMeasureDb>
     {
-        public override void Configure(EntityTypeBuilder<IdentifierDb> builder)
+        public override void Configure(EntityTypeBuilder<PrecautionaryMeasureDb> builder)
         {
             base.Configure(builder);
         }

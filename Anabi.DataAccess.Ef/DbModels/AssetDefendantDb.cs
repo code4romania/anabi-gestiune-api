@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
@@ -19,7 +15,7 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public virtual AssetDb Asset { get; set; }
 
-        public virtual PersonDb Person { get; set; }
+        public virtual PersonDb Defendant { get; set; }
 
     }
 }

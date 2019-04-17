@@ -1,16 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Anabi.DataAccess.Ef.DbModels;
+﻿using Anabi.DataAccess.Ef.DbModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class AssetDefendantConfig : IEntityConfig
+    public class AssetDefendantConfig : BaseEntityConfig<AssetDefendantDb>
     {
-        public void SetupEntity(ModelBuilder modelBuilder)
+
+        public override void Configure(EntityTypeBuilder<AssetDefendantDb> builder)
         {
-            var entity = modelBuilder.Entity<AssetDefendantDb>();
+            builder.HasOne(a => a.Asset)
+                .WithMany(a => a.Defendants)
+                .HasForeignKey(k => k.AssetId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_Assets_AssetDefendant")
+                .IsRequired();
+
+            builder.HasOne(a => a.Defendant)
+                .WithMany(a => a.Defendants)
+                .HasForeignKey(k => k.PersonId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_Person_AssetDefendant")
+                .IsRequired();
+
+            base.Configure(builder);
         }
     }
 }

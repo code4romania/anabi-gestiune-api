@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.DataAccess.Ef.EntityConfigurators;
+using System.Reflection;
 
 namespace Anabi.DataAccess.Ef
 {
@@ -13,39 +14,41 @@ namespace Anabi.DataAccess.Ef
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("dbo");
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            (new UserConfig()).SetupEntity(modelBuilder);
+            //modelBuilder.HasDefaultSchema("dbo");
 
-            (new CountyConfig()).SetupEntity(modelBuilder);
-            (new AddressConfig()).SetupEntity(modelBuilder);
-            (new CategoryConfig()).SetupEntity(modelBuilder);
+            //(new UserConfig()).SetupEntity(modelBuilder);
 
-            (new StageConfig()).SetupEntity(modelBuilder);
-            (new DecisionConfig()).SetupEntity(modelBuilder);
-            (new StagesForDecisionConfig()).SetupEntity(modelBuilder);
-            (new InstitutionConfig()).SetupEntity(modelBuilder);
-            (new PersonConfig()).SetupEntity(modelBuilder);
+            //(new CountyConfig()).SetupEntity(modelBuilder);
+            //(new AddressConfig()).SetupEntity(modelBuilder);
+            //(new CategoryConfig()).SetupEntity(modelBuilder);
 
-            (new FileNumberConfig()).SetupEntity(modelBuilder);
-            (new FileConfig()).SetupEntity(modelBuilder);
-            (new DefendantsFileConfig()).SetupEntity(modelBuilder);
+            //(new StageConfig()).SetupEntity(modelBuilder);
+            //(new DecisionConfig()).SetupEntity(modelBuilder);
+            //(new StagesForDecisionConfig()).SetupEntity(modelBuilder);
+            //(new InstitutionConfig()).SetupEntity(modelBuilder);
+            //(new PersonConfig()).SetupEntity(modelBuilder);
 
-            (new AssetConfig()).SetupEntity(modelBuilder);
-            (new HistoricalStageConfig()).SetupEntity(modelBuilder);
+            //(new FileNumberConfig()).SetupEntity(modelBuilder);
+            //(new FileConfig()).SetupEntity(modelBuilder);
+            //(new DefendantsFileConfig()).SetupEntity(modelBuilder);
 
-            (new AssetsFileConfig()).SetupEntity(modelBuilder);
+            //(new AssetConfig()).SetupEntity(modelBuilder);
+            //(new HistoricalStageConfig()).SetupEntity(modelBuilder);
 
-            (new StorageSpaceConfig()).SetupEntity(modelBuilder);
+            //(new AssetsFileConfig()).SetupEntity(modelBuilder);
 
-            (new AssetsStorageSpacesConfig()).SetupEntity(modelBuilder);
-            (new RecoveryBeneficiaryConfig()).SetupEntity(modelBuilder);
+            //(new StorageSpaceConfig()).SetupEntity(modelBuilder);
 
-            (new IdentifierConfig()).SetupEntity(modelBuilder);
-            (new AssetDefendantConfig()).SetupEntity(modelBuilder);
+            //(new AssetsStorageSpacesConfig()).SetupEntity(modelBuilder);
+            //(new RecoveryBeneficiaryConfig()).SetupEntity(modelBuilder);
+
+            //(new IdentifierConfig()).SetupEntity(modelBuilder);
+            //(new AssetDefendantConfig()).SetupEntity(modelBuilder);
 
 
-            base.OnModelCreating(modelBuilder);
+            //base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<AddressDb> Addresses { get; set; }
@@ -56,7 +59,6 @@ namespace Anabi.DataAccess.Ef
         
         public DbSet<StageDb> Stages { get; set; }
         public DbSet<HistoricalStageDb> HistoricalStages { get; set; }
-        public DbSet<StagesForDecisionDb> StagesForDecisions { get; set; }
         
         public DbSet<InstitutionDb> Institutions { get; set; }
         public DbSet<CountyDb> Counties { get; set; }
@@ -71,12 +73,6 @@ namespace Anabi.DataAccess.Ef
         public DbSet<IdentifierDb> Identifiers { get; set; }
 
         public DbSet<AssetDefendantDb> AssetDefendants { get; set; }
-
-        public DbSet<AssetsFileDb> BunuriDosare { get; set; }
-        public DbSet<FileDb> Dosare { get; set; }
-        public DbSet<DefendantsFileDb> InculpatiDosar { get; set; }
-
-        public DbSet<FileNumberDb> NumereDosare { get; set; }
 
         public DbSet<CrimeTypeDb> CrimeTypes { get; set; }
 

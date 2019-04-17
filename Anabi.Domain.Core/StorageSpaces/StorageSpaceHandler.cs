@@ -28,6 +28,8 @@ namespace Anabi.Domain.StorageSpaces
             {
                 Name = message.Name,
                 StorageSpacesType = message.StorageSpaceType,
+                UserCodeAdd = UserCode(),
+                AddedDate = DateTime.Now
 
             };
             context.StorageSpaces.Add(newStorageSpace);
@@ -44,6 +46,8 @@ namespace Anabi.Domain.StorageSpaces
             var storageSpace = await context.StorageSpaces.FindAsync(message.Id);
             ValidateStorageSpace(storageSpace);
             this.mapper.Map(message, storageSpace);
+            storageSpace.LastChangeDate = DateTime.Now;
+            storageSpace.UserCodeLastChange = UserCode();
 
             await this.SetNewAddressToStorageSpace(message, storageSpace);
             await context.SaveChangesAsync();
@@ -86,6 +90,8 @@ namespace Anabi.Domain.StorageSpaces
             {
                 address = await this.context.Addresses.FindAsync(storageSpace.AddressId);
                 this.mapper.Map(message, address);
+                address.LastChangeDate = DateTime.Now;
+                address.UserCodeLastChange = UserCode();
             }
             else
             {

@@ -1,15 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class CategoryDb
+    [Table("Categories")]
+    public class CategoryDb : BaseEntity
     {
-        public int Id { get; set; }
-
         public int? ParentId { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         public string Code { get; set; }
 
+        [MaxLength(2000)]
         public string Description { get; set; }
 
         public virtual CategoryDb Parent { get; set; }
@@ -17,6 +21,8 @@ namespace Anabi.DataAccess.Ef.DbModels
         /// <summary>
         /// Ex: Decizie, Bun, Institutie
         /// </summary>
+        [Required]
+        [MaxLength(20)]
         public string ForEntity { get; set; }
 
         public ICollection<CategoryDb> Children { get; set; }
@@ -24,7 +30,5 @@ namespace Anabi.DataAccess.Ef.DbModels
         public virtual ICollection<InstitutionDb> Institutions { get; set; }
 
         public virtual ICollection<AssetDb> Assets { get; set; }
-
-        public virtual ICollection<StorageSpaceDb> StorageSpaces { get; set; }
     }
 }

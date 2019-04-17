@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
+    [Table("HistoricalStages")]
     public class HistoricalStageDb : BaseEntity
     {
         public int AssetId { get; set; }
