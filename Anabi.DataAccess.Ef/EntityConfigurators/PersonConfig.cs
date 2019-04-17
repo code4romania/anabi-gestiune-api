@@ -13,8 +13,7 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
                 .WithMany(p => p.Persons)
                 .HasForeignKey(k => k.AddressId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Persons_Addresses")
-                .IsRequired();
+                .HasConstraintName("FK_Persons_Addresses");
 
             builder.HasIndex(i => i.Identification)
                 .IsUnique()

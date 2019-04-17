@@ -32,6 +32,7 @@ namespace Anabi.Domain.Asset.Commands
 
         public decimal EstimatedAmount { get; set; }
 
+        [MaxLength(3)]
         public string EstimatedAmountCurrency { get; set; }
 
     }

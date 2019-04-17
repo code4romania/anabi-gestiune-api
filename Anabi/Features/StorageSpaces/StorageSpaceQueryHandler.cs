@@ -28,12 +28,7 @@ namespace Anabi.Features.StorageSpaces
 
             var command = GetCommand(message);
 
-            var result = await command.Select(x => Mapper.Map<Models.StorageSpaceViewModel>(x)).ToListAsync(cancellationToken);
-
-            if (result.Count == 0)
-            {
-                throw new Exception(Constants.NO_STORAGE_SPACES_FOUND);
-            }
+            var result = await command.Select(x => mapper.Map<Models.StorageSpaceViewModel>(x)).ToListAsync(cancellationToken);
 
             return result;
 

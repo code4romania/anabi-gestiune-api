@@ -22,6 +22,7 @@ namespace Anabi.DataAccess.Ef
             AddRecoveryBeneficiaries(context);
             AddCrimeTypes(context);
             AddInstitutions(context);
+            AddIdentifiers(context);
         }
 
         private static void AddInstitutions(AnabiContext context)
@@ -251,6 +252,18 @@ namespace Anabi.DataAccess.Ef
                 new RecoveryBeneficiaryDb {Name = "Ministerul Justiţiei", UserCodeAdd = "admin", AddedDate = DateTime.Now},
             };
             context.RecoveryBeneficiaries.AddRange(beneficiari);
+            context.SaveChanges();
+        }
+
+        public static void AddIdentifiers(AnabiContext context)
+        {
+            var identifiers = new[]
+            {
+                new IdentifierDb {IdentifierType = "Pasaport", IsForPerson = true, AddedDate = DateTime.Now, UserCodeAdd = "admin" },
+                new IdentifierDb {IdentifierType = "CI", IsForPerson = true, AddedDate = DateTime.Now, UserCodeAdd = "admin" },
+                new IdentifierDb {IdentifierType = "CUI", IsForPerson = false, AddedDate = DateTime.Now, UserCodeAdd = "admin" },
+            };
+            context.Identifiers.AddRange(identifiers);
             context.SaveChanges();
         }
     }

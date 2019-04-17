@@ -1,6 +1,7 @@
 ﻿using Anabi.Common.Enums;
 using Anabi.Common.ViewModels;
 using Anabi.Domain.Asset.Commands;
+using Anabi.Integration.Tests.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Anabi.Integration.Tests.Assets
 {
     public class AddSolutionTests : ApiTests
     {
+        private AddMinimalAssetHelper _addMinimalAssetHelper;
+
         public AddSolutionTests(AnabiApplicationFactory<Startup> factory) : base(factory)
         {
             Context = new AnabiDbContextBuilder()
@@ -21,13 +24,15 @@ namespace Anabi.Integration.Tests.Assets
                 .Build();
 
             Client = factory.CreateClient();
+
+            _addMinimalAssetHelper = new AddMinimalAssetHelper(Context, Client);
             
         }
 
         [Fact]
         public async Task AddSolution_HasRecoveryFields()
         {
-            var assetId = await AddMinimalAsset();
+            var assetId = await _addMinimalAssetHelper.AddMinimalAsset();
 
             var applicationNr = "aa232";
             var applicationDate = DateTime.Today;
@@ -51,33 +56,7 @@ namespace Anabi.Integration.Tests.Assets
             Assert.Equal(issuingInstitution, solution.RecoveryIssuingInstitution);
         }
 
-        private async Task<int> AddMinimalAsset()
-        {
-            var stage = Context.Stages.First();
-            var category = Context.Categories.First();
-
-            var message = new AddMinimalAsset
-            {
-                Description = "Description",
-                EstimatedAmount = 100,
-                EstimatedAmountCurrency = "EUR",
-                Identifier = "AA",
-                MeasureUnit = "kg",
-                Name = "Asset 1",
-                Quantity = 23,
-                Remarks = "remarksss",
-                StageId = stage.Id,
-                SubcategoryId = category.Id
-            };
-
-
-            var response = await Client.PostAsJsonAsync($"api/assets/addminimalasset", message);
-            response.EnsureSuccessStatusCode();
-
-            var content = await response.Content.ReadAsStringAsync();
-            var assetViewModel = JsonConvert.DeserializeObject<MinimalAssetViewModel>(content);
-            return assetViewModel.Id;
-        }
+        
 
         private AddSolutionRequest CreateSolutionRequest(string applicationNr, DateTime applicationDate, RecoveryDocumentType recoveryDocumentType, string issuingInstitution)
         {
