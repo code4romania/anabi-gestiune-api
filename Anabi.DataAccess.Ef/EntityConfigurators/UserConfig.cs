@@ -3,40 +3,38 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class UserConfig : IEntityConfig
+    public class UserConfig : IEntityTypeConfiguration<UserDb>
     {
-        public void SetupEntity(ModelBuilder modelBuilder)
+        public void Configure(EntityTypeBuilder<UserDb> builder)
         {
-            var entity = modelBuilder.Entity<UserDb>();
-            entity.ToTable("Users");
+            builder.Property(p => p.Password).HasColumnType("varchar(8000)").IsRequired();
 
-            entity.Property(p => p.Password).HasColumnType("varchar(max)").IsRequired();
+            builder.Property(p => p.Salt).HasColumnType("varchar(8000)").IsRequired();
 
-            entity.Property(p => p.Salt).HasColumnType("varchar(max)").IsRequired();
-
-            entity.HasKey(k => k.Id);
-            entity.Property(p => p.UserCode)
+            builder.Property(p => p.UserCode)
                 .HasMaxLength(20)
                 .IsRequired();
-            entity.HasIndex(i => i.UserCode).IsUnique();
 
-            entity.Property(p => p.Email)
-                .HasMaxLength(100)
-                .IsRequired();
-            entity.HasIndex(i => i.Email).IsUnique();
+            builder.HasIndex(i => i.UserCode).IsUnique();
 
-            entity.Property(p => p.Name)
+            builder.Property(p => p.Email)
                 .HasMaxLength(100)
                 .IsRequired();
 
-            entity.Property(p => p.Role)
+            builder.HasIndex(i => i.Email).IsUnique();
+
+            builder.Property(p => p.Name)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            builder.Property(p => p.Role)
                 .HasMaxLength(5000)
                 .IsRequired();
-
-            entity.Property(p => p.IsActive).HasDefaultValue(true).IsRequired();
         }
+
     }
 }

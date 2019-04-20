@@ -25,7 +25,6 @@ namespace AnabiControllers.Tests
         private List<StorageSpaceDb> storageSpacesForDb;
         private IMapper mapper;
         private IPrincipal principal;
-
         private BaseHandlerNeeds BasicNeeds => new BaseHandlerNeeds(context, mapper, principal);
 
         [TestInitialize]
@@ -34,69 +33,44 @@ namespace AnabiControllers.Tests
             Setup();
         }
 
-
         [TestCleanup]
         public void CleanUp()
         {
             context.Dispose();
             context = null;
-
             mapper = null;
             Mapper.Reset();
         }
 
-
         [TestMethod]
         public async Task Get_ReturnsListAsync()
         {
-
             var queryHandler = new StorageSpaceQueryHandler(BasicNeeds);
-
             var query = new GetStorageSpace() { Id = null };
-
             var actual = await queryHandler.Handle(query, CancellationToken.None);
 
             Assert.IsTrue(actual.Count == 2);
         }
 
-
         [TestMethod]
         public async Task Post()
         {
-
             var queryHandler = new StorageSpaceHandler(BasicNeeds);
             var query = new AddStorageSpace()
             {
                 Name = "S1",
-                Width = 2,
-                Length = 2,
-                Description = "description",
-                MaintenanceMentions = "mentenanta",
-                ContactData = "contact",
-                TotalVolume = 222,
-                UndevelopedArea = 22,
-                MonthlyMaintenanceCost = 444,
-                AsphaltedArea = 222,
-                AvailableVolume = 334,
-                CountyCode = "B",
+                Details = "description",
+                CountyCode = "MH",
                 Street = "Iancului 33",
                 Building = "11",
-                City ="Bucuresti",
-                FlatNo = "22",
-                Floor = "22",
-                Stair = "B"
-               
+                City = "Drobeta Turnu Severin",
+                StorageSpaceType = Anabi.Common.Enums.StorageSpaceTypeEnum.Defendant
             };
-
             await queryHandler.Handle(query, CancellationToken.None);
-
             var cat = await context.StorageSpaces.FirstOrDefaultAsync<StorageSpaceDb>(p => p.Name == "S1");
 
             Assert.IsNotNull(cat);
-
         }
-
-
 
         [TestMethod]
         public async Task Put()
@@ -127,32 +101,25 @@ namespace AnabiControllers.Tests
             };
 
             await queryHandler.Handle(query, CancellationToken.None);
-
             var cat = await context.StorageSpaces.FirstAsync<StorageSpaceDb>(p => p.Id == sp.Id);
 
             Assert.IsTrue(cat.Name == "S1");
-
         }
 
         [TestMethod]
         public async Task Delete()
         {
             var handler = new StorageSpaceHandler(BasicNeeds);
-
             var sp = context.StorageSpaces.First();
             var query = new DeleteStorageSpace
             {
                 Id = sp.Id,
             };
-
             await handler.Handle(query, CancellationToken.None);
-
             var cat = await context.StorageSpaces.AnyAsync<StorageSpaceDb>(p => p.Id == sp.Id);
 
             Assert.IsFalse(cat);
         }
-
-
 
         #region Setup
         private void Setup()
@@ -161,10 +128,8 @@ namespace AnabiControllers.Tests
 
             context = new AnabiContext(options);
             storageSpacesForDb = GetStorageSpacesForDb();
-
             context.StorageSpaces.AddRange(storageSpacesForDb);
             context.SaveChanges();
-
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile<AutoMapperMappings>();
@@ -178,22 +143,28 @@ namespace AnabiControllers.Tests
         {
             return new List<StorageSpaceDb>()
             {
-                new StorageSpaceDb{ Id = 0, Name="Storage 1", AsphaltedArea = 22, AvailableVolume =22 , ContactData ="contact data", Description ="description", Length = 2, MaintenanceMentions = "mentiuni", TotalVolume = 22, UndevelopedArea = 222, MonthlyMaintenanceCost = 400, Width = 22
-                , Address = new AddressDb{
+                new StorageSpaceDb
+                {
+                    Id = 0, Name="Storage 1",
+                    Description ="description",
+                    Address = new AddressDb{
                     City = "Bucuresti",
                     Building = "Cladire 1",
                     CountyId = 1,
                     Street = "Sos Pantelimon 11"
-                    
-                } },
-                new StorageSpaceDb{ Id = 0, Name="Storage 2", AsphaltedArea = 22322, AvailableVolume =2222 , ContactData ="contact data 22", Description ="description 22", Length = 2, MaintenanceMentions = "mentiuni 2", TotalVolume = 2234, UndevelopedArea = 5642, MonthlyMaintenanceCost = 3330, Width = 332
-                , Address = new AddressDb{
-                    City = "Bucuresti",
-                    Building = "Cladire 2",
-                    CountyId = 1,
-                    Street = "Sos Pantelimon 44"
 
-                }}
+                } },
+                new StorageSpaceDb
+                {
+                    Id = 0, Name="Storage 2",
+                    Description ="description 22",
+                    Address = new AddressDb
+                    {
+                        City = "Bucuresti",
+                        Building = "Cladire 2",
+                        CountyId = 1,
+                        Street = "Sos Pantelimon 44"
+                    }}
             };
         }
 

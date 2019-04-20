@@ -1,4 +1,5 @@
 ﻿using Anabi.Common.Utils;
+using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain;
 using Anabi.Features.StorageSpaces.Models;
 using AutoMapper;
@@ -27,19 +28,36 @@ namespace Anabi.Features.StorageSpaces
             }
 
             var command = GetCommand(message);
-
-            var result = await command.Select(x => Mapper.Map<Models.StorageSpaceViewModel>(x)).ToListAsync(cancellationToken);
+            
+            var result = await command.Select(storageSpace => new StorageSpaceViewModel
+            {
+                Id = storageSpace.Id,
+                Name = storageSpace.Name,
+                StorageSpaceType = storageSpace.StorageSpacesType,                
+                Addresss = new Domain.Models.Address()
+                {
+                    Id = storageSpace.AddressId,
+                    County = new Domain.Models.County()
+                    {
+                        Id = storageSpace.Address.CountyId,
+                        Abreviation = storageSpace.Address.County.Abreviation,
+                        Name = storageSpace.Address.County.Name
+                    },
+                    City = storageSpace.Address.City,
+                    Street = storageSpace.Address.Street,
+                    Building = storageSpace.Address.Building               
+                }
+            }).ToListAsync(cancellationToken);
 
             if (result.Count == 0)
             {
                 throw new Exception(Constants.NO_STORAGE_SPACES_FOUND);
             }
-
+            
             return result;
-
         }
 
-        private IQueryable<DataAccess.Ef.DbModels.StorageSpaceDb> GetCommand(GetStorageSpace message)
+        private IQueryable<StorageSpaceDb> GetCommand(GetStorageSpace message)
         {
             var command = context.StorageSpaces.AsQueryable();
             if (message.Id != null)

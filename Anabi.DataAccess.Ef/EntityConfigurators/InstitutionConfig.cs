@@ -1,41 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class InstitutionConfig : IEntityConfig
+    public class InstitutionConfig : BaseEntityConfig<InstitutionDb>
     {
-        public void SetupEntity(ModelBuilder modelBuilder)
+        public override void Configure(EntityTypeBuilder<InstitutionDb> builder)
         {
-            var entity = modelBuilder.Entity<InstitutionDb>();
-            entity.ToTable("Institutions");
+            builder.Property(p => p.ContactData)
+                .HasColumnType("varchar(8000)");
 
-            entity.HasKey(k => k.Id);
-
-            entity.Property(p => p.Name)
-                .HasMaxLength(50)
+            builder.HasOne(j => j.Category)
+                .WithMany(a => a.Institutions)
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_Institutions_Categories")
                 .IsRequired();
 
-            entity.Property(p => p.ContactData)
-                .HasColumnType("Text");
-
-
-            entity.Property(p => p.UserCodeAdd)
-               .HasMaxLength(20)
-               .IsRequired();
-
-            entity.Property(p => p.UserCodeLastChange)
-                .HasMaxLength(20);
-
-            
-            entity.Property(p => p.AddedDate)
-                .HasColumnType("DateTime")
-                .IsRequired();
-
-            entity.Property(p => p.LastChangeDate)
-                .HasColumnType("Datetime");
-
-
+            base.Configure(builder);
         }
     }
 }

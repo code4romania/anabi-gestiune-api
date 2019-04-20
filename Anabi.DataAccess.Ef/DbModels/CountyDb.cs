@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
-    public class CountyDb
+    [Table("Counties")]
+    public class CountyDb : BaseEntity
     {
-        public int Id { get; set; }
-
+        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
+        [Required]
+        [MaxLength(50)]
         public string Abreviation { get; set; }
 
         public ICollection<AddressDb> Addresses { get; set; }

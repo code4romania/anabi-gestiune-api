@@ -1,29 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Anabi.DataAccess.Ef.DbModels
 {
     [Table("Addresses")]
-
     public class AddressDb : BaseEntity
     {
         public int CountyId { get; set; }
 
         public virtual CountyDb County { get; set; }
 
+        [Required]
+        [MaxLength(100)]
         public string Street { get; set; }
 
+        [MaxLength(30)]
         public string City { get; set; }
 
+        [MaxLength(10)]
         public string Building { get; set; }
 
+        [MaxLength(5)]
         public string Stair { get; set; }
 
+        [MaxLength(5)]
         public string Floor { get; set; }
 
+        [MaxLength(5)]
         public string FlatNo { get; set; }
 
         [MaxLength(300)]

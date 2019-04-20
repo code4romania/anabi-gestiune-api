@@ -21,6 +21,7 @@ namespace Anabi.Common.Utils
 
 
         public const string NO_IDENTIFIERS_FOUND = "NO_IDENTIFIERS_FOUND";
+        public const string REMARKS_MAX_LENGTH_2000 = nameof(REMARKS_MAX_LENGTH_2000);
 
         public const string IDNUMBER_MAX_LENGTH_6 = nameof(IDNUMBER_MAX_LENGTH_6);
         public const string IDSERIE_MAX_LENGTH_2 = nameof(IDSERIE_MAX_LENGTH_2);
@@ -75,5 +76,6 @@ namespace Anabi.Common.Utils
         public const string ADDRESS_FLOOR_INVALID_NUMBER = nameof(ADDRESS_FLOOR_INVALID_NUMBER);
         public const string ADDRESS_FLATNO_INVALID_NUMBER = nameof(ADDRESS_FLATNO_INVALID_NUMBER);
         public const string ADDRESS_DESCRIPTION_INVALID = nameof(ADDRESS_DESCRIPTION_INVALID);
+        public const string STORAGE_SPACE_TYPE_NOT_EMPTY = nameof(STORAGE_SPACE_TYPE_NOT_EMPTY);
     }
 }

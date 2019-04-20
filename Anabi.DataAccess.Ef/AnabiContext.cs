@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.DataAccess.Ef.EntityConfigurators;
-using System.Linq;
+using System.Reflection;
 
 namespace Anabi.DataAccess.Ef
 {
@@ -14,6 +14,8 @@ namespace Anabi.DataAccess.Ef
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
             //modelBuilder.HasDefaultSchema("dbo");
 
             //(new UserConfig()).SetupEntity(modelBuilder);
@@ -57,7 +59,6 @@ namespace Anabi.DataAccess.Ef
         
         public DbSet<StageDb> Stages { get; set; }
         public DbSet<HistoricalStageDb> HistoricalStages { get; set; }
-        public DbSet<StagesForDecisionDb> StagesForDecisions { get; set; }
         
         public DbSet<InstitutionDb> Institutions { get; set; }
         public DbSet<CountyDb> Counties { get; set; }
@@ -72,12 +73,6 @@ namespace Anabi.DataAccess.Ef
         public DbSet<IdentifierDb> Identifiers { get; set; }
 
         public DbSet<AssetDefendantDb> AssetDefendants { get; set; }
-
-        public DbSet<AssetsFileDb> BunuriDosare { get; set; }
-        public DbSet<FileDb> Dosare { get; set; }
-        public DbSet<DefendantsFileDb> InculpatiDosar { get; set; }
-
-        public DbSet<FileNumberDb> NumereDosare { get; set; }
 
         public DbSet<CrimeTypeDb> CrimeTypes { get; set; }
 

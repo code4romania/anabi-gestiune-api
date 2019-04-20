@@ -36,8 +36,6 @@ namespace Anabi
 
             CreateMap<County, CountyDb>().ReverseMap();
             CreateMap<Decision, DecisionDb>().ReverseMap();
-            CreateMap<File, FileDb>().ReverseMap();
-            CreateMap<FileNumber, FileNumberDb>().ReverseMap();
             CreateMap<HistoricalStage, HistoricalStageDb>().ReverseMap();
 
             CreateMap<Institution, InstitutionDb>().ReverseMap();

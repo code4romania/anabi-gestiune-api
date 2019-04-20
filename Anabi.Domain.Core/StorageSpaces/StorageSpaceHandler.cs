@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Anabi.Common.Exceptions;
@@ -7,7 +8,6 @@ using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Common.Address;
 using Anabi.Domain.Models;
 using Anabi.Domain.StorageSpaces.Commands;
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,34 +24,33 @@ namespace Anabi.Domain.StorageSpaces
 
         public async Task<int> Handle(AddStorageSpace message, CancellationToken cancellationToken)
         {
-            var newStorageSpace = new StorageSpaceDb();
+            var newStorageSpace = new StorageSpaceDb()
+            {
+                Name = message.Name,
+                StorageSpacesType = message.StorageSpaceType,
+                UserCodeAdd = UserCode(),
+                AddedDate = DateTime.Now
 
-            Mapper.Map(message, newStorageSpace);
-
+            };
             context.StorageSpaces.Add(newStorageSpace);
 
             await SetNewAddressToStorageSpace(message, newStorageSpace);
-
             await context.SaveChangesAsync();
 
             return newStorageSpace.Id;
-
         }
 
         public async Task<StorageSpace> Handle(EditStorageSpace message, CancellationToken cancellationToken)
         {
 
             var storageSpace = await context.StorageSpaces.FindAsync(message.Id);
-
-
             ValidateStorageSpace(storageSpace);
-
             this.mapper.Map(message, storageSpace);
+            storageSpace.LastChangeDate = DateTime.Now;
+            storageSpace.UserCodeLastChange = UserCode();
 
             await this.SetNewAddressToStorageSpace(message, storageSpace);
-
             await context.SaveChangesAsync();
-
 
             var responseModel = new StorageSpace();
             this.mapper.Map(storageSpace, responseModel);
@@ -81,17 +80,26 @@ namespace Anabi.Domain.StorageSpaces
             }
         }
 
-        private async Task SetNewAddressToStorageSpace(IAddAddress message, StorageSpaceDb storageSpace)
+        private async Task SetNewAddressToStorageSpace(IAddMinimalAddress message, StorageSpaceDb storageSpace)
         {
-            AddressDb address;
+            AddressDb address = new AddressDb();
+            /*
+             * Edit address of a storage space
+             */
             if (storageSpace.AddressId > 0)
             {
                 address = await this.context.Addresses.FindAsync(storageSpace.AddressId);
                 this.mapper.Map(message, address);
+                address.LastChangeDate = DateTime.Now;
+                address.UserCodeLastChange = UserCode();
             }
             else
             {
-                address = this.mapper.Map<IAddAddress, AddressDb>(message);
+                address.City = message.City;
+                address.Street = message.Street;
+                address.Description = message.Details;
+                address.UserCodeAdd = UserCode();
+                address.AddedDate = DateTime.Now;
             }
 
             var countyCode = message.CountyCode.ToUpperInvariant();
