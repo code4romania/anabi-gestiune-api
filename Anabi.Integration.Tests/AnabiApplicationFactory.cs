@@ -75,5 +75,11 @@ namespace Anabi.Integration.Tests
                 //}
             });
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            Context?.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

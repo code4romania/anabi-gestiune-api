@@ -1,22 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class StageConfig : IEntityConfig
+    public class StageConfig : BaseEntityConfig<StageDb>
     {
-        public void SetupEntity(ModelBuilder modelBuilder)
+        public override void Configure(EntityTypeBuilder<StageDb> builder)
         {
-            var entity = modelBuilder.Entity<StageDb>();
-            entity.ToTable("Stages");
-            entity.HasKey(k => k.Id);
-            entity.Property(p => p.Name).HasMaxLength(50).IsRequired();
-            entity.HasIndex(i => i.Name).HasName("indx_uq_stagename").IsUnique();
+            builder.HasIndex(i => i.Name).HasName("indx_uq_stagename").IsUnique();
 
-            entity.Property(p => p.IsFinal).IsRequired();
-
-
-
+            base.Configure(builder);
         }
     }
 }

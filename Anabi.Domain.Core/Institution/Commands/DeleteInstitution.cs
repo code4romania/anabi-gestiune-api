@@ -33,8 +33,7 @@
         {
             var data = await this.context.Institutions.
                 FindAsync(new object[] { deleting.Id }, cancellationToken);
-            bool isUsed = (data.HistoricalStages != null && data.HistoricalStages.Any())
-                || (data.FileNumbers != null && data.FileNumbers.Any());
+            bool isUsed = (data.HistoricalStages != null && data.HistoricalStages.Any());
 
             return isUsed == false;
         }

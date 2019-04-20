@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Anabi.Common.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Anabi.Domain.Asset.Commands.Models
@@ -13,7 +14,12 @@ namespace Anabi.Domain.Asset.Commands.Models
             EvaluationCommittee evaluationCommittee,
             RecoveryCommittee recoveryCommittee,
             DateTime? lastActivity,
-            string personResponsible)
+            string personResponsible,
+            string recoveryApplicationNumber,
+            DateTime? recoveryApplicationDate,
+            RecoveryDocumentType? recoveryDocumentType,
+            string recoveryIssuingInstitution
+            )
         {
             ActualAmount = actualAmount;
             EstimatedAmount = estimatedAmount;
@@ -24,6 +30,10 @@ namespace Anabi.Domain.Asset.Commands.Models
             RecoveryCommittee = recoveryCommittee;
             LastActivity = lastActivity;
             PersonResponsible = personResponsible;
+            RecoveryApplicationNumber = recoveryApplicationNumber;
+            RecoveryApplicationDate = recoveryApplicationDate;
+            RecoveryDocumentType = recoveryDocumentType;
+            RecoveryIssuingInstitution = recoveryIssuingInstitution;
         }
 
         public decimal? ActualAmount { get; }
@@ -45,5 +55,15 @@ namespace Anabi.Domain.Asset.Commands.Models
 
         [MaxLength(200)]
         public string PersonResponsible { get; }
+
+        [MaxLength(100)]
+        public string RecoveryApplicationNumber { get; set; }
+
+        public DateTime? RecoveryApplicationDate { get; set; }
+
+        public RecoveryDocumentType? RecoveryDocumentType { get; set; }
+
+        [MaxLength(200)]
+        public string RecoveryIssuingInstitution { get; set; }
     }
 }

@@ -53,7 +53,7 @@ namespace Anabi.Features.StorageSpaces
             {
                 throw new Exception(Constants.NO_STORAGE_SPACES_FOUND);
             }
-
+            
             return result;
         }
 

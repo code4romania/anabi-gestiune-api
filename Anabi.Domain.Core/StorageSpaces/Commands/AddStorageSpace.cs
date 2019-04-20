@@ -2,7 +2,6 @@
 using Anabi.Common.Utils;
 using Anabi.Domain.Common;
 using Anabi.Domain.Common.Address;
-using Anabi.Domain.Models;
 using FluentValidation;
 using MediatR;
 using Newtonsoft.Json;

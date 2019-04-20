@@ -1,24 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class DecisionConfig : IEntityConfig
+    public class DecisionConfig : BaseEntityConfig<DecisionDb>
     {
-        public void SetupEntity(ModelBuilder modelBuilder)
+        public override void Configure(EntityTypeBuilder<DecisionDb> builder)
         {
-            var entity = modelBuilder.Entity<DecisionDb>();
-            entity.ToTable("Decisions");
+            builder.HasIndex(i => i.Name).HasName("indx_uq_Decision").IsUnique();
 
-            entity.HasKey(k => k.Id);
-            entity.Property(p => p.Name).HasMaxLength(50).IsRequired();
-            entity.HasIndex(i => i.Name).HasName("indx_uq_Decision").IsUnique();
-
-
-
+            base.Configure(builder);
         }
     }
 }

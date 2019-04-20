@@ -146,12 +146,7 @@ namespace AnabiControllers.Tests
                 new StorageSpaceDb
                 {
                     Id = 0, Name="Storage 1",
-                    AsphaltedArea = 22, AvailableVolume =22,
-                    ContactData ="contact data",
                     Description ="description",
-                    Length = 2, MaintenanceMentions = "mentiuni",
-                    TotalVolume = 22, UndevelopedArea = 222,
-                    MonthlyMaintenanceCost = 400, Width = 22,
                     Address = new AddressDb{
                     City = "Bucuresti",
                     Building = "Cladire 1",
@@ -162,14 +157,7 @@ namespace AnabiControllers.Tests
                 new StorageSpaceDb
                 {
                     Id = 0, Name="Storage 2",
-                    AsphaltedArea = 22322,
-                    AvailableVolume =2222,
-                    ContactData ="contact data 22",
                     Description ="description 22",
-                    Length = 2, MaintenanceMentions = "mentiuni 2",
-                    TotalVolume = 2234, UndevelopedArea = 5642,
-                    MonthlyMaintenanceCost = 3330,
-                    Width = 332,
                     Address = new AddressDb
                     {
                         City = "Bucuresti",

@@ -1,31 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using Anabi.DataAccess.Ef.DbModels;
+﻿using Anabi.DataAccess.Ef.DbModels;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class CountyConfig : IEntityConfig
+    public class CountyConfig : BaseEntityConfig<CountyDb>
     {
-        public void SetupEntity(ModelBuilder modelBuilder)
+        public override void Configure(EntityTypeBuilder<CountyDb> builder)
         {
-            var entity = modelBuilder.Entity<CountyDb>();
+            builder.HasIndex(i => i.Abreviation).IsUnique();
 
-            entity.ToTable("Counties");
-            
-
-            entity.HasKey(k => k.Id);
-            entity.Property(p => p.Abreviation)
-                .IsRequired()
-                .HasMaxLength(2);
-
-            entity.Property(p => p.Name)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            entity.HasIndex(i => i.Abreviation).IsUnique();
-            
+            base.Configure(builder);
         }
     }
 }

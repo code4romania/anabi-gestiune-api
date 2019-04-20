@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef.DbModels;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Anabi.DataAccess.Ef.EntityConfigurators
 {
-    public class RecoveryBeneficiaryConfig : IEntityConfig
+    public class RecoveryBeneficiaryConfig : BaseEntityConfig<RecoveryBeneficiaryDb>
     {
-        public void SetupEntity(ModelBuilder modelBuilder)
+        public override void Configure(EntityTypeBuilder<RecoveryBeneficiaryDb> builder)
         {
-            var entity = modelBuilder.Entity<RecoveryBeneficiaryDb>();
+            builder.HasIndex(p => p.Name)
+                .HasName("uq_RecoveryBeneficiaryName")
+                .IsUnique();
 
-            entity.ToTable("RecoveryBeneficiaries");
-
-
-            entity.HasKey(k => k.Id);
-
-            entity.Property(p => p.Name)
-                .IsRequired()
-                .HasMaxLength(200);
-
-            entity.HasIndex(p => p.Name).IsUnique();
+            base.Configure(builder);
         }
     }
 }
