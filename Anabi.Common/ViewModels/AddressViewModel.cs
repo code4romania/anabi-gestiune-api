@@ -12,12 +12,6 @@ namespace Anabi.Common.ViewModels
 
         public string Building { get; set;}
 
-        public string Stair { get;  set; }
-
-        public string Floor { get; set; }
-
-        public string FlatNo { get; set; }
-        
         public string Description { get; set; }
     }
 }

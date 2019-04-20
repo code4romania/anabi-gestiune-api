@@ -21,15 +21,6 @@ namespace Anabi.DataAccess.Ef.DbModels
         [MaxLength(10)]
         public string Building { get; set; }
 
-        [MaxLength(5)]
-        public string Stair { get; set; }
-
-        [MaxLength(5)]
-        public string Floor { get; set; }
-
-        [MaxLength(5)]
-        public string FlatNo { get; set; }
-
         [MaxLength(300)]
         public string Description { get; set; }
 
