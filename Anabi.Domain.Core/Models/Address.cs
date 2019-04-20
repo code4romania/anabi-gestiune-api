@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public int CountyId { get; set; }
+        //public int CountyId { get; set; }
 
         public County County { get; set; }
 
