@@ -74,7 +74,6 @@ namespace Anabi.Common.Utils
         public const string ADDRESS_BUILDING_INVALID_NUMBER = nameof(ADDRESS_BUILDING_INVALID_NUMBER);
         public const string ADDRESS_STAIR_INVALID_NUMBER = nameof(ADDRESS_STAIR_INVALID_NUMBER);
         public const string ADDRESS_FLOOR_INVALID_NUMBER = nameof(ADDRESS_FLOOR_INVALID_NUMBER);
-        public const string ADDRESS_FLATNO_INVALID_NUMBER = nameof(ADDRESS_FLATNO_INVALID_NUMBER);
         public const string ADDRESS_DESCRIPTION_INVALID = nameof(ADDRESS_DESCRIPTION_INVALID);
         public const string STORAGE_SPACE_TYPE_NOT_EMPTY = nameof(STORAGE_SPACE_TYPE_NOT_EMPTY);
     }
