@@ -35,7 +35,7 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         //pt foreign key
 
-        public virtual ICollection<InstitutionDb> Institutions { get; set; }
+        //public virtual ICollection<InstitutionDb> Institutions { get; set; }
 
         public virtual ICollection<PersonDb> Persons { get; set; }
 
