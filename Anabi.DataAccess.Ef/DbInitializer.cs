@@ -1,12 +1,15 @@
 ﻿using Anabi.DataAccess.Ef.DbModels;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace Anabi.DataAccess.Ef
 {
     public static class DbInitializer
     {
+        private static readonly string INSTITUTION_FILE_PATH = Environment.CurrentDirectory;
+        
         public static void InitializeFullDb(AnabiContext context)
         {
             if (context.Counties.Any())
@@ -37,8 +40,7 @@ namespace Anabi.DataAccess.Ef
                     ContactData = "Some contact here",
                     AddedDate = DateTime.Now,
                     UserCodeAdd = "admin",
-                    CategoryId =  categoryForInstitutionId ?? 0,
-                }
+                }               
             };
             context.Institutions.AddRange(insitutions);
             context.SaveChanges();
