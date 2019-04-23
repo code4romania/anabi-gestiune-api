@@ -32,11 +32,7 @@ namespace Anabi.Domain.Category.Commands
 
             hasNoChildren = (
                      (!(category.Children == null ? false : category.Children.Any())) &&
-                     (!(category.Assets == null ? false : category.Assets.Any() )) &&
-                     (!(category.Institutions == null ? false : category.Institutions.Any() ))
-                     );
-                     
-
+                     (!(category.Assets == null ? false : category.Assets.Any() )));             
             return hasNoChildren;
         }
     }

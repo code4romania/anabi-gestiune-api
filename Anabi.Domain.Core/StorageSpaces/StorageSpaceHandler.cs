@@ -29,8 +29,7 @@ namespace Anabi.Domain.StorageSpaces
                 Name = message.Name,
                 StorageSpacesType = message.StorageSpaceType,
                 UserCodeAdd = UserCode(),
-                AddedDate = DateTime.Now
-
+                AddedDate = DateTime.Now              
             };
             context.StorageSpaces.Add(newStorageSpace);
 
@@ -98,6 +97,7 @@ namespace Anabi.Domain.StorageSpaces
                 address.City = message.City;
                 address.Street = message.Street;
                 address.Description = message.Details;
+                address.Building = message.Building;
                 address.UserCodeAdd = UserCode();
                 address.AddedDate = DateTime.Now;
             }

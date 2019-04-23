@@ -7,8 +7,7 @@ namespace Anabi.DataAccess.Ef.DbModels
     [Table("Institutions")]
     public class InstitutionDb : BaseEntity
     {
-        public int CategoryId { get; set; }
-        public virtual CategoryDb Category { get; set; }
+        public int? BusinessId { get; set; } // represents the id of the court
 
         [Required]
         [MaxLength(50)]

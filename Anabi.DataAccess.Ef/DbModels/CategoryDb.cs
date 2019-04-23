@@ -27,8 +27,6 @@ namespace Anabi.DataAccess.Ef.DbModels
 
         public ICollection<CategoryDb> Children { get; set; }
 
-        public virtual ICollection<InstitutionDb> Institutions { get; set; }
-
         public virtual ICollection<AssetDb> Assets { get; set; }
     }
 }
