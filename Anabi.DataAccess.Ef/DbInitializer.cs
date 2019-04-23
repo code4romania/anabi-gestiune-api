@@ -7,9 +7,7 @@ using System.Linq;
 namespace Anabi.DataAccess.Ef
 {
     public static class DbInitializer
-    {
-        private static readonly string INSTITUTION_FILE_PATH = Environment.CurrentDirectory;
-        
+    {        
         public static void InitializeFullDb(AnabiContext context)
         {
             if (context.Counties.Any())
