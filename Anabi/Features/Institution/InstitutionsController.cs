@@ -66,9 +66,8 @@ namespace Anabi.Features.Institution
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> EditInstitution([FromBody]EditInstitution institution)
-        {
-         
-                await this.mediator.Send(institution);
+        {        
+            await this.mediator.Send(institution);
             return Ok();
         }
 
@@ -76,9 +75,8 @@ namespace Anabi.Features.Institution
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete([FromBody]DeleteInstitution institution)
-        {
-           
-                await this.mediator.Send(institution);
+        {           
+            await this.mediator.Send(institution);
             return Ok();
         }
     }
