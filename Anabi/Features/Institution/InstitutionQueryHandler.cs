@@ -12,10 +12,8 @@
 
     public class InstitutionQueryHandler : Domain.BaseHandler, IRequestHandler<GetInstitution, List<Institution>>
     {
-        public InstitutionQueryHandler(BaseHandlerNeeds needs) : base(needs)
-        {
+       public InstitutionQueryHandler(BaseHandlerNeeds needs) : base(needs) { }
 
-        }
        public async Task<List<Institution>> Handle(GetInstitution message, CancellationToken cancellationToken)
         {
             var result = context.Institutions
