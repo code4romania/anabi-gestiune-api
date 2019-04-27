@@ -4,6 +4,9 @@ using System;
 using System.IO;
 using System.Linq;
 
+using Anabi.InstitutionsImporter;
+using System.Collections.Generic;
+
 namespace Anabi.DataAccess.Ef
 {
     public static class DbInitializer
@@ -29,18 +32,25 @@ namespace Anabi.DataAccess.Ef
         private static void AddInstitutions(AnabiContext context)
         {
             var categoryForInstitutionId = context.Categories.Where(c => c.ForEntity == "institutie" && c.Code == "Instanta").FirstOrDefault()?.Id;
+            var institutionImporter = new InstitutionImporter();
 
-            var insitutions = new []
+            var result = institutionImporter.RunImporter();           
+
+            foreach (var item in result)
             {
-                new InstitutionDb
+                var insitutions = new List<InstitutionDb>()
                 {
-                    Name = "Curtea de Apel Alba Iulia",
-                    ContactData = "Some contact here",
-                    AddedDate = DateTime.Now,
-                    UserCodeAdd = "admin",
-                }               
-            };
-            context.Institutions.AddRange(insitutions);
+                    new InstitutionDb()
+                    {
+                        BusinessId = item.Id,
+                        Name = item.Name,
+                        AddedDate = DateTime.Now,
+                        UserCodeAdd = "admin"
+                    }
+                };
+                context.Institutions.AddRange(insitutions);
+            }          
+            
             context.SaveChanges();
         }
 
