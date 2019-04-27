@@ -8,15 +8,11 @@ namespace Anabi.DataAccess.Ef.EntityConfigurators
     {
         public override void Configure(EntityTypeBuilder<InstitutionDb> builder)
         {
+            builder.Property(p => p.BusinessId)
+                .HasColumnType("int");
+
             builder.Property(p => p.ContactData)
                 .HasColumnType("varchar(8000)");
-
-            builder.HasOne(j => j.Category)
-                .WithMany(a => a.Institutions)
-                .HasForeignKey(p => p.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Institutions_Categories")
-                .IsRequired();
 
             base.Configure(builder);
         }

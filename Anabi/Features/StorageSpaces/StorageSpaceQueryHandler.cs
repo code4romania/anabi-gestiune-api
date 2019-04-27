@@ -2,7 +2,6 @@
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain;
 using Anabi.Features.StorageSpaces.Models;
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -48,11 +47,6 @@ namespace Anabi.Features.StorageSpaces
                     Building = storageSpace.Address.Building               
                 }
             }).ToListAsync(cancellationToken);
-
-            if (result.Count == 0)
-            {
-                throw new Exception(Constants.NO_STORAGE_SPACES_FOUND);
-            }
             
             return result;
         }

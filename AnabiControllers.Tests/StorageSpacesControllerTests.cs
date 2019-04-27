@@ -147,7 +147,11 @@ namespace AnabiControllers.Tests
                     Address = new AddressDb{
                     City = "Bucuresti",
                     Building = "Cladire 1",
-                    CountyId = 1,
+                    County = new CountyDb
+                    {
+                        Abreviation = "B",
+                        Name = "Bucuresti"
+                    },
                     Street = "Sos Pantelimon 11"
 
                 } },
@@ -159,7 +163,11 @@ namespace AnabiControllers.Tests
                     {
                         City = "Bucuresti",
                         Building = "Cladire 2",
-                        CountyId = 1,
+                        County = new CountyDb
+                        {
+                            Abreviation = "BC",
+                            Name = "Bacau"
+                        },
                         Street = "Sos Pantelimon 44"
                     }}
             };
