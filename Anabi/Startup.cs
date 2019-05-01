@@ -18,10 +18,8 @@ using FluentValidation.AspNetCore;
 using Anabi.Domain.Common;
 using Anabi.Middleware;
 using Anabi.Filters;
-
 using Anabi.Domain.Common.Address;
 using FluentValidation;
-
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,6 +31,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Anabi.Validators;
 using Anabi.Validators.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Anabi.Infrastructure;
 
 namespace Anabi
 {
@@ -122,6 +121,8 @@ namespace Anabi
             services.AddAutoMapper(typeof(Startup), typeof(BaseHandler));
 
             services.AddMediatR(typeof(Startup), typeof(BaseHandler), typeof(PasswordHashHandler));
+
+            services.AddAnabiHealthChecks(Configuration, CurrentEnvironment);
         }
 
         private static void ConfigureSwagger(IServiceCollection services)
@@ -201,6 +202,7 @@ namespace Anabi
                 
             });
 
+            app.UseAnabiHealthChecks();
             
         }
     }

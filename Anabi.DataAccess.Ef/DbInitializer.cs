@@ -36,6 +36,7 @@ namespace Anabi.DataAccess.Ef
                 {
                     Name = "Curtea de Apel Alba Iulia",
                     ContactData = "Some contact here",
+                    BusinessId = 123,
                     AddedDate = DateTime.Now,
                     UserCodeAdd = "admin",
                 }               
