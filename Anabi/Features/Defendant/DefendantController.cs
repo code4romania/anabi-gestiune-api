@@ -81,5 +81,21 @@ namespace Anabi.Features.Defendant
 
             return Ok(defendants);
         }
+        /// <summary>
+        /// Deletes a defendant from an asset along with 
+        /// </summary>
+        /// <response code="200">The defendant has been successfully deleted</response>
+        /// <response code="400">Validation errors</response>
+        /// <param name="assetId">Asset id</param>
+        /// <param name="defendantId">Defendant id</param>
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpDelete("assets/{assetId}/defendants/{defendantId}")]
+        public async Task<IActionResult> DeleteDefendant(int assetId, int defendantId)
+        {
+            var request = new DeleteDefendant { AssetId = assetId, DefendantId = defendantId };
+            await mediator.Send(request);
+            return Ok();
+        }
     }
 }
