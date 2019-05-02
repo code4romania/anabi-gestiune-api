@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Anabi.InstitutionsImporter
 {
-    public class Institutions
+    public class Institution
     {
         public int? Id { get; set; }
         public string Name { get; set; }

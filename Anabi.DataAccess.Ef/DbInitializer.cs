@@ -17,7 +17,7 @@ namespace Anabi.DataAccess.Ef
             {
                 return; // DB has been seeded
             }
-
+            
             AddCounties(context);
             AddCategories(context);
             AddStages(context);
@@ -31,26 +31,16 @@ namespace Anabi.DataAccess.Ef
 
         private static void AddInstitutions(AnabiContext context)
         {
-            var categoryForInstitutionId = context.Categories.Where(c => c.ForEntity == "institutie" && c.Code == "Instanta").FirstOrDefault()?.Id;
-            var institutionImporter = new InstitutionImporter();
-
-            var result = institutionImporter.RunImporter();           
-
-            foreach (var item in result)
+            var result = InstitutionImporter.Deserialize();           
+            var institutions = result.Select(i => new InstitutionDb
             {
-                var insitutions = new List<InstitutionDb>()
-                {
-                    new InstitutionDb()
-                    {
-                        BusinessId = item.Id,
-                        Name = item.Name,
-                        AddedDate = DateTime.Now,
-                        UserCodeAdd = "admin"
-                    }
-                };
-                context.Institutions.AddRange(insitutions);
-            }          
-            
+                BusinessId = i.Id,
+                Name = i.Name,
+                AddedDate = DateTime.Now,
+                UserCodeAdd = "admin"
+            }).ToList();
+          
+            context.Institutions.AddRange(institutions);
             context.SaveChanges();
         }
 

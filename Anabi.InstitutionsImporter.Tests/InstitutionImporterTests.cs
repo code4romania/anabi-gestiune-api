@@ -7,24 +7,17 @@ namespace Anabi.InstitutionsImporter.Tests
 {
     public class InstitutionImporterTest
     {
-        private readonly InstitutionImporter _institutionImporter;
-
-        public InstitutionImporterTest()
-        {
-            _institutionImporter = new InstitutionImporter();
-        }
-
         [Fact]
         public void ShouldBeNotNull()
         {
-            var result = _institutionImporter.RunImporter();
+            var result = InstitutionImporter.Deserialize();
             Assert.NotNull(result);
         }
 
         [Fact]
         public void ListOfInstitutionsShouldBeNotEmpty()
         {
-            var result = _institutionImporter.RunImporter();
+            var result = InstitutionImporter.Deserialize(); ;
 
             Assert.True(result.Count > 0);
         }
@@ -32,11 +25,11 @@ namespace Anabi.InstitutionsImporter.Tests
         [Fact]
         public void ShouldFind_A_Court()
         {
-            var result = _institutionImporter.RunImporter();
+            var result = InstitutionImporter.Deserialize(); ;
 
-            var expected = new List<Institutions>
+            var expected = new List<Institution>
             {
-                new Institutions(){ Id = 107, Name = "Tribunalul ALBA" }
+                new Institution(){ Id = 107, Name = "Tribunalul ALBA" }
             };
 
             var actual = result.Where(i => i.Id == 107);
