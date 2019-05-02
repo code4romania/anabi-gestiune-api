@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190423034531_20190423_removeFields_from_InstitutionDb.cs" />
+    <Compile Remove="Migrations\20190423034531_20190423_removeFields_from_InstitutionDb.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.3">
@@ -15,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Anabi.Common\Anabi.Common.csproj" />
+    <ProjectReference Include="..\Anabi.InstitutionsImporter\Anabi.InstitutionsImporter.csproj" />
   </ItemGroup>
   
 </Project>
