@@ -1,17 +1,13 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Anabi.Features.Assets.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Anabi.Controllers;
 using Anabi.Domain.Asset.Commands;
 using Anabi.Middleware;
 using Anabi.Common.ViewModels;
-using Anabi.Domain.Core.Asset.Commands;
 using AutoMapper;
-using Anabi.DataAccess.Ef.DbModels;
+using Anabi.Domain.Asset;
 
 namespace Anabi.Features.Assets
 {
@@ -44,5 +40,21 @@ namespace Anabi.Features.Assets
 
             return Ok();
         }
+
+        /// <summary>
+        /// Removes an asset from a storage space
+        /// </summary>
+        /// <param name="assetId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpDelete("{assetId}/storagespace")]
+        public async Task<IActionResult> RemoveAssetFromStorageSpace(int assetId, [FromBody] RemoveAssetFromStorageSpaceRequest request)
+        {
+            return BadRequest();
+        }
     }
+
+
 }

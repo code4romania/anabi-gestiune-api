@@ -1,7 +1,5 @@
 using Anabi.Common.Utils;
-using Anabi.Common.ViewModels;
 using FluentValidation;
-using System.Collections.Generic;
 using Anabi.Domain.Asset.Commands;
 
 namespace Anabi.Domain.Core.Asset.Commands

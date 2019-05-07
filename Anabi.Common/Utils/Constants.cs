@@ -27,6 +27,9 @@ namespace Anabi.Common.Utils
         public const string IDSERIE_MAX_LENGTH_2 = nameof(IDSERIE_MAX_LENGTH_2);
         public const string IDENTIFICATION_MAX_LENGTH_20 = nameof(IDENTIFICATION_MAX_LENGTH_20);
         public const string PERSONNAME_MAX_LENGTH_200 = nameof(PERSONNAME_MAX_LENGTH_200);
+
+        public const string NAME_MAX_LENGTH_200 = nameof(NAME_MAX_LENGTH_200);
+
         public const string FIRSTNAME_MAX_LENGTH_50 = nameof(FIRSTNAME_MAX_LENGTH_50);
         public const string NATIONALITY_MAX_LENGTH_20 = nameof(NATIONALITY_MAX_LENGTH_20);
 

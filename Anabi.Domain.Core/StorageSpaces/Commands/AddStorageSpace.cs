@@ -11,7 +11,8 @@ using System.ComponentModel.DataAnnotations;
 namespace Anabi.Domain.StorageSpaces.Commands
 {
     public class AddStorageSpace : IRequest<int>, IAddMinimalAddress
-    {         
+    {   
+        [MaxLength(200, ErrorMessage = Constants.NAME_NOT_EMPTY)]
         public string Name { get; set; }
 
         [EnumDataType(typeof(StorageSpaceTypeEnum))]
@@ -22,18 +23,20 @@ namespace Anabi.Domain.StorageSpaces.Commands
         public string City { get; set; }
         public string Street { get; set; }
         public string Building { get; set; }
+
+        [MaxLength(2000, ErrorMessage = Constants.DESCRIPTION_MAX_LENGTH_2000)]
         public string Details { get; set; }
     }
 
     public class AddStorageSpaceValidator : AbstractValidator<AddStorageSpace>
     {
-        public AddStorageSpaceValidator(IDatabaseChecks checks, AbstractValidator<IAddMinimalAddress>  addAddressValidator)
+        public AddStorageSpaceValidator(AbstractValidator<IAddMinimalAddress>  addAddressValidator)
         {
             RuleFor(c => c.Name).NotEmpty().WithMessage(Constants.NAME_NOT_EMPTY);
-            RuleFor(c => c.Name).MaximumLength(200).WithMessage(Constants.NAME_MAX_LENGTH_100);
+            //RuleFor(c => c.Name).MaximumLength(200).WithMessage(Constants.NAME_MAX_LENGTH_200);
 
             RuleFor(c => c.StorageSpaceType).NotEmpty().WithMessage(Constants.STORAGE_SPACE_TYPE_NOT_EMPTY);
-            RuleFor(c => c.Details).MaximumLength(300).WithMessage(Constants.DESCRIPTION_MAX_LENGTH_2000);
+            //RuleFor(c => c.Details).MaximumLength(2000).WithMessage(Constants.DESCRIPTION_MAX_LENGTH_2000);
 
             RuleFor(m => m).SetValidator(addAddressValidator); 
         }

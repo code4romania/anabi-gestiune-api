@@ -9,30 +9,24 @@ using System.Threading.Tasks;
 
 namespace Anabi.Integration.Tests.Helpers
 {
-    public class AddMinimalAssetHelper
+    public class AddMinimalAssetHelper : BaseHelper
     {
-        private AnabiContext _context;
-        private HttpClient _client;
-        private Fixture _fixture;
-
-        public AddMinimalAssetHelper(AnabiContext context, HttpClient client)
+     
+        public AddMinimalAssetHelper(AnabiContext context, HttpClient client) : base(context, client)
         {
-            _context = context;
-            _client = client;
-            _fixture = new Fixture();
         }
 
         public async Task<int> AddMinimalAsset()
         {
-            var stage = _context.Stages.First();
-            var category = _context.Categories.First();
+            var stage = Context.Stages.First();
+            var category = Context.Categories.First();
 
-            var msg = _fixture.Build<AddMinimalAsset>()
+            var msg = Fixture.Build<AddMinimalAsset>()
                 .With(x => x.StageId, stage.Id)
                 .With(x => x.SubcategoryId, category.Id)
                 .Create();
 
-            var response = await _client.PostAsJsonAsync($"api/assets/addminimalasset", msg);
+            var response = await Client.PostAsJsonAsync($"api/assets/addminimalasset", msg);
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
