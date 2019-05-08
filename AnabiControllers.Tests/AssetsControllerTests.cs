@@ -12,12 +12,13 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using Anabi.Domain;
 using System.Threading;
-
 namespace AnabiControllers.Tests
 {
     [TestClass]
     public class AssetsControllerTests
     {
+        private const int AssetId = 1;
+        private const int EmptyAddressAssetId = 2;
 
         private AnabiContext context;
         
@@ -25,7 +26,6 @@ namespace AnabiControllers.Tests
         private IPrincipal principal;
 
         private BaseHandlerNeeds BasicNeeds => new BaseHandlerNeeds(context, mapper, principal);
-
 
         [TestInitialize]
         public void Initialize()
@@ -70,8 +70,6 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public async Task GetStages_ExpectedSeveralStages()
         {
-            
-
             var queryHandler = new GetStagesHandler(BasicNeeds);
 
             var query = new GetStages();
@@ -81,6 +79,35 @@ namespace AnabiControllers.Tests
             Assert.IsTrue(actual.Count > 0);
         }
 
+        [TestMethod]
+        public async Task GetAssets_ExpectedResultContainsAddress()
+        {
+            var queryHandler = new GetAssetHandler(BasicNeeds);
+
+            var query = new GetAssetDetails { Id = AssetId };
+
+            var actual = await queryHandler.Handle(query, CancellationToken.None);
+
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(1, actual.Id);
+            Assert.IsNotNull(actual.Address);
+            Assert.AreEqual("test street name", actual.Address.Street);
+            Assert.AreEqual("Barcelona", actual.Address.City);
+        }
+        
+        [TestMethod]
+        public async Task GetAssets_ExpectedResultContainsEmptyAddress()
+        {
+            var queryHandler = new GetAssetHandler(BasicNeeds);
+
+            var query = new GetAssetDetails { Id = EmptyAddressAssetId };
+
+            var actual = await queryHandler.Handle(query, CancellationToken.None);
+
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(2, actual.Id);
+            Assert.IsNull(actual.Address);
+        }
 
         private void Setup()
         {
@@ -90,6 +117,7 @@ namespace AnabiControllers.Tests
 
             AddStages();
             AddCategories();
+            AddAssets();
 
            
                 Mapper.Initialize(cfg =>
@@ -179,5 +207,39 @@ namespace AnabiControllers.Tests
             context.SaveChanges();
         }
 
+        private void AddAssets()
+        {
+            Console.Out.WriteLine("running add assets");
+            var asset1 = new AssetDb()
+            {
+                Id = AssetId,
+                Address = new AddressDb()
+                {
+                    Street = "test street name",
+                    City = "Barcelona"
+                }
+            };
+            var historicalStageDb1 = new HistoricalStageDb()
+            {
+                AddedDate = DateTime.Now,
+                UserCodeAdd = "test user code",
+                Asset = asset1
+            };
+            var asset2 = new AssetDb()
+            {
+                Id = EmptyAddressAssetId
+            };
+            var historicalStageDb2 = new HistoricalStageDb()
+            {
+                AddedDate = DateTime.Now,
+                UserCodeAdd = "test user code",
+                Asset = asset2
+            };
+            context.Assets.Add(asset1);
+            context.Assets.Add(asset2);
+            context.HistoricalStages.Add(historicalStageDb1);
+            context.HistoricalStages.Add(historicalStageDb2);
+            context.SaveChanges();
+        }
     }
 }
