@@ -29,7 +29,7 @@ namespace Anabi.Domain.Common.Address
             RuleFor(m => m.CountyCode).NotEmpty().Length(1, 2).WithMessage("INVALID_COUNTY_CODE_MIN_1_MAX_2");
             RuleFor(m => m.City).NotEmpty().Length(1, 30).WithMessage("INVALID_CITY");           
             RuleFor(m => m.Street).MaximumLength(100).Length(1, 100).WithMessage("STREET_NAME_TOO_LONG_MAX_100");
-            RuleFor(m => m.Building).MaximumLength(30).WithMessage("BUILDING_TOO_LONG_MAX_30");
+            RuleFor(m => m.Building).MaximumLength(10).WithMessage("BUILDING_TOO_LONG_MAX_10");
             RuleFor(m => m.Details).MaximumLength(300).Length(1, 300).WithMessage("DESCRIPTION_TOO_LONG_MAX_300");
             RuleFor(m => m.CountyCode).MustAsync(checks.CountyExists).WithMessage("INVALID_COUNTY_CODE");
         }

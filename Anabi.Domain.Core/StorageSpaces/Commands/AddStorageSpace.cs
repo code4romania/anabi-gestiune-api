@@ -19,9 +19,16 @@ namespace Anabi.Domain.StorageSpaces.Commands
         [JsonConverter(typeof(StringEnumConverter))]
         public StorageSpaceTypeEnum StorageSpaceType { get; set; }
        
+        [MaxLength(2)]
         public string CountyCode { get; set; }
+
+        [MaxLength(30)]
         public string City { get; set; }
+
+        [MaxLength(100)]
         public string Street { get; set; }
+
+        [MaxLength(10)]
         public string Building { get; set; }
 
         [MaxLength(2000, ErrorMessage = Constants.DESCRIPTION_MAX_LENGTH_2000)]
@@ -33,10 +40,8 @@ namespace Anabi.Domain.StorageSpaces.Commands
         public AddStorageSpaceValidator(AbstractValidator<IAddMinimalAddress>  addAddressValidator)
         {
             RuleFor(c => c.Name).NotEmpty().WithMessage(Constants.NAME_NOT_EMPTY);
-            //RuleFor(c => c.Name).MaximumLength(200).WithMessage(Constants.NAME_MAX_LENGTH_200);
 
             RuleFor(c => c.StorageSpaceType).NotEmpty().WithMessage(Constants.STORAGE_SPACE_TYPE_NOT_EMPTY);
-            //RuleFor(c => c.Details).MaximumLength(2000).WithMessage(Constants.DESCRIPTION_MAX_LENGTH_2000);
 
             RuleFor(m => m).SetValidator(addAddressValidator); 
         }

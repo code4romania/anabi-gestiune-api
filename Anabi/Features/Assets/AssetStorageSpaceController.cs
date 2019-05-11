@@ -25,7 +25,7 @@ namespace Anabi.Features.Assets
             mapper = _mapper;
         }
 
-        [ProducesResponseType(typeof(AddressViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AssetStorageSpaceViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPut("{assetId}/storagespace")]
         public async Task<IActionResult> AddStorageSpaceToAsset(int assetId, [FromBody] AddAssetToStorageSpaceRequest assetStorageSpaceDb)
@@ -38,21 +38,23 @@ namespace Anabi.Features.Assets
             };
             var viewModel = await mediator.Send(assetStorageSpace);
 
-            return Ok();
+            return Ok(viewModel);
         }
 
         /// <summary>
         /// Removes an asset from a storage space
         /// </summary>
         /// <param name="assetId"></param>
-        /// <param name="request"></param>
+        /// <param name="storageSpaceId"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
-        [HttpDelete("{assetId}/storagespace")]
-        public async Task<IActionResult> RemoveAssetFromStorageSpace(int assetId, [FromBody] RemoveAssetFromStorageSpaceRequest request)
+        [HttpDelete("{assetId}/storagespace/{storageSpaceId}")]
+        public async Task<IActionResult> RemoveAssetFromStorageSpace(int assetId, int storageSpaceId)
         {
-            return BadRequest();
+            var command = new RemoveAssetFromStorageSpace(assetId, storageSpaceId);
+            await mediator.Send(command);
+            return NoContent();
         }
     }
 
