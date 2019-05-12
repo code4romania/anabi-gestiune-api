@@ -49,17 +49,12 @@ namespace Anabi.Features.Assets
                     },
                     Journal = new JournalViewModel
                     {
-                        UserCodeAdd = storageSpaces.UserCodeAdd,
-                        AddedDate = storageSpaces.AddedDate,
-                        UserCodeLastChange = storageSpaces.UserCodeLastChange,
-                        LastChangeDate = storageSpaces.LastChangeDate
+                        UserCodeAdd = assetStorageSpace.UserCodeAdd,
+                        AddedDate = assetStorageSpace.AddedDate,
+                        UserCodeLastChange = assetStorageSpace.UserCodeLastChange,
+                        LastChangeDate = assetStorageSpace.LastChangeDate
                     }
                 };
-
-            if (!result.Any())
-            {
-                throw new AnabiEntityNotFoundException("STORAGE_SPACE_CANNOT_BE_FOUND");
-            }
 
             return await result.ToListAsync(cancellationToken);
         }
