@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Anabi.Features.Assets.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Anabi.Controllers;
 using Anabi.Domain.Asset.Commands;
 using Anabi.Middleware;
 using Anabi.Common.ViewModels;
-using Anabi.Domain.Core.Asset.Commands;
+using Anabi.Features.Assets.Models;
 using AutoMapper;
-using Anabi.DataAccess.Ef.DbModels;
 
 namespace Anabi.Features.Assets
 {
@@ -44,5 +41,15 @@ namespace Anabi.Features.Assets
 
             return Ok();
         }
+
+        //GET /api/AssetStorageSpace
+        [ProducesResponseType(typeof(List<GetAssetStorageSpace>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpGet("{assetId}/storagespace")]
+        public async Task<IActionResult> GetAssetStorageSpace(int assetId)
+        {
+            var result = await mediator.Send(new GetAssetStorageSpace() {AssetId = assetId});
+            return Ok(result);
+        } 
     }
 }
