@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Anabi.Domain;
 using System.Threading;
 using Anabi.Domain.Asset;
+using Anabi.Features.Assets;
+using Anabi.Features.Assets.Models;
 
 namespace AnabiControllers.Tests
 {
@@ -36,6 +38,17 @@ namespace AnabiControllers.Tests
 
             mapper = null;
             Mapper.Reset();
+        }
+
+        [TestMethod]
+        public async Task ShouldReturnAStoargeSpaceForAsset()
+        {
+            var queryHandler = new GetStorageSpaceAssetHandler(BasicNeeds);
+            var query = new GetAssetStorageSpace() { AssetId = 1002};
+
+            var expected = await queryHandler.Handle(query, CancellationToken.None);
+            
+            Assert.IsTrue(expected.Count > 0);
         }
 
         [TestMethod]
