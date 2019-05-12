@@ -21,5 +21,8 @@
         public decimal EstimatedAmount { get; set; }
 
         public string EstimatedAmountCurrency { get; set; }
+
+        public AddressViewModel Address { get; set; }
+
     }
 }
