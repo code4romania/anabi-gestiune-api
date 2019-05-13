@@ -15,7 +15,7 @@ namespace Anabi.InstitutionsImporter
 
         public static List<Institution> Deserialize()
         {
-            using (StreamReader streamReader = File.OpenText($@"{INSTITUTION_PATH}\institutions.json"))
+            using (StreamReader streamReader = File.OpenText($@"{INSTITUTION_PATH}{Path.DirectorySeparatorChar}institutions.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
 
