@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Anabi.Domain.Asset.Commands;
 using Anabi.Middleware;
 using Anabi.Common.ViewModels;
+using Anabi.Features.Assets.Models;
 using AutoMapper;
 using Anabi.Domain.Asset;
 
@@ -56,6 +57,16 @@ namespace Anabi.Features.Assets
             await mediator.Send(command);
             return NoContent();
         }
+
+        //GET /api/AssetStorageSpace
+        [ProducesResponseType(typeof(List<GetAssetStorageSpace>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpGet("{assetId}/storagespace")]
+        public async Task<IActionResult> GetAssetStorageSpace(int assetId)
+        {
+            var result = await mediator.Send(new GetAssetStorageSpace() {AssetId = assetId});
+            return Ok(result);
+        } 
     }
 
 

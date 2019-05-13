@@ -5,10 +5,13 @@ using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Person.Commands;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Anabi.Domain.Person
 {
-    public class PersonHandler : BaseHandler, IRequestHandler<AddDefendant, DefendantViewModel>
+    public class PersonHandler : BaseHandler
+        , IRequestHandler<AddDefendant, DefendantViewModel>
+        , IRequestHandler<DeleteDefendant>
     {
         public PersonHandler(BaseHandlerNeeds needs) : base(needs)
         {
@@ -45,6 +48,18 @@ namespace Anabi.Domain.Person
 
             return response;
 
+        }
+
+        public async Task<Unit> Handle(DeleteDefendant request, CancellationToken cancellationToken)
+        {
+            var assetDefendantToDelete = await context.AssetDefendants
+                .FirstOrDefaultAsync(x => x.AssetId == request.AssetId && x.PersonId == request.DefendantId);
+
+            context.AssetDefendants.Remove(assetDefendantToDelete);
+            context.Persons.Remove(assetDefendantToDelete.Defendant);
+            await context.SaveChangesAsync();
+
+            return Unit.Value;
         }
     }
 }

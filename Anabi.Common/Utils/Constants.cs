@@ -80,5 +80,10 @@ namespace Anabi.Common.Utils
         public const string ADDRESS_FLATNO_INVALID_NUMBER = nameof(ADDRESS_FLATNO_INVALID_NUMBER);
         public const string ADDRESS_DESCRIPTION_INVALID = nameof(ADDRESS_DESCRIPTION_INVALID);
         public const string STORAGE_SPACE_TYPE_NOT_EMPTY = nameof(STORAGE_SPACE_TYPE_NOT_EMPTY);
+
+        public const string ASSET_ID_MUST_BE_SPECIFIED = nameof(ASSET_ID_MUST_BE_SPECIFIED);
+        public const string DEFENDANT_ID_MUST_BE_SPECIFIED = nameof(DEFENDANT_ID_MUST_BE_SPECIFIED);
+        public const string DEFENDANT_INVALID_ID = nameof(DEFENDANT_INVALID_ID);
+        public const string ASSET_DEFENDANT_INVALID_IDS = nameof(ASSET_DEFENDANT_INVALID_IDS);
     }
 }
