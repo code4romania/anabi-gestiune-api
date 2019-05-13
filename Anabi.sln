@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anabi", "Anabi\Anabi.csproj", "{53B03776-32A0-47F3-9B1B-E18D3DD433A0}"
 EndProject
@@ -29,6 +29,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{04F8BCD4-E562-45AC-B9A6-3EC45543BEEB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anabi.Integration.Tests", "Anabi.Integration.Tests\Anabi.Integration.Tests.csproj", "{2775C60A-E0DB-4DA7-BD69-7693B73330FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anabi.InstitutionsImporter", "Anabi.InstitutionsImporter\Anabi.InstitutionsImporter.csproj", "{D79ACB75-F2A5-4107-9A6F-2F461AE5541E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anabi.InstitutionsImporter.Tests", "Anabi.InstitutionsImporter.Tests\Anabi.InstitutionsImporter.Tests.csproj", "{914D6DB2-C770-45D4-A340-2366496A8DF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +75,14 @@ Global
 		{2775C60A-E0DB-4DA7-BD69-7693B73330FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2775C60A-E0DB-4DA7-BD69-7693B73330FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2775C60A-E0DB-4DA7-BD69-7693B73330FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D79ACB75-F2A5-4107-9A6F-2F461AE5541E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D79ACB75-F2A5-4107-9A6F-2F461AE5541E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D79ACB75-F2A5-4107-9A6F-2F461AE5541E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D79ACB75-F2A5-4107-9A6F-2F461AE5541E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{914D6DB2-C770-45D4-A340-2366496A8DF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{914D6DB2-C770-45D4-A340-2366496A8DF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{914D6DB2-C770-45D4-A340-2366496A8DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{914D6DB2-C770-45D4-A340-2366496A8DF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +96,8 @@ Global
 		{6535EED6-8A0C-480A-A727-5822364A2C14} = {04F8BCD4-E562-45AC-B9A6-3EC45543BEEB}
 		{C1D9BEEC-7AE2-42D6-846E-995EF36C4DA3} = {541F5C19-735D-4D0D-87CB-19A9E563CB27}
 		{2775C60A-E0DB-4DA7-BD69-7693B73330FC} = {04F8BCD4-E562-45AC-B9A6-3EC45543BEEB}
+		{D79ACB75-F2A5-4107-9A6F-2F461AE5541E} = {541F5C19-735D-4D0D-87CB-19A9E563CB27}
+		{914D6DB2-C770-45D4-A340-2366496A8DF7} = {04F8BCD4-E562-45AC-B9A6-3EC45543BEEB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DCF896A4-DBE2-48C4-B043-00DC8E06CD2A}
