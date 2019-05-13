@@ -8,7 +8,8 @@ using Anabi.Middleware;
 using Anabi.Common.ViewModels;
 using Anabi.Features.Assets.Models;
 using AutoMapper;
-using Anabi.Domain.Asset;
+using Anabi.Features.StorageSpaces.Models;
+using System.Collections.Generic;
 
 namespace Anabi.Features.Assets
 {
@@ -59,7 +60,7 @@ namespace Anabi.Features.Assets
         }
 
         //GET /api/AssetStorageSpace
-        [ProducesResponseType(typeof(List<GetAssetStorageSpace>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<StorageSpaceViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpGet("{assetId}/storagespace")]
         public async Task<IActionResult> GetAssetStorageSpace(int assetId)

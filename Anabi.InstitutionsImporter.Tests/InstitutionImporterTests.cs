@@ -8,13 +8,6 @@ namespace Anabi.InstitutionsImporter.Tests
     public class InstitutionImporterTest
     {
         [Fact]
-        public void ShouldBeNotNull()
-        {
-            var result = InstitutionImporter.Deserialize();
-            Assert.NotNull(result);
-        }
-
-        [Fact]
         public void ListOfInstitutionsShouldBeNotEmpty()
         {
             var result = InstitutionImporter.Deserialize(); ;
