@@ -122,7 +122,7 @@ namespace Anabi
 
             services.AddMediatR(typeof(Startup), typeof(BaseHandler), typeof(PasswordHashHandler));
 
-            services.AddAnabiHealthChecks(Configuration, CurrentEnvironment);
+            //services.AddAnabiHealthChecks(Configuration, CurrentEnvironment);
         }
 
         private static void ConfigureSwagger(IServiceCollection services)
@@ -202,7 +202,7 @@ namespace Anabi
                 
             });
 
-            app.UseAnabiHealthChecks();
+            //app.UseAnabiHealthChecks();
             
         }
     }

@@ -25,8 +25,9 @@ namespace Anabi.DataAccess.Ef
             AddUsers(context);
             AddRecoveryBeneficiaries(context);
             AddCrimeTypes(context);
-            AddInstitutions(context);
+            
             AddIdentifiers(context);
+            AddInstitutions(context);
         }
 
         private static void AddInstitutions(AnabiContext context)
