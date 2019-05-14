@@ -29,6 +29,7 @@ namespace Anabi.Integration.Tests.Assets
             _fixture = new Fixture();
         }
 
+
         [Fact]
         public async Task AddDefendant_WebResponse_Ok()
         {

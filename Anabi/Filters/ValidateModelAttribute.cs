@@ -14,7 +14,7 @@ namespace Anabi.Filters
 {
     public class ValidateModelAttribute : ActionFilterAttribute
     {
-        private readonly ILogger _logger;
+        //private readonly ILogger _logger;
 
         //public ValidateModelAttribute(ILogger logger)
         //{
