@@ -47,6 +47,15 @@ namespace Anabi.Features.Assets
                                  UserCodeLastChange = a.UserCodeLastChange,
                                  LastChangeDate = a.LastChangeDate
                              },
+                             Address = a.Address != null ? new AddressViewModel
+                             {
+                                 Building = a.Address.Building,
+                                 City = a.Address.City,
+                                 CountyId = a.Address.CountyId,
+                                 Description = a.Address.Description,
+                                 Street = a.Address.Street,
+                             } : null
+
                          })
                          .FirstOrDefaultAsync(cancellationToken);
 

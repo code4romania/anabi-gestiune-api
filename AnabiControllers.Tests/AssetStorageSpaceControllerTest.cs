@@ -12,6 +12,9 @@ using System.Threading;
 using Anabi.Domain.Asset;
 using Anabi.Features.Assets;
 using Anabi.Features.Assets.Models;
+using AutoFixture;
+using System.Linq;
+using Anabi.DataAccess.Ef.DbModels;
 
 namespace AnabiControllers.Tests
 {
@@ -21,6 +24,7 @@ namespace AnabiControllers.Tests
         private AnabiContext context;
         private IMapper mapper;
         private IPrincipal principal;
+        private Fixture fixture;
 
         private BaseHandlerNeeds BasicNeeds => new BaseHandlerNeeds(context, mapper, principal);
 
@@ -43,8 +47,17 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public async Task ShouldReturnAStoargeSpaceForAsset()
         {
+            var entity = await AddAssetToStorageSpace();
+
+            var asset = new AssetDb { Id = entity.AssetId };
+            context.Assets.Add(asset);
+            var storageSpace = new StorageSpaceDb { Id = entity.StorageSpaceId, Address = new AddressDb { County = new CountyDb() } };
+            context.StorageSpaces.Add(storageSpace);
+            context.SaveChanges();
+
             var queryHandler = new GetStorageSpaceAssetHandler(BasicNeeds);
-            var query = new GetAssetStorageSpace() { AssetId = 1002};
+            
+            var query = new GetAssetStorageSpace() { AssetId = entity.AssetId};
 
             var expected = await queryHandler.Handle(query, CancellationToken.None);
             
@@ -54,19 +67,21 @@ namespace AnabiControllers.Tests
         [TestMethod]
         public async Task AddAssetStorageSpace()
         {
+            var entity = await AddAssetToStorageSpace();
+
+            var combination = context.AssetStorageSpaces.Single();
+
+            Assert.AreEqual(entity.AssetId, combination.AssetId);
+            Assert.AreEqual(entity.StorageSpaceId, combination.StorageSpaceId);
+        }
+
+        private async Task<AddAssetStorageSpace> AddAssetToStorageSpace()
+        {
             var queryHandler = new AssetStorageSpaceHandler(BasicNeeds);
-            var entity = new AddAssetStorageSpace
-            {
-                AssetId = 1002,
-                EntryDate = DateTime.Now,
-                StorageSpaceId = 1
-            };
+            var entity = fixture.Create<AddAssetStorageSpace>();
 
             await queryHandler.Handle(entity, CancellationToken.None);
-
-            var cat = await context.AssetStorageSpaces.FirstOrDefaultAsync(a => a.Id == 1);
-
-            Assert.IsNotNull(cat);
+            return entity;
         }
 
         private void Setup()
@@ -83,6 +98,7 @@ namespace AnabiControllers.Tests
             });
             mapper = Mapper.Instance;
             principal = Utils.TestAuthentificatedPrincipal();
+            fixture = new Fixture();
         }
 
         private DbContextOptions<AnabiContext> GetContextOptions()

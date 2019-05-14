@@ -11,8 +11,5 @@ namespace Anabi.Features.Assets.Models
     public class GetAssetStorageSpace : IRequest<List<StorageSpaceViewModel>>
     {
         public int AssetId { get; set; }
-        public StorageSpace StorageSpace { get; set; }
-
-
     }
 }
