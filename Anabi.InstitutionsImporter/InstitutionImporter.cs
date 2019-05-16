@@ -1,14 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System.IO;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Anabi.InstitutionsImporter
 {
     public static class InstitutionImporter
     {
+        private readonly static string SOURCE = "institutions.json";
         public static List<Institution> Deserialize()
         {
-            using (StreamReader streamReader = File.OpenText($@"institutions.json"))
+            string institutionsPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), SOURCE);
+            using (StreamReader streamReader = File.OpenText(institutionsPath))
             {
                 JsonSerializer serializer = new JsonSerializer();
 
