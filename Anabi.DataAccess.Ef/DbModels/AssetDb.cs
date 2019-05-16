@@ -49,8 +49,5 @@ namespace Anabi.DataAccess.Ef.DbModels
         public virtual ICollection<AssetStorageSpaceDb> AssetsStorageSpaces { get; set; }
 
         public virtual ICollection<AssetDefendantDb> Defendants { get; set; }
-
-        [MaxLength(200)]
-        public string MyString { get; set; }
     }
 }
