@@ -12,7 +12,7 @@ This project is built by amazing volunteers and you can be one of them! Here's a
 
 ## Built With
 
-.Net Core 1.1 ^
+.Net Core 2.2 ^
 
 SQL Server Express
 
