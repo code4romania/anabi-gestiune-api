@@ -20,9 +20,6 @@ namespace Anabi.Domain.Asset
                 Street = message.Street,
                 City =  message.City,
                 Building = message.Building,
-                Stair = message.Stair,
-                Floor = message.Floor,
-                FlatNo = message.FlatNo,
                 Description = message.Description,
                 UserCodeAdd = UserCode(),
                 AddedDate = DateTime.Now

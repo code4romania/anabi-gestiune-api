@@ -14,27 +14,11 @@ namespace Anabi.Domain.Institution.Commands
 
     using FluentValidation;
 
-    public class EditInstitution : IAddAddress, IRequest 
+    public class EditInstitution : IRequest 
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public int CategoryId { get; set; }
-
-        public string CountyCode { get; set; }
-
-        public string City { get; set; }
-
-        public string Street { get; set; }
-
-        public string Building { get; set; }
-
-        public string Stair { get; set; }
-
-        public string Floor { get; set; }
-
-        public string FlatNo { get; set; }
     }
 
     public class EditInstitutionValidator : AbstractValidator<EditInstitution>
@@ -43,8 +27,6 @@ namespace Anabi.Domain.Institution.Commands
             IDatabaseChecks checks, AbstractValidator<IAddAddress> addAddressValidator)
         {
             RuleFor(m => m.Id).GreaterThan(0);
-
-            RuleFor(m => m).SetValidator(addAddressValidator);
         }
     }
 }

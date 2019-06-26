@@ -38,16 +38,7 @@ namespace Anabi.DataAccess.Ef.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(300);
 
-                    b.Property<string>("FlatNo")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("Floor")
-                        .HasMaxLength(5);
-
                     b.Property<DateTime?>("LastChangeDate");
-
-                    b.Property<string>("Stair")
-                        .HasMaxLength(5);
 
                     b.Property<string>("Street")
                         .IsRequired()

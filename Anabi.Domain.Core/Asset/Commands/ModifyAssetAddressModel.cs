@@ -29,9 +29,6 @@ namespace Anabi.Domain.Core.Asset.Commands
                 this.Street = value.Street;
                 this.City = value.City;
                 this.Building = value.Building;
-                this.Stair = value.Stair;
-                this.Floor = value.Floor;
-                this.FlatNo = value.FlatNo;
                 this.Description = value.Description;
             }
         }
@@ -49,9 +46,6 @@ namespace Anabi.Domain.Core.Asset.Commands
             RuleFor(p => p.Street).NotEmpty().MaximumLength(100).WithMessage(Constants.ADDRESS_STREET_INVALID_NAME);
             RuleFor(p => p.City).NotEmpty().MaximumLength(30).WithMessage(Constants.ADDRESS_CITY_INVALID_NAME);
             RuleFor(p => p.Building).NotEmpty().MaximumLength(10).WithMessage(Constants.ADDRESS_BUILDING_INVALID_NUMBER);
-            RuleFor(p => p.Stair).NotEmpty().MaximumLength(5).WithMessage(Constants.ADDRESS_STAIR_INVALID_NUMBER);
-            RuleFor(p => p.Floor).NotEmpty().MaximumLength(5).WithMessage(Constants.ADDRESS_FLOOR_INVALID_NUMBER);
-            RuleFor(p => p.FlatNo).NotEmpty().MaximumLength(5).WithMessage(Constants.ADDRESS_FLATNO_INVALID_NUMBER);
             RuleFor(p => p.Description).NotEmpty().MaximumLength(300).WithMessage(Constants.ADDRESS_DESCRIPTION_INVALID);
         }
 

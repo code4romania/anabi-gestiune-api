@@ -37,6 +37,7 @@ namespace Anabi.Domain.Asset.Commands
 
             RuleFor(p => p.AssetId).MustAsync(validator.AssetIdExistsInDatabaseAsync).WithMessage(Constants.ASSET_INVALID_ID);
             RuleFor(p => p.CountyId).MustAsync(CountyIdExistsInDatabaseAsync).WithMessage(Constants.COUNTY_INVALID_ID);
+
         }
 
         private async Task<bool> CountyIdExistsInDatabaseAsync(int arg1, CancellationToken arg2)
