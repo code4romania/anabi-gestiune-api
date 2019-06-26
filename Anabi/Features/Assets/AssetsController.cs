@@ -205,5 +205,15 @@ namespace Anabi.Features.Assets
             var viewModel = await mediator.Send(modifyAssetAddressObj);
             return Ok(viewModel);
         }
+
+        [ProducesResponseType(typeof(AddressViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpGet("{assetId}/address")]
+        public async Task<IActionResult> GetAssetAddress(int assetId)
+        {
+            var request = new GetAssetAddress(assetId);
+            var viewmodel = await mediator.Send(request);
+            return Ok(viewmodel);
+        }
     }
 }
