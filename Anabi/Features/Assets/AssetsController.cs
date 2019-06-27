@@ -188,8 +188,7 @@ namespace Anabi.Features.Assets
         [HttpPost("{assetId}/address")]
         public async Task<IActionResult> AddAssetAddress(int assetId, [FromBody] AddAssetAddressRequest request)
         {
-            var message = mapper.Map<AddAssetAddressRequest, AddAssetAddress>(request);
-            message.AssetId = assetId;
+            var message = new AddAssetAddress(assetId, request.CountyId, request.Street, request.City, request.Building, request.Description);
 
             var model = await mediator.Send(message);
 

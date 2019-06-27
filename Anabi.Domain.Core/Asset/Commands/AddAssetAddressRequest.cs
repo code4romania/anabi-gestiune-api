@@ -5,34 +5,32 @@ namespace Anabi.Domain.Asset.Commands
 {
     public class AddAssetAddressRequest
     {
-        public int CountyId { get; set; }
 
+        public AddAssetAddressRequest(int countyId, string street, string city, string building, string description)
+        {
+            CountyId = countyId;
+            Street = street;
+            City = city;
+            Building = building;
+            Description = description;
+        }
+
+        public int CountyId { get; }
+
+        [Required]
         [MaxLength(100, ErrorMessage = Constants.ADDRESS_STREET_INVALID_NAME)]
-        [Required]
-        public string Street { get; set; }
+        public string Street { get; }
 
+        [Required]
         [MaxLength(30, ErrorMessage = Constants.ADDRESS_CITY_INVALID_NAME)]
-        [Required]
-        public string City { get; set; }
+        public string City { get; }
 
+        [Required]
         [MaxLength(10, ErrorMessage = Constants.ADDRESS_BUILDING_INVALID_NUMBER)]
-        [Required]
-        public string Building { get; set; }
+        public string Building { get; }
 
-        [MaxLength(5, ErrorMessage = Constants.ADDRESS_STAIR_INVALID_NUMBER)]
         [Required]
-        public string Stair { get; set; }
-
-        [MaxLength(5, ErrorMessage = Constants.ADDRESS_FLOOR_INVALID_NUMBER)]
-        [Required]
-        public string Floor { get; set; }
-
-        [MaxLength(5, ErrorMessage = Constants.ADDRESS_FLATNO_INVALID_NUMBER)]
-        [Required]
-        public string FlatNo { get; set; }
-
         [MaxLength(300, ErrorMessage = Constants.ADDRESS_DESCRIPTION_INVALID)]
-        [Required]
-        public string Description { get; set; }
+        public string Description { get; }
     }
 }

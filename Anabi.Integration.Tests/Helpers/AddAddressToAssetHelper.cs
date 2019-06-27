@@ -19,9 +19,7 @@ namespace Anabi.Integration.Tests.Helpers
         {
             var countyId = Context.Counties.First().Id;
 
-            var msg = Fixture.Build<AddAssetAddressRequest>()
-                .With(c => c.CountyId, countyId)
-                .Create();
+            var msg = new AddAssetAddressRequest(countyId, "street 1", "Buc", "cladire", "descriere");
 
             var response = await Client.PostAsJsonAsync($"api/assets/{assetId}/address", msg);
             response.EnsureSuccessStatusCode();

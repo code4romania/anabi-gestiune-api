@@ -3,7 +3,6 @@ using Anabi.Domain;
 using Anabi.Features.Assets.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,9 +29,6 @@ namespace Anabi.Features.Assets
                     CountyName = a.Address.County.Name,
                     CountyAbreviation = a.Address.County.Abreviation,
                     Description = a.Address.Description,
-                    FlatNo = a.Address.FlatNo,
-                    Floor = a.Address.Floor,
-                    Stair = a.Address.Stair,
                     Street = a.Address.Street,
                     Journal = new JournalViewModel
                     {
