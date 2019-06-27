@@ -26,12 +26,16 @@ namespace Anabi.Domain.Asset
             }; 
 
             var asset = await context.Assets.FindAsync(message.AssetId);
+            var county = await context.Counties.FindAsync(message.CountyId);
+
             asset.Address = address;
 
             context.Addresses.Add(address);
             await context.SaveChangesAsync(cancellationToken);
 
             var response = mapper.Map<AddAssetAddress, AddressViewModel>(message);
+            response.CountyName = county.Name;
+            response.CountyAbreviation = county.Abreviation;
             response.Id = address.Id;
             response.Journal = new JournalViewModel
             {

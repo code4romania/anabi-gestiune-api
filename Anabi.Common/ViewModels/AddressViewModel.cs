@@ -6,6 +6,10 @@ namespace Anabi.Common.ViewModels
     {
         public int CountyId { get; set; }
 
+        public string CountyName { get; set; }
+
+        public string CountyAbreviation { get; set; }
+
         public string Street { get; set; }
 
         public string City { get; set; }

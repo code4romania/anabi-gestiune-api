@@ -1,7 +1,5 @@
 ﻿using Anabi.Common.ViewModels;
-using Anabi.Domain.Asset;
 using Anabi.Integration.Tests.Helpers;
-using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -11,10 +9,10 @@ namespace Anabi.Integration.Tests.Assets.RemoveAssetFromStorageSpace
 {
     public class RemoveAssetFromStorageSpaceTest : ApiTests
     {
-        public AddMinimalAssetHelper _minimalAssetHelper { get; set; }
-        public AddStorageSpaceHelper _storageSpaceHelper { get; set; }
+        public AddMinimalAssetHelper _minimalAssetHelper { get; }
+        public AddStorageSpaceHelper _storageSpaceHelper { get; }
 
-        public AddAssetToStorageSpaceHelper _addAssetToStorageSpaceHelper { get; set; }
+        public AddAssetToStorageSpaceHelper _addAssetToStorageSpaceHelper { get; }
 
         public RemoveAssetFromStorageSpaceTest(AnabiApplicationFactory<Startup> factory) : base(factory)
         {

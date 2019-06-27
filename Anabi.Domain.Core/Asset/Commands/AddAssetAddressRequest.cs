@@ -1,13 +1,36 @@
-using Anabi.DataAccess.Ef.DbModels;
-public class AddAssetAddressRequest
+using Anabi.Common.Utils;
+using System.ComponentModel.DataAnnotations;
+
+namespace Anabi.Domain.Asset.Commands
+{
+    public class AddAssetAddressRequest
     {
-        public int CountyId { get; set; }
 
-        public string Street { get; set; }
+        public AddAssetAddressRequest(int countyId, string street, string city, string building, string description)
+        {
+            CountyId = countyId;
+            Street = street;
+            City = city;
+            Building = building;
+            Description = description;
+        }
 
-        public string City { get; set; }
+        public int CountyId { get; }
 
-        public string Building { get; set;}
+        [Required]
+        [MaxLength(100, ErrorMessage = Constants.ADDRESS_STREET_INVALID_NAME)]
+        public string Street { get; }
 
-        public string Description{ get; set; }
+        [Required]
+        [MaxLength(30, ErrorMessage = Constants.ADDRESS_CITY_INVALID_NAME)]
+        public string City { get; }
+
+        [Required]
+        [MaxLength(10, ErrorMessage = Constants.ADDRESS_BUILDING_INVALID_NUMBER)]
+        public string Building { get; }
+
+        [Required]
+        [MaxLength(300, ErrorMessage = Constants.ADDRESS_DESCRIPTION_INVALID)]
+        public string Description { get; }
     }
+}

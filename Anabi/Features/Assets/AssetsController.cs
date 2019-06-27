@@ -188,8 +188,7 @@ namespace Anabi.Features.Assets
         [HttpPost("{assetId}/address")]
         public async Task<IActionResult> AddAssetAddress(int assetId, [FromBody] AddAssetAddressRequest request)
         {
-            var message = mapper.Map<AddAssetAddressRequest, AddAssetAddress>(request);
-            message.AssetId = assetId;
+            var message = new AddAssetAddress(assetId, request.CountyId, request.Street, request.City, request.Building, request.Description);
 
             var model = await mediator.Send(message);
 
@@ -204,6 +203,16 @@ namespace Anabi.Features.Assets
             var modifyAssetAddressObj = new ModifyAssetAddressModel {AssetId = assetId, ModifyAssetAddress = assetAddress};
             var viewModel = await mediator.Send(modifyAssetAddressObj);
             return Ok(viewModel);
+        }
+
+        [ProducesResponseType(typeof(AddressViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpGet("{assetId}/address")]
+        public async Task<IActionResult> GetAssetAddress(int assetId)
+        {
+            var request = new GetAssetAddress(assetId);
+            var viewmodel = await mediator.Send(request);
+            return Ok(viewmodel);
         }
     }
 }
