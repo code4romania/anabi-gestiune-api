@@ -95,9 +95,6 @@ namespace AnabiControllers.Tests
                 Street = "Iancului 33",
                 Building = "11",
                 City = "Bucuresti",
-                FlatNo = "22",
-                Floor = "22",
-                Stair = "B"
             };
 
             await queryHandler.Handle(query, CancellationToken.None);

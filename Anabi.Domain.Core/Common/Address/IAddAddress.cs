@@ -10,10 +10,6 @@
 
         string Building { get; set; }
 
-        string Stair { get; set; }
-
-        string Floor { get; set; }
-
-        string FlatNo { get; set; }
+        string Description { get; set; }
     }
 }

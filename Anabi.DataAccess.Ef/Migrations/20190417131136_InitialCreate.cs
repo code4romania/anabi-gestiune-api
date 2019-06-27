@@ -199,9 +199,6 @@ namespace Anabi.DataAccess.Ef.Migrations
                     Street = table.Column<string>(maxLength: 100, nullable: false),
                     City = table.Column<string>(maxLength: 30, nullable: true),
                     Building = table.Column<string>(maxLength: 10, nullable: true),
-                    Stair = table.Column<string>(maxLength: 5, nullable: true),
-                    Floor = table.Column<string>(maxLength: 5, nullable: true),
-                    FlatNo = table.Column<string>(maxLength: 5, nullable: true),
                     Description = table.Column<string>(maxLength: 300, nullable: true)
                 },
                 constraints: table =>

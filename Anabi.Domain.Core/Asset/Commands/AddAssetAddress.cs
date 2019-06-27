@@ -1,4 +1,3 @@
-using Anabi.DataAccess.Ef.DbModels;
 using Anabi.DataAccess.Ef;
 using Anabi.Common.Utils;
 using Anabi.Common.ViewModels;
@@ -7,7 +6,6 @@ using MediatR;
 using Anabi.Validators.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
-using Anabi.Domain.Asset.Commands.Models;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -15,16 +13,12 @@ namespace Anabi.Domain.Asset.Commands
 {
     public class AddAssetAddress : AddAssetAddressRequest, IRequest<AddressViewModel>
     {
-        public int AssetId { get; set; }
+        public int AssetId { get; }
 
-        public AddAssetAddress(int assetId)
+        public AddAssetAddress(int assetId, int countyId, string street, string city, string building, string description) 
+            : base(countyId, street, city, building, description)
         {
             AssetId = assetId;
-        }
-        
-        public AddAssetAddress()
-        {
-            
         }
     }
 

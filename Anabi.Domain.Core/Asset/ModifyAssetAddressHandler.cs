@@ -26,9 +26,6 @@ namespace Anabi.Domain.Asset
             address.Street = message.ModifyAssetAddress.Street;
             address.City = message.ModifyAssetAddress.City;
             address.Building = message.ModifyAssetAddress.Building;
-            address.Stair = message.ModifyAssetAddress.Stair;
-            address.Floor = message.ModifyAssetAddress.Floor;
-            address.FlatNo = message.ModifyAssetAddress.FlatNo;
             address.Description = message.ModifyAssetAddress.Description;
             address.UserCodeLastChange = UserCode();
             address.LastChangeDate = DateTime.Now;
