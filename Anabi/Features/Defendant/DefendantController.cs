@@ -66,6 +66,51 @@ namespace Anabi.Features.Defendant
 
         }
 
+        //PUT api/assets/{assetId}/defendant/{defendantId}
+        /// <summary>
+        /// Modifies a defendant
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Modifies a defendant by modifying the existing person. 
+        /// Checks that the AssetId provided exists in the database
+        /// Checks that the DefendantId provided exists in the database
+        /// 
+        /// Validation errors:
+        /// 
+        ///IDNUMBER_MAX_LENGTH_6;
+        ///IDSERIE_MAX_LENGTH_2;
+        ///IDENTIFICATION_MAX_LENGTH_20
+        ///IDENTIFICATION_CANNOT_BE_EMPTY
+        ///PERSONNAME_MAX_LENGTH_200 
+        ///PERSONNAME_CANNOT_BE_EMPTY 
+        ///FIRSTNAME_MAX_LENGTH_50 
+        ///NATIONALITY_MAX_LENGTH_20 
+        ///DEFENDANT_INVALID_ID 
+        ///ASSET_INVALID_ID 
+        ///PERSONIDENTIFICATION_ALREADY_EXISTS 
+        ///ASSET_DEFENDANT_INVALID_IDS 
+        /// 
+        /// </para>
+        /// </remarks>
+        /// <response code="200">Id of the modified defendant</response>
+        /// <response code="400">Validation errors</response>
+        /// <param name="assetId">Asset id of the modified defendant</param>
+        /// <param name="defendantId">Id of the modified defendant</param>
+        /// <param name="modifyDefendantRequest">Details for the modified defendant</param>
+        [ProducesResponseType(typeof(DefendantViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [HttpPut("assets/{assetId}/defendant/{defendantId}")]
+        public async Task<IActionResult> ModifyDefendant(int assetId, int defendantId, [FromBody]ModifyDefendantRequest modifyDefendantRequest)
+        {
+            var message = mapper.Map<ModifyDefendantRequest, ModifyDefendant>(modifyDefendantRequest);
+            message.AssetId = assetId;
+            message.DefendantId = defendantId;
+
+            var model = await mediator.Send(message);
+            return Ok(model);
+        }
+
         /// <summary>
         /// Returns the list of defendants for a given asset id
         /// </summary>
