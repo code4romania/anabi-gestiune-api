@@ -29,11 +29,11 @@ namespace Anabi.Features.Search
 
                         where historicalStages.DecisionNumber == message.DecisionNumber
                         where historicalStages.FileNumber == message.FileNumber
-                        where historicalStages.Person.Identification == message.DefendantId
+                        where historicalStages.Person.Identification == message.DefendantId //maybe should be changed
                         where historicalStages.Person.Name == message.DefendantName
                         select new SearchAssetResult
                         {
-                            //Id = assets.Id,
+                            Id = historicalStages.DecizieId,
                             DefendantName = person.Name,
                             DecisionNumber = historicalStages.DecisionNumber,
                             FileNumber = historicalStages.FileNumber,
