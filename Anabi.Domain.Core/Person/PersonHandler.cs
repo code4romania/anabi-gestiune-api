@@ -11,6 +11,7 @@ namespace Anabi.Domain.Person
 {
     public class PersonHandler : BaseHandler
         , IRequestHandler<AddDefendant, DefendantViewModel>
+        , IRequestHandler<ModifyDefendant, DefendantViewModel>
         , IRequestHandler<DeleteDefendant>
     {
         public PersonHandler(BaseHandlerNeeds needs) : base(needs)
@@ -48,6 +49,37 @@ namespace Anabi.Domain.Person
 
             return response;
 
+        }
+
+        public async Task<DefendantViewModel> Handle(ModifyDefendant message, CancellationToken cancellationToken)
+        {
+            var personDb = await context.Persons.FindAsync(message.DefendantId);
+
+            personDb.IdentifierId = message.IdentifierId;
+            personDb.Identification = message.Identification;
+            personDb.IdNumber = message.IdNumber;
+            personDb.IdSerie = message.IdSerie;
+            personDb.Name = message.Name;
+            personDb.Nationality = message.Nationality;
+            personDb.Birthdate = message.Birthdate;
+            personDb.FirstName = message.FirstName;
+            personDb.IsPerson = message.IsPerson;
+            personDb.LastChangeDate = DateTime.Now;
+            personDb.UserCodeLastChange = UserCode();
+
+            context.Persons.Update(personDb);
+
+            await context.SaveChangesAsync();
+            var response = mapper.Map<ModifyDefendant, DefendantViewModel>(message);
+            response.Journal = new JournalViewModel
+            {
+                AddedDate = personDb.AddedDate,
+                UserCodeAdd = personDb.UserCodeAdd,
+                LastChangeDate = personDb.LastChangeDate,
+                UserCodeLastChange = personDb.UserCodeLastChange,
+            };
+
+            return response;
         }
 
         public async Task<Unit> Handle(DeleteDefendant request, CancellationToken cancellationToken)
