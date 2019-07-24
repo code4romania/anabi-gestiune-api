@@ -11,6 +11,8 @@ using Anabi.Middleware;
 using Anabi.Common.ViewModels;
 using Anabi.Domain.Core.Asset.Commands;
 using AutoMapper;
+using Anabi.Common.Exceptions;
+using Microsoft.Extensions.Logging;
 
 namespace Anabi.Features.Assets
 {
@@ -21,11 +23,13 @@ namespace Anabi.Features.Assets
     {
         private readonly IMediator mediator;
         private readonly IMapper mapper;
+        private readonly ILogger<AssetsController> logger;
 
-        public AssetsController(IMediator _mediator, IMapper _mapper)
+        public AssetsController(IMediator _mediator, IMapper _mapper, ILogger<AssetsController> _logger)
         {
             mediator = _mediator;
             mapper = _mapper;
+            logger = _logger;
         }
 
         /// <summary>
@@ -210,9 +214,19 @@ namespace Anabi.Features.Assets
         [HttpGet("{assetId}/address")]
         public async Task<IActionResult> GetAssetAddress(int assetId)
         {
-            var request = new GetAssetAddress(assetId);
-            var viewmodel = await mediator.Send(request);
-            return Ok(viewmodel);
+            try
+            {
+                var request = new GetAssetAddress(assetId);
+                var viewmodel = await mediator.Send(request);
+                return Ok(viewmodel);
+            } 
+            // try a different approach here - there are cases when the asset does not have an address yet
+            // we handle the exception here and not generically in the 
+            catch(AnabiEntityNotFoundException ex)
+            {
+                logger.LogInformation("No address found while loading data for asset " + assetId);
+                return Ok();
+            }
         }
     }
 }

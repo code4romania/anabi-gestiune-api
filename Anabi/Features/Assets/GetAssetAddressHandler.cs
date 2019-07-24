@@ -1,4 +1,5 @@
-﻿using Anabi.Common.ViewModels;
+﻿using Anabi.Common.Exceptions;
+using Anabi.Common.ViewModels;
 using Anabi.Domain;
 using Anabi.Features.Assets.Models;
 using MediatR;
@@ -17,30 +18,34 @@ namespace Anabi.Features.Assets
 
         public async Task<AddressViewModel> Handle(GetAssetAddress request, CancellationToken cancellationToken)
         {
-            var model = await context.Assets
-                .Include(a => a.Address).ThenInclude(c => c.County)
+            var address = await context.Assets
                 .Where(r => r.Id == request.AssetId)
-                .Select(a => new AddressViewModel
-                {
-                    Id = a.Address.Id,
-                    Building = a.Address.Building,
-                    City = a.Address.City,
-                    CountyId = a.Address.CountyId,
-                    CountyName = a.Address.County.Name,
-                    CountyAbreviation = a.Address.County.Abreviation,
-                    Description = a.Address.Description,
-                    Street = a.Address.Street,
-                    Journal = new JournalViewModel
-                    {
-                        UserCodeAdd = a.Address.UserCodeAdd,
-                        AddedDate = a.Address.AddedDate,
-                        LastChangeDate = a.Address.LastChangeDate,
-                        UserCodeLastChange = a.Address.UserCodeLastChange
-                    }
-                })
+                .Select(a => a.Address)
                 .FirstOrDefaultAsync();
 
-            return model;
+            if(address == null)
+            {
+                throw new AnabiEntityNotFoundException("NO_ADDRESS_FOUND");
+            }
+
+            return new AddressViewModel
+            {
+                Id = address.Id,
+                Building = address.Building,
+                City = address.City,
+                CountyId = address.CountyId,
+                CountyName = address.County.Name,
+                CountyAbreviation = address.County.Abreviation,
+                Description = address.Description,
+                Street = address.Street,
+                Journal = new JournalViewModel
+                {
+                    UserCodeAdd = address.UserCodeAdd,
+                    AddedDate = address.AddedDate,
+                    LastChangeDate = address.LastChangeDate,
+                    UserCodeLastChange = address.UserCodeLastChange
+                }
+            };
         }
     }
 }
