@@ -33,7 +33,7 @@ namespace Anabi.Features.StorageSpaces
                 Id = storageSpace.Id,
                 Name = storageSpace.Name,
                 StorageSpaceType = storageSpace.StorageSpacesType,                
-                Addresss = new Domain.Models.Address()
+                Address = new Domain.Models.Address()
                 {
                     Id = storageSpace.AddressId,
                     County = new Domain.Models.County()
