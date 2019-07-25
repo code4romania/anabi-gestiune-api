@@ -15,6 +15,6 @@ namespace Anabi.Features.StorageSpaces.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public StorageSpaceTypeEnum StorageSpaceType { get; set; }
 
-        public Address Addresss { get; set; }
+        public Address Address { get; set; }
     }
 }
