@@ -63,6 +63,8 @@ namespace Anabi
 
             CreateMap<AddDefendant, PersonDb>().ReverseMap();
 
+            CreateMap<AddOwner, PersonDb>().ReverseMap();
+
             CreateMap<AddSolutionRequest, AddSolution>();
             CreateMap<AddSolution, SolutionViewModel>();
             CreateMap<AddMinimalAsset, MinimalAssetViewModel>();
@@ -72,6 +74,12 @@ namespace Anabi
 
             CreateMap<ModifyDefendant, DefendantViewModel>();
             CreateMap<ModifyDefendantRequest, ModifyDefendant>();
+
+            CreateMap<AddOwnerRequest, AddOwner>();
+            CreateMap<AddOwnerRequest, OwnerViewModel>();
+
+            CreateMap<ModifyOwner, OwnerViewModel>();
+            CreateMap<ModifyOwnerRequest, ModifyOwner>();
 
             CreateMap<AddAssetAddressRequest, AddressViewModel>();
             CreateMap<ModifyAssetAddressRequest, ModifyAssetAddressModel>();

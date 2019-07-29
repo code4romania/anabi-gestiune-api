@@ -82,5 +82,9 @@ namespace Anabi.Common.Utils
         public const string DEFENDANT_ID_MUST_BE_SPECIFIED = nameof(DEFENDANT_ID_MUST_BE_SPECIFIED);
         public const string DEFENDANT_INVALID_ID = nameof(DEFENDANT_INVALID_ID);
         public const string ASSET_DEFENDANT_INVALID_IDS = nameof(ASSET_DEFENDANT_INVALID_IDS);
+
+        public const string OWNER_ID_MUST_BE_SPECIFIED = nameof(OWNER_ID_MUST_BE_SPECIFIED);
+        public const string OWNER_INVALID_ID = nameof(OWNER_INVALID_ID);
+        public const string ASSET_OWNER_INVALID_IDS = nameof(ASSET_OWNER_INVALID_IDS);
     }
 }
