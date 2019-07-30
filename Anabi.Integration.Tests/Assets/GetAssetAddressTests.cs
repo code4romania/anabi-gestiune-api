@@ -45,6 +45,20 @@ namespace Anabi.Integration.Tests.Assets
             Assert.Equal(addressModel.Street, viewModel.Street);
         }
 
+        [Fact]
+        public async Task GetAssetAddress_ReturnsEmptyViewModel()
+        {
+            var assetId = await AddMinimalAsset();
+
+            var response = await Client.GetAsync($"api/assets/{assetId}/address");
+            response.EnsureSuccessStatusCode();
+
+            var data = await response.Content.ReadAsStringAsync();
+            var viewModel = JsonConvert.DeserializeObject<AddressViewModel>(data);
+
+            Assert.NotNull(viewModel);
+        }
+
         [Theory]
         [InlineData(0)]
         [InlineData(int.MinValue)]
