@@ -13,9 +13,9 @@ namespace Anabi.Domain.Person
         , IRequestHandler<AddDefendant, DefendantViewModel>
         , IRequestHandler<ModifyDefendant, DefendantViewModel>
         , IRequestHandler<DeleteDefendant>
-    , IRequestHandler<AddOwner, OwnerViewModel>
-    , IRequestHandler<ModifyOwner, OwnerViewModel>
-    , IRequestHandler<DeleteOwner>
+        , IRequestHandler<AddOwner, OwnerViewModel>
+        , IRequestHandler<ModifyOwner, OwnerViewModel>
+        , IRequestHandler<DeleteOwner>
     {
         public PersonHandler(BaseHandlerNeeds needs) : base(needs)
         {
@@ -87,7 +87,7 @@ namespace Anabi.Domain.Person
 
         public async Task<Unit> Handle(DeleteDefendant request, CancellationToken cancellationToken)
         {
-            var assetDefendantToDelete = await context.AssetDefendants
+            var assetDefendantToDelete = await context.AssetDefendants.Include(x=>x.Defendant)
                 .FirstOrDefaultAsync(x => x.AssetId == request.AssetId && x.PersonId == request.DefendantId);
 
             context.AssetDefendants.Remove(assetDefendantToDelete);
@@ -164,7 +164,7 @@ namespace Anabi.Domain.Person
 
         public async Task<Unit> Handle(DeleteOwner request, CancellationToken cancellationToken)
         {
-            var assetOwnerToDelete = await context.AssetOwners
+            var assetOwnerToDelete = await context.AssetOwners.Include(x => x.Owner)
                 .FirstOrDefaultAsync(x => x.AssetId == request.AssetId && x.PersonId == request.OwnerId);
 
             context.AssetOwners.Remove(assetOwnerToDelete);

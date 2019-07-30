@@ -101,11 +101,11 @@ namespace Anabi.Features.Owner
         [ProducesResponseType(typeof(OwnerViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpPut("assets/{assetId}/owner/{ownerId}")]
-        public async Task<IActionResult> ModifyOwner(int assetId, int OwnerId, [FromBody]ModifyOwnerRequest modifyOwnerRequest)
+        public async Task<IActionResult> ModifyOwner(int assetId, int ownerId, [FromBody]ModifyOwnerRequest modifyOwnerRequest)
         {
             var message = mapper.Map<ModifyOwnerRequest, ModifyOwner>(modifyOwnerRequest);
             message.AssetId = assetId;
-            message.OwnerId = OwnerId;
+            message.OwnerId = ownerId;
 
             var model = await mediator.Send(message);
             return Ok(model);
