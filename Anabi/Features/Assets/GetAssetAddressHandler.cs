@@ -20,27 +20,33 @@ namespace Anabi.Features.Assets
             var model = await context.Assets
                 .Include(a => a.Address).ThenInclude(c => c.County)
                 .Where(r => r.Id == request.AssetId)
-                .Select(a => new AddressViewModel
-                {
-                    Id = a.Address.Id,
-                    Building = a.Address.Building,
-                    City = a.Address.City,
-                    CountyId = a.Address.CountyId,
-                    CountyName = a.Address.County.Name,
-                    CountyAbreviation = a.Address.County.Abreviation,
-                    Description = a.Address.Description,
-                    Street = a.Address.Street,
-                    Journal = new JournalViewModel
-                    {
-                        UserCodeAdd = a.Address.UserCodeAdd,
-                        AddedDate = a.Address.AddedDate,
-                        LastChangeDate = a.Address.LastChangeDate,
-                        UserCodeLastChange = a.Address.UserCodeLastChange
-                    }
-                })
                 .FirstOrDefaultAsync();
 
-            return model;
+            if (model?.Address != null)
+            {
+                return new AddressViewModel
+                {
+                    Id = model.Address.Id,
+                    Building = model.Address.Building,
+                    City = model.Address.City,
+                    CountyId = model.Address.CountyId,
+                    CountyName = model.Address.County.Name,
+                    CountyAbreviation = model.Address.County.Abreviation,
+                    Description = model.Address.Description,
+                    Street = model.Address.Street,
+                    Journal = new JournalViewModel
+                    {
+                        UserCodeAdd = model.Address.UserCodeAdd,
+                        AddedDate = model.Address.AddedDate,
+                        LastChangeDate = model.Address.LastChangeDate,
+                        UserCodeLastChange = model.Address.UserCodeLastChange
+                    }
+                };
+            }
+            else
+            {
+                return new AddressViewModel();
+            }  
         }
     }
 }
