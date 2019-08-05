@@ -74,6 +74,8 @@ namespace Anabi.DataAccess.Ef
 
         public DbSet<AssetDefendantDb> AssetDefendants { get; set; }
 
+        public DbSet<AssetOwnerDb> AssetOwners { get; set; }
+
         public DbSet<CrimeTypeDb> CrimeTypes { get; set; }
 
         public DbSet<PrecautionaryMeasureDb> PrecautionaryMeasures { get; set; }
