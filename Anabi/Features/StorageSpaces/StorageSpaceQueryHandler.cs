@@ -1,5 +1,7 @@
 ﻿using Anabi.Common.Utils;
+using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef.DbModels;
+using Anabi.DataAccess.Ef.DbModels.Extensions;
 using Anabi.Domain;
 using Anabi.Features.StorageSpaces.Models;
 using MediatR;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Anabi.Features.StorageSpaces
 {
-    public class StorageSpaceQueryHandler : BaseHandler, IRequestHandler<GetStorageSpace, List<Models.StorageSpaceViewModel>>
+    public class StorageSpaceQueryHandler : BaseHandler, IRequestHandler<GetStorageSpace, List<StorageSpaceViewModel>>
     {
         public StorageSpaceQueryHandler(BaseHandlerNeeds needs) : base(needs)
         {
@@ -33,19 +35,7 @@ namespace Anabi.Features.StorageSpaces
                 Id = storageSpace.Id,
                 Name = storageSpace.Name,
                 StorageSpaceType = storageSpace.StorageSpacesType,                
-                Address = new Domain.Models.Address()
-                {
-                    Id = storageSpace.AddressId,
-                    County = new Domain.Models.County()
-                    {
-                        Id = storageSpace.Address.CountyId,
-                        Abreviation = storageSpace.Address.County.Abreviation,
-                        Name = storageSpace.Address.County.Name
-                    },
-                    City = storageSpace.Address.City,
-                    Street = storageSpace.Address.Street,
-                    Building = storageSpace.Address.Building               
-                }
+                Address = storageSpace.Address.ToStorageSpaceAddressViewModel(),
             }).ToListAsync(cancellationToken);
             
             return result;

@@ -1,12 +1,8 @@
-﻿namespace Anabi.Features.Assets.Models
+﻿namespace Anabi.Common.ViewModels
 {
-    public class Address
+    public class StorageSpaceAddressViewModel : BasicViewModel
     {
-        public int Id { get; set; }
-
-        public int CountyId { get; set; }
-
-        public string CountyName { get; set; }
+        public CountyViewModel County { get; set; }
 
         public string Street { get; set; }
 

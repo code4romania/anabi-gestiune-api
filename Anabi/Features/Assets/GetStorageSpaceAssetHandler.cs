@@ -5,11 +5,9 @@ using MediatR;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Anabi.Common.Exceptions;
 using System.Threading;
-using Anabi.Domain.Models;
-using Anabi.Features.StorageSpaces.Models;
 using Anabi.Common.ViewModels;
+using Anabi.DataAccess.Ef.DbModels.Extensions;
 
 namespace Anabi.Features.Assets
 {
@@ -34,26 +32,8 @@ namespace Anabi.Features.Assets
                     Id = storageSpaces.Id,
                     Name = storageSpaces.Name,
                     StorageSpaceType = storageSpaces.StorageSpacesType,
-                    Address = new Domain.Models.Address()
-                    {
-                        Id = storageSpaces.AddressId,
-                        County = new County()
-                        {
-                            Id = storageSpaces.Address.CountyId,
-                            Abreviation = storageSpaces.Address.County.Abreviation,
-                            Name = storageSpaces.Address.County.Name
-                        },
-                        City = storageSpaces.Address.City,
-                        Street = storageSpaces.Address.Street,
-                        Building = storageSpaces.Address.Building
-                    },
-                    Journal = new JournalViewModel
-                    {
-                        UserCodeAdd = assetStorageSpace.UserCodeAdd,
-                        AddedDate = assetStorageSpace.AddedDate,
-                        UserCodeLastChange = assetStorageSpace.UserCodeLastChange,
-                        LastChangeDate = assetStorageSpace.LastChangeDate
-                    }
+                    Address = storageSpaces.Address.ToStorageSpaceAddressViewModel(),
+                    Journal = storageSpaces.GetJournalViewModel()
                 };
 
             return await result.ToListAsync(cancellationToken);

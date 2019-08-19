@@ -1,5 +1,6 @@
 using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef.DbModels;
+using Anabi.DataAccess.Ef.DbModels.Extensions;
 using Anabi.Domain.Asset.Commands;
 using MediatR;
 using System;
@@ -33,17 +34,7 @@ namespace Anabi.Domain.Asset
             context.Addresses.Add(address);
             await context.SaveChangesAsync(cancellationToken);
 
-            var response = mapper.Map<AddAssetAddress, AddressViewModel>(message);
-            response.CountyName = county.Name;
-            response.CountyAbreviation = county.Abreviation;
-            response.Id = address.Id;
-            response.Journal = new JournalViewModel
-            {
-                UserCodeAdd = address.UserCodeAdd,
-                AddedDate = address.AddedDate,
-            };
-
-            return response;
+            return address.ToAddressViewModel();
         }
     } 
 }

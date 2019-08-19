@@ -1,9 +1,7 @@
 ﻿namespace Anabi.Common.ViewModels
 {
-    public class BaseViewModel
+    public class BaseViewModel : BasicViewModel
     {
-        public int Id { get; set; }
-
         public JournalViewModel Journal { get; set; }
     }
 }

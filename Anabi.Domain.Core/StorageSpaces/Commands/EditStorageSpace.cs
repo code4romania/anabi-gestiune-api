@@ -1,13 +1,13 @@
 ﻿using Anabi.Common.Utils;
+using Anabi.Common.ViewModels;
 using Anabi.Domain.Common;
 using Anabi.Domain.Common.Address;
-using Anabi.Domain.Models;
 using FluentValidation;
 using MediatR;
 
 namespace Anabi.Domain.StorageSpaces.Commands
 {
-    public class EditStorageSpace : IAddAddress, IRequest<StorageSpace>, IAddMinimalAddress
+    public class EditStorageSpace : IAddAddress, IRequest<StorageSpaceViewModel>, IAddMinimalAddress
     {
 
         public int Id { get; set; }

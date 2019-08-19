@@ -31,7 +31,7 @@ namespace Anabi.Features.Authorization
             
             if (_crypt.IsHashCorrespondingToValue(foundUser.Password, request.Password))
             {
-                return Mapper.Map<Anabi.Domain.Models.User>(foundUser);
+                return mapper.Map<Anabi.Domain.Models.User>(foundUser);
             }
 
             throw new Exception("Invalid credentials!");

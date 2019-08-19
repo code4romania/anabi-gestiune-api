@@ -1,11 +1,10 @@
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Anabi.Common.ViewModels;
+using Anabi.DataAccess.Ef.DbModels.Extensions;
 using Anabi.Domain.Core.Asset.Commands;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Anabi.Domain.Asset
 {
@@ -34,13 +33,7 @@ namespace Anabi.Domain.Asset
 
             var response = mapper.Map<ModifyAssetAddressModel, AddressViewModel>(message);
             response.Id = address.Id;
-            response.Journal = new JournalViewModel
-            {
-                UserCodeAdd = address.UserCodeAdd,
-                UserCodeLastChange = address.UserCodeLastChange,
-                AddedDate = address.AddedDate,
-                LastChangeDate = address.LastChangeDate
-            };
+            response.Journal = address.GetJournalViewModel();
 
             return response;
         }
