@@ -29,26 +29,30 @@ namespace Anabi.Features.StorageSpaces
             }
 
             var command = GetCommand(message);
-            
-            var result = await command.Select(storageSpace => new StorageSpaceViewModel
+
+            var command2 = command.Select(storageSpace => new StorageSpaceViewModel
             {
                 Id = storageSpace.Id,
                 Name = storageSpace.Name,
-                StorageSpaceType = storageSpace.StorageSpacesType,                
+                StorageSpaceType = storageSpace.StorageSpacesType,
                 Address = storageSpace.Address.ToStorageSpaceAddressViewModel(),
-            }).ToListAsync(cancellationToken);
-            
+                Journal = storageSpace.GetJournalViewModel()
+            });
+
+            var result = await command2.ToListAsync(cancellationToken);
             return result;
         }
 
         private IQueryable<StorageSpaceDb> GetCommand(GetStorageSpace message)
         {
-            var command = context.StorageSpaces.AsQueryable();
-            if (message.Id != null)
+            IQueryable<StorageSpaceDb> command = context.StorageSpaces
+                .Include(a => a.Address).ThenInclude(x => x.County);
+
+            if (message.Id.HasValue && message.Id > 0)
             {
-                command = command.Where(m => m.Id == message.Id);
+                command = command.Where(x => x.AssetsStorageSpaces.Any(c => c.AssetId == message.Id));
             }
-            command = command.Include(a => a.Address);
+                
             return command;
         }
     }

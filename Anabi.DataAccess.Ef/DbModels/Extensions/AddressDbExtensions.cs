@@ -12,8 +12,8 @@ namespace Anabi.DataAccess.Ef.DbModels.Extensions
                 County = new CountyViewModel
                 {
                     Id = addressDb.CountyId,
-                    Name = addressDb.County.Name,
-                    Abreviation = addressDb.County.Abreviation
+                    Name = addressDb.County?.Name,
+                    Abreviation = addressDb.County?.Abreviation
                 },
                 City = addressDb.City,
                 Street = addressDb.Street,
@@ -26,9 +26,9 @@ namespace Anabi.DataAccess.Ef.DbModels.Extensions
             return new AddressViewModel
             {
                 Id = addressDb.Id,
-                CountyAbreviation = addressDb.County.Abreviation,
+                CountyAbreviation = addressDb.County?.Abreviation,
                 CountyId = addressDb.CountyId,
-                CountyName = addressDb.County.Name,
+                CountyName = addressDb.County?.Name,
 
                 City = addressDb.City,
                 Street = addressDb.Street,

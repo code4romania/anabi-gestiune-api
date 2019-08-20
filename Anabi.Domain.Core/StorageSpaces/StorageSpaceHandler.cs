@@ -58,7 +58,7 @@ namespace Anabi.Domain.StorageSpaces
                 Name = storageSpace.Name,
                 Journal = storageSpace.GetJournalViewModel(),
                 StorageSpaceType = storageSpace.StorageSpacesType,
-                Address = storageSpace.Address.ToStorageSpaceAddressViewModel(),
+                Address = storageSpace.Address != null ? storageSpace.Address.ToStorageSpaceAddressViewModel() : null,
             };
             return responseModel;
 

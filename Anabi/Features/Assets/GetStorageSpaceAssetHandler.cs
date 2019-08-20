@@ -21,20 +21,18 @@ namespace Anabi.Features.Assets
          */
         public async Task<List<StorageSpaceViewModel>> Handle( GetAssetStorageSpace request, CancellationToken cancellationToken)
         {
-
-            var result = from storageSpaces in context.StorageSpaces
-                join assetStorageSpace in context.AssetStorageSpaces on storageSpaces.Id equals assetStorageSpace
-                    .StorageSpaceId
-                join asset in context.Assets on assetStorageSpace.AssetId equals asset.Id
-                where asset.Id == request.AssetId
-                select new StorageSpaceViewModel()
+            var result = context.StorageSpaces
+                    .Include(x => x.AssetsStorageSpaces)
+                    .Include(x => x.Address).ThenInclude(c => c.County)
+                .Where(x => x.AssetsStorageSpaces.Any(p => p.AssetId == request.AssetId))
+                .Select(sp => new StorageSpaceViewModel()
                 {
-                    Id = storageSpaces.Id,
-                    Name = storageSpaces.Name,
-                    StorageSpaceType = storageSpaces.StorageSpacesType,
-                    Address = storageSpaces.Address.ToStorageSpaceAddressViewModel(),
-                    Journal = storageSpaces.GetJournalViewModel()
-                };
+                    Id = sp.Id,
+                    Name = sp.Name,
+                    StorageSpaceType = sp.StorageSpacesType,
+                    Address = sp.Address != null ? sp.Address.ToStorageSpaceAddressViewModel() : null,
+                    Journal = sp.GetJournalViewModel()
+                });
 
             return await result.ToListAsync(cancellationToken);
         }
