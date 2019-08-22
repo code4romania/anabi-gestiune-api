@@ -1,5 +1,6 @@
 ﻿using Anabi.Common.Utils;
 using Anabi.DataAccess.Ef;
+using Anabi.Validators.Extensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -21,23 +22,9 @@ namespace Anabi.Domain.Person.Commands
         public DeleteDefendantValidator(AnabiContext ctx)
         {
             this.context = ctx;
-            RuleFor(m => m.AssetId).GreaterThan(0).WithMessage(Constants.ASSET_ID_MUST_BE_SPECIFIED);
-            RuleFor(m => m.DefendantId).GreaterThan(0).WithMessage(Constants.DEFENDANT_ID_MUST_BE_SPECIFIED);
-            RuleFor(m => m.AssetId).MustAsync(AssetExist).WithMessage(Constants.ASSET_INVALID_ID);
-            RuleFor(m => m.DefendantId).MustAsync(DefendantExist).WithMessage(Constants.DEFENDANT_INVALID_ID);
+            RuleFor(m => m.AssetId).MustBeInDbSet(context.Assets).WithMessage(Constants.ASSET_INVALID_ID);
+            RuleFor(m => m.DefendantId).MustBeInDbSet(context.Persons).WithMessage(Constants.DEFENDANT_INVALID_ID);
             RuleFor(m => m).MustAsync(AssetDefendantExist).WithMessage(Constants.ASSET_DEFENDANT_INVALID_IDS);
-        }
-
-        private async Task<bool> AssetExist(int assetId, CancellationToken cancellationToken)
-        {
-            var assetExists = await context.Assets.AnyAsync(a => a.Id == assetId);
-            return assetExists;
-        }
-
-        private async Task<bool> DefendantExist(int defendantId, CancellationToken cancellationToken)
-        {
-            var defendantExists = await context.Persons.AnyAsync(p => p.Id == defendantId);
-            return defendantExists;
         }
 
         private async Task<bool> AssetDefendantExist(DeleteDefendant command, CancellationToken cancellationToken)

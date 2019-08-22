@@ -1,17 +1,10 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Anabi.Domain.Common;
-using Anabi.Domain.Common.Address;
 
 namespace Anabi.Domain.Institution.Commands
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-
+    using Anabi.Common.Utils;
     using Anabi.DataAccess.Ef;
-
+    using Anabi.Validators.Extensions;
     using FluentValidation;
 
     public class EditInstitution : IRequest 
@@ -23,10 +16,9 @@ namespace Anabi.Domain.Institution.Commands
 
     public class EditInstitutionValidator : AbstractValidator<EditInstitution>
     {
-        public EditInstitutionValidator(AnabiContext context,
-            IDatabaseChecks checks, AbstractValidator<IAddAddress> addAddressValidator)
+        public EditInstitutionValidator(AnabiContext context)
         {
-            RuleFor(m => m.Id).GreaterThan(0);
+            RuleFor(m => m.Id).MustBeInDbSet(context.Assets).WithMessage(Constants.INSTITUTION_INVALID_ID);
         }
     }
 }

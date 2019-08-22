@@ -1,7 +1,9 @@
 ﻿using Anabi.Common.Utils;
 using Anabi.Common.ViewModels;
+using Anabi.DataAccess.Ef;
 using Anabi.Domain.Common;
 using Anabi.Domain.Common.Address;
+using Anabi.Validators.Extensions;
 using FluentValidation;
 using MediatR;
 
@@ -36,9 +38,11 @@ namespace Anabi.Domain.StorageSpaces.Commands
 
     public class EditStorageSpaceValidator : AbstractValidator<EditStorageSpace>
     {
-        public EditStorageSpaceValidator(IDatabaseChecks checks, AbstractValidator<IAddAddress> addAddressValidator)
+        public EditStorageSpaceValidator(IDatabaseChecks checks, 
+            AbstractValidator<IAddAddress> addAddressValidator,
+            AnabiContext context)
         {
-            RuleFor(c => c.Id).GreaterThan(0).WithMessage(Constants.INVALID_ID);
+            RuleFor(c => c.Id).MustBeInDbSet(context.Assets).WithMessage(Constants.INVALID_ID);
 
             RuleFor(c => c.Name).NotEmpty().WithMessage(Constants.NAME_NOT_EMPTY);
             RuleFor(c => c.Name).MaximumLength(200).WithMessage(Constants.NAME_MAX_LENGTH_100);            

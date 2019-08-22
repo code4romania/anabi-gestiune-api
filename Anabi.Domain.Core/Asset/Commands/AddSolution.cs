@@ -2,13 +2,10 @@
 using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef;
 using Anabi.Domain.Asset.Commands.Models;
-using Anabi.Validators.Interfaces;
+using Anabi.Validators.Extensions;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Anabi.Domain.Asset.Commands
 {
@@ -39,20 +36,20 @@ namespace Anabi.Domain.Asset.Commands
     {
         private readonly AnabiContext context;
 
-        public AddSolutionValidator(AnabiContext ctx, IAssetValidator _validator)
+        public AddSolutionValidator(AnabiContext ctx)
         {
             context = ctx;
-            RuleFor(c => c.AssetId).MustAsync(_validator.AssetIdExistsInDatabaseAsync).WithMessage(Constants.ASSET_INVALID_ID);
-            RuleFor(c => c.StageId).MustAsync(StageIdExistsInDatabaseAsync).WithMessage(Constants.STAGE_INVALID_ID);
-            RuleFor(c => c.DecisionId).MustAsync(DecisionIdExistsInDatabaseAsync).WithMessage(Constants.DECISION_INVALID_ID);
-            RuleFor(c => c.InstitutionId).MustAsync(InstitutionIdExistsInDatabaseAsync).WithMessage(Constants.INSTITUTION_INVALID_ID);
+            RuleFor(c => c.AssetId).MustBeInDbSet(context.Assets).WithMessage(Constants.ASSET_INVALID_ID);
+            RuleFor(c => c.StageId).MustBeInDbSet(context.Stages).WithMessage(Constants.STAGE_INVALID_ID);
+            RuleFor(c => c.DecisionId).MustBeInDbSet(context.Decisions).WithMessage(Constants.DECISION_INVALID_ID);
+            RuleFor(c => c.InstitutionId).MustBeInDbSet(context.Institutions).WithMessage(Constants.INSTITUTION_INVALID_ID);
 
-            RuleFor(c => c.ConfiscationDetails.RecoveryBeneficiaryId).MustAsync(RecoveryBeneficiaryIdShouldExistInDatabaseAsync)
+            RuleFor(c => c.ConfiscationDetails.RecoveryBeneficiaryId).ShouldBeInDbSet(context.RecoveryBeneficiaries)
                 .When(c => c.ConfiscationDetails != null)
                 .WithMessage(Constants.RECOVERYBENEFICIARY_INVALID_ID)
                 ;
 
-            RuleFor(c => c.SequesterDetails.PrecautionaryMeasureId).MustAsync(PrecautionaryMeasureIdShouldExistInDatabaseAsync)
+            RuleFor(c => c.SequesterDetails.PrecautionaryMeasureId).ShouldBeInDbSet(context.Assets)
                 .When(c => c.SequesterDetails != null)
                 .WithMessage(Constants.PRECAUTIONARYMEASURE_INVALID_ID)
                 ;
@@ -105,70 +102,5 @@ namespace Anabi.Domain.Asset.Commands
                 .When(c => c.RecoveryDetails != null && c.RecoveryDetails.EvaluationCommittee != null)
                 .WithMessage(Constants.RECOVERY_EVALUATIONCOMMITTEEPRESIDENT_MAX_LENGTH_200);
         }
-
-        private async Task<bool> PrecautionaryMeasureIdShouldExistInDatabaseAsync(int? arg1, CancellationToken arg2)
-        {
-            if (arg1 == null)
-            {
-                return true;
-            }
-
-            if (arg1 <= 0)
-            {
-                return false;
-            }
-
-            var exists = await context.PrecautionaryMeasures.AnyAsync(x => x.Id == arg1, arg2);
-            return exists;
-        }
-
-        private async Task<bool> RecoveryBeneficiaryIdShouldExistInDatabaseAsync(int? arg1, CancellationToken arg2)
-        {
-            if (arg1 == null)
-            {
-                return true;
-            }
-
-            if (arg1 <= 0)
-            {
-                return false;
-            }
-
-            var exists = await context.RecoveryBeneficiaries.AnyAsync(x => x.Id == arg1, arg2);
-            return exists;
-        }
-
-        private async Task<bool> InstitutionIdExistsInDatabaseAsync(int arg1, CancellationToken arg2)
-        {
-            if (arg1 <= 0)
-            {
-                return false;
-            }
-            var exists = await context.Institutions.AnyAsync(x => x.Id == arg1, arg2);
-            return exists;
-        }
-
-        private async Task<bool> DecisionIdExistsInDatabaseAsync(int arg1, CancellationToken arg2)
-        {
-            if (arg1 <= 0)
-            {
-                return false;
-            }
-
-            var exists = await context.Decisions.AnyAsync(x => x.Id == arg1, arg2);
-            return exists;
-        }
-
-        private async Task<bool> StageIdExistsInDatabaseAsync(int arg1, CancellationToken arg2)
-        {
-            if (arg1 <= 0)
-            {
-                return false;
-            }
-            var exists = await context.Stages.AnyAsync(x => x.Id == arg1);
-            return exists;
-        }
-
-
     }
 }

@@ -1,13 +1,11 @@
 ﻿namespace Anabi.Domain.Institution.Commands
 {
-    using System;
-    using System.Data;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
     using Anabi.DataAccess.Ef;
-
+    using Anabi.Validators.Extensions;
     using FluentValidation;
 
     using MediatR;
@@ -25,7 +23,7 @@
         {
             this.context = context;
         
-            RuleFor(m => m.Id).GreaterThan(0).WithMessage("Id-ul nu a fost specificat!");
+            RuleFor(m => m.Id).MustBeInDbSet(context.Institutions).WithMessage("Id-ul nu a fost specificat!");
             RuleFor(m => m).MustAsync(AreNoOtherUsages);
         }
 
