@@ -1,5 +1,4 @@
-﻿using Anabi;
-using Anabi.DataAccess.Ef;
+﻿using Anabi.DataAccess.Ef;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Features.Assets;
 using Anabi.Features.Assets.Models;
@@ -12,6 +11,8 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using Anabi.Domain;
 using System.Threading;
+using Anabi.Tests.Common;
+
 namespace AnabiControllers.Tests
 {
     [TestClass]
@@ -41,7 +42,6 @@ namespace AnabiControllers.Tests
             context = null;
 
             mapper = null;
-            Mapper.Reset();
         }
 
         [TestMethod]
@@ -119,14 +119,9 @@ namespace AnabiControllers.Tests
             AddCategories();
             AddAssets();
 
-           
-                Mapper.Initialize(cfg =>
-                {
-                    cfg.AddProfile<AutoMapperMappings>();
-                });
-           
-            mapper = Mapper.Instance;
-            principal = Utils.TestAuthentificatedPrincipal();
+            mapper = MapperCreator.CreateAutomapper();
+
+            principal = PrincipalCreator.TestAuthentificatedPrincipal();
         }
 
         private DbContextOptions<AnabiContext> GetContextOptions()

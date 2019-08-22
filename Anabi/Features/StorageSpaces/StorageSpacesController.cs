@@ -8,9 +8,8 @@ using Anabi.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Anabi.Extensions;
 using Microsoft.AspNetCore.Authorization;
-
+using Anabi.Common.ViewModels;
 
 namespace Anabi.Features.StorageSpaces
 {
@@ -43,7 +42,7 @@ namespace Anabi.Features.StorageSpaces
         /// <response code="200">Array of storage spaces</response>
         /// <response code="400">No storage spaces found!</response>
         /// <response code="500">Server error</response>
-        [ProducesResponseType(typeof(List<Models.StorageSpaceViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<StorageSpaceViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpGet]
@@ -67,7 +66,7 @@ namespace Anabi.Features.StorageSpaces
         /// <response code="200">Array of storage spaces</response>
         /// <response code="400">No storage spaces found!</response>
         /// <response code="500">Server error</response>
-        [ProducesResponseType(typeof(Models.StorageSpaceViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(StorageSpaceViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpGet("{id}")]
@@ -126,7 +125,7 @@ namespace Anabi.Features.StorageSpaces
         /// <response code="200">The edited version of the storage space</response>
         /// <response code="400">No storage spaces found!</response>
         /// <response code="500">Server error</response>
-        [ProducesResponseType(typeof(Models.StorageSpaceViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(StorageSpaceViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status500InternalServerError)]
         [HttpPut()]
@@ -134,7 +133,7 @@ namespace Anabi.Features.StorageSpaces
         {
             var editedStorageSpace = await mediator.Send(storageSpace);
 
-            return Ok(editedStorageSpace.ToViewModel());
+            return Ok(editedStorageSpace);
         }
 
         /// <summary>

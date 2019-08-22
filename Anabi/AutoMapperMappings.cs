@@ -17,14 +17,12 @@ namespace Anabi
     using Anabi.Features.Assets.Models;
     using Anabi.Features.Institution.Models;
     using Anabi.Features.Person.Models;
-    using Anabi.Features.StorageSpaces.Models;
 
     public class AutoMapperMappings : Profile
     {
         public AutoMapperMappings()
         {
             CreateMap<Address, AddressDb>().ReverseMap();
-            CreateMap<Anabi.Domain.Models.Address, AddressDb>().ReverseMap();
             
 
             CreateMap<Category, CategoryDb>().ReverseMap();
@@ -49,8 +47,6 @@ namespace Anabi
 
             CreateMap<StorageSpace, StorageSpaceDb>().ReverseMap();
             CreateMap<StorageSpace, StorageSpaceViewModel>().ReverseMap();
-
-            CreateMap<Anabi.Domain.Models.StorageSpace, StorageSpaceDb>().ReverseMap();
 
             CreateMap<StorageSpaceViewModel, StorageSpaceDb>().ReverseMap();
 

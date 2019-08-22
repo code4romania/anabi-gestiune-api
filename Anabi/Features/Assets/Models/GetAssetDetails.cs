@@ -2,6 +2,8 @@
 using Anabi.Common.ViewModels;
 using FluentValidation;
 using MediatR;
+using Anabi.Validators.Extensions;
+using Anabi.DataAccess.Ef;
 
 namespace Anabi.Features.Assets.Models
 {
@@ -13,9 +15,9 @@ namespace Anabi.Features.Assets.Models
 
     public class GetAssetDetailsValidator : AbstractValidator<GetAssetDetails>
     {
-        public GetAssetDetailsValidator()
+        public GetAssetDetailsValidator(AnabiContext context)
         {
-            RuleFor(g => g.Id).GreaterThan(0).WithMessage(Constants.INVALID_ID);
+            RuleFor(g => g.Id).MustBeInDbSet(context.Assets).WithMessage(Constants.INVALID_ID);
         }
     }
 }

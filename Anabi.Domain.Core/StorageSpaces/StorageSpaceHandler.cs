@@ -4,9 +4,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Anabi.Common.Exceptions;
 using Anabi.Common.Utils;
+using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef.DbModels;
+using Anabi.DataAccess.Ef.DbModels.Extensions;
 using Anabi.Domain.Common.Address;
-using Anabi.Domain.Models;
 using Anabi.Domain.StorageSpaces.Commands;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,7 @@ namespace Anabi.Domain.StorageSpaces
 {
     public class StorageSpaceHandler : BaseHandler
         ,IRequestHandler<AddStorageSpace, int>
-        ,IRequestHandler<EditStorageSpace, StorageSpace>
+        ,IRequestHandler<EditStorageSpace, StorageSpaceViewModel>
         ,IRequestHandler<DeleteStorageSpace>
     {
         public StorageSpaceHandler(BaseHandlerNeeds needs) : base(needs)
@@ -39,7 +40,7 @@ namespace Anabi.Domain.StorageSpaces
             return newStorageSpace.Id;
         }
 
-        public async Task<StorageSpace> Handle(EditStorageSpace message, CancellationToken cancellationToken)
+        public async Task<StorageSpaceViewModel> Handle(EditStorageSpace message, CancellationToken cancellationToken)
         {
 
             var storageSpace = await context.StorageSpaces.FindAsync(message.Id);
@@ -51,8 +52,14 @@ namespace Anabi.Domain.StorageSpaces
             await this.SetNewAddressToStorageSpace(message, storageSpace);
             await context.SaveChangesAsync();
 
-            var responseModel = new StorageSpace();
-            this.mapper.Map(storageSpace, responseModel);
+            var responseModel = new StorageSpaceViewModel()
+            {
+                Id = storageSpace.Id,
+                Name = storageSpace.Name,
+                Journal = storageSpace.GetJournalViewModel(),
+                StorageSpaceType = storageSpace.StorageSpacesType,
+                Address = storageSpace.Address != null ? storageSpace.Address.ToStorageSpaceAddressViewModel() : null,
+            };
             return responseModel;
 
         }

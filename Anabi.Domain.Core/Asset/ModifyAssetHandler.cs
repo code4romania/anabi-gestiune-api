@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Anabi.Common.ViewModels;
+using Anabi.DataAccess.Ef.DbModels.Extensions;
 using Anabi.Domain.Core.Asset.Commands;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -56,13 +57,7 @@ namespace Anabi.Domain.Asset
                 Remarks = asset.Remarks,
                 StageId = lastHistoricalStage.StageId,
                 SubcategoryId = asset.CategoryId,
-                Journal = new JournalViewModel
-                {
-                    UserCodeAdd = asset.UserCodeAdd,
-                    AddedDate = asset.AddedDate,
-                    LastChangeDate = asset.LastChangeDate,
-                    UserCodeLastChange = asset.UserCodeLastChange,
-                }
+                Journal = asset.GetJournalViewModel()
             };
             
             return response;

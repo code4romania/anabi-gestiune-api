@@ -1,5 +1,4 @@
-﻿using Anabi;
-using Anabi.DataAccess.Ef;
+﻿using Anabi.DataAccess.Ef;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.StorageSpaces;
 using Anabi.Domain.StorageSpaces.Commands;
@@ -15,6 +14,7 @@ using System.Threading.Tasks;
 using Anabi.Domain;
 using System.Threading;
 using System.Linq;
+using Anabi.Tests.Common;
 
 namespace AnabiControllers.Tests
 {
@@ -39,7 +39,6 @@ namespace AnabiControllers.Tests
             context.Dispose();
             context = null;
             mapper = null;
-            Mapper.Reset();
         }
 
         [TestMethod]
@@ -127,13 +126,9 @@ namespace AnabiControllers.Tests
             storageSpacesForDb = GetStorageSpacesForDb();
             context.StorageSpaces.AddRange(storageSpacesForDb);
             context.SaveChanges();
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<AutoMapperMappings>();
 
-            });
-            mapper = Mapper.Instance;
-            principal = Utils.TestAuthentificatedPrincipal();
+            mapper = MapperCreator.CreateAutomapper();
+            principal = PrincipalCreator.TestAuthentificatedPrincipal();
         }
 
         private List<StorageSpaceDb> GetStorageSpacesForDb()

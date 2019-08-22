@@ -1,13 +1,11 @@
 ﻿using Anabi.Common.Exceptions;
 using Anabi.Common.Utils;
 using Anabi.DataAccess.Ef;
+using Anabi.Validators.Extensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,7 +24,7 @@ namespace Anabi.Domain.StorageSpaces.Commands
         {
             context = _context;
 
-            RuleFor(c => c.Id).GreaterThan(0).WithMessage(Constants.INVALID_ID);
+            RuleFor(c => c.Id).MustBeInDbSet(context.StorageSpaces).WithMessage(Constants.INVALID_ID);
             RuleFor(c => c).MustAsync(HaveNoReferents).WithMessage(Constants.ENTITY_IS_REFERENCED_BY_OTHER_ENTITIES);
             
         }

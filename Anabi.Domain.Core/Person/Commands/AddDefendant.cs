@@ -1,6 +1,7 @@
 ﻿using Anabi.Common.Utils;
 using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef;
+using Anabi.Validators.Extensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +38,7 @@ namespace Anabi.Domain.Person.Commands
 
             RuleFor(p => p.Identification).MustAsync(NotExist).WithMessage(Constants.PERSONIDENTIFICATION_ALREADY_EXISTS);
 
-            RuleFor(p => p.AssetId).MustAsync(AssetIdMustExist).WithMessage(Constants.ASSET_INVALID_ID);
+            RuleFor(p => p.AssetId).MustBeInDbSet(context.Assets).WithMessage(Constants.ASSET_INVALID_ID);
         }
 
         private async Task<bool> NotExist(string identification, CancellationToken cancellationToken)
@@ -45,13 +46,5 @@ namespace Anabi.Domain.Person.Commands
             var identificationExists = await context.Persons.AnyAsync(x => x.Identification == identification);
             return !identificationExists;
         }
-
-
-        private async Task<bool> AssetIdMustExist(int id, CancellationToken cancellationToken)
-        {
-            var assetExists = await context.Assets.AnyAsync(x => x.Id == id);
-            return assetExists;
-        }
-
     }
 }

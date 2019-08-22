@@ -1,9 +1,10 @@
 ﻿using Anabi.Common.Utils;
 using Anabi.Common.ViewModels;
-using Anabi.Validators.Interfaces;
+using Anabi.DataAccess.Ef;
 using FluentValidation;
 using MediatR;
 using System.Collections.Generic;
+using Anabi.Validators.Extensions;
 
 namespace Anabi.Features.Assets.Models
 {
@@ -19,9 +20,12 @@ namespace Anabi.Features.Assets.Models
 
     public class GetSolutionsValidator : AbstractValidator<GetSolutions>
     {
-        public GetSolutionsValidator(IAssetValidator _validator)
+        private AnabiContext context;
+
+        public GetSolutionsValidator(AnabiContext ctx)
         {
-            RuleFor(c => c.AssetId).MustAsync(_validator.AssetIdExistsInDatabaseAsync).WithMessage(Constants.ASSET_INVALID_ID);
+            context = ctx;
+            RuleFor(c => c.AssetId).MustBeInDbSet(context.Assets).WithMessage(Constants.ASSET_INVALID_ID);
         }
     }
 }
