@@ -1,5 +1,4 @@
-﻿using Anabi;
-using Anabi.DataAccess.Ef;
+﻿using Anabi.DataAccess.Ef;
 using Anabi.Domain.Asset.Commands;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +14,7 @@ using Anabi.Features.Assets.Models;
 using AutoFixture;
 using System.Linq;
 using Anabi.DataAccess.Ef.DbModels;
+using Anabi.Tests.Common;
 
 namespace AnabiControllers.Tests
 {
@@ -41,7 +41,6 @@ namespace AnabiControllers.Tests
             context = null;
 
             mapper = null;
-            Mapper.Reset();
         }
 
         [TestMethod]
@@ -91,13 +90,8 @@ namespace AnabiControllers.Tests
             context = new AnabiContext(options);
             context.SaveChanges();
 
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<AutoMapperMappings>();
-
-            });
-            mapper = Mapper.Instance;
-            principal = Utils.TestAuthentificatedPrincipal();
+            mapper = MapperCreator.CreateAutomapper();
+            principal = PrincipalCreator.TestAuthentificatedPrincipal();
             fixture = new Fixture();
         }
 

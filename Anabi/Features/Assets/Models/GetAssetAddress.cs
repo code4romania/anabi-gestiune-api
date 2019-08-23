@@ -1,8 +1,9 @@
 ﻿using Anabi.Common.Utils;
 using Anabi.Common.ViewModels;
-using Anabi.Validators.Interfaces;
+using Anabi.DataAccess.Ef;
 using FluentValidation;
 using MediatR;
+using Anabi.Validators.Extensions;
 
 namespace Anabi.Features.Assets.Models
 {
@@ -18,10 +19,13 @@ namespace Anabi.Features.Assets.Models
 
     public class GetAssetAddressValidator : AbstractValidator<GetAssetAddress>
     {
-        public GetAssetAddressValidator(IAssetValidator validator)
+        private readonly AnabiContext context;
+
+        public GetAssetAddressValidator(AnabiContext ctx)
         {
-            RuleFor(g => g.AssetId).GreaterThan(0).WithMessage(Constants.INVALID_ID);
-            RuleFor(p => p.AssetId).MustAsync(validator.AssetIdExistsInDatabaseAsync).WithMessage(Constants.ASSET_INVALID_ID);
+            context = ctx;
+
+            RuleFor(p => p.AssetId).MustBeInDbSet(context.Assets).WithMessage(Constants.ASSET_INVALID_ID);
         }
     }
 }

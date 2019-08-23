@@ -1,5 +1,6 @@
 ﻿using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef.DbModels;
+using Anabi.DataAccess.Ef.DbModels.Extensions;
 using Anabi.Domain.Asset.Commands;
 using MediatR;
 using System;
@@ -70,13 +71,7 @@ namespace Anabi.Domain.Asset
 
             var response = mapper.Map<AddSolution, SolutionViewModel>(message);
             response.Id = newStage.Id;
-            response.Journal = new JournalViewModel
-            {
-                UserCodeAdd = newStage.UserCodeAdd,
-                AddedDate = newStage.AddedDate,
-                UserCodeLastChange = newStage.UserCodeLastChange,
-                LastChangeDate = newStage.LastChangeDate,
-            };
+            response.Journal = newStage.GetJournalViewModel();
 
             return response;
         }

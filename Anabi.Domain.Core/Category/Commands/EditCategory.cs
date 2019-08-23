@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Anabi.DataAccess.Ef;
+using Anabi.Validators.Extensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,7 @@ namespace Anabi.Domain.Category.Commands
         {
             //TODO Aici ar fi trebuit sa se foloseasca resources la nivel de domeniu
             context = ctx;
-            RuleFor(c => c.Id).GreaterThan(0).WithMessage("ID_MUST_BE_SPECIFIED"); //"Id-ul nu a fost specificat!"
+            RuleFor(c => c.Id).MustBeInDbSet(context.Categories).WithMessage("ID_MUST_BE_SPECIFIED"); //"Id-ul nu a fost specificat!"
 
             RuleFor(c => c.Code).NotEmpty().WithMessage("CODE_MANDATORY"); //"Id-ul nu a fost specificat!"
             RuleFor(c => c.Code).Length(1, 100).WithMessage("CODE_LENGTH_1_TO_100"); //"Codul trebuie sa aiba lungimea de 1 pana la 100 de caractere!"

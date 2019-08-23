@@ -1,6 +1,7 @@
 ﻿using Anabi.DataAccess.Ef;
 using Anabi.DataAccess.Ef.DbModels;
 using Anabi.Domain.Asset;
+using Anabi.Tests.Common;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -36,7 +37,6 @@ namespace Anabi.Domain.Tests.Asset
             context = null;
 
             mapper = null;
-            Mapper.Reset();
         }
 
         [TestMethod]
@@ -60,12 +60,8 @@ namespace Anabi.Domain.Tests.Asset
 
             AddAdminUser();
 
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<AutoMapperMappings>();
-            });
-            mapper = Mapper.Instance;
-            principal = Utils.TestAuthentificatedPrincipal();
+            mapper = MapperCreator.CreateAutomapper();
+            principal = PrincipalCreator.TestAuthentificatedPrincipal();
         }
 
 

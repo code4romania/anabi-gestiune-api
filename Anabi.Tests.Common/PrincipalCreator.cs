@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Text;
 
-namespace AnabiControllers.Tests
+namespace Anabi.Tests.Common
 {
-    class Utils
+    public class PrincipalCreator
     {
         public static IPrincipal TestAuthentificatedPrincipal()
         {
@@ -18,12 +16,12 @@ namespace AnabiControllers.Tests
                     new Claim(ClaimTypes.Role, "Admin")
 
                 };
-                
+
 
             var principal = new ClaimsPrincipal(new ClaimsIdentity(claims, "Basic"));
             var isAuthenticated = principal.Identity.IsAuthenticated; // true
             return principal;
-            
+
         }
     }
 }

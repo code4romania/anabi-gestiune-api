@@ -28,10 +28,7 @@ using Anabi.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Anabi.Validators;
-using Anabi.Validators.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Anabi.Infrastructure;
 
 namespace Anabi
 {
@@ -61,6 +58,8 @@ namespace Anabi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+
             services.AddLogging(loggingBuilder =>
                                     loggingBuilder
                                     .AddSerilog(dispose: true)
@@ -151,7 +150,6 @@ namespace Anabi
             services.AddScoped<EmptyAddAddressValidator, EmptyAddAddressValidator>();
             services.AddScoped<AbstractValidator<IAddAddress>, AddAddressValidator>(); ;
             services.AddScoped<IDatabaseChecks, DatabaseChecks>();
-            services.AddScoped<IAssetValidator, AssetValidator>();
             services.AddScoped<AbstractValidator<IAddMinimalAddress>, AddMinimalAddressValidator>();
             
         }

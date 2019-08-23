@@ -1,5 +1,6 @@
 ﻿using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef.DbModels;
+using Anabi.DataAccess.Ef.DbModels.Extensions;
 using Anabi.Domain.Asset.Commands;
 using MediatR;
 using System;
@@ -34,11 +35,7 @@ namespace Anabi.Domain.Asset
             var response = mapper.Map<AddAssetStorageSpace, AssetStorageSpaceViewModel>(message);
 
             response.Id = assetStorageSpace.Id;
-            response.Journal = new JournalViewModel
-            {
-                UserCodeAdd = UserCode(),
-                AddedDate = DateTime.Now
-            };
+            response.Journal = assetStorageSpace.GetJournalViewModel();
 
             return response;
         }

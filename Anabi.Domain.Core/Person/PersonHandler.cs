@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef.DbModels;
+using Anabi.DataAccess.Ef.DbModels.Extensions;
 using Anabi.Domain.Person.Commands;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -42,13 +43,7 @@ namespace Anabi.Domain.Person
             await context.SaveChangesAsync();
             var response = mapper.Map<AddDefendant, DefendantViewModel>(message);
             response.Id = personDb.Id;
-            response.Journal = new JournalViewModel
-            {
-                AddedDate = personDb.AddedDate,
-                UserCodeAdd = personDb.UserCodeAdd,
-                LastChangeDate = personDb.LastChangeDate,
-                UserCodeLastChange = personDb.UserCodeLastChange,
-            };
+            response.Journal = personDb.GetJournalViewModel();
 
             return response;
 
@@ -74,13 +69,7 @@ namespace Anabi.Domain.Person
 
             await context.SaveChangesAsync();
             var response = mapper.Map<ModifyDefendant, DefendantViewModel>(message);
-            response.Journal = new JournalViewModel
-            {
-                AddedDate = personDb.AddedDate,
-                UserCodeAdd = personDb.UserCodeAdd,
-                LastChangeDate = personDb.LastChangeDate,
-                UserCodeLastChange = personDb.UserCodeLastChange,
-            };
+            response.Journal = personDb.GetJournalViewModel();
 
             return response;
         }
@@ -119,13 +108,7 @@ namespace Anabi.Domain.Person
             await context.SaveChangesAsync();
             var response = mapper.Map<AddOwner, OwnerViewModel>(message);
             response.Id = personDb.Id;
-            response.Journal = new JournalViewModel
-            {
-                AddedDate = personDb.AddedDate,
-                UserCodeAdd = personDb.UserCodeAdd,
-                LastChangeDate = personDb.LastChangeDate,
-                UserCodeLastChange = personDb.UserCodeLastChange,
-            };
+            response.Journal = personDb.GetJournalViewModel();
 
             return response;
 
@@ -151,13 +134,7 @@ namespace Anabi.Domain.Person
 
             await context.SaveChangesAsync();
             var response = mapper.Map<ModifyOwner, OwnerViewModel>(message);
-            response.Journal = new JournalViewModel
-            {
-                AddedDate = personDb.AddedDate,
-                UserCodeAdd = personDb.UserCodeAdd,
-                LastChangeDate = personDb.LastChangeDate,
-                UserCodeLastChange = personDb.UserCodeLastChange,
-            };
+            response.Journal = personDb.GetJournalViewModel();
 
             return response;
         }

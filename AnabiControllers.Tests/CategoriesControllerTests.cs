@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Anabi.DataAccess.Ef;
 using AutoMapper;
-using Anabi;
 using Anabi.Domain.Category;
 using Anabi.Domain.Category.Commands;
 using Anabi.Features.Category;
@@ -15,6 +14,7 @@ using System;
 using System.Security.Principal;
 using Anabi.Domain;
 using System.Threading;
+using Anabi.Tests.Common;
 
 namespace AnabiControllers.Tests
 {
@@ -42,7 +42,6 @@ namespace AnabiControllers.Tests
             context = null;
 
             mapper = null;
-            Mapper.Reset();
         }
 
         [TestMethod]
@@ -139,12 +138,8 @@ namespace AnabiControllers.Tests
             context.Categories.AddRange(categoriesForDb);
             context.SaveChanges();
 
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<AutoMapperMappings>();
-            });
-            mapper = Mapper.Instance;
-            principal = Utils.TestAuthentificatedPrincipal();
+            mapper = MapperCreator.CreateAutomapper();
+            principal = PrincipalCreator.TestAuthentificatedPrincipal();
         }
 
         private List<CategoryDb> GetCategoriesForDb()

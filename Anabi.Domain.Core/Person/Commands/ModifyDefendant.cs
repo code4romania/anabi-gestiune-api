@@ -1,6 +1,7 @@
 ﻿using Anabi.Common.Utils;
 using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef;
+using Anabi.Validators.Extensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -37,24 +38,12 @@ namespace Anabi.Domain.Person.Commands
             RuleFor(p => p.FirstName).MaximumLength(50).WithMessage(Constants.FIRSTNAME_MAX_LENGTH_50);
             RuleFor(p => p.Nationality).MaximumLength(20).WithMessage(Constants.NATIONALITY_MAX_LENGTH_20);
 
-            RuleFor(p => p.DefendantId).MustAsync(PersonMustExist).WithMessage(Constants.DEFENDANT_INVALID_ID);
+            RuleFor(p => p.DefendantId).MustBeInDbSet(context.Persons).WithMessage(Constants.DEFENDANT_INVALID_ID);
 
-            RuleFor(p => p.AssetId).MustAsync(AssetIdMustExist).WithMessage(Constants.ASSET_INVALID_ID);
+            RuleFor(p => p.AssetId).MustBeInDbSet(context.Assets).WithMessage(Constants.ASSET_INVALID_ID);
 
             RuleFor(p => p).MustAsync(IdentificationMustNotExist).WithMessage(Constants.PERSONIDENTIFICATION_ALREADY_EXISTS);
             RuleFor(p => p).MustAsync(AssetDefendantMustExist).WithMessage(Constants.ASSET_DEFENDANT_INVALID_IDS);
-        }
-
-        private async Task<bool> PersonMustExist(int defendantId, CancellationToken cancellationToken)
-        {
-            var identificationExists = await context.Persons.AnyAsync(x => x.Id == defendantId);
-            return identificationExists;
-        }
-
-        private async Task<bool> AssetIdMustExist(int id, CancellationToken cancellationToken)
-        {
-            var assetExists = await context.Assets.AnyAsync(x => x.Id == id);
-            return assetExists;
         }
 
         private async Task<bool> IdentificationMustNotExist(ModifyDefendant modifyDefendant, CancellationToken cancellationToken)
