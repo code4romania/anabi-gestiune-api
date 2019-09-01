@@ -47,7 +47,7 @@ namespace Anabi.Features.Institution
         public async Task<IActionResult> Get(int id)
         {
             var model = await this.GetOrSetFromCacheAsync(
-                key: CacheKeys.Institution,
+                key: $"{CacheKeys.Institution}_{id}",
                 expirationSeconds: 5 * 60,
                 size: 1,
                 deleg: () => this.mediator.Send(new GetInstitution { Id = id }));
@@ -61,7 +61,7 @@ namespace Anabi.Features.Institution
         public async Task<IActionResult> AddInstitution([FromBody]AddInstitution institution)
         {
             var id = await this.mediator.Send(institution);
-
+            _cache.Cache.Remove(CacheKeys.InstitutionList);
             return Created("api/institutions", id);
         }
 
@@ -71,6 +71,7 @@ namespace Anabi.Features.Institution
         public async Task<IActionResult> EditInstitution([FromBody]EditInstitution institution)
         {        
             await this.mediator.Send(institution);
+            _cache.Cache.Remove($"{CacheKeys.Institution}_{institution.Id}");
             return Ok();
         }
 

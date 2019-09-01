@@ -27,6 +27,11 @@ namespace Anabi.Integration.Tests.Institutions
         [Fact]
         public async Task GetInstitutions_ReturnsFromCache()
         {
+            //Clean context of existing institutions
+            var institutionsToRemove = Context.Institutions.ToList();
+            Context.Institutions.RemoveRange(institutionsToRemove);
+            Context.SaveChanges();
+
             var nrOfInstitutions = 3;
             AddInstitutionsToContext(nrOfInstitutions);
             var viewModels = await GetInstitutionsViaAPI();
@@ -43,13 +48,7 @@ namespace Anabi.Integration.Tests.Institutions
         public async Task GetInstitution_ReturnFromCache()
         {
             var originalName = "Institutia A";
-            var model = new InstitutionDb
-            {
-                BusinessId = 20,
-                Name = originalName,
-                ContactData = "Georgica",
-                UserCodeAdd = "test"
-            };
+            var model = CreateInstitution(originalName);
             Context.Institutions.Add(model);
             Context.SaveChanges();
 
@@ -61,6 +60,33 @@ namespace Anabi.Integration.Tests.Institutions
 
             viewModel = await GetInstitutionViaAPI(model.Id);
             Assert.Equal(originalName, viewModel.Name);
+        }
+
+        [Fact]
+        public async Task GetInstitution_ReturnFromCacheBasedOnInstitutionId()
+        {
+            var model = CreateInstitution("aaa");
+            Context.Institutions.Add(model);
+            Context.SaveChanges();
+
+            //calls the API and so saves the entry in the cache
+            var viewModel = await GetInstitutionViaAPI(model.Id);
+
+
+            var model2 = CreateInstitution("bbbb");
+            Context.Institutions.Add(model2);
+            Context.SaveChanges();
+
+            viewModel = await GetInstitutionViaAPI(model2.Id);
+            Assert.Equal("bbbb", viewModel.Name);
+        }
+
+        private InstitutionDb CreateInstitution(string name)
+        {
+            return _fixture.Build<InstitutionDb>()
+                .With(p => p.Name, name)
+                .Without(p => p.HistoricalStages)
+                .Create();
         }
 
         private async Task<List<Institution>> GetInstitutionsViaAPI()
