@@ -1,27 +1,28 @@
 ﻿using Anabi.Features.Institution.Models;
 using Anabi.Middleware;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Anabi.Controllers;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Anabi.Domain.Institution.Commands;
+using Microsoft.AspNetCore.Authorization;
+using Anabi.Infrastructure;
+using Anabi.Common.Cache;
 
 namespace Anabi.Features.Institution
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Anabi.Controllers;
-    using MediatR;
-    using Microsoft.AspNetCore.Mvc;
-    using Anabi.Domain.Institution.Commands;
-    using Microsoft.AspNetCore.Authorization;
-    using Anabi.Common.Utils;
-
     [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class InstitutionsController : BaseController
+    public class InstitutionsController : CacheableController
     {
         private readonly IMediator mediator;
+        
 
-        public InstitutionsController(IMediator mediator)
+        public InstitutionsController(IMediator mediator, AnabiCacheManager cache) 
+            : base(cache)
         {
             this.mediator = mediator;
         }
@@ -31,25 +32,27 @@ namespace Anabi.Features.Institution
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var results = await this.mediator.Send(new Models.GetInstitution());
+            var models = await this.GetOrSetFromCacheAsync(
+                key: CacheKeys.InstitutionList, 
+                expirationSeconds: 5 * 60, 
+                size: 500, 
+                deleg: () => this.mediator.Send(new Models.GetInstitution()));
 
-            return Ok(results);
+            return Ok(models);
         }
 
         [ProducesResponseType(typeof(Models.Institution), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status404NotFound)]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            
-            var models = await mediator.Send(new GetInstitution { Id = id });
-            var result = models.FirstOrDefault();
+            var model = await this.GetOrSetFromCacheAsync(
+                key: CacheKeys.Institution,
+                expirationSeconds: 5 * 60,
+                size: 1,
+                deleg: () => this.mediator.Send(new GetInstitution { Id = id }));
 
-            if (result == null)
-            {
-                return BadRequest(Constants.INSTITUTION_DOES_NOT_EXIST);
-            }
-            return Ok(result);
+            return Ok(model);
         }
 
         [HttpPost]
