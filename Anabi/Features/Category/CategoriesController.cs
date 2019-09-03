@@ -116,10 +116,12 @@ namespace Anabi.Features.Category
         {
 
             var newId = await mediator.Send(newCategory);
-            _cache.Cache.Remove(CacheKeys.CategoriesList);
+            RemoveCategoriesList();
             return Created("api/categories", newId);
 
         }
+
+        
 
 
 
@@ -149,6 +151,7 @@ namespace Anabi.Features.Category
         {
             await mediator.Send(category);
             _cache.Cache.Remove($"{CacheKeys.Category}_{category.Id}");
+            RemoveCategoriesList();
             return Ok();
         }
 
@@ -175,11 +178,17 @@ namespace Anabi.Features.Category
 
             await mediator.Send(category);
             _cache.Cache.Remove($"{CacheKeys.Category}_{category.Id}");
+            RemoveCategoriesList();
             return Ok();
 
         }
 
-
+        private void RemoveCategoriesList()
+        {
+            _cache.Cache.Remove(CacheKeys.CategoriesList);
+            _cache.Cache.Remove(CacheKeys.AssetParentCategories);
+            _cache.Cache.Remove(CacheKeys.AssetSubcategories);
+        }
 
     }
 }

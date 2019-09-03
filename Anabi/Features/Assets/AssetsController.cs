@@ -11,18 +11,21 @@ using Anabi.Middleware;
 using Anabi.Common.ViewModels;
 using Anabi.Domain.Core.Asset.Commands;
 using AutoMapper;
+using Anabi.Infrastructure;
+using Anabi.Common.Cache;
 
 namespace Anabi.Features.Assets
 {
     [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/assets")]
-    public class AssetsController : BaseController
+    public class AssetsController : CacheableController
     {
         private readonly IMediator mediator;
         private readonly IMapper mapper;
 
-        public AssetsController(IMediator _mediator, IMapper _mapper)
+        public AssetsController(IMediator _mediator, IMapper _mapper, AnabiCacheManager cache) 
+            : base(cache)
         {
             mediator = _mediator;
             mapper = _mapper;
@@ -155,7 +158,12 @@ namespace Anabi.Features.Assets
         [HttpGet("parentcategories")]
         public async Task<IActionResult> GetParentCategories()
         {
-            var models = await mediator.Send(new GetCategories() { ParentsOnly = true });
+            var models = await this.GetOrSetFromCacheAsync(
+                key: CacheKeys.AssetParentCategories,
+                size: 10,
+                deleg: () => mediator.Send(new GetCategories() { ParentsOnly = true })
+                );
+
             return Ok(models);
         }
 
@@ -179,7 +187,12 @@ namespace Anabi.Features.Assets
         [HttpGet("subcategories/{parentId:int}")]
         public async Task<IActionResult> GetSubCategories(int parentId)
         {
-            var models = await mediator.Send(new GetCategories() { ParentsOnly = false, ParentId = parentId });
+            var models = await this.GetOrSetFromCacheAsync(
+                key: CacheKeys.AssetSubcategories,
+                size: 10,
+                deleg: () => mediator.Send(new GetCategories() { ParentsOnly = false, ParentId = parentId })
+                );
+
             return Ok(models);
         }
 

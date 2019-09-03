@@ -2,12 +2,16 @@
 {
     public static class CacheKeys
     {
-        public static object Category { get { return "category"; } }
+        public static string AssetParentCategories { get { return nameof(AssetParentCategories); } }
 
-        public static string CategoriesList { get { return "categoriesList"; } }
+        public static object Category { get { return nameof(Category); } }
 
-        public static string Institution { get { return "institution"; } }
+        public static string CategoriesList { get { return nameof(CategoriesList); } }
 
-        public static string InstitutionList { get { return "institutionList"; } }
+        public static string Institution { get { return nameof(Institution); } }
+
+        public static string InstitutionList { get { return nameof(InstitutionList); } }
+
+        public static string AssetSubcategories { get { return nameof(AssetSubcategories); } }
     }
 }
