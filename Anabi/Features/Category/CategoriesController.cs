@@ -9,19 +9,20 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Anabi.Infrastructure;
+using Anabi.Common.Cache;
 
 namespace Anabi.Features.Category
 {
     [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class CategoriesController : BaseController
+    public class CategoriesController : CacheableController
     {
         private readonly IMediator mediator;
-
-
         
-        public CategoriesController(IMediator _mediator)
+        public CategoriesController(IMediator _mediator, AnabiCacheManager cache)
+            : base(cache)
         {
             mediator = _mediator;
 
@@ -43,8 +44,13 @@ namespace Anabi.Features.Category
         [HttpGet()]
         public async Task<IActionResult> Get()
         {
-            
-            var models = await mediator.Send(new GetCategory() { Id = null });
+
+            var models = await this.GetOrSetFromCacheAsync(
+                key: CacheKeys.CategoriesList,
+                size: 100,
+                deleg: () => mediator.Send(new GetCategory() { Id = null })
+                );
+                
             return Ok(models);
           
         }
@@ -54,10 +60,12 @@ namespace Anabi.Features.Category
         /// Returns the category for the supplied id
         /// </summary>
         /// <response code="200">The category for the supplied id</response>
-        /// <response code="400">The category is not found</response>
+        /// <response code="404">The category is not found</response>
+        /// <response code="400">Invalid id</response>
         /// <param name="id">Must be >= 0</param>
         /// <returns></returns>
         [ProducesResponseType(typeof(Models.Category), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(AnabiExceptionResponse), StatusCodes.Status400BadRequest)]
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
@@ -67,12 +75,16 @@ namespace Anabi.Features.Category
                 return BadRequest("Id-ul trebuie sa fie >= 0");
             }
 
-            var models = await mediator.Send(new GetCategory() { Id = id });
+            var models = await this.GetOrSetFromCacheAsync(
+                key: $"{CacheKeys.Category}_{id}",
+                size: 1,
+                deleg: () => mediator.Send(new GetCategory() { Id = id }));
+
             var result = models.FirstOrDefault();
 
             if (result == null)
             {
-                return BadRequest("Categoria nu exista!");
+                return NotFound("Categoria nu exista!");
             }
             return Ok(result);
         }
@@ -104,6 +116,7 @@ namespace Anabi.Features.Category
         {
 
             var newId = await mediator.Send(newCategory);
+            _cache.Cache.Remove(CacheKeys.CategoriesList);
             return Created("api/categories", newId);
 
         }
@@ -135,6 +148,7 @@ namespace Anabi.Features.Category
         public async Task<IActionResult> Put(EditCategory category)
         {
             await mediator.Send(category);
+            _cache.Cache.Remove($"{CacheKeys.Category}_{category.Id}");
             return Ok();
         }
 
@@ -160,6 +174,7 @@ namespace Anabi.Features.Category
         {
 
             await mediator.Send(category);
+            _cache.Cache.Remove($"{CacheKeys.Category}_{category.Id}");
             return Ok();
 
         }

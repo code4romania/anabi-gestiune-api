@@ -34,7 +34,6 @@ namespace Anabi.Features.Institution
         {
             var models = await this.GetOrSetFromCacheAsync(
                 key: CacheKeys.InstitutionList, 
-                expirationSeconds: 5 * 60, 
                 size: 500, 
                 deleg: () => this.mediator.Send(new Models.GetInstitution()));
 
@@ -48,7 +47,6 @@ namespace Anabi.Features.Institution
         {
             var model = await this.GetOrSetFromCacheAsync(
                 key: $"{CacheKeys.Institution}_{id}",
-                expirationSeconds: 5 * 60,
                 size: 1,
                 deleg: () => this.mediator.Send(new GetInstitution { Id = id }));
 
@@ -81,6 +79,7 @@ namespace Anabi.Features.Institution
         public async Task<IActionResult> Delete([FromBody]DeleteInstitution institution)
         {           
             await this.mediator.Send(institution);
+            _cache.Cache.Remove($"{CacheKeys.Institution}_{institution.Id}");
             return Ok();
         }
     }

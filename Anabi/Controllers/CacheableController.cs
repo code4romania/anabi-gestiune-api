@@ -14,7 +14,7 @@ namespace Anabi.Controllers
             _cache = cache;
         }
 
-        protected async Task<T> GetOrSetFromCacheAsync<T>(string key, double expirationSeconds, long size, Func<Task<T>> deleg)
+        protected async Task<T> GetOrSetFromCacheAsync<T>(string key, long size, Func<Task<T>> deleg, double expirationSeconds = 60*60*24)
         {
             if (!_cache.Cache.TryGetValue(key, out T result))
             {
