@@ -10,18 +10,21 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Anabi.Common.ViewModels;
+using Anabi.Infrastructure;
+using Anabi.Common.Cache;
 
 namespace Anabi.Features.StorageSpaces
 {
     [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class StorageSpacesController : BaseController
+    public class StorageSpacesController : CacheableController
     {
         private readonly IMediator mediator;
 
         
-        public StorageSpacesController(IMediator _mediator)
+        public StorageSpacesController(IMediator _mediator, AnabiCacheManager _cache)
+            : base(_cache)
         {
             mediator = _mediator;
         }
@@ -48,7 +51,12 @@ namespace Anabi.Features.StorageSpaces
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var models = await mediator.Send(new GetStorageSpace { Id = null });
+            var models = await this.GetOrSetFromCacheAsync(
+                key: CacheKeys.StorageSpacesList,
+                size: 500,
+                deleg: () => mediator.Send(new GetStorageSpace { Id = null })
+                );
+
             return Ok(models);
         }
 
@@ -72,7 +80,12 @@ namespace Anabi.Features.StorageSpaces
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var models = await mediator.Send(new GetStorageSpace { Id = id });  
+            var models = await this.GetOrSetFromCacheAsync(
+                key: $"{CacheKeys.StorageSpace}_{id}",
+                size: 1,
+                deleg: () => mediator.Send(new GetStorageSpace { Id = id })
+                );
+            
             return Ok(models.First());
         }
 
@@ -103,6 +116,7 @@ namespace Anabi.Features.StorageSpaces
         {
 
             var id = await mediator.Send(newStorageSpace);
+            _cache.Cache.Remove(CacheKeys.StorageSpacesList);
             return Created("api/storagespaces", id);
 
         }
@@ -132,8 +146,9 @@ namespace Anabi.Features.StorageSpaces
         public async Task<IActionResult> Put([FromBody]EditStorageSpace storageSpace)
         {
             var editedStorageSpace = await mediator.Send(storageSpace);
-
+            ClearCacheForStorageSpace(storageSpace.Id);
             return Ok(editedStorageSpace);
+
         }
 
         /// <summary>
@@ -156,8 +171,15 @@ namespace Anabi.Features.StorageSpaces
         public async Task<IActionResult> Delete([FromBody]DeleteStorageSpace storageSpace)
         {
             await mediator.Send(storageSpace);
+            ClearCacheForStorageSpace(storageSpace.Id);
 
             return NoContent();
+        }
+
+        private void ClearCacheForStorageSpace(int id)
+        {
+            _cache.Cache.Remove($"{CacheKeys.StorageSpace}_{id}");
+            _cache.Cache.Remove(CacheKeys.StorageSpacesList);
         }
     }
 }
