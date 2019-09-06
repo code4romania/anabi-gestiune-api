@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Anabi.Common.Cache;
+using Anabi.Controllers;
 using Anabi.Features.RecoveryBeneficiaries.Models;
+using Anabi.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -11,11 +14,12 @@ namespace Anabi.Features.RecoveryBeneficiaries
     [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/recoverybeneficiaries")]
-    public class RecoveryBeneficiariesController : Controller
+    public class RecoveryBeneficiariesController : CacheableController
     {
         private readonly IMediator mediator;
 
-        public RecoveryBeneficiariesController(IMediator _mediator)
+        public RecoveryBeneficiariesController(IMediator _mediator, AnabiCacheManager _cache)
+            : base(_cache)
         {
             mediator = _mediator;
         }
@@ -33,8 +37,11 @@ namespace Anabi.Features.RecoveryBeneficiaries
         [HttpGet()]
         public async Task<IActionResult> Get()
         {
+            var models = await this.GetOrSetFromCacheAsync(
+                key: CacheKeys.RecoveryBeneficiariesList,
+                size: 2,
+                deleg: () => mediator.Send(new GetBeneficiaries() { Id = null }));
 
-            var models = await mediator.Send(new GetBeneficiaries() { Id = null });
             return Ok(models);
 
         }

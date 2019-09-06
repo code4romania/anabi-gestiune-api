@@ -11,7 +11,7 @@ namespace Anabi.Infrastructure
         {
             Cache = new MemoryCache(new MemoryCacheOptions
             {
-                SizeLimit = 1024,
+                SizeLimit = 2000,
                 CompactionPercentage = .33,
                 ExpirationScanFrequency = TimeSpan.FromHours(3)
             });
