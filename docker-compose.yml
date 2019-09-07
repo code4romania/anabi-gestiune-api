@@ -10,7 +10,7 @@ services:
       - db
 
   db:
-    image: microsoft/mssql-server-linux
+    image: mcr.microsoft.com/mssql/server:2017-latest
     restart: always
     environment:
       SA_PASSWORD: Puiu2108####

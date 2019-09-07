@@ -6,17 +6,20 @@ using Anabi.Features.Counties.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Anabi.Infrastructure;
+using Anabi.Common.Cache;
 
 namespace Anabi.Features.Counties
 {
     [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/Counties")]
-    public class CountiesController : BaseController
+    public class CountiesController : CacheableController
     {
         private readonly IMediator _mediator;
 
-        public CountiesController(IMediator mediator)
+        public CountiesController(IMediator mediator, AnabiCacheManager _cache)
+            : base(_cache)
         {
             _mediator = mediator;
         }
@@ -25,7 +28,11 @@ namespace Anabi.Features.Counties
         [HttpGet]
         public async Task<IEnumerable<County>> Get()
         {
-            var models = await _mediator.Send(new GetCounties());
+            var models = await this.GetOrSetFromCacheAsync(
+                key: CacheKeys.CountiesList,
+                size: 10,
+                deleg: () => _mediator.Send(new GetCounties()));
+
             return models;
         }
 
