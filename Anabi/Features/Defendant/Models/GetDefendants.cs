@@ -25,7 +25,9 @@ namespace Anabi.Features.Defendant.Models
         public GetDefendantsValidator(AnabiContext ctx)
         {
             context = ctx;
-            RuleFor(c => c.AssetId).MustBeInDbSet(context.Assets).WithMessage(Constants.ASSET_INVALID_ID);
+            RuleFor(c => c.AssetId).MustBeInDbSet(context.Assets)
+                .WithMessage(Constants.ASSET_INVALID_ID)
+                .WithErrorCode("404");
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Anabi.Middleware
             catch (AnabiEntityNotFoundException aex)
             {
                 _logger.LogError(aex, "Error");
-                await WriteErrorMessage(context, aex, StatusCodes.Status400BadRequest);
+                await WriteErrorMessage(context, aex, StatusCodes.Status404NotFound);
             }
             catch (AnabiValidationException avex)
             {
@@ -53,6 +53,10 @@ namespace Anabi.Middleware
             {
                 errors = ex.Message.Split(",").ToList();
                 await WriteErrorToContext(context, errors, "Validation Errors", responseCode);
+            }
+            else if (ex is AnabiEntityNotFoundException)
+            {
+                await WriteErrorToContext(context, errors, "Entities not found", responseCode);
             }
             else
             {

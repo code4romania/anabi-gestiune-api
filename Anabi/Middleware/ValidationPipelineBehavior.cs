@@ -25,7 +25,11 @@ namespace Anabi.Middleware
             .Where(f => f != null)
             .ToList();
 
-            if (failures.Any())
+            if (failures.Any(x => x.ErrorCode == "404"))
+            {
+                throw new AnabiEntityNotFoundException(string.Join(',', failures.Where(x => x.ErrorCode == "404").Select(f => f.ErrorMessage)));
+            }
+            else if (failures.Any())
             {
                 throw new AnabiValidationException(string.Join(',', failures.Select(f => f.ErrorMessage)));
             }
