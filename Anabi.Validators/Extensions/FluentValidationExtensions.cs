@@ -40,5 +40,11 @@ namespace Anabi.Validators.Extensions
                 return exists;
             });
         }
+
+        public static IRuleBuilderOptions<T, TProperty> With404CodeAndErrorMessage<T, TProperty>(this IRuleBuilderOptions<T, TProperty> ruleBuilder,
+            string message)
+        {
+            return ruleBuilder.WithMessage(message).WithErrorCode("404");
+        }
     }
 }

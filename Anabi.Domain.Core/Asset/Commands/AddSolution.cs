@@ -1,11 +1,11 @@
-﻿using Anabi.Common.Utils;
+﻿using System;
+using Anabi.Common.Utils;
 using Anabi.Common.ViewModels;
 using Anabi.DataAccess.Ef;
 using Anabi.Domain.Asset.Commands.Models;
 using Anabi.Validators.Extensions;
 using FluentValidation;
 using MediatR;
-using System;
 
 namespace Anabi.Domain.Asset.Commands
 {
@@ -16,7 +16,7 @@ namespace Anabi.Domain.Asset.Commands
             ConfiscationDetails confiscationDetails,
             RecoveryDetails recoveryDetails,
             SolutionDetails solutionDetails,
-            SequesterDetails sequesterDetails) : base (stageId,
+            SequesterDetails sequesterDetails) : base(stageId,
                 decisionId,
                 institutionId,
                 decisionDate,
@@ -26,7 +26,7 @@ namespace Anabi.Domain.Asset.Commands
                 solutionDetails,
                 sequesterDetails)
         {
-            
+
         }
 
         public int AssetId { get; set; }
@@ -39,19 +39,19 @@ namespace Anabi.Domain.Asset.Commands
         public AddSolutionValidator(AnabiContext ctx)
         {
             context = ctx;
-            RuleFor(c => c.AssetId).MustBeInDbSet(context.Assets).WithMessage(Constants.ASSET_INVALID_ID).WithErrorCode("404");
-            RuleFor(c => c.StageId).MustBeInDbSet(context.Stages).WithMessage(Constants.STAGE_INVALID_ID).WithErrorCode("404");
-            RuleFor(c => c.DecisionId).MustBeInDbSet(context.Decisions).WithMessage(Constants.DECISION_INVALID_ID).WithErrorCode("404");
-            RuleFor(c => c.InstitutionId).MustBeInDbSet(context.Institutions).WithMessage(Constants.INSTITUTION_INVALID_ID).WithErrorCode("404");
+            RuleFor(c => c.AssetId).MustBeInDbSet(context.Assets).With404CodeAndErrorMessage(Constants.ASSET_INVALID_ID);
+            RuleFor(c => c.StageId).MustBeInDbSet(context.Stages).With404CodeAndErrorMessage(Constants.STAGE_INVALID_ID);
+            RuleFor(c => c.DecisionId).MustBeInDbSet(context.Decisions).With404CodeAndErrorMessage(Constants.DECISION_INVALID_ID);
+            RuleFor(c => c.InstitutionId).MustBeInDbSet(context.Institutions).With404CodeAndErrorMessage(Constants.INSTITUTION_INVALID_ID);
 
             RuleFor(c => c.ConfiscationDetails.RecoveryBeneficiaryId).ShouldBeInDbSet(context.RecoveryBeneficiaries)
                 .When(c => c.ConfiscationDetails != null)
-                .WithMessage(Constants.RECOVERYBENEFICIARY_INVALID_ID).WithErrorCode("404")
+                .With404CodeAndErrorMessage(Constants.RECOVERYBENEFICIARY_INVALID_ID)
                 ;
 
             RuleFor(c => c.SequesterDetails.PrecautionaryMeasureId).ShouldBeInDbSet(context.Assets)
                 .When(c => c.SequesterDetails != null)
-                .WithMessage(Constants.PRECAUTIONARYMEASURE_INVALID_ID).WithErrorCode("404")
+                .With404CodeAndErrorMessage(Constants.PRECAUTIONARYMEASURE_INVALID_ID)
                 ;
 
             RuleFor(c => c.DecisionNumber).NotEmpty().MaximumLength(50).WithMessage(Constants.DECISION_DECISIONNUMBER_INVALID);
