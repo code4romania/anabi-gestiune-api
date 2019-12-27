@@ -1,0 +1,12 @@
+{
+    "name": "azure-typescript",
+    "devDependencies": {
+        "@types/node": "^8.0.0"
+    },
+    "dependencies": {
+        "@pulumi/azure": "^1.0.0",
+        "@pulumi/docker": "^1.0.1",
+        "@pulumi/kubernetesx": "^0.1.1",
+        "@pulumi/pulumi": "^1.0.0"
+    }
+}
