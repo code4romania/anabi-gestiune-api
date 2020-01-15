@@ -1,3 +1,4 @@
 config:
   azure:environment: public
-  azure:location: westeurope
+  azure:location: WestEurope
+  pulumi:template: azure-typescript
