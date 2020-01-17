@@ -1,0 +1,3 @@
+name: Anabi-App-Service
+runtime: nodejs
+description: Anabi running in App Service with SQL Server database
